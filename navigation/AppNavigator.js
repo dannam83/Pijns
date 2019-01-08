@@ -17,6 +17,6 @@ export default createAppContainer(createSwitchNavigator(
     Main: MainTabNavigator,
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'Auth',
   }
 ));
