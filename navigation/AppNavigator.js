@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import LoadAppScreen from '../screens/LoadAppScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
-import StartTabNavigator from './StartTabNavigator';
+// import StartTabNavigator from './StartTabNavigator';
 import MainTabNavigator from './MainTabNavigator';
 
 export default createAppContainer(createSwitchNavigator(
