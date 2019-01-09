@@ -34,7 +34,7 @@ const doFbLogin = async dispatch => {
   dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
 };
 
-export const logout = () => async dispatch => {
+export const logout = (redirect) => async dispatch => {
   await AsyncStorage.removeItem('fb_token');
   let token = await AsyncStorage.getItem('fb_token');
 
@@ -43,4 +43,6 @@ export const logout = () => async dispatch => {
   } else {
     dispatch({ type: LOGOUT_SUCCESS });
   }
+
+  redirect();
 };

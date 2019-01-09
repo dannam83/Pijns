@@ -10,6 +10,12 @@ class ProfileScreen extends Component {
     title: 'Username',
   };
 
+  logoutPress = () => {
+    this.props.logout(() => {
+      this.props.navigation.navigate('Auth');
+    });
+  }
+
   render() {
     return (
       <View>
@@ -24,7 +30,7 @@ class ProfileScreen extends Component {
           large
           icon={{ name: 'settings' }}
           backgroundColor="#F44336"
-          onPress={this.props.logout}
+          onPress={this.logoutPress}
         />
       </View>
     );
