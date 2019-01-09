@@ -2,7 +2,9 @@ import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
 import {
   FB_LOGIN_SUCCESS,
-  FB_LOGIN_FAIL
+  FB_LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL
 } from './types';
 
 //How to use AsyncStorage:
@@ -30,4 +32,15 @@ const doFbLogin = async dispatch => {
 
   await AsyncStorage.setItem('fb_token', token);
   dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+};
+
+export const logout = () => async dispatch => {
+  await AsyncStorage.removeItem('fb_token');
+  let token = await AsyncStorage.getItem('fb_token');
+
+  if (token) {
+    dispatch({ type: LOGOUT_FAIL, payload: token });
+  } else {
+    dispatch({ type: LOGOUT_SUCCESS });
+  }
 };
