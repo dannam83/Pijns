@@ -11,6 +11,16 @@ import {
 //AsyncStorage.setItem('fb_token', token);
 //AsyncStorage.getItem('fb_token')
 
+export const alreadyLoggedIn = (redirect) => async dispatch => {
+  let token = await AsyncStorage.getItem('fb_token');
+
+  if (token) {
+    dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+  } else {
+    redirect();
+  }
+};
+
 export const fbLogin = () => async dispatch => {
   let token = await AsyncStorage.getItem('fb_token');
 
