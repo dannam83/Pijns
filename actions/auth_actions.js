@@ -7,17 +7,11 @@ import {
   LOGOUT_FAIL
 } from './types';
 
-//How to use AsyncStorage:
-//AsyncStorage.setItem('fb_token', token);
-//AsyncStorage.getItem('fb_token')
-
-export const alreadyLoggedIn = (redirect) => async dispatch => {
+export const alreadyLoggedIn = () => async dispatch => {
   let token = await AsyncStorage.getItem('fb_token');
 
   if (token) {
     dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
-  } else {
-    redirect();
   }
 };
 
