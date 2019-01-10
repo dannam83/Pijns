@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Provider } from 'react-redux';
+import firebase from 'firebase';
 
 import store from './store';
 import AppNavigator from './navigation/AppNavigator';
@@ -10,6 +11,18 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
+
+  UNSAFE_componentWillMount() {
+    const config = {
+      apiKey: 'AIzaSyAkJ1IrLTNndMvek06DEyEHCifEYbecFGQ',
+      authDomain: 'pijns-dc1c1.firebaseapp.com',
+      databaseURL: 'https://pijns-dc1c1.firebaseio.com',
+      projectId: 'pijns-dc1c1',
+      storageBucket: 'pijns-dc1c1.appspot.com',
+      messagingSenderId: '307732575398'
+    };
+    firebase.initializeApp(config);
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
