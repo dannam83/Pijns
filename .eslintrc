@@ -2,6 +2,8 @@
   "extends": "rallycoding",
   "rules": {
     "arrow-body-style": 0,
+    "global-require": 0,
+    "quote-props": 0,
     "prefer-const": 0
     }
 }

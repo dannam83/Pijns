@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Font } from 'expo';
 
 import * as actions from '../actions';
-// import PacificoRegular from '../assets/fonts/Pacifico-Regular.ttf';
 
 class LoadAppScreen extends Component {
   state = {
@@ -13,7 +12,7 @@ class LoadAppScreen extends Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'coiny': require("../assets/fonts/Coiny-Regular.ttf"),
+      'coiny': require('../assets/fonts/Coiny-Regular.ttf'),
     });
 
     this.setState({ fontLoaded: true });
