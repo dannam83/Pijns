@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import firebase from 'firebase';
-import { StyledFirebaseAuth } from 'react-firebaseui';
 
 import * as actions from '../actions';
 
@@ -14,14 +13,14 @@ class AuthScreen extends Component {
 
   componentDidMount() {
     this.onAuthComplete(this.props);
-    firebase.auth().onAuthStateChange(user => {
+    firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.onAuthComplete(nextProps);
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.onAuthComplete(nextProps);
+  // }
 
   onAuthComplete(props) {
     if (props.token) {
@@ -29,28 +28,20 @@ class AuthScreen extends Component {
     }
   }
 
-  render() {
-    const uiConfig = {
-      signInFlow: 'popup',
-      signInOptions: [
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID
-      ],
-      callbacks: {
-        signInSuccess: () => false
-      }
-    };
+  fbLoginPress = () => {
+    this.props.fbLogin(() => {
+      this.props.navigation.navigate('Main');
+    });
+  }
 
+  render() {
     return (
       <View style={styles.containerViewStyle}>
         <Text style={styles.logoTextStyle}>Pijns</Text>
         <Button
           title="Login with Facebook"
-          onPress={this.props.firebaseFacebookLogin}
+          onPress={this.fbLoginPress}
           buttonStyle={styles.buttonStyle}
-        />
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
         />
       </View>
     );
