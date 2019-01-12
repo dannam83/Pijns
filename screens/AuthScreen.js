@@ -2,36 +2,22 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
-import firebase from 'firebase';
 
 import * as actions from '../actions';
 
 class AuthScreen extends Component {
-  state = {
-    isSignedIn: false,
-  }
-
   componentDidMount() {
     this.onAuthComplete(this.props);
-    firebase.auth().onAuthStateChanged(user => {
-      this.setState({ isSignedIn: !!user });
-    });
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.onAuthComplete(nextProps);
-  // }
+  componentWillReceiveProps(nextProps) {
+    this.onAuthComplete(nextProps);
+  }
 
   onAuthComplete(props) {
     if (props.token) {
       this.props.navigation.navigate('Main');
     }
-  }
-
-  fbLoginPress = () => {
-    this.props.fbLogin(() => {
-      this.props.navigation.navigate('Main');
-    });
   }
 
   render() {
@@ -40,7 +26,12 @@ class AuthScreen extends Component {
         <Text style={styles.logoTextStyle}>Pijns</Text>
         <Button
           title="Login with Facebook"
-          onPress={this.fbLoginPress}
+          onPress={this.props.fbLogin}
+          buttonStyle={styles.buttonStyle}
+        />
+        <Button
+          title="Login with Google"
+          onPress={this.props.googleLogin}
           buttonStyle={styles.buttonStyle}
         />
       </View>

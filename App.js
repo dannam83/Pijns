@@ -22,6 +22,16 @@ export default class App extends React.Component {
       messagingSenderId: '307732575398'
     };
     firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        console.log('We are authenticated now!');
+      } else {
+        console.log('Not firebase authenticated.');
+      }
+
+  // Do other things
+});
   }
 
   render() {

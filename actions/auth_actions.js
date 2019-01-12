@@ -1,63 +1,65 @@
 import { AsyncStorage } from 'react-native';
 import { Facebook, Google } from 'expo';
 import firebase from 'firebase';
+import axios from 'axios';
 
 import {
-  FB_LOGIN_SUCCESS,
-  FB_LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL
 } from './types';
 
 export const alreadyLoggedIn = () => async dispatch => {
-  let token = await AsyncStorage.getItem('fb_token');
+  let token = await AsyncStorage.getItem('auth_token');
 
   if (token) {
-    dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+    dispatch({ type: LOGIN_SUCCESS, payload: token });
   }
 };
 
-export const fbLogin = (redirect) => async dispatch => {
-  let token = await AsyncStorage.getItem('fb_token');
+export const fbLogin = () => async dispatch => {
+  let token = await AsyncStorage.getItem('auth_token');
 
   if (token) {
-    dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+    dispatch({ type: LOGIN_SUCCESS, payload: token });
   } else {
     await doFbLogin(dispatch);
-    redirect();
   }
 };
 
 const doFbLogin = async dispatch => {
   let { type, token } = await Facebook.logInWithReadPermissionsAsync('309296216371741', {
-    permissions: ['public_profile']
+    permissions: ['public_profile', 'email', 'user_birthday', 'user_gender']
   });
 
   if (type === 'cancel') {
-    return dispatch({ type: FB_LOGIN_FAIL });
+    return dispatch({ type: LOGIN_FAIL });
   }
 
-// Build Firebase credential with the Facebook access token.
+  const response = await axios.get(
+    `https://graph.facebook.com/me?access_token=${token}&fields=id,name,birthday,email,gender,picture.type(large)`
+  );
+
+  console.log(response);
+
   const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-// Sign in with credential from the Facebook user.
-  firebase.auth().signInWithCredential(credential).catch((error) => {
-// Handle Errors here.
+  firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error) => {
     console.warn(error);
   });
 
-  await AsyncStorage.setItem('fb_token', token);
-  dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+  await AsyncStorage.setItem('auth_token', token);
+  dispatch({ type: LOGIN_SUCCESS, payload: token });
 };
 
-export const googleLogin = (redirect) => async dispatch => {
-  let token = await AsyncStorage.getItem('fb_token');
+export const googleLogin = () => async dispatch => {
+  let token = await AsyncStorage.getItem('auth_token');
 
   if (token) {
-    dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+    dispatch({ type: LOGIN_SUCCESS, payload: token });
   } else {
     await doGoogleLogin(dispatch);
-    redirect();
   }
 };
 
@@ -69,25 +71,23 @@ const doGoogleLogin = async dispatch => {
   });
 
   if (type === 'cancel') {
-    return dispatch({ type: FB_LOGIN_FAIL });
+    console.log('cancelled');
+    return dispatch({ type: LOGIN_FAIL });
   }
 
-// Build Firebase credential with the Facebook access token.
-  const credential = firebase.auth.FacebookAuthProvider.credential(accessToken);
+  const credential = firebase.auth.GoogleAuthProvider.credential(null, accessToken);
 
-// Sign in with credential from the Facebook user.
-  firebase.auth().signInWithCredential(credential).catch((error) => {
-// Handle Errors here.
+  firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error) => {
     console.warn(error);
   });
 
-  await AsyncStorage.setItem('fb_token', token);
-  dispatch({ type: FB_LOGIN_SUCCESS, payload: token });
+  await AsyncStorage.setItem('auth_token', accessToken);
+  dispatch({ type: LOGIN_SUCCESS, payload: accessToken });
 };
 
 export const logout = (redirect) => async dispatch => {
-  await AsyncStorage.removeItem('fb_token');
-  let token = await AsyncStorage.getItem('fb_token');
+  await AsyncStorage.removeItem('auth_token');
+  let token = await AsyncStorage.getItem('auth_token');
 
   if (token) {
     dispatch({ type: LOGOUT_FAIL, payload: token });
