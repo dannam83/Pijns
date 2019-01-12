@@ -15,8 +15,13 @@ class AuthScreen extends Component {
   }
 
   onAuthComplete(props) {
+    const redirect = this.props.navigation.navigate;
     if (props.token) {
-      this.props.navigation.navigate('Main');
+      if (props.isNew) {
+        redirect('Welcome');
+      } else {
+        redirect('Main');
+      }
     }
   }
 
@@ -58,8 +63,9 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps({ auth }) {
-  return { token: auth.token };
+function mapStateToProps({ auth, user }) {
+  console.log(user);
+  return { token: auth.token, isNew: user.isNew };
 }
 
 export default connect(mapStateToProps, actions)(AuthScreen);
