@@ -48,14 +48,17 @@ const doFbLogin = async dispatch => {
   let fbProfile = await axios.get(
     `https://graph.facebook.com/me?access_token=${token}&fields=id,name,birthday,email,gender,picture.type(large)`
   );
-  let { name, birthday, email, gender, picture } = fbProfile.data;
 
+  let profileData = fbProfile.data;
+  await saveUserProfile(profileData);
+  await AsyncStorage.setItem('auth_token', token);
+  dispatch({ type: LOGIN_SUCCESS, payload: token });
+};
+
+const saveUserProfile = async ({ name, birthday, email, gender, picture }) => {
   await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`)
     .set({ name, birthday, email, gender, picture: picture.data }
   );
-
-  await AsyncStorage.setItem('auth_token', token);
-  dispatch({ type: LOGIN_SUCCESS, payload: token });
 };
 
 export const googleLogin = () => async dispatch => {

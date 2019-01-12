@@ -29,15 +29,15 @@ class AuthScreen extends Component {
           onPress={this.props.fbLogin}
           buttonStyle={styles.buttonStyle}
         />
-        <Button
-          title="Login with Google"
-          onPress={this.props.googleLogin}
-          buttonStyle={styles.buttonStyle}
-        />
       </View>
     );
   }
 }
+//   <Button
+//      title="Login with Google"
+//      onPress={this.props.googleLogin}
+//      buttonStyle={styles.buttonStyle}
+//   />
 
 const styles = StyleSheet.create({
   containerViewStyle: {
