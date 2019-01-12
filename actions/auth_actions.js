@@ -37,17 +37,22 @@ const doFbLogin = async dispatch => {
     return dispatch({ type: LOGIN_FAIL });
   }
 
-  const response = await axios.get(
-    `https://graph.facebook.com/me?access_token=${token}&fields=id,name,birthday,email,gender,picture.type(large)`
-  );
-
-  console.log(response);
-
   const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-  firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error) => {
-    console.warn(error);
-  });
+  try {
+    await firebase.auth().signInAndRetrieveDataWithCredential(credential);
+  } catch (err) {
+    console.warn(err);
+  }
+
+  let fbProfile = await axios.get(
+    `https://graph.facebook.com/me?access_token=${token}&fields=id,name,birthday,email,gender,picture.type(large)`
+  );
+  let { name, birthday, email, gender, picture } = fbProfile.data;
+
+  await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`)
+    .set({ name, birthday, email, gender, picture: picture.data }
+  );
 
   await AsyncStorage.setItem('auth_token', token);
   dispatch({ type: LOGIN_SUCCESS, payload: token });
