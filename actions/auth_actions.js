@@ -10,8 +10,7 @@ import { doFbLogin } from './auth_facebook_actions';
 
 export const currentUserFound = (user) => async dispatch => {
   let token = await AsyncStorage.getItem('auth_token');
-  console.log('userFound', user);
-  console.log('userFound', token);
+
   if (token) {
     let { uid, displayName, photoURL } = user;
     try {
@@ -53,6 +52,7 @@ export const logout = (redirect) => async dispatch => {
 
 const fetchUserData = async dispatch => {
   let ref = await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
+
   await ref.once('value', snapshot => {
       let { name, picture } = snapshot.val();
       dispatch({ type: USER_FOUND, name, picture, isNew: false });

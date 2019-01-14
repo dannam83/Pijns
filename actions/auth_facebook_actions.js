@@ -15,13 +15,13 @@ export const doFbLogin = async dispatch => {
     await firebaseFbLogin(token);
 
     let { data } = await fetchFbProfileData(token);
-    await setUserSliceOfState(data, dispatch);
+    await setUserSliceOfState(dispatch);
     await saveUserProfile(data);
     await AsyncStorage.setItem('auth_token', token);
 
     dispatch({ type: LOGIN_SUCCESS, payload: token });
   } catch (err) {
-    console.log(err);
+    console.warn(err);
   }
 };
 
@@ -43,7 +43,7 @@ const firebaseFbLogin = async (token) => {
     await firebase.auth().signInAndRetrieveDataWithCredential(credential);
 };
 
-const setUserSliceOfState = async ({ name, picture }, dispatch) => {
+const setUserSliceOfState = async (dispatch) => {
   let ref = await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
   let { uid, displayName, photoURL } = firebase.auth().currentUser;
   await ref.once('value', snapshot => {
