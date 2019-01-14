@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { Font } from 'expo';
+import firebase from 'firebase';
 
 import * as actions from '../actions';
 
 class LoadAppScreen extends Component {
-  state = {
-    fontLoaded: false
-  };
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      'coiny': require('../assets/fonts/Coiny-Regular.ttf'),
+  constructor() {
+    super();
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.props.navigation.navigate('Auth');
+      } else {
+        this.props.currentUserFound(user);
+      }
     });
+  }
 
-    this.setState({ fontLoaded: true });
-    this.props.alreadyLoggedIn();
-    this.onAuthComplete(this.props);
+  componentWillReceiveProps(nextProps) {
+    this.onAuthComplete(nextProps);
   }
 
   onAuthComplete(props) {
@@ -31,11 +32,7 @@ class LoadAppScreen extends Component {
   render() {
     return (
       <View style={styles.containerViewStyle}>
-        {
-          this.state.fontLoaded ? (
-            <Text style={styles.logoTextStyle}>Pijns</Text>
-          ) : null
-        }
+        <Text style={styles.logoTextStyle}>Pijns</Text>
       </View>
     );
   }

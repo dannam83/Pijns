@@ -45,9 +45,14 @@ const firebaseFbLogin = async (token) => {
 
 const setUserSliceOfState = async ({ name, picture }, dispatch) => {
   let ref = await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
+  let { uid, displayName, photoURL } = firebase.auth().currentUser;
   await ref.once('value', snapshot => {
-      console.log(!snapshot.val());
-      dispatch({ type: USER_LOGIN, name, picture, isNew: !snapshot.val() });
+      dispatch({
+        type: USER_LOGIN,
+        uid,
+        name: displayName,
+        picture: photoURL,
+        isNew: !snapshot.val() });
   });
 };
 

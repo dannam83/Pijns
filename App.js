@@ -22,16 +22,6 @@ export default class App extends React.Component {
       messagingSenderId: '307732575398'
     };
     firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user != null) {
-        console.log('We are authenticated now!');
-      } else {
-        console.log('Not firebase authenticated.');
-      }
-
-  // Do other things
-});
   }
 
   render() {
@@ -67,6 +57,7 @@ export default class App extends React.Component {
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+        'coiny': require('./assets/fonts/Coiny-Regular.ttf'),
       }),
     ]);
   };

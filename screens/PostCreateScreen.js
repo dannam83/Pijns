@@ -26,11 +26,12 @@ class PostCreateScreen extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   const { postType, postText } = state.postCreate;
-//   return { postType, postText };
-// };
+const mapStateToProps = (state) => {
+  console.log(state);
+  const { postType, postText } = state.postCreate;
+  return { postType, postText };
+};
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   postCreateUpdate, postCreateSave
 })(PostCreateScreen);

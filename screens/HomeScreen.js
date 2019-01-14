@@ -7,14 +7,8 @@ import * as actions from '../actions';
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    title: 'Username',
+    title: 'Pijns',
   };
-
-  logoutPress = () => {
-    this.props.logout(() => {
-      this.props.navigation.navigate('Auth');
-    });
-  }
 
   render() {
     return (
@@ -23,7 +17,7 @@ class HomeScreen extends Component {
           title="Write a post!"
           onPress={() => this.props.navigation.navigate('PostCreate')}
           backgroundColor="rgba(0,125,255,1)"
-          borderRadius="20"
+          borderRadius={20}
           icon={{ name: 'create' }}
         />
         <Text>HomeScreen</Text>
@@ -37,8 +31,9 @@ class HomeScreen extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { token: auth.token };
+function mapStateToProps(state) {
+  console.log(state);
+  return { state };
 }
 
 export default connect(mapStateToProps, actions)(HomeScreen);

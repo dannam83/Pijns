@@ -20,6 +20,7 @@ class AuthScreen extends Component {
       if (props.isNew) {
         redirect('Welcome');
       } else {
+        console.log('auth redirect to main');
         redirect('Main');
       }
     }
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps({ auth, user }) {
-  console.log(user);
+  console.log('auth', user);
   return { token: auth.token, isNew: user.isNew };
 }
 
