@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
-import { postCreateUpdate, postCreateSave } from '../actions';
+import { postCreateSave } from '../actions';
 import { CardSection, ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 
 class PostCreateScreen extends Component {
-  onButtonPress() {
-    // const { postText } = this.props;
-    // this.props.postCreateSave({ postText });
+  static navigationOptions = {
+    title: 'Write a post',
+  };
+
+  onButtonPress = () => {
+    const { postText } = this.props;
+    this.props.postCreateSave({ postText });
+    this.props.navigation.navigate('Home');
   }
 
   render() {
@@ -17,7 +22,7 @@ class PostCreateScreen extends Component {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
         <PostForm {...this.props} />
         <CardSection style={{ justifyContent: 'center', borderTopWidth: 1 }}>
-          <ButtonAsText onPress={this.onButtonPress.bind(this)}>
+          <ButtonAsText onPress={this.onButtonPress}>
             Share
           </ButtonAsText>
         </CardSection>
@@ -32,6 +37,4 @@ const mapStateToProps = (state) => {
   return { postType, postText };
 };
 
-export default connect(mapStateToProps, {
-  postCreateUpdate, postCreateSave
-})(PostCreateScreen);
+export default connect(mapStateToProps, { postCreateSave })(PostCreateScreen);

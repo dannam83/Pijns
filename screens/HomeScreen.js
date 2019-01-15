@@ -11,15 +11,19 @@ class HomeScreen extends Component {
   };
 
   render() {
+    const { writePostView } = styles;
+
     return (
       <View>
-        <Button
-          title="Write a post!"
-          onPress={() => this.props.navigation.navigate('PostCreate')}
-          backgroundColor="rgba(0,125,255,1)"
-          borderRadius={20}
-          icon={{ name: 'create' }}
-        />
+        <View style={writePostView}>
+          <Button
+            title="Write a post!"
+            onPress={() => this.props.navigation.navigate('PostCreate')}
+            backgroundColor="rgba(0,125,255,1)"
+            borderRadius={20}
+            icon={{ name: 'create' }}
+          />
+        </View>
         <Text>HomeScreen</Text>
         <Text>HomeScreen</Text>
         <Text>HomeScreen</Text>
@@ -30,6 +34,13 @@ class HomeScreen extends Component {
     );
   }
 }
+
+const styles = {
+  writePostView: {
+    paddingTop: 10,
+    paddingBottom: 10
+  }
+};
 
 function mapStateToProps(state) {
   return { state };
