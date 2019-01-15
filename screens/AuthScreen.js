@@ -16,6 +16,7 @@ class AuthScreen extends Component {
 
   onAuthComplete(props) {
     const redirect = this.props.navigation.navigate;
+    
     if (props.token) {
       if (props.isNew) {
         redirect('Welcome');

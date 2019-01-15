@@ -18,7 +18,6 @@ export const doFbLogin = async dispatch => {
     await setUserSliceOfState(dispatch);
     await saveUserProfile(data);
     await AsyncStorage.setItem('auth_token', token);
-
     dispatch({ type: LOGIN_SUCCESS, payload: token });
   } catch (err) {
     console.warn(err);

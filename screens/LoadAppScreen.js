@@ -11,21 +11,19 @@ class LoadAppScreen extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.props.navigation.navigate('Auth');
-      } else {
+      } else if (user.uid !== this.props.currentUid) {
         this.props.currentUserFound(user);
       }
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.onAuthComplete(nextProps);
-  }
+    const redirect = this.props.navigation.navigate;
 
-  onAuthComplete(props) {
-    if (props.token) {
-      this.props.navigation.navigate('Main');
+    if (nextProps.token) {
+      redirect('Main');
     } else {
-      this.props.navigation.navigate('Auth');
+      redirect('Auth');
     }
   }
 
@@ -53,8 +51,8 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps({ auth }) {
-  return { token: auth.token };
+function mapStateToProps({ auth, user }) {
+  return { token: auth.token, currentUid: user.uid };
 }
 
 export default connect(mapStateToProps, actions)(LoadAppScreen);

@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native';
-import firebase from 'firebase';
 
 import {
   LOGIN_SUCCESS, LOGIN_FAIL,
@@ -7,6 +6,10 @@ import {
   USER_FOUND
 } from './types';
 import { doFbLogin } from './auth_facebook_actions';
+
+export const fbLogin = () => async dispatch => {
+  await doFbLogin(dispatch);
+};
 
 export const currentUserFound = (user) => async dispatch => {
   let token = await AsyncStorage.getItem('auth_token');
@@ -22,18 +25,7 @@ export const currentUserFound = (user) => async dispatch => {
       console.warn(err);
     }
   } else {
-    await dispatch({ type: LOGIN_FAIL, payload: token });
-  }
-};
-
-export const fbLogin = () => async dispatch => {
-  let token = await AsyncStorage.getItem('auth_token');
-
-  if (token) {
-    fetchUserData(dispatch);
-    dispatch({ type: LOGIN_SUCCESS, payload: token });
-  } else {
-    await doFbLogin(dispatch);
+    await dispatch({ type: LOGIN_FAIL });
   }
 };
 
@@ -48,13 +40,4 @@ export const logout = (redirect) => async dispatch => {
   }
 
   redirect();
-};
-
-const fetchUserData = async dispatch => {
-  let ref = await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
-
-  await ref.once('value', snapshot => {
-      let { name, picture } = snapshot.val();
-      dispatch({ type: USER_FOUND, name, picture, isNew: false });
-  });
 };
