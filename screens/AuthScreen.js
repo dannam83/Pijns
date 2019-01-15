@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 import * as actions from '../actions';
+import { Spinner } from '../components/common';
 
 class AuthScreen extends Component {
+  state = { isProcessing: false }
+
   componentDidMount() {
     this.onAuthComplete(this.props);
   }
@@ -16,7 +19,7 @@ class AuthScreen extends Component {
 
   onAuthComplete(props) {
     const redirect = this.props.navigation.navigate;
-    
+
     if (props.token) {
       if (props.isNew) {
         redirect('Welcome');
@@ -26,15 +29,23 @@ class AuthScreen extends Component {
     }
   }
 
+  onFbLoginPress = () => {
+    this.setState({ isProcessing: true });
+    this.props.fbLogin();
+  }
+
   render() {
     return (
       <View style={styles.containerViewStyle}>
         <Text style={styles.logoTextStyle}>Pijns</Text>
         <Button
           title="Login with Facebook"
-          onPress={this.props.fbLogin}
+          onPress={this.onFbLoginPress}
           buttonStyle={styles.buttonStyle}
         />
+      {
+        this.state.isProcessing ? <Spinner /> : null
+      }
       </View>
     );
   }
