@@ -19,19 +19,19 @@ export const postCreateUpdate = ({ prop, value }) => {
 export const postCreateSave = ({ postText, author }) => {
   const db = firebase.database();
   const userRef = db.ref(`/users/${author.id}/posts`);
-  const postsAllRef = db.ref('/postsAll');
+  const postRef = db.ref('/posts');
   const key = userRef.push().getKey();
 
   return (dispatch) => {
-    saveToFirebase(userRef, postsAllRef, key, author, postText)
+    saveToFirebase(userRef, postRef, key, author, postText)
     .then(() => dispatch({ type: POST_CREATE_SAVE })
     );
   };
 };
 
-const saveToFirebase = async (usersRef, postsAllRef, key, author, postText) => {
-  await usersRef.child(key).set({ author, postText });
-  await postsAllRef.child(key).set({ author, postText });
+const saveToFirebase = async (userRef, postRef, key, author, content) => {
+  await userRef.child(key).set({ author, content });
+  await postRef.child(key).set({ author, content });
 };
 
 export const postEditUpdate = ({ prop, value }) => {
