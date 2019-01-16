@@ -8,7 +8,7 @@ class PostListPostHeader extends Component {
   }
 
   render() {
-    const { postText } = this.props.post;
+    const { content } = this.props.post;
 
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
@@ -16,7 +16,7 @@ class PostListPostHeader extends Component {
           <CardBanner />
           <CardSection>
             <Text>
-              {postText}
+              {content}
             </Text>
           </CardSection>
         </View>

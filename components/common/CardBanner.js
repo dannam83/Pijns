@@ -1,12 +1,8 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 
-const CardBanner = ({ post }) => {
-  // const {
-  //   authorPic,
-  //   authorName,
-  //   postType,
-  // } = post;
+const CardBanner = ({ author }) => {
+  const { id, name, picture } = author;
 
   const {
     containerStyle,
@@ -20,8 +16,8 @@ const CardBanner = ({ post }) => {
   return (
     <View style={containerStyle}>
       <View style={headerContentStyle}>
-        <Text style={headerAuthorStyle}>author</Text>
-        <Text style={headerDetailStyle}>postType</Text>
+        <Text style={headerAuthorStyle}>{name}</Text>
+        <Text style={headerDetailStyle}>{id}</Text>
       </View>
     </View>
 

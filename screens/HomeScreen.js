@@ -46,8 +46,8 @@ class HomeScreen extends Component {
             style={{ width: 50, height: 50 }}
             source={{ uri: photoURL }}
           />
-        <CardBanner post={post} />
-          <Text>{post.postText}</Text>
+        <CardBanner author={post.author} />
+          <Text>{post.content}</Text>
         </Card>
       </View>
 
