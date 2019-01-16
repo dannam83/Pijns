@@ -6,7 +6,7 @@ const CardBanner = ({ author }) => {
 
   const {
     containerStyle,
-    // thumbnailStyle,
+    thumbnailStyle,
     headerContentStyle,
     // thumbnailContainerStyle,
     headerAuthorStyle,
@@ -15,6 +15,10 @@ const CardBanner = ({ author }) => {
 
   return (
     <View style={containerStyle}>
+      <Image
+        style={thumbnailStyle}
+        source={{ uri: picture }}
+      />
       <View style={headerContentStyle}>
         <Text style={headerAuthorStyle}>{name}</Text>
         <Text style={headerDetailStyle}>{id}</Text>
@@ -31,9 +35,7 @@ const CardBanner = ({ author }) => {
 
 const styles = {
   containerStyle: {
-    paddingHorizontal: 10,
-    paddingTop: 10,
-    paddingBottom: 1,
+    paddingBottom: 10,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     flexDirection: 'row',
@@ -42,17 +44,20 @@ const styles = {
   headerContentStyle: {
     flexDirection: 'column',
     justifyContent: 'space-around',
+    paddingLeft: 10
   },
   headerAuthorStyle: {
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: 'bold'
   },
   headerDetailStyle: {
-    fontSize: 11.5,
+    fontSize: 12,
     fontWeight: '100'
   },
   thumbnailStyle: {
     height: 50,
-    width: 50
+    width: 50,
+    borderRadius: 25
   },
   thumbnailContainerStyle: {
     justifyContent: 'center',

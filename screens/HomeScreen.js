@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ListView, Image } from 'react-native';
+import { View, Text, ListView } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import _ from 'lodash';
-import firebase from 'firebase';
 
 import * as actions from '../actions';
 import { CardBanner } from '../components/common';
@@ -35,22 +34,15 @@ class HomeScreen extends Component {
   }
 
   renderRow(post) {
-    const { containerStyle, listItemHeaderStyle } = styles;
-    const user = firebase.auth().currentUser;
-    const { displayName, photoURL } = user;
+    const { containerStyle } = styles;
 
     return (
       <View>
         <Card containerStyle={containerStyle}>
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={{ uri: photoURL }}
-          />
-        <CardBanner author={post.author} />
+          <CardBanner author={post.author} />
           <Text>{post.content}</Text>
         </Card>
       </View>
-
     );
   }
 
