@@ -30,7 +30,7 @@ export const postCreateSave = ({ postText, author }) => {
 };
 
 const saveToFirebase = async (usersRef, postsAllRef, key, author, postText) => {
-  await usersRef.child(key).set({ postText });
+  await usersRef.child(key).set({ author, postText });
   await postsAllRef.child(key).set({ author, postText });
 };
 
