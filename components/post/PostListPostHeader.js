@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { CardSection, CardBanner } from '../common';
 
-class PostListPost extends Component {
+class PostListPostHeader extends Component {
   onRowPress() {
     // Actions.postEdit({ post: this.props.post });
   }
@@ -25,4 +25,4 @@ class PostListPost extends Component {
   }
 }
 
-export default PostListPost;
+export default PostListPostHeader;

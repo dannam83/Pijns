@@ -3,9 +3,9 @@ import { Text, View, Image } from 'react-native';
 
 const CardBanner = ({ post }) => {
   // const {
-  //   author,
+  //   authorPic,
+  //   authorName,
   //   postType,
-  //   thumbnail_image,
   // } = post;
 
   const {

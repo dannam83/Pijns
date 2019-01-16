@@ -16,15 +16,22 @@ export const postCreateUpdate = ({ prop, value }) => {
   };
 };
 
-export const postCreateSave = ({ postText }) => {
-  const { currentUser } = firebase.auth();
+export const postCreateSave = ({ postText, author }) => {
+  const db = firebase.database();
+  const userRef = db.ref(`/users/${author.id}/posts`);
+  const postsAllRef = db.ref('/postsAll');
+  const key = userRef.push().getKey();
+
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/posts`)
-    .push({ postText })
-    .then(() => {
-      dispatch({ type: POST_CREATE_SAVE });
-    });
+    saveToFirebase(userRef, postsAllRef, key, author, postText)
+    .then(() => dispatch({ type: POST_CREATE_SAVE })
+    );
   };
+};
+
+const saveToFirebase = async (usersRef, postsAllRef, key, author, postText) => {
+  await usersRef.child(key).set({ postText });
+  await postsAllRef.child(key).set({ author, postText });
 };
 
 export const postEditUpdate = ({ prop, value }) => {

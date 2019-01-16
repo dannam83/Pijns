@@ -12,8 +12,8 @@ class PostCreateScreen extends Component {
   };
 
   onButtonPress = () => {
-    const { postText } = this.props;
-    this.props.postCreateSave({ postText });
+    const { postText, author } = this.props;
+    this.props.postCreateSave({ postText, author });
     this.props.navigation.navigate('Home');
   }
 
@@ -32,9 +32,10 @@ class PostCreateScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const { postType, postText } = state.postCreate;
-  return { postType, postText };
+  const { name, picture, uid } = state.user;
+  const author = { name, picture, id: uid };
+  return { postType, postText, author };
 };
 
 export default connect(mapStateToProps, { postCreateSave })(PostCreateScreen);

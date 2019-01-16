@@ -6,7 +6,7 @@ import _ from 'lodash';
 import firebase from 'firebase';
 
 import * as actions from '../actions';
-import PostListPost from '../components/post/PostListPost';
+import { CardBanner } from '../components/common';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -46,7 +46,7 @@ class HomeScreen extends Component {
             style={{ width: 50, height: 50 }}
             source={{ uri: photoURL }}
           />
-        <PostListPost post={post} />
+        <CardBanner post={post} />
           <Text>{post.postText}</Text>
         </Card>
       </View>

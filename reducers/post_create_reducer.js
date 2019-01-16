@@ -5,7 +5,8 @@ import {
 
 const INITIAL_STATE = {
   postType: '',
-  postText: ''
+  postText: '',
+  author: {}
 };
 
 export default (state = INITIAL_STATE, action) => {
