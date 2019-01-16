@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ListView } from 'react-native';
-import { Button, ListItem, Card } from 'react-native-elements';
+import { View, Text, ListView, Image } from 'react-native';
+import { Button, Card } from 'react-native-elements';
 import _ from 'lodash';
+import firebase from 'firebase';
 
-import { postsFetch } from '../actions';
+import * as actions from '../actions';
+import PostListPost from '../components/post/PostListPost';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -13,15 +15,15 @@ class HomeScreen extends Component {
 
   componentWillMount() {
     this.props.postsFetch();
-
-    this.createDataSource(this.props);
+    console.log(this.props);
+    this.createDataSource(this.props.posts);
   }
 
   componentWillReceiveProps(nextProps) {
     // nextProps are next set of props to be rendered with
     // this.props is still the old set of props
-
-    this.createDataSource(nextProps);
+    console.log('next', nextProps);
+    this.createDataSource(nextProps.posts);
   }
 
   createDataSource({ posts }) {
@@ -33,7 +35,23 @@ class HomeScreen extends Component {
   }
 
   renderRow(post) {
-    return <ListItem post={post} />;
+    const { containerStyle, listItemHeaderStyle } = styles;
+    const user = firebase.auth().currentUser;
+    const { displayName, photoURL } = user;
+
+    return (
+      <View>
+        <Card containerStyle={containerStyle}>
+          <Image
+            style={{ width: 50, height: 50 }}
+            source={{ uri: photoURL }}
+          />
+        <PostListPost post={post} />
+          <Text>{post.postText}</Text>
+        </Card>
+      </View>
+
+    );
   }
 
   render() {
@@ -65,15 +83,26 @@ const styles = {
   writePostView: {
     paddingTop: 10,
     paddingBottom: 10
+  },
+  containerStyle: {
+    marginLeft: 0,
+    marginRight: 0
+  },
+  listItemHeaderStyle: {
+    marginLeft: 0,
+    marginRight: 0,
+    paddingLeft: 0,
+    paddingRight: 0
   }
 };
 
 function mapStateToProps(state) {
+  console.log('state', state);
   const posts = _.map(state.posts, (val, uid) => {
   return { ...val, uid };
   });
 
-  return { posts };
-  }
+  return { posts: { posts }, state };
+}
 
-export default connect(mapStateToProps, { postsFetch })(HomeScreen);
+export default connect(mapStateToProps, actions)(HomeScreen);

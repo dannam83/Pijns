@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { CardSection, CardBanner } from './common';
+import { CardSection, CardBanner } from '../common';
 
-class ListItem extends Component {
+class PostListPost extends Component {
   onRowPress() {
-    Actions.postEdit({ post: this.props.post });
+    // Actions.postEdit({ post: this.props.post });
   }
 
   render() {
@@ -26,4 +25,4 @@ class ListItem extends Component {
   }
 }
 
-export default ListItem;
+export default PostListPost;
