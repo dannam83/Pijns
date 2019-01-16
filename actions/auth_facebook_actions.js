@@ -16,7 +16,8 @@ export const doFbLogin = async dispatch => {
 
     let { data } = await fetchFbProfileData(token);
     await setUserSliceOfState(dispatch);
-    await saveUserProfile(data);
+    const { uid, photoURL } = firebase.auth().currentUser;
+    await saveUserProfile(data, photoURL, uid);
     await AsyncStorage.setItem('auth_token', token);
     dispatch({ type: LOGIN_SUCCESS, payload: token });
   } catch (err) {
@@ -55,8 +56,9 @@ const setUserSliceOfState = async (dispatch) => {
   });
 };
 
-const saveUserProfile = async ({ name, birthday, email, gender, picture }) => {
-  await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`)
-    .set({ name, birthday, email, gender, picture: picture.data }
+const saveUserProfile = async (data, picture, uid) => {
+  const { name, birthday, email, gender } = data;
+  await firebase.database().ref(`/users/${uid}/profile`)
+    .set({ name, birthday, email, gender, picture }
   );
 };
