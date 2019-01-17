@@ -58,7 +58,7 @@ class HomeScreen extends Component {
           <Divider style={dividerStyle} />
           <View style={actionsViewStyle}>
             <ListActionButton
-              imageSource={require('../assets/images/bird.png')}
+              imageSource={require('../assets/images/pijn.png')}
             />
             <ListActionButton
               imageSource={require('../assets/images/comment.png')}
