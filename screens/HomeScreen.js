@@ -5,7 +5,7 @@ import { Button, Card, Divider } from 'react-native-elements';
 import _ from 'lodash';
 
 import * as actions from '../actions';
-import { CardBanner, ButtonAsText } from '../components/common';
+import { CardBanner, ListActionButton } from '../components/common';
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -44,7 +44,11 @@ class HomeScreen extends Component {
   }
 
   renderRow(post) {
-    const { containerStyle, dividerStyle, actionsViewStyle } = styles;
+    const {
+      containerStyle,
+      dividerStyle,
+      actionsViewStyle,
+    } = styles;
 
     return (
       <View>
@@ -53,12 +57,17 @@ class HomeScreen extends Component {
           <Text>{post.content}</Text>
           <Divider style={dividerStyle} />
           <View style={actionsViewStyle}>
-            <ButtonAsText>Pijn</ButtonAsText>
-            <ButtonAsText>Comment</ButtonAsText>
-            <ButtonAsText>Message</ButtonAsText>
+            <ListActionButton
+              imageSource={require('../assets/images/bird.png')}
+            />
+            <ListActionButton
+              imageSource={require('../assets/images/comment.png')}
+            />
+            <ListActionButton
+              imageSource={require('../assets/images/message.png')}
+            />
           </View>
         </Card>
-
       </View>
     );
   }
@@ -103,8 +112,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 10,
-    paddingRight: 10
+    paddingLeft: 60,
+    paddingRight: 60
   }
 };
 

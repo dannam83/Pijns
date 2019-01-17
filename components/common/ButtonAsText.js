@@ -15,13 +15,22 @@ const ButtonAsText = ({ onPress, children }) => {
 
 const styles = {
   textStyle: {
+    display: 'flex',
+    flexDirection: 'column',
+    // alignSelf: 'center',
+    // alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
     color: '#282828',
+    backgroundColor: 'red'
     // fontSize: 16,
   },
   buttonStyle: {
+    display: 'flex',
     alignSelf: 'center',
-    backgroundColor: 'white',
+    alignItems: 'center',
+    backgroundColor: 'blue',
   }
 };
 
