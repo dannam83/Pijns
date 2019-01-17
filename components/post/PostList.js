@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
-import { postsFetch } from '../actions';
-import ListItem from './ListItem';
+import { ListView, ListItem } from 'react-native';
+import { postsFetch } from '../../actions';
+// import { ListItem } from '../common/ListItem';
 
 class PostList extends Component {
   componentWillMount() {

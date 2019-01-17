@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, ListView } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Button, Card, Divider } from 'react-native-elements';
 import _ from 'lodash';
 
 import * as actions from '../actions';
@@ -18,7 +18,6 @@ class HomeScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('next', nextProps);
     this.createDataSource(nextProps.posts);
   }
 
@@ -45,14 +44,17 @@ class HomeScreen extends Component {
   }
 
   renderRow(post) {
-    const { containerStyle } = styles;
+    const { containerStyle, dividerStyle } = styles;
 
     return (
       <View>
         <Card containerStyle={containerStyle}>
           <CardBanner author={post.author} />
           <Text>{post.content}</Text>
+          <Divider style={dividerStyle} />
+          <Text>{post.content}</Text>
         </Card>
+
       </View>
     );
   }
@@ -62,8 +64,6 @@ class HomeScreen extends Component {
 
     return (
       <View style={masterContainerStyle}>
-
-
         <ListView
           enableEmptySections
           renderSeperator
@@ -87,18 +87,17 @@ const styles = {
   containerStyle: {
     marginLeft: 0,
     marginRight: 0,
+    padding: 10,
     backgroundColor: 'white'
   },
-  listItemHeaderStyle: {
-    marginLeft: 0,
-    marginRight: 0,
-    paddingLeft: 0,
-    paddingRight: 0
+  dividerStyle: {
+    backgroundColor: '#D3D3D3',
+    marginTop: 7,
+    marginBottom: 10
   }
 };
 
 function mapStateToProps(state) {
-  console.log('state', state);
   const posts = _.map(state.posts, (val, uid) => {
   return { ...val, uid };
   });
