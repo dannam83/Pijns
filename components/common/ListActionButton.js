@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, Image, TouchableOpacity } from 'react-native';
 
-const ListActionButton = ({ imageSource, text }) => {
+const ListActionButton = ({ imageSource, text, iconStyle }) => {
   const { actionButtonStyle, actionIconStyle, actionTextStyle } = styles;
 
   return (
     <TouchableOpacity style={actionButtonStyle}>
       <Image
         source={imageSource}
-        style={actionIconStyle}
+        style={[actionIconStyle, iconStyle]}
       />
       <Text style={actionTextStyle}>
         {text}
@@ -24,9 +24,8 @@ const styles = {
     alignItems: 'center'
   },
   actionIconStyle: {
-    height: 20,
-    width: 20,
-    marginRight: 5
+    height: 25,
+    width: 25,
   },
   actionTextStyle: {
     // display: 'flex',

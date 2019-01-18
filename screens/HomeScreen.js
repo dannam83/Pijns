@@ -59,6 +59,7 @@ class HomeScreen extends Component {
           <View style={actionsViewStyle}>
             <ListActionButton
               imageSource={require('../assets/images/pijn.png')}
+              iconStyle={{ width: 27 }}
             />
             <ListActionButton
               imageSource={require('../assets/images/comment.png')}
