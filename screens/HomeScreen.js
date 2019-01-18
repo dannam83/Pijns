@@ -29,7 +29,7 @@ class HomeScreen extends Component {
     this.dataSource = ds.cloneWithRows(posts);
   }
 
-  renderHeader() {
+  renderHeader = () => {
     return (
       <View style={styles.writePostView}>
         <Button
