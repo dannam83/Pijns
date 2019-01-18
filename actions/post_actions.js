@@ -30,7 +30,7 @@ export const postCreateSave = ({ postText, author }) => {
 };
 
 const saveToFirebase = async (userRef, postRef, key, author, content) => {
-  await userRef.child(key).set({ author, content });
+  await userRef.child(key).set({ author, content, notes: 0 });
   await postRef.child(key).set({ author, content });
 };
 
@@ -71,11 +71,18 @@ export const postsFetch = () => {
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/posts`)
       .on('value', snapshot => {
-        dispatch({ type: POSTS_FETCH_SUCCESS, payload: snapshot.val() });
-      });
+        dispatch({ type: POSTS_FETCH_SUCCESS, payload: snapshot.val() }
+        );
+      }
+    );
   };
 };
 
-export const sendPijn = () => {
+export const addNote = async (postId) => {
+  const { uid } = firebase.auth().currentUser;
+  const usersRef = await firebase.database().ref(`/users/${uid}/posts/${postId}/notes`);
+  const postsRef = await firebase.database().ref(`/posts/${postId}/notes`);
 
+  usersRef.transaction((currentCount) => (currentCount || 0) + 1);
+  postsRef.transaction((currentCount) => (currentCount || 0) + 1);
 };

@@ -16,13 +16,6 @@ class HomeScreen extends Component {
     this.props.postsFetch();
   }
 
-  sendPijn() {
-    // const { postText, author, actions } = this.props;
-    // actions.sendPijn({ postId });
-    // this.props.navigation.navigate('Home');
-    console.log('hi');
-  }
-
   renderHeader = () => {
     return (
       <View style={styles.writePostView}>
@@ -37,7 +30,7 @@ class HomeScreen extends Component {
     );
   }
 
-  renderRow = ({ author, content }) => {
+  renderRow = ({ author, content, postId, sendPijn }) => {
     const {
       containerStyle,
       dividerStyle,
@@ -63,6 +56,7 @@ class HomeScreen extends Component {
             <ListActionButton
               imageSource={require('../assets/images/pijn.png')}
               iconStyle={{ width: 27 }}
+              onPress={() => sendPijn(postId)}
             />
             <ListActionButton
               imageSource={require('../assets/images/comment.png')}
@@ -77,15 +71,16 @@ class HomeScreen extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { masterContainerStyle } = styles;
-    const { posts } = this.props.posts;
+    const { posts } = this.props;
     return (
       <View style={masterContainerStyle}>
         <FlatList
           data={posts}
           renderItem={({ item }) => this.renderRow(item)}
           ListHeaderComponent={this.renderHeader}
-          keyExtractor={({ item }, uid) => uid.toString()}
+          keyExtractor={({ item }, postId) => postId.toString()}
         />
       </View>
     );
@@ -131,13 +126,17 @@ const styles = {
   }
 };
 
+const sendPijn = (postId) => {
+  actions.addNote(postId);
+};
+
 function mapStateToProps(state) {
   console.log('map', state);
   const posts = _.map(state.posts, (val, uid) => {
-  return { ...val, uid };
+  return { ...val, postId: uid, sendPijn };
   });
   console.log('after map posts', posts);
-  return { posts: { posts }, state };
+  return { posts, state };
 }
 
 export default connect(mapStateToProps, actions)(HomeScreen);
