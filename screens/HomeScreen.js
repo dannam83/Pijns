@@ -56,7 +56,7 @@ class HomeScreen extends Component {
             <ListActionButton
               imageSource={require('../assets/images/pijn.png')}
               iconStyle={{ width: 27 }}
-              onPress={() => sendPijn(postId)}
+              onPress={() => sendPijn(postId, author)}
             />
             <ListActionButton
               imageSource={require('../assets/images/comment.png')}
@@ -126,8 +126,8 @@ const styles = {
   }
 };
 
-const sendPijn = (postId) => {
-  actions.addNote(postId);
+const sendPijn = (postId, author) => {
+  actions.addNote(postId, author);
 };
 
 function mapStateToProps(state) {

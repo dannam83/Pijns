@@ -78,12 +78,18 @@ export const postsFetch = () => {
   };
 };
 
-export const addNote = async (postId) => {
+export const addNote = async (postId, author) => {
   const { uid } = firebase.auth().currentUser;
   const db = firebase.database();
-  const usersRef = await db.ref(`/users/${uid}/posts/${postId}/notes/count`);
+  const authorPostRef = await db.ref(`/users/${author.id}/posts/${postId}/notes/count`);
   const postsRef = await db.ref(`/posts/${postId}/notes/count`);
+  const userPijnsRef = await db.ref(`/users/${uid}/pijns/${postId}`);
+  const currentDate = new Date(
+    new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
+  );
+  const currentDateTime = new Date();
 
-  usersRef.transaction((currentCount) => (currentCount || 0) + 1);
+  authorPostRef.transaction((currentCount) => (currentCount || 0) + 1);
   postsRef.transaction((currentCount) => (currentCount || 0) + 1);
+  userPijnsRef.update({ lastPijnDate: currentDate });
 };
