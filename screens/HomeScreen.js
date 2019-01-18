@@ -85,6 +85,7 @@ class HomeScreen extends Component {
           data={posts}
           renderItem={({ item }) => this.renderRow(item)}
           ListHeaderComponent={this.renderHeader}
+          keyExtractor={({ item }, uid) => uid.toString()}
         />
       </View>
     );
@@ -131,10 +132,11 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log('map', state);
   const posts = _.map(state.posts, (val, uid) => {
   return { ...val, uid };
   });
-
+  console.log('after map posts', posts);
   return { posts: { posts }, state };
 }
 
