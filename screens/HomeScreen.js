@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ListView, Image } from 'react-native';
+import { View, Text, Image, FlatList } from 'react-native';
 import { Button, Card, Divider } from 'react-native-elements';
 import _ from 'lodash';
 
@@ -14,19 +14,13 @@ class HomeScreen extends Component {
 
   componentWillMount() {
     this.props.postsFetch();
-    this.createDataSource(this.props.posts);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps.posts);
-  }
-
-  createDataSource({ posts }) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-
-    this.dataSource = ds.cloneWithRows(posts);
+  sendPijn() {
+    // const { postText, author, actions } = this.props;
+    // actions.sendPijn({ postId });
+    // this.props.navigation.navigate('Home');
+    console.log('hi');
   }
 
   renderHeader = () => {
@@ -43,7 +37,7 @@ class HomeScreen extends Component {
     );
   }
 
-  renderRow(post) {
+  renderRow = ({ author, content }) => {
     const {
       containerStyle,
       dividerStyle,
@@ -55,8 +49,8 @@ class HomeScreen extends Component {
     return (
       <View>
         <Card containerStyle={containerStyle}>
-          <CardBanner author={post.author} />
-          <Text>{post.content}</Text>
+          <CardBanner author={author} />
+          <Text>{content}</Text>
           <View style={pijnsCountStyle}>
             <Image
               source={require('../assets/images/love-note.png')}
@@ -84,15 +78,13 @@ class HomeScreen extends Component {
 
   render() {
     const { masterContainerStyle } = styles;
-
+    const { posts } = this.props.posts;
     return (
       <View style={masterContainerStyle}>
-        <ListView
-          enableEmptySections
-          renderSeperator
-          renderHeader={this.renderHeader}
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => this.renderRow(item)}
+          ListHeaderComponent={this.renderHeader}
         />
       </View>
     );

@@ -3,7 +3,6 @@ import { Text, View, Image } from 'react-native';
 
 const CardBanner = ({ author }) => {
   const { id, name, picture } = author;
-
   const {
     containerStyle,
     thumbnailStyle,

@@ -75,3 +75,7 @@ export const postsFetch = () => {
       });
   };
 };
+
+export const sendPijn = () => {
+
+};
