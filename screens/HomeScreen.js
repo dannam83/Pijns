@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ListView } from 'react-native';
+import { View, Text, ListView, Image } from 'react-native';
 import { Button, Card, Divider } from 'react-native-elements';
 import _ from 'lodash';
 
@@ -48,6 +48,8 @@ class HomeScreen extends Component {
       containerStyle,
       dividerStyle,
       actionsViewStyle,
+      loveNoteIconStyle,
+      pijnsCountStyle
     } = styles;
 
     return (
@@ -55,6 +57,13 @@ class HomeScreen extends Component {
         <Card containerStyle={containerStyle}>
           <CardBanner author={post.author} />
           <Text>{post.content}</Text>
+          <View style={pijnsCountStyle}>
+            <Image
+              source={require('../assets/images/love-note.png')}
+              style={loveNoteIconStyle}
+            />
+            <Text>123 notes</Text>
+          </View>
           <Divider style={dividerStyle} />
           <View style={actionsViewStyle}>
             <ListActionButton
@@ -106,7 +115,7 @@ const styles = {
   },
   dividerStyle: {
     backgroundColor: '#D3D3D3',
-    marginTop: 7,
+    marginTop: 10,
     marginBottom: 10
   },
   actionsViewStyle: {
@@ -115,6 +124,17 @@ const styles = {
     justifyContent: 'space-between',
     paddingLeft: 60,
     paddingRight: 60
+  },
+  pijnsCountStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10
+  },
+  loveNoteIconStyle: {
+    width: 23,
+    height: 23,
+    marginRight: 5
   }
 };
 
