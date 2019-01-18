@@ -80,8 +80,9 @@ export const postsFetch = () => {
 
 export const addNote = async (postId) => {
   const { uid } = firebase.auth().currentUser;
-  const usersRef = await firebase.database().ref(`/users/${uid}/posts/${postId}/notes`);
-  const postsRef = await firebase.database().ref(`/posts/${postId}/notes`);
+  const db = firebase.database();
+  const usersRef = await db.ref(`/users/${uid}/posts/${postId}/notes/count`);
+  const postsRef = await db.ref(`/posts/${postId}/notes/count`);
 
   usersRef.transaction((currentCount) => (currentCount || 0) + 1);
   postsRef.transaction((currentCount) => (currentCount || 0) + 1);
