@@ -38,6 +38,9 @@ class HomeScreen extends Component {
       loveNoteIconStyle,
       pijnsCountStyle
     } = styles;
+    const currentDate = new Date(
+      new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
+    );
 
     return (
       <View>
@@ -56,7 +59,7 @@ class HomeScreen extends Component {
             <ListActionButton
               imageSource={require('../assets/images/pijn.png')}
               iconStyle={{ width: 27 }}
-              onPress={() => sendPijn(postId, author)}
+              onPress={() => sendPijn({ postId, author, currentDate })}
             />
             <ListActionButton
               imageSource={require('../assets/images/comment.png')}
@@ -70,6 +73,7 @@ class HomeScreen extends Component {
     );
   }
 
+  // disabled={lastPijnDate === currentDate}
   render() {
     console.log(this.props);
     const { masterContainerStyle } = styles;
@@ -127,13 +131,20 @@ const styles = {
 };
 
 const sendPijn = (postId, author) => {
-  actions.addNote(postId, author);
+  actions.sendPijn(postId, author);
+};
+
+const pijnSentToday = (lastPijnDate) => {
+  const currentDate = new Date(
+    new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
+  );
+  return (lastPijnDate < currentDate);
 };
 
 function mapStateToProps(state) {
   console.log('map', state);
   const posts = _.map(state.posts, (val, uid) => {
-  return { ...val, postId: uid, sendPijn };
+  return { ...val, postId: uid, sendPijn, pijnSentToday };
   });
   console.log('after map posts', posts);
   return { posts, state };
