@@ -1,4 +1,6 @@
-
+// const googleAndroidClientId = require('../googleAndroidClientId');
+// const googleIosClientId = require('../googleIosClientId');
+//
 // export const googleLogin = () => async dispatch => {
 //   let token = await AsyncStorage.getItem('auth_token');
 //
@@ -11,8 +13,8 @@
 //
 // const doGoogleLogin = async dispatch => {
 //   let { type, accessToken } = await Google.logInAsync({
-//     androidClientId: '800234801651-eo6nj683dgn5b8otcpft96k3itfbe5in.apps.googleusercontent.com',
-//     iosClientId: '800234801651-00t8f3m9ju45hmt3fj5jorduolmjpjie.apps.googleusercontent.com',
+//     androidClientId: googleAndroidClientId,
+//     iosClientId: googleIosClientId,
 //     scopes: ['profile', 'email'],
 //   });
 //
@@ -20,7 +22,7 @@
 //     console.log('cancelled');
 //     return dispatch({ type: LOGIN_FAIL });
 //   }
-//
+
 //   const credential = firebase.auth.GoogleAuthProvider.credential(null, accessToken);
 //
 //   firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error) => {
