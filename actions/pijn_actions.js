@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import firebase from 'firebase';
 
 export const sendPijn = ({ postId, author, currentDate }) => {
@@ -5,7 +6,8 @@ export const sendPijn = ({ postId, author, currentDate }) => {
 
   incrementAuthorPostPijnCount(db, author.id, postId);
   incrementPostsPijnCount(db, postId);
-  savePijnSentRecord(db, currentDate, postId);
+  firebaseRecordPijn(db, currentDate, postId);
+  asyncRecordPijn(currentDate, postId);
 };
 
 const incrementAuthorPostPijnCount = (db, authorId, postId) => {
@@ -20,9 +22,27 @@ const incrementPostsPijnCount = (db, postId) => {
   postsRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
 
-const savePijnSentRecord = (db, currentDate, postId) => {
+const firebaseRecordPijn = (db, currentDate, postId) => {
   const { uid } = firebase.auth().currentUser;
   const userPijnsRef = db.ref(`/users/${uid}/pijns/${currentDate}/${postId}`);
 
   userPijnsRef.set(Date.now());
+};
+
+const asyncRecordPijn = async (currentDate, postId) => {
+  let pijnDate = await AsyncStorage.getItem('pijn_date');
+
+  if (pijnDate === currentDate.toString()) {
+    console.log('hi');
+    let logs = await AsyncStorage.getItem('pijn_log');
+    console.log(logs);
+    console.log('id', postId);
+  }
+
+  if (!pijnDate || pijnDate < currentDate) {
+    await AsyncStorage.setItem('pijn_date', currentDate.toString());
+    await AsyncStorage.setItem('pijn_log', JSON.stringify({}));
+  }
+
+  await AsyncStorage.mergeItem('pijn_log', JSON.stringify({ [postId]: true }));
 };
