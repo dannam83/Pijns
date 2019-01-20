@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList, AsyncStorage } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { Button } from 'react-native-elements';
 import _ from 'lodash';
 
@@ -19,8 +19,6 @@ class PostList extends Component {
   }
 
   renderHeader = () => {
-    AsyncStorage.setItem('pijn_log', JSON.stringify({}));
-
     return (
       <View style={styles.writePostView}>
         <Button
