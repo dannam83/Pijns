@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, Image, TouchableOpacity } from 'react-native';
 
-const ListActionButton = ({ imageSource, text, iconStyle, onPress }) => {
+const ListActionButton = ({ imageSource, text, iconStyle, onPress, disabled }) => {
   const { actionButtonStyle, actionIconStyle, actionTextStyle } = styles;
 
   return (
-    <TouchableOpacity style={actionButtonStyle} onPress={onPress}>
+    <TouchableOpacity style={actionButtonStyle} onPress={onPress} disabled={disabled}>
       <Image
         source={imageSource}
         style={[actionIconStyle, iconStyle]}

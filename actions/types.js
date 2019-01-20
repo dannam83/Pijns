@@ -13,6 +13,6 @@ export const POST_SAVE_SUCCESS = 'POST_SAVE_SUCCESS';
 export const POST_DELETE = 'POST_DELETE';
 export const POSTS_FETCH_SUCCESS = 'POSTS_FETCH_SUCCESS';
 
-export const FETCH_JOBS = 'FETCH_JOBS';
+export const FETCH_PIJN_LOG = 'FETCH_PIJN_LOG';
 export const LIKE_JOB = 'LIKE_JOB';
 export const CLEAR_LIKED_JOBS = 'CLEAR_LIKED_JOBS';

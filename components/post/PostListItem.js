@@ -6,7 +6,9 @@ import { CardBanner, ListActionButton } from '../common';
 
 class PostListItem extends Component {
   render() {
-    const { author, content, notes, postId, sendPijn } = this.props.post;
+    const {
+      author, content, notes, postId, sendPijn, disablePijn
+    } = this.props.post;
     const { count } = notes;
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
@@ -42,6 +44,7 @@ class PostListItem extends Component {
               imageSource={require('../../assets/images/pijn.png')}
               iconStyle={{ height: 24, width: 26 }}
               onPress={() => sendPijn({ postId, author, currentDate })}
+              disable={disablePijn}
             />
             <ListActionButton
               imageSource={require('../../assets/images/comment.png')}

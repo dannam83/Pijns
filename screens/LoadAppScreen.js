@@ -19,6 +19,7 @@ class LoadAppScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
     const redirect = this.props.navigation.navigate;
+    this.props.fetchPijnLog();
 
     if (nextProps.token) {
       redirect('Main');
