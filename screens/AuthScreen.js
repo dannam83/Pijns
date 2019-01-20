@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -34,14 +34,21 @@ class AuthScreen extends Component {
     this.props.fbLogin();
   }
 
+
   render() {
+    const { containerViewStyle, logoTextStyle, logoStyle, buttonStyle } = styles;
+
     return (
-      <View style={styles.containerViewStyle}>
-        <Text style={styles.logoTextStyle}>Pijns</Text>
+      <View style={containerViewStyle}>
+        <Text style={logoTextStyle}>Pijns</Text>
+        <Image
+          source={require('../assets/images/pijn.png')}
+          style={logoStyle}
+        />
         <Button
           title="Login with Facebook"
           onPress={this.onFbLoginPress}
-          buttonStyle={styles.buttonStyle}
+          buttonStyle={buttonStyle}
         />
       {
         this.state.isProcessing ? <Spinner /> : null
@@ -69,7 +76,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: 'white'
   },
+  logoStyle: {
+    width: 44,
+    height: 40,
+    tintColor: 'white'
+  },
   buttonStyle: {
+    marginTop: 25,
     backgroundColor: '#158cdb',
     borderRadius: 25
   }

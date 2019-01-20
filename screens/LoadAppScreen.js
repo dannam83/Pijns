@@ -34,10 +34,10 @@ class LoadAppScreen extends Component {
     return (
       <View style={containerViewStyle}>
         <Text style={logoTextStyle}>Pijns</Text>
-          <Image
-            source={require('../assets/images/pijn.png')}
-            style={logoStyle}
-          />
+        <Image
+          source={require('../assets/images/pijn.png')}
+          style={logoStyle}
+        />
       </View>
     );
   }

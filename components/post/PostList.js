@@ -61,8 +61,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log('post list ms2p', state);
-
   const posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!state.pijnLog[uid];
 
