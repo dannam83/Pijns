@@ -7,7 +7,7 @@ import { CardBanner, ListActionButton } from '../common';
 class PostListItem extends Component {
   render() {
     const {
-      author, content, notes, postId, sendPijn, disablePijn
+      author, content, notes, postId, sendPijn, pijnSentToday
     } = this.props.post;
     const { count } = notes;
     const currentDate = new Date(
@@ -20,7 +20,6 @@ class PostListItem extends Component {
       loveNoteIconStyle,
       pijnsCountStyle
     } = styles;
-    // const disabled={lastPijnDate === currentDate}
 
     return (
       <View>
@@ -44,7 +43,7 @@ class PostListItem extends Component {
               imageSource={require('../../assets/images/pijn.png')}
               iconStyle={{ height: 24, width: 26 }}
               onPress={() => sendPijn({ postId, author, currentDate })}
-              disable={disablePijn}
+              disabled={pijnSentToday}
             />
             <ListActionButton
               imageSource={require('../../assets/images/comment.png')}

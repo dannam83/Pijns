@@ -3,7 +3,7 @@ import { Text, Image, TouchableOpacity } from 'react-native';
 
 const ListActionButton = ({ imageSource, text, iconStyle, onPress, disabled }) => {
   const { actionButtonStyle, actionIconStyle, actionTextStyle } = styles;
-
+  console.log(disabled);
   return (
     <TouchableOpacity style={actionButtonStyle} onPress={onPress} disabled={disabled}>
       <Image
