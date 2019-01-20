@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, Button } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { postCreateSave } from '../actions';
-import { CardSection, ButtonAsText } from '../components/common';
+import { ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 
 class PostCreateScreen extends Component {
@@ -11,11 +11,10 @@ class PostCreateScreen extends Component {
     return {
       title: 'Write a post',
       headerRight: (
-        <Button
+        <ButtonAsText
           onPress={navigation.getParam('onSharePress')}
-          title="Share"
-          color="rgba(0,125,255,1)"
-        />
+          editTextStyle={styles.editTextStyle}
+        >Share</ButtonAsText>
       )
     };
   }
@@ -42,11 +41,13 @@ class PostCreateScreen extends Component {
     );
   }
 }
-// <CardSection style={{ justifyContent: 'center', borderWidth: 0 }}>
-//   <ButtonAsText onPress={this.onButtonPress}>
-//     Share
-//   </ButtonAsText>
-// </CardSection>
+
+const styles = {
+  editTextStyle: {
+    fontWeight: 'bold',
+    color: 'rgba(0,125,255,1)'
+  }
+};
 
 const mapStateToProps = (state) => {
   const { postType, postText } = state.postCreate;
