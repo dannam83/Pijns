@@ -60,19 +60,15 @@ const styles = {
   }
 };
 
-const pijnSentToday = (lastPijnDate) => {
-  const currentDate = new Date(
-    new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
-  );
-  return (lastPijnDate < currentDate);
-};
-
 function mapStateToProps(state) {
   console.log('post list ms2p', state);
+
   const posts = _.map(state.posts, (val, uid) => {
+    const pijnSentToday = !!state.pijnLog[uid];
+
     return { ...val, postId: uid, sendPijn, pijnSentToday };
   });
   return { posts, state };
 }
 
-export default connect(mapStateToProps, { sendPijn, postsFetch })(PostList);
+export default connect(mapStateToProps, { postsFetch })(PostList);
