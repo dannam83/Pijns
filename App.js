@@ -8,11 +8,8 @@ import store from './store';
 import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-  };
-
-  UNSAFE_componentWillMount() {
+  constructor() {
+    super();
     const config = {
       apiKey: 'AIzaSyAkJ1IrLTNndMvek06DEyEHCifEYbecFGQ',
       authDomain: 'pijns-dc1c1.firebaseapp.com',
@@ -24,26 +21,9 @@ export default class App extends React.Component {
     firebase.initializeApp(config);
   }
 
-  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return (
-        <Provider store={store}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </View>
-        </Provider>
-      );
-    }
-  }
+  state = {
+    isLoadingComplete: false,
+  };
 
   _loadResourcesAsync = async () => {
     return Promise.all([
@@ -58,9 +38,6 @@ export default class App extends React.Component {
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         'coiny': require('./assets/fonts/Coiny-Regular.ttf'),
       }),
     ]);
@@ -75,6 +52,27 @@ export default class App extends React.Component {
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
+
+  render() {
+    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+      return (
+        <AppLoading
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
+    }
+
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppNavigator />
+        </View>
+      </Provider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
