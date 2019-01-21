@@ -9,6 +9,13 @@ import {
  } from './types';
 
 export const postCreateUpdate = ({ prop, value }) => {
+  const currentDate = new Date();
+  const month = currentDate.getMonth().toString();
+  const day = currentDate.getDay().toString();
+  const year = currentDate.getYear().toString();
+  const dateString = month + day + year;
+  console.log(dateString);
+
   return {
     type: POST_CREATE_UPDATE,
     payload: { prop, value }

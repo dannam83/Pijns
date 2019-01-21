@@ -34,6 +34,7 @@ class PostForm extends Component {
           ref={(input) => { this.textInput = input; }}
           value={textValue}
           onChangeText={value => onChangeText({ prop: 'postText', value })}
+          style={{ flex: 1 }}
         />
       </View>
     );

@@ -20,7 +20,9 @@ class PostCreateScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ onSharePress: this.onSharePress });
+    this.props.navigation.setParams({
+      onSharePress: this.onSharePress,
+    });
   }
 
   onSharePress = () => {
@@ -46,6 +48,10 @@ const styles = {
   editTextStyle: {
     fontWeight: 'bold',
     color: 'rgba(0,125,255,1)'
+  },
+  disabledTextStyle: {
+    fontWeight: 'bold',
+    color: '#D3D3D3'
   }
 };
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, Image, TouchableOpacity } from 'react-native';
 
-const ListActionButton = ({ imageSource, text, iconStyle, onPress, disabled }) => {
+const ListActionButton = ({
+  imageSource, text, onPress, disabled, iconStyle, buttonStyle
+}) => {
   const {
     actionButtonStyle, actionIconStyle, disabledIconStyle, actionTextStyle
   } = styles;
@@ -9,7 +11,11 @@ const ListActionButton = ({ imageSource, text, iconStyle, onPress, disabled }) =
   const iconDefaultStyle = disabled ? disabledIconStyle : actionIconStyle;
 
   return (
-    <TouchableOpacity style={actionButtonStyle} onPress={onPress} disabled={disabled}>
+    <TouchableOpacity
+      style={[actionButtonStyle, buttonStyle]} 
+      onPress={onPress}
+      disabled={disabled}
+    >
       <Image
         source={imageSource}
         style={[iconDefaultStyle, iconStyle]}

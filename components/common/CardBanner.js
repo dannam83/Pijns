@@ -1,15 +1,19 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 
+import { ListActionButton } from './ListActionButton';
+
 const CardBanner = ({ author }) => {
   const { id, name, picture } = author;
   const {
     containerStyle,
     thumbnailStyle,
     headerContentStyle,
-    // thumbnailContainerStyle,
     headerAuthorStyle,
-    headerDetailStyle
+    headerDetailStyle,
+    ellipsisViewStyle,
+    ellipsisStyle,
+    buttonStyle
   } = styles;
 
   return (
@@ -22,15 +26,17 @@ const CardBanner = ({ author }) => {
         <Text style={headerAuthorStyle}>{name}</Text>
         <Text style={headerDetailStyle}>{id}</Text>
       </View>
+      <View style={ellipsisViewStyle}>
+        <ListActionButton
+          iconStyle={ellipsisStyle}
+          buttonStyle={buttonStyle}
+          imageSource={require('../../assets/images/ellipsis.png')}
+        />
+      </View>
     </View>
 
   );
 };
-// <View style={thumbnailContainerStyle}>
-// <Image
-// style={thumbnailStyle}
-// source={{ uri: thumbnail_image }}
-// />
 
 const styles = {
   containerStyle: {
@@ -58,11 +64,19 @@ const styles = {
     width: 50,
     borderRadius: 25
   },
-  thumbnailContainerStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 10,
-    marginRight: 10
+  ellipsisViewStyle: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: 5
+  },
+  ellipsisStyle: {
+    height: 15,
+    width: 15,
+  },
+  buttonStyle: {
+    alignItems: 'flex-start'
   }
 };
 

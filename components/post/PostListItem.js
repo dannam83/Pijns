@@ -30,8 +30,8 @@ class PostListItem extends Component {
             count > 0 ? (
               <View style={pijnsCountStyle}>
               <Image
-              source={require('../../assets/images/love-note.png')}
-              style={loveNoteIconStyle}
+                source={require('../../assets/images/love-note.png')}
+                style={loveNoteIconStyle}
               />
               <Text>{count} notes</Text>
               </View>
