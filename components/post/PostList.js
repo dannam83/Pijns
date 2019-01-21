@@ -14,7 +14,7 @@ class PostList extends Component {
 
   renderRow = (post) => {
     return (
-      <PostListItem post={post} />
+      <PostListItem post={post} redirect={this.props.redirect} />
     );
   }
 

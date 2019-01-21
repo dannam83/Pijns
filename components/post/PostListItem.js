@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 
 import { CardBanner, ListActionButton } from '../common';
+import { postEditUpdate } from '../../actions';
 
 class PostListItem extends Component {
   render() {
@@ -24,7 +26,13 @@ class PostListItem extends Component {
     return (
       <View>
         <Card containerStyle={containerStyle}>
-          <CardBanner author={author} />
+          <CardBanner
+            author={author}
+            redirect={this.props.redirect}
+            postEditUpdate={this.props.postEditUpdate}
+            postText={content}
+            postId={postId}
+          />
           <Text>{content}</Text>
           {
             count > 0 ? (
@@ -90,4 +98,4 @@ const styles = {
   }
 };
 
-export default PostListItem;
+export default connect(null, { postEditUpdate })(PostListItem);

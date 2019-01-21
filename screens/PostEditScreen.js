@@ -10,19 +10,20 @@ import { CardSection, ButtonAsText, Confirm } from '../components/common';
 class PostEdit extends Component {
   state = { showModal: false }
 
-  componentWillMount() {
-    _.each(this.props.post, (value, prop) => {
-      this.props.postEditUpdate({ prop, value });
-    });
-  }
+  // componentWillMount() {
+  //   // _.each(this.props.post, (value, prop) => {
+  //   //   console.log(prop, value);
+  //   // });
+  //   console.log(this.props);
+  // }
 
   onButtonPress() {
-    const { postText } = this.props;
-    this.props.postEditSave({ postText, uid: this.props.post.uid });
+    const { postText, postId } = this.props;
+    this.props.postEditSave({ postText, postId });
   }
 
   onAccept() {
-    this.props.postDelete({ uid: this.props.post.uid });
+    this.props.postDelete({ uid: this.props.postId });
   }
 
   onDecline() {
@@ -36,7 +37,7 @@ class PostEdit extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
-        <PostForm {...this.props} />
+        <PostForm postEditText={this.props.postText} routeName='postEdit' />
         <CardSection style={{ justifyContent: 'space-around', borderTopWidth: 1 }}>
           <ButtonAsText
             onPress={this.showConfirmModal()}
@@ -63,8 +64,9 @@ class PostEdit extends Component {
 }
 
 const mapStateToProps = state => {
-  const { postText, postType } = state.postEdit;
-  return { postText, postType };
+  console.log(state);
+  const { postId, postText, postType } = state.postEdit;
+  return { postId, postText, postType };
 };
 
 export default connect(mapStateToProps, {

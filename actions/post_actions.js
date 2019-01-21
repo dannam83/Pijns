@@ -47,11 +47,11 @@ export const postEditUpdate = ({ prop, value }) => {
   };
 };
 
-export const postEditSave = ({ postText, uid }) => {
+export const postEditSave = ({ postText, postId }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/posts/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}/content`)
       .set({ postText })
       .then(() => {
         dispatch({ type: POST_SAVE_SUCCESS });

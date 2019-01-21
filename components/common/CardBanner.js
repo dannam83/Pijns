@@ -4,7 +4,9 @@ import ActionSheet from 'react-native-actionsheet';
 
 import { ListActionButton } from './ListActionButton';
 
-const CardBanner = ({ author }) => {
+const CardBanner = ({
+  author, redirect, postEditUpdate, postText, postId }) => {
+  console.log('in banner', postId);
   const { id, name, picture } = author;
   const {
     containerStyle,
@@ -17,8 +19,10 @@ const CardBanner = ({ author }) => {
     buttonStyle
   } = styles;
 
-  const showActionSheet = () => {
+  const showActionSheet = async () => {
     this.ActionSheet.show();
+    await postEditUpdate({ prop: 'postText', value: postText });
+    await postEditUpdate({ prop: 'postId', value: postId });
   };
 
   return (
@@ -43,7 +47,11 @@ const CardBanner = ({ author }) => {
           options={['Edit', 'cancel']}
           cancelButtonIndex={1}
           destructiveButtonIndex={-1}
-          onPress={(index) => { console.log(index); }}
+          onPress={(index) => {
+            if (index === 0) {
+              redirect('PostEdit');
+            }
+          }}
         />
       </View>
     </View>

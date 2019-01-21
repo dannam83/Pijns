@@ -5,6 +5,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
+  postId: '',
   postType: '',
   postText: ''
 };
