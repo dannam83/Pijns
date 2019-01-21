@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
+import ActionSheet from 'react-native-actionsheet';
 
 import { ListActionButton } from './ListActionButton';
 
@@ -16,6 +17,10 @@ const CardBanner = ({ author }) => {
     buttonStyle
   } = styles;
 
+  const showActionSheet = () => {
+    this.ActionSheet.show();
+  };
+
   return (
     <View style={containerStyle}>
       <Image
@@ -31,6 +36,14 @@ const CardBanner = ({ author }) => {
           iconStyle={ellipsisStyle}
           buttonStyle={buttonStyle}
           imageSource={require('../../assets/images/ellipsis.png')}
+          onPress={showActionSheet}
+        />
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          options={['Edit', 'cancel']}
+          cancelButtonIndex={1}
+          destructiveButtonIndex={-1}
+          onPress={(index) => { console.log(index); }}
         />
       </View>
     </View>

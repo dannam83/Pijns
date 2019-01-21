@@ -34,15 +34,6 @@ class PostList extends Component {
 
   render() {
     const { posts } = this.props;
-    const currentDate = new Date();
-    const month = (currentDate.getMonth() + 1).toString();
-    console.log('month', month);
-    const day = currentDate.getDate().toString();
-    console.log('day', day);
-    const year = currentDate.getFullYear().toString();
-    console.log('year', year);
-    const dateString = month + day + year;
-    console.log(dateString);
 
     return (
       <View style={styles.masterContainerStyle}>
