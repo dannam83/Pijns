@@ -6,13 +6,15 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
+import PostOptionsNavigator from './PostOptionsNavigator';
 import LinksScreen from '../screens/LinksScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   PostCreate: PostCreateScreen,
-  PostEdit: PostEditScreen
+  PostEdit: PostEditScreen,
+  // PostOptions: PostOptionsNavigator
 });
 
 HomeStack.navigationOptions = {
