@@ -36,7 +36,8 @@ class PostCreateScreen extends Component {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior="padding"
-        enabled keyboardVerticalOffset={80}
+        keyboardVerticalOffset={80}
+        enabled
       >
         <PostForm {...this.props} />
       </KeyboardAvoidingView>

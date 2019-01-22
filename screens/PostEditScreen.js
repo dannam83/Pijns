@@ -5,16 +5,34 @@ import { StackActions } from 'react-navigation';
 
 import PostForm from '../components/post/PostForm';
 import { postEditUpdate, postEditSave, postDelete } from '../actions';
-import { CardSection, ButtonAsText, Confirm } from '../components/common';
+import { ButtonAsText } from '../components/common';
 
 class PostEdit extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Write a post',
+      headerRight: (
+        <ButtonAsText
+          onPress={navigation.getParam('onSavePress')}
+          editTextStyle={styles.editTextStyle}
+        >Save</ButtonAsText>
+      )
+    };
+  }
+
   state = { showModal: false }
 
-  onButtonPress = async () => {
+  componentDidMount() {
+    this.props.navigation.setParams({
+      onSavePress: this.onSavePress,
+    });
+  }
+
+  onSavePress = () => {
     const { postText, postId } = this.props;
     const popAction = StackActions.pop({ n: 1 });
-    
-    await this.props.postEditSave({ postText, postId });
+
+    this.props.postEditSave({ postText, postId });
     this.props.navigation.dispatch(popAction);
   }
 
@@ -32,36 +50,32 @@ class PostEdit extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={80}
+        enabled
+      >
         <PostForm postEditText={this.props.postText} routeName='postEdit' />
-        <CardSection style={{ justifyContent: 'space-around', borderTopWidth: 1 }}>
-          <ButtonAsText
-            onPress={this.showConfirmModal()}
-          >
-            Delete
-          </ButtonAsText>
-          <ButtonAsText
-            onPress={this.onButtonPress.bind(this)}
-            style={{ borderLeft: 1, borderColor: '#ddd' }}
-          >
-            Save
-          </ButtonAsText>
-        </CardSection>
-        <Confirm
-          visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
-          onDecline={this.onDecline.bind(this)}
-        >
-          Are you sure? Once it's gone, it's gone forever.
-        </Confirm>
       </KeyboardAvoidingView>
     );
   }
 }
 
+const styles = {
+  editTextStyle: {
+    fontWeight: 'bold',
+    color: 'rgba(0,125,255,1)'
+  },
+  disabledTextStyle: {
+    fontWeight: 'bold',
+    color: '#D3D3D3'
+  }
+};
+
 const mapStateToProps = state => {
   const { postId, postText, postType } = state.postEdit;
-  return { postId, postText, postType, navigation: state.navigation };
+  return { postId, postText, postType };
 };
 
 export default connect(mapStateToProps, {

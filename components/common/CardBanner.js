@@ -6,7 +6,6 @@ import { ListActionButton } from './ListActionButton';
 
 const CardBanner = ({
   author, redirect, postEditUpdate, postText, postId }) => {
-  console.log('in banner', postId);
   const { id, name, picture } = author;
   const {
     containerStyle,
