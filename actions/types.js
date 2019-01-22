@@ -14,5 +14,7 @@ export const POST_DELETE = 'POST_DELETE';
 export const POSTS_FETCH_SUCCESS = 'POSTS_FETCH_SUCCESS';
 
 export const FETCH_PIJN_LOG = 'FETCH_PIJN_LOG';
+export const SAVE_NAVIGATION = 'SAVE_NAVIGATION';
+
 export const LIKE_JOB = 'LIKE_JOB';
 export const CLEAR_LIKED_JOBS = 'CLEAR_LIKED_JOBS';

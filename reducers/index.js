@@ -5,6 +5,7 @@ import postEdit from './post_edit_reducer';
 import postCreate from './post_create_reducer';
 import posts from './posts_reducer';
 import pijnLog from './pijn_log_reducer';
+import navigation from './navigation_reducer';
 // import likedJobs from './likes_reducer';
 
 export default combineReducers({
@@ -13,6 +14,7 @@ export default combineReducers({
   postEdit,
   postCreate,
   posts,
-  pijnLog
+  pijnLog,
+  navigation
   // likedJobs
 });

@@ -9,12 +9,12 @@ import {
  } from './types';
 
 export const postCreateUpdate = ({ prop, value }) => {
-  const currentDate = new Date();
-  const month = currentDate.getMonth().toString();
-  const day = currentDate.getDay().toString();
-  const year = currentDate.getYear().toString();
-  const dateString = month + day + year;
-  console.log(dateString);
+  // const currentDate = new Date();
+  // const month = currentDate.getMonth().toString();
+  // const day = currentDate.getDay().toString();
+  // const year = currentDate.getYear().toString();
+  // const dateString = month + day + year;
+  // console.log(dateString);
 
   return {
     type: POST_CREATE_UPDATE,
@@ -51,19 +51,19 @@ export const postEditSave = ({ postText, postId }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}/content`)
-      .set({ postText })
+    firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}`)
+      .update({ content: postText })
       .then(() => {
         dispatch({ type: POST_SAVE_SUCCESS });
       });
   };
 };
 
-export const postDelete = ({ uid }) => {
+export const postDelete = ({ postId }) => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/posts/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}`)
       .remove()
       .then(() => {
         dispatch({ type: POST_DELETE });

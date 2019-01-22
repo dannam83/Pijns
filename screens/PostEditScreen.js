@@ -1,7 +1,7 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { KeyboardAvoidingView } from 'react-native';
+import { StackActions } from 'react-navigation';
 
 import PostForm from '../components/post/PostForm';
 import { postEditUpdate, postEditSave, postDelete } from '../actions';
@@ -10,16 +10,12 @@ import { CardSection, ButtonAsText, Confirm } from '../components/common';
 class PostEdit extends Component {
   state = { showModal: false }
 
-  // componentWillMount() {
-  //   // _.each(this.props.post, (value, prop) => {
-  //   //   console.log(prop, value);
-  //   // });
-  //   console.log(this.props);
-  // }
-
-  onButtonPress() {
+  onButtonPress = async () => {
     const { postText, postId } = this.props;
-    this.props.postEditSave({ postText, postId });
+    const popAction = StackActions.pop({ n: 1 });
+    
+    await this.props.postEditSave({ postText, postId });
+    this.props.navigation.dispatch(popAction);
   }
 
   onAccept() {
@@ -64,9 +60,8 @@ class PostEdit extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   const { postId, postText, postType } = state.postEdit;
-  return { postId, postText, postType };
+  return { postId, postText, postType, navigation: state.navigation };
 };
 
 export default connect(mapStateToProps, {
