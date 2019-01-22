@@ -23,21 +23,23 @@ export const postCreateUpdate = ({ prop, value }) => {
 };
 
 export const postCreateSave = ({ postText, author }) => {
-  const db = firebase.database();
-  const userRef = db.ref(`/users/${author.id}/posts`);
-  const postRef = db.ref('/posts');
-  const key = userRef.push().getKey();
-
   return (dispatch) => {
-    saveToFirebase(userRef, postRef, key, author, postText)
+    saveToFirebase(author, postText)
     .then(() => dispatch({ type: POST_CREATE_SAVE })
     );
   };
 };
 
-const saveToFirebase = async (userRef, postRef, key, author, content) => {
-  await userRef.child(key).set({ author, content, notes: 0 });
-  await postRef.child(key).set({ author, content });
+const saveToFirebase = async (author, content) => {
+  const db = firebase.database();
+  const userRef = db.ref(`/users/${author.id}/posts`);
+  const postRef = db.ref('/posts');
+  const key = userRef.push().getKey();
+  const createdOn = new Date().toString();
+  const timestamp = -Date.now();
+
+  await userRef.child(key).set({ author, content, createdOn, timestamp, notes: 0 });
+  await postRef.child(key).set({ author, content, createdOn, timestamp, notes: 0 });
 };
 
 export const postEditUpdate = ({ prop, value }) => {
