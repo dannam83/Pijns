@@ -30,6 +30,7 @@ class PostCommentsScreen extends Component {
     const {
       keyboardAvoidStyle,
       containerViewStyle,
+      textInputViewStyle,
       inputStyle,
       thumbnailStyle
      } = styles;
@@ -38,20 +39,22 @@ class PostCommentsScreen extends Component {
 
     return (
       <KeyboardAvoidingView style={keyboardAvoidStyle} behavior="padding" enabled>
-        <Image
-          style={thumbnailStyle}
-          source={{ uri: picture }}
-        />
         <View style={containerViewStyle}>
-          <TextInput
-            placeholder="Add a comment..."
-            onChangeText={(value) => this.setState({ newValue: value })}
-            style={[inputStyle, newStyle]}
-            editable
-            multiline
-            value={newValue}
-            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+          <Image
+            style={thumbnailStyle}
+            source={{ uri: picture }}
           />
+          <View style={textInputViewStyle}>
+            <TextInput
+              placeholder="Add a comment..."
+              onChangeText={(value) => this.setState({ newValue: value })}
+              style={[inputStyle, newStyle]}
+              editable
+              multiline
+              value={newValue}
+              onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+            />
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -62,11 +65,15 @@ const styles = {
   keyboardAvoidStyle: {
     display: 'flex',
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     padding: 10,
   },
   containerViewStyle: {
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+  textInputViewStyle: {
+    flex: 1,
     marginBottom: 20,
     paddingTop: 10,
     paddingBottom: 10,
@@ -74,7 +81,7 @@ const styles = {
     paddingRight: 20,
     borderWidth: 1,
     borderRadius: 25,
-    borderColor: '#D3D3D3'
+    borderColor: '#D3D3D3',
   },
   inputStyle: {
     color: '#000',
@@ -82,9 +89,11 @@ const styles = {
     lineHeight: 23,
   },
   thumbnailStyle: {
-    height: 50,
-    width: 50,
-    borderRadius: 25
+    height: 47,
+    width: 47,
+    borderRadius: 25,
+    marginRight: 10,
+    marginBottom: 19
   },
 };
 
