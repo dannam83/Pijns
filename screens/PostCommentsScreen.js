@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, TextInput } from 'react-native';
+import { View, KeyboardAvoidingView, TextInput, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import { Input } from '../components/common';
 import * as actions from '../actions';
 
 class PostCommentsScreen extends Component {
@@ -28,11 +27,21 @@ class PostCommentsScreen extends Component {
 
   render() {
     const { newValue, height } = this.state;
-    const { keyboardAvoidStyle, containerViewStyle, inputStyle } = styles;
+    const {
+      keyboardAvoidStyle,
+      containerViewStyle,
+      inputStyle,
+      thumbnailStyle
+     } = styles;
     let newStyle = { height };
+    const { picture } = this.props.navigation.getParam('user');
 
     return (
       <KeyboardAvoidingView style={keyboardAvoidStyle} behavior="padding" enabled>
+        <Image
+          style={thumbnailStyle}
+          source={{ uri: picture }}
+        />
         <View style={containerViewStyle}>
           <TextInput
             placeholder="Add a comment..."
@@ -53,7 +62,8 @@ const styles = {
   keyboardAvoidStyle: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
     padding: 10,
   },
   containerViewStyle: {
@@ -70,7 +80,12 @@ const styles = {
     color: '#000',
     fontSize: 16,
     lineHeight: 23,
-  }
+  },
+  thumbnailStyle: {
+    height: 50,
+    width: 50,
+    borderRadius: 25
+  },
 };
 
 function mapStateToProps({ auth }) {
