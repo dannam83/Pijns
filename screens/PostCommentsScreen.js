@@ -28,38 +28,48 @@ class PostCommentsScreen extends Component {
 
   render() {
     const { newValue, height } = this.state;
+    const { keyboardAvoidStyle, containerViewStyle, inputStyle } = styles;
     let newStyle = { height };
 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <TextInput
-          placeholder="Your Placeholder"
-          onChangeText={(value) => this.setState({ newValue: value })}
-          style={[newStyle]}
-          editable
-          multiline
-          value={newValue}
-          onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-        />
+      <KeyboardAvoidingView style={keyboardAvoidStyle} behavior="padding" enabled>
+        <View style={containerViewStyle}>
+          <TextInput
+            placeholder="Add a comment..."
+            onChangeText={(value) => this.setState({ newValue: value })}
+            style={[inputStyle, newStyle]}
+            editable
+            multiline
+            value={newValue}
+            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+          />
+        </View>
       </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = {
-  container: {
+  keyboardAvoidStyle: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    padding: 10,
+  },
+  containerViewStyle: {
+    marginBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderWidth: 1,
+    borderRadius: 25,
+    borderColor: '#D3D3D3'
   },
   inputStyle: {
     color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 23,
-    flex: 2,
-    backgroundColor: 'green'
   }
 };
 
