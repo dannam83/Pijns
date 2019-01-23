@@ -77,7 +77,7 @@ export const postsFetch = () => {
   const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/posts`)
+    firebase.database().ref(`/users/${currentUser.uid}/posts`).orderByChild('timestamp')
       .on('value', snapshot => {
         dispatch({ type: POSTS_FETCH_SUCCESS, payload: snapshot.val() }
         );

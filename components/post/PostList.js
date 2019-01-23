@@ -59,11 +59,11 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const posts = _.map(state.posts, (val, uid) => {
+  let posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!state.pijnLog[uid];
 
     return { ...val, postId: uid, sendPijn, pijnSentToday };
-  });
+  }).reverse();
   return { posts, state };
 }
 

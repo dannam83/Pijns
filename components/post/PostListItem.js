@@ -11,7 +11,7 @@ class PostListItem extends Component {
     const {
       author, content, notes, postId, sendPijn, pijnSentToday
     } = this.props.post;
-    const { count } = notes;
+    const count = notes ? notes.count : 0;
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
     );
@@ -41,7 +41,7 @@ class PostListItem extends Component {
                 source={require('../../assets/images/love-note.png')}
                 style={loveNoteIconStyle}
               />
-              <Text>{count} notes</Text>
+              <Text>{count} {count === 1 ? 'note' : 'notes'}</Text>
               </View>
             ) : null
           }
