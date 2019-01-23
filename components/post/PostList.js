@@ -59,12 +59,13 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  const { user } = state;
   let posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!state.pijnLog[uid];
 
-    return { ...val, postId: uid, sendPijn, pijnSentToday };
+    return { ...val, postId: uid, sendPijn, pijnSentToday, user };
   }).reverse();
-  return { posts, state };
+  return { posts };
 }
 
 export default connect(mapStateToProps, { postsFetch })(PostList);

@@ -5,8 +5,11 @@ import ActionSheet from 'react-native-actionsheet';
 import { ListActionButton } from './ListActionButton';
 
 const CardBanner = ({
-  author, redirect, postEditUpdate, postText, postId }) => {
+  userId, author, redirect, postEditUpdate, postText, postId, timestamp, createdOn
+}) => {
   const { id, name, picture } = author;
+  const secondsAgoPosted = Math.floor((Date.now() + timestamp) / 1000);
+  console.log(secondsAgoPosted);
   const {
     containerStyle,
     thumbnailStyle,
@@ -24,6 +27,17 @@ const CardBanner = ({
     await postEditUpdate({ prop: 'postId', value: postId });
   };
 
+  const posted = formatTimeAgo(secondsAgoPosted, createdOn);
+  const options = (uid, authorId) => {
+    if (uid === authorId) {
+      return ['Edit', 'Cancel'];
+    }
+    return ['Cancel'];
+  };
+  const cancelButtonIndex = () => {
+    return options(userId, id).length - 1;
+  };
+
   return (
     <View style={containerStyle}>
       <Image
@@ -32,7 +46,7 @@ const CardBanner = ({
       />
       <View style={headerContentStyle}>
         <Text style={headerAuthorStyle}>{name}</Text>
-        <Text style={headerDetailStyle}>{id}</Text>
+        <Text style={headerDetailStyle}>{posted}</Text>
       </View>
       <View style={ellipsisViewStyle}>
         <ListActionButton
@@ -43,8 +57,8 @@ const CardBanner = ({
         />
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          options={['Edit', 'cancel']}
-          cancelButtonIndex={1}
+          options={options(userId, id)}
+          cancelButtonIndex={cancelButtonIndex()}
           destructiveButtonIndex={-1}
           onPress={(index) => {
             if (index === 0) {
@@ -56,6 +70,25 @@ const CardBanner = ({
     </View>
 
   );
+};
+
+const formatTimeAgo = (secondsAgoPosted, createdOn) => {
+  if (secondsAgoPosted < 60) {
+    return `${secondsAgoPosted} second${secondsAgoPosted === 1 ? '' : 's'} ago`;
+  }
+  const minutesAgoPosted = Math.floor(secondsAgoPosted / 60);
+  if (minutesAgoPosted < 60) {
+    return `${minutesAgoPosted} minute${minutesAgoPosted === 1 ? '' : 's'} ago`;
+  }
+  const hoursAgoPosted = Math.floor(minutesAgoPosted / 60);
+  if (hoursAgoPosted < 24) {
+    return `${hoursAgoPosted} hour${hoursAgoPosted === 1 ? '' : 's'} ago`;
+  }
+  const daysAgoPosted = Math.floor(hoursAgoPosted / 24);
+  if (daysAgoPosted < 30) {
+    return `${daysAgoPosted} day${daysAgoPosted === 1 ? '' : 's'} ago`;
+  }
+  return createdOn;
 };
 
 const styles = {
@@ -76,8 +109,9 @@ const styles = {
     fontWeight: 'bold'
   },
   headerDetailStyle: {
-    fontSize: 12,
-    fontWeight: '100'
+    fontSize: 13,
+    fontWeight: '100',
+    color: 'gray'
   },
   thumbnailStyle: {
     height: 50,

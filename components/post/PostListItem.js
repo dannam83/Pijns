@@ -9,14 +9,16 @@ import { postEditUpdate } from '../../actions';
 class PostListItem extends Component {
   render() {
     const {
-      author, content, notes, postId, sendPijn, pijnSentToday
+      user, author, content, notes, timestamp, createdOn, postId, sendPijn, pijnSentToday
     } = this.props.post;
     const count = notes ? notes.count : 0;
+    const userId = user.uid;
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
     );
     const {
       containerStyle,
+      contentStyle,
       dividerStyle,
       actionsViewStyle,
       loveNoteIconStyle,
@@ -32,8 +34,11 @@ class PostListItem extends Component {
             postEditUpdate={this.props.postEditUpdate}
             postText={content}
             postId={postId}
+            timestamp={timestamp}
+            createdOn={createdOn}
+            userId={userId}
           />
-          <Text>{content}</Text>
+          <Text style={contentStyle}>{content}</Text>
           {
             count > 0 ? (
               <View style={pijnsCountStyle}>
@@ -72,6 +77,9 @@ const styles = {
     marginRight: 0,
     padding: 10,
     backgroundColor: 'white'
+  },
+  contentStyle: {
+    fontSize: 14
   },
   dividerStyle: {
     backgroundColor: '#D3D3D3',
