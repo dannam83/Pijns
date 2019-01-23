@@ -9,8 +9,18 @@ import { postEditUpdate } from '../../actions';
 class PostListItem extends Component {
   render() {
     const {
-      user, author, content, notes, timestamp, createdOn, postId, sendPijn, pijnSentToday
+      user,
+      author,
+      content,
+      notes,
+      timestamp,
+      createdOn,
+      postId,
+      sendPijn,
+      pijnSentToday,
+      navigation
     } = this.props.post;
+
     const count = notes ? notes.count : 0;
     const userId = user.uid;
     const currentDate = new Date(
@@ -60,6 +70,7 @@ class PostListItem extends Component {
             />
             <ListActionButton
               imageSource={require('../../assets/images/comment.png')}
+              onPress={() => navigation.navigate('PostComments')}
             />
             <ListActionButton
               imageSource={require('../../assets/images/message.png')}
