@@ -9,7 +9,6 @@ const CardBanner = ({
 }) => {
   const { id, name, picture } = author;
   const secondsAgoPosted = Math.floor((Date.now() + timestamp) / 1000);
-  console.log(secondsAgoPosted);
   const {
     containerStyle,
     thumbnailStyle,

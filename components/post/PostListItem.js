@@ -70,7 +70,10 @@ class PostListItem extends Component {
             />
             <ListActionButton
               imageSource={require('../../assets/images/comment.png')}
-              onPress={() => navigation.navigate('PostComments', { user })}
+              onPress={
+                () => navigation.navigate('PostComments', {
+                  user, postAuthorId: author.id, postId
+                })}
             />
             <ListActionButton
               imageSource={require('../../assets/images/message.png')}

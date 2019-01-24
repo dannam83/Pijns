@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TextInput, Image } from 'react-native';
-import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import {
+  View, KeyboardAvoidingView, TextInput, Image, TouchableOpacity, Text
+} from 'react-native';
 
 import * as actions from '../actions';
 
 class PostCommentsScreen extends Component {
   static navigationOptions = {
-    title: 'Username',
+    title: 'Comments',
   };
 
   state = {
     newValue: '',
-    height: 40
-  }
-
-  logoutPress = () => {
-    this.props.logout(() => {
-      this.props.navigation.navigate('Auth');
-    });
+    height: 40,
+    user: this.props.navigation.getParam('user'),
+    postAuthorId: this.props.navigation.getParam('postAuthorId'),
+    postId: this.props.navigation.getParam('postId')
   }
 
   updateSize = (height) => {
     this.setState({ height });
+  }
+
+  saveComment = () => {
+    const { user, newValue, postAuthorId, postId } = this.state;
+    this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
   }
 
   render() {
@@ -32,10 +35,12 @@ class PostCommentsScreen extends Component {
       containerViewStyle,
       textInputViewStyle,
       inputStyle,
-      thumbnailStyle
+      thumbnailStyle,
+      buttonStyle,
+      buttonTextStyle
      } = styles;
     let newStyle = { height };
-    const { picture } = this.props.navigation.getParam('user');
+    const { picture } = this.state.user;
 
     return (
       <KeyboardAvoidingView style={keyboardAvoidStyle} behavior="padding" enabled>
@@ -55,6 +60,9 @@ class PostCommentsScreen extends Component {
               onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             />
           </View>
+          <TouchableOpacity style={buttonStyle}>
+            <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );
@@ -92,9 +100,27 @@ const styles = {
     height: 47,
     width: 47,
     borderRadius: 25,
-    marginRight: 10,
+    marginRight: 8,
     marginBottom: 19
   },
+  buttonStyle: {
+    height: 47,
+    width: 47,
+    borderRadius: 25,
+    marginBottom: 19,
+    marginLeft: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(0,125,255,1)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonTextStyle: {
+    color: 'rgba(0,125,255,1)',
+    fontSize: 16,
+    fontWeight: '600'
+  }
+
 };
 
 function mapStateToProps({ auth }) {
