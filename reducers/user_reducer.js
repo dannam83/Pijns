@@ -15,9 +15,9 @@ export default function (state = INITIAL_STATE, action) {
 
   switch (action.type) {
     case USER_LOGIN:
-      return { uid, name, picture, isNew };
+      return isNew ? { uid, name, picture, isNew } : { uid, name, picture };
     case USER_FOUND:
-      return { uid, name, picture, isNew };
+      return isNew ? { uid, name, picture, isNew } : { uid, name, picture };
     default:
       return state;
   }

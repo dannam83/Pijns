@@ -23,11 +23,8 @@ export const commentCreateUpdate = ({ prop, value }) => {
 };
 
 export const commentCreateSave = ({ user, comment, postAuthorId, postId }) => {
-  console.log(user, comment, postAuthorId, postId);
-  return (dispatch) => {
+  return () => {
     saveToFirebase(user, comment, postAuthorId, postId);
-    // .then(() => dispatch({ type: COMMENT_CREATE_SAVE })
-    // );
   };
 };
 
@@ -35,7 +32,6 @@ const saveToFirebase = async (author, comment, postAuthorId, postId) => {
   const db = firebase.database();
   const userRef = db.ref(`/users/${postAuthorId}/posts/${postId}/comments`);
   const postRef = db.ref(`/posts/${postId}/comments`);
-  const key = userRef.push().getKey();
   const createdOn = new Date().toString();
   const timestamp = -Date.now();
 
