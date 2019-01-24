@@ -48,7 +48,12 @@ class PostCommentsScreen extends Component {
     const { picture } = this.state.user;
 
     return (
-      <KeyboardAvoidingView style={keyboardAvoidStyle} behavior="padding" enabled>
+      <KeyboardAvoidingView
+        style={keyboardAvoidStyle}
+        behavior="padding"
+        enabled
+        keyboardVerticalOffset={80}
+      >
         <View style={containerViewStyle}>
           <Image
             style={thumbnailStyle}
