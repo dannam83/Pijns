@@ -25,7 +25,12 @@ class PostCommentsScreen extends Component {
 
   saveComment = () => {
     const { user, newValue, postAuthorId, postId } = this.state;
-    this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
+    try {
+      this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
+      this.props.navigation.goBack();
+    } catch (err) {
+      console.warn(err);
+    }
   }
 
   render() {
