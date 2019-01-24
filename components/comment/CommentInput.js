@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 
-import * as actions from '../../actions';
+import { commentCreateSave } from '../../actions';
 
 class CommentInput extends Component {
   state = {
@@ -17,6 +17,7 @@ class CommentInput extends Component {
   saveComment = () => {
     const { user, postAuthorId, postId, navigation } = this.props;
     const { newValue } = this.state;
+
     try {
       this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
       navigation.goBack();
@@ -35,8 +36,8 @@ class CommentInput extends Component {
       buttonStyle,
       buttonTextStyle
      } = styles;
-    let newStyle = { height };
     const { picture } = this.props.user;
+    const newStyle = { height };
 
     return (
       <View style={containerViewStyle}>
@@ -108,11 +109,6 @@ const styles = {
     fontSize: 16,
     fontWeight: '600'
   }
-
 };
 
-function mapStateToProps({ auth }) {
-  return { token: auth.token };
-}
-
-export default connect(mapStateToProps, actions)(CommentInput);
+export default connect(null, { commentCreateSave })(CommentInput);
