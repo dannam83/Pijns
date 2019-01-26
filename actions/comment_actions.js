@@ -1,9 +1,10 @@
 import firebase from 'firebase';
 import {
   COMMENT_CREATE_UPDATE,
-  COMMENT_CREATE_SAVE,
+  // COMMENT_CREATE_SAVE,
   COMMENT_EDIT_UPDATE,
   COMMENTS_FETCH_SUCCESS,
+  COMMENTS_POPULATE,
   COMMENT_SAVE_SUCCESS,
   COMMENT_DELETE
  } from './types';
@@ -23,8 +24,12 @@ export const commentCreateUpdate = ({ prop, value }) => {
 };
 
 export const commentCreateSave = ({ user, comment, postAuthorId, postId }) => {
-  return () => {
+  return (dispatch) => {
     saveToFirebase(user, comment, postAuthorId, postId);
+    dispatch({
+      type: COMMENT_SAVE_SUCCESS,
+      payload: { author: user, comment }
+    });
   };
 };
 
@@ -74,15 +79,18 @@ export const commentDelete = ({ commentId }) => {
   };
 };
 
-export const commentsFetch = () => {
-  const { currentUser } = firebase.auth();
-
-  return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/comments`).orderByChild('timestamp')
+export const commentsFetch = (postId) => {
+  // const { currentUser } = firebase.auth();
+  console.log('in comments fetch', postId);
+    firebase.database().ref(`/posts/${postId}/comments`)
       .on('value', snapshot => {
-        dispatch({ type: COMMENTS_FETCH_SUCCESS, payload: snapshot.val() }
-        );
-      }
-    );
-  };
+        console.log(snapshot.val());
+      });
+        };
+
+export const commentsPopulate = (comments) => {
+  return ({
+    type: COMMENTS_POPULATE,
+    payload: comments
+  });
 };

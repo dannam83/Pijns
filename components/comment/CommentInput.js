@@ -20,7 +20,8 @@ class CommentInput extends Component {
 
     try {
       this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
-      navigation.goBack();
+      this.setState({ newValue: '' });
+      navigation.navigate('Comments');
     } catch (err) {
       console.warn(err);
     }

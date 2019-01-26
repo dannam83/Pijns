@@ -18,9 +18,10 @@ class PostListItem extends Component {
       postId,
       sendPijn,
       pijnSentToday,
-      navigation
+      navigation,
+      comments
     } = this.props.post;
-
+    const { redirect } = this.props;
     const count = notes ? notes.count : 0;
     const userId = user.uid;
     const currentDate = new Date(
@@ -34,13 +35,18 @@ class PostListItem extends Component {
       loveNoteIconStyle,
       pijnsCountStyle
     } = styles;
+    const goToComments = () => {
+      navigation.navigate('Comments', {
+        user, postAuthorId: author.id, postId, comments, redirect
+      });
+    };
 
     return (
       <View>
         <Card containerStyle={containerStyle}>
           <CardBanner
             author={author}
-            redirect={this.props.redirect}
+            redirect={redirect}
             postEditUpdate={this.props.postEditUpdate}
             postText={content}
             postId={postId}
@@ -70,10 +76,7 @@ class PostListItem extends Component {
             />
             <ListActionButton
               imageSource={require('../../assets/images/comment.png')}
-              onPress={
-                () => navigation.navigate('PostComments', {
-                  user, postAuthorId: author.id, postId
-                })}
+              onPress={goToComments}
             />
             <ListActionButton
               imageSource={require('../../assets/images/message.png')}
