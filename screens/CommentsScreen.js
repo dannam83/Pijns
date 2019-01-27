@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
-import { connect } from 'react-redux';
 
 import CommentInput from '../components/comment/CommentInput';
 import CommentList from '../components/comment/CommentList';
-import { commentsPopulate } from '../actions';
 
 class CommentsScreen extends Component {
   static navigationOptions = {
     title: 'Comments',
   };
 
-  constructor(props) {
-    super(props);
-    props.commentsPopulate(this.props.navigation.getParam('comments'));
-  }
-
   render() {
     const user = this.props.navigation.getParam('user');
     const postAuthorId = this.props.navigation.getParam('postAuthorId');
     const postId = this.props.navigation.getParam('postId');
-    const comments = this.props.navigation.getParam('comments');
     const navigation = this.props.navigation;
 
     return (
@@ -45,7 +37,6 @@ class CommentsScreen extends Component {
     );
   }
 }
-// comments={comments}
 
 const styles = {
   keyboardAvoidStyle: {
@@ -56,4 +47,4 @@ const styles = {
   }
 };
 
-export default connect(null, { commentsPopulate })(CommentsScreen);
+export default (CommentsScreen);

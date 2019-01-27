@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList, Text } from 'react-native';
-// import _ from 'lodash';
 
-import { commentsFetch } from '../../actions';
 // import CommentListItem from '../comment/CommentListItem';
 
 class CommentList extends Component {
-  componentWillMount() {
-    commentsFetch(this.props.postId);
-  }
-
   renderRow = ({ comment }) => {
     return (
       <Text>{comment}</Text>
@@ -61,7 +55,7 @@ const styles = {
 
 function mapStateToProps(state) {
   const { comments } = state;
-  return state;
+  return { comments };
 }
 
-export default connect(mapStateToProps, { commentsFetch })(CommentList);
+export default connect(mapStateToProps)(CommentList);

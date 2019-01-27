@@ -4,7 +4,7 @@ import { View, Text, Image } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 
 import { CardBanner, ListActionButton } from '../common';
-import { postEditUpdate } from '../../actions';
+import { postEditUpdate, commentsPopulate } from '../../actions';
 
 class PostListItem extends Component {
   render() {
@@ -35,9 +35,10 @@ class PostListItem extends Component {
       loveNoteIconStyle,
       pijnsCountStyle
     } = styles;
-    const goToComments = () => {
+    const goToComments = async () => {
+      await this.props.commentsPopulate(comments);
       navigation.navigate('Comments', {
-        user, postAuthorId: author.id, postId, comments, redirect
+        user, postAuthorId: author.id, postId, redirect
       });
     };
 
@@ -123,4 +124,4 @@ const styles = {
   }
 };
 
-export default connect(null, { postEditUpdate })(PostListItem);
+export default connect(null, { postEditUpdate, commentsPopulate })(PostListItem);
