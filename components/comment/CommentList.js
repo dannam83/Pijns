@@ -60,12 +60,8 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log('state', state);
-  // let comments = _.map(state.comments, (val, uid) => {
-  //   return { ...val, commentId: uid };
-  // });
-  // return { comments };
-  return {};
+  const { comments } = state;
+  return state;
 }
 
 export default connect(mapStateToProps, { commentsFetch })(CommentList);

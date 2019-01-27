@@ -31,7 +31,6 @@ class CommentsScreen extends Component {
         keyboardVerticalOffset={80}
       >
         <CommentList
-          comments={comments}
           postAuthorId={postAuthorId}
           postId={postId}
           author={user}
@@ -46,6 +45,7 @@ class CommentsScreen extends Component {
     );
   }
 }
+// comments={comments}
 
 const styles = {
   keyboardAvoidStyle: {
