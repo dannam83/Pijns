@@ -54,7 +54,8 @@ const styles = {
     backgroundColor: '#cef0ff',
   },
   writePostView: {
-    paddingTop: 13
+    paddingTop: 10,
+    paddingBottom: 5
   }
 };
 

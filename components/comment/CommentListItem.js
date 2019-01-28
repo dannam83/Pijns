@@ -1,86 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image } from 'react-native';
-import { Card, Divider } from 'react-native-elements';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { Card } from 'react-native-elements';
 
-import { CardBanner, ListActionButton } from '../common';
 import { postEditUpdate } from '../../actions';
 
-class PostListItem extends Component {
+class CommentListItem extends Component {
   render() {
     const {
-      user,
       author,
-      content,
-      notes,
+      comment,
+      likes,
       timestamp,
       createdOn,
-      postId,
-      sendPijn,
-      pijnSentToday,
       navigation
-    } = this.props.post;
+    } = this.props.comment;
 
-    const count = notes ? notes.count : 0;
-    const userId = user.uid;
-    const currentDate = new Date(
-      new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
-    );
     const {
       containerStyle,
-      contentStyle,
-      dividerStyle,
-      actionsViewStyle,
-      loveNoteIconStyle,
-      pijnsCountStyle
+      mainViewStyle,
+      thumbnailStyle,
+      textViewStyle,
+      nameStyle,
+      commentStyle,
+      buttonTextStyle,
+      buttonStyle
     } = styles;
 
+    const { name, picture } = author;
+
     return (
-      <View>
-        <Card containerStyle={containerStyle}>
-          <CardBanner
-            author={author}
-            redirect={this.props.redirect}
-            postEditUpdate={this.props.postEditUpdate}
-            postText={content}
-            postId={postId}
-            timestamp={timestamp}
-            createdOn={createdOn}
-            userId={userId}
+      <Card containerStyle={containerStyle}>
+        <View style={mainViewStyle}>
+          <Image
+            style={thumbnailStyle}
+            source={{ uri: picture }}
           />
-          <Text style={contentStyle}>{content}</Text>
-          {
-            count > 0 ? (
-              <View style={pijnsCountStyle}>
-              <Image
-                source={require('../../assets/images/love-note.png')}
-                style={loveNoteIconStyle}
-              />
-              <Text>{count} {count === 1 ? 'note' : 'notes'}</Text>
-              </View>
-            ) : null
-          }
-          <Divider style={dividerStyle} />
-          <View style={actionsViewStyle}>
-            <ListActionButton
-              imageSource={require('../../assets/images/pijn.png')}
-              iconStyle={{ height: 24, width: 26 }}
-              onPress={() => sendPijn({ postId, author, currentDate })}
-              disabled={pijnSentToday}
-            />
-            <ListActionButton
-              imageSource={require('../../assets/images/comment.png')}
-              onPress={
-                () => navigation.navigate('PostComments', {
-                  user, postAuthorId: author.id, postId
-                })}
-            />
-            <ListActionButton
-              imageSource={require('../../assets/images/message.png')}
-            />
+          <View style={textViewStyle}>
+            <Text style={nameStyle}>{name}</Text>
+            <Text style={commentStyle}>{comment}</Text>
           </View>
-        </Card>
-      </View>
+          <TouchableOpacity style={buttonStyle}>
+            <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
+          </TouchableOpacity>
+        </View>
+      </Card>
     );
   }
 }
@@ -89,35 +53,55 @@ const styles = {
   containerStyle: {
     marginLeft: 0,
     marginRight: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    borderottomWidth: 1,
     padding: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
-  contentStyle: {
-    fontSize: 14
-  },
-  dividerStyle: {
-    backgroundColor: '#D3D3D3',
-    marginTop: 10,
-    marginBottom: 10
-  },
-  actionsViewStyle: {
-    display: 'flex',
+  mainViewStyle: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 60,
-    paddingRight: 60
+    alignItems: 'flex-start'
   },
-  pijnsCountStyle: {
+  textViewStyle: {
+    flex: 1,
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  nameStyle: {
+    fontSize: 14,
+    fontWeight: '800',
+    marginBottom: 1
+  },
+  commentStyle: {
+    color: '#000',
+    fontSize: 16,
+    lineHeight: 20,
+  },
+  thumbnailStyle: {
+    height: 47,
+    width: 47,
+    borderRadius: 25,
+    marginRight: 8,
+    // marginBottom: 19
+  },
+  buttonStyle: {
+    height: 47,
+    width: 47,
+    borderRadius: 25,
+    // marginBottom: 19,
+    marginLeft: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(0,125,255,1)',
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  loveNoteIconStyle: {
-    width: 23,
-    height: 23,
-    marginRight: 5
+  buttonTextStyle: {
+    color: 'rgba(0,125,255,1)',
+    fontSize: 16,
+    fontWeight: '600'
   }
 };
 
-export default connect(null, { postEditUpdate })(PostListItem);
+export default connect(null, { postEditUpdate })(CommentListItem);

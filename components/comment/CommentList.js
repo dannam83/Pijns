@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList, Text } from 'react-native';
 
-// import CommentListItem from '../comment/CommentListItem';
+import CommentListItem from '../comment/CommentListItem';
 
 class CommentList extends Component {
-  renderRow = ({ comment }) => {
+  renderRow = (comment) => {
     return (
-      <Text>{comment}</Text>
+      <CommentListItem comment={comment} />
     );
   }
   // <CommentListItem comment={comment} redirect={this.props.redirect} />

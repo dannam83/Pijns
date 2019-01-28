@@ -68,7 +68,8 @@ class CommentInput extends Component {
 const styles = {
   containerViewStyle: {
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    paddingTop: 10
   },
   textInputViewStyle: {
     flex: 1,
@@ -90,6 +91,7 @@ const styles = {
     height: 47,
     width: 47,
     borderRadius: 25,
+    marginLeft: 10,
     marginRight: 8,
     marginBottom: 19
   },
@@ -99,6 +101,7 @@ const styles = {
     borderRadius: 25,
     marginBottom: 19,
     marginLeft: 8,
+    marginRight: 10,
     borderWidth: 1,
     borderColor: 'rgba(0,125,255,1)',
     display: 'flex',

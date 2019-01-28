@@ -43,7 +43,8 @@ const styles = {
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-end',
-    padding: 10,
+    // paddingTop: 10,
+    paddingBottom: 10
   }
 };
 

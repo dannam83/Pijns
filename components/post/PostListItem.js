@@ -43,48 +43,46 @@ class PostListItem extends Component {
     };
 
     return (
-      <View>
-        <Card containerStyle={containerStyle}>
-          <CardBanner
-            author={author}
-            redirect={redirect}
-            postEditUpdate={this.props.postEditUpdate}
-            postText={content}
-            postId={postId}
-            timestamp={timestamp}
-            createdOn={createdOn}
-            userId={userId}
+      <Card containerStyle={containerStyle}>
+        <CardBanner
+          author={author}
+          redirect={redirect}
+          postEditUpdate={this.props.postEditUpdate}
+          postText={content}
+          postId={postId}
+          timestamp={timestamp}
+          createdOn={createdOn}
+          userId={userId}
+        />
+        <Text style={contentStyle}>{content}</Text>
+        {
+          count > 0 ? (
+            <View style={pijnsCountStyle}>
+            <Image
+              source={require('../../assets/images/love-note.png')}
+              style={loveNoteIconStyle}
+            />
+            <Text>{count} {count === 1 ? 'note' : 'notes'}</Text>
+            </View>
+          ) : null
+        }
+        <Divider style={dividerStyle} />
+        <View style={actionsViewStyle}>
+          <ListActionButton
+            imageSource={require('../../assets/images/pijn.png')}
+            iconStyle={{ height: 24, width: 26 }}
+            onPress={() => sendPijn({ postId, author, currentDate })}
+            disabled={pijnSentToday}
           />
-          <Text style={contentStyle}>{content}</Text>
-          {
-            count > 0 ? (
-              <View style={pijnsCountStyle}>
-              <Image
-                source={require('../../assets/images/love-note.png')}
-                style={loveNoteIconStyle}
-              />
-              <Text>{count} {count === 1 ? 'note' : 'notes'}</Text>
-              </View>
-            ) : null
-          }
-          <Divider style={dividerStyle} />
-          <View style={actionsViewStyle}>
-            <ListActionButton
-              imageSource={require('../../assets/images/pijn.png')}
-              iconStyle={{ height: 24, width: 26 }}
-              onPress={() => sendPijn({ postId, author, currentDate })}
-              disabled={pijnSentToday}
-            />
-            <ListActionButton
-              imageSource={require('../../assets/images/comment.png')}
-              onPress={goToComments}
-            />
-            <ListActionButton
-              imageSource={require('../../assets/images/message.png')}
-            />
-          </View>
-        </Card>
-      </View>
+          <ListActionButton
+            imageSource={require('../../assets/images/comment.png')}
+            onPress={goToComments}
+          />
+          <ListActionButton
+            imageSource={require('../../assets/images/message.png')}
+          />
+        </View>
+      </Card>
     );
   }
 }
@@ -94,7 +92,9 @@ const styles = {
     marginLeft: 0,
     marginRight: 0,
     padding: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    marginTop: 5,
+    marginBottom: 5,
   },
   contentStyle: {
     fontSize: 14
