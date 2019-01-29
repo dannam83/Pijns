@@ -28,8 +28,7 @@ class CommentListItem extends Component {
   };
 
   alreadyLiked() {
-    const { comment } = this.props;
-    if (comment.likedBy && comment.likedBy[this.props.user.uid]) {
+    if (this.state.alreadyLiked) {
       return true;
     }
 
@@ -61,7 +60,7 @@ class CommentListItem extends Component {
 
     const { likes } = this.state;
     const { name, picture } = author;
-    const iconStyle = this.state.alreadyLiked ? iconLikedStyle : iconNotLikedStyle;
+    const iconStyle = this.alreadyLiked() ? iconLikedStyle : iconNotLikedStyle;
 
     return (
       <View style={containerStyle}>
@@ -81,6 +80,7 @@ class CommentListItem extends Component {
           buttonStyle={buttonStyle}
           iconStyle={iconStyle}
           onPress={this.likeComment}
+          disabled={this.alreadyLiked()}
         />
       </View>
     );
