@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 
-import { ListActionButton } from './ListActionButton';
+import { ActionButton } from './ActionButton';
 
 const CardBanner = ({
   userId, author, redirect, postEditUpdate, postText, postId, timestamp, createdOn
@@ -48,7 +48,7 @@ const CardBanner = ({
         <Text style={headerDetailStyle}>{posted}</Text>
       </View>
       <View style={ellipsisViewStyle}>
-        <ListActionButton
+        <ActionButton
           iconStyle={ellipsisStyle}
           buttonStyle={buttonStyle}
           imageSource={require('../../assets/images/ellipsis.png')}

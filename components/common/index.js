@@ -1,6 +1,6 @@
 export * from './Button';
 export * from './ButtonAsText';
-export * from './ListActionButton';
+export * from './ActionButton';
 // export * from './Card';
 export * from './CardBanner';
 export * from './CardSection';

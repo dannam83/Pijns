@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 
-import { CardBanner, ListActionButton } from '../common';
+import { CardBanner, ActionButton } from '../common';
 import { postEditUpdate, commentsPopulate } from '../../actions';
 
 class PostListItem extends Component {
@@ -68,17 +68,17 @@ class PostListItem extends Component {
         }
         <Divider style={dividerStyle} />
         <View style={actionsViewStyle}>
-          <ListActionButton
+          <ActionButton
             imageSource={require('../../assets/images/pijn.png')}
             iconStyle={{ height: 24, width: 26 }}
             onPress={() => sendPijn({ postId, author, currentDate })}
             disabled={pijnSentToday}
           />
-          <ListActionButton
+          <ActionButton
             imageSource={require('../../assets/images/comment.png')}
             onPress={goToComments}
           />
-          <ListActionButton
+          <ActionButton
             imageSource={require('../../assets/images/message.png')}
           />
         </View>

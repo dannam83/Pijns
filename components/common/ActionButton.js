@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Image, TouchableOpacity } from 'react-native';
 
-const ListActionButton = ({
+const ActionButton = ({
   imageSource, text, onPress, disabled, iconStyle, buttonStyle
 }) => {
   const {
@@ -12,7 +12,7 @@ const ListActionButton = ({
 
   return (
     <TouchableOpacity
-      style={[actionButtonStyle, buttonStyle]} 
+      style={[actionButtonStyle, buttonStyle]}
       onPress={onPress}
       disabled={disabled}
     >
@@ -51,4 +51,4 @@ const styles = {
   }
 };
 
-export { ListActionButton };
+export { ActionButton };

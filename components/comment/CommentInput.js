@@ -69,6 +69,7 @@ const styles = {
   containerViewStyle: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+    justifyContent: 'space-between',
     paddingTop: 10
   },
   textInputViewStyle: {

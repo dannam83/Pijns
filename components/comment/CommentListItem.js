@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { Card } from 'react-native-elements';
 
 import { postEditUpdate } from '../../actions';
+import { ActionButton } from '../../components/common';
 
 class CommentListItem extends Component {
   render() {
@@ -18,60 +18,80 @@ class CommentListItem extends Component {
 
     const {
       containerStyle,
-      mainViewStyle,
       thumbnailStyle,
       textViewStyle,
+      commentHeaderStyle,
       nameStyle,
+      likesStyle,
       commentStyle,
-      buttonTextStyle,
-      buttonStyle
+      buttonStyle,
+      iconNotLikedStyle,
+      iconLikedStyle,
     } = styles;
 
     const { name, picture } = author;
+    const iconStyle = iconLikedStyle;
 
     return (
-      <Card containerStyle={containerStyle}>
-        <View style={mainViewStyle}>
-          <Image
-            style={thumbnailStyle}
-            source={{ uri: picture }}
-          />
-          <View style={textViewStyle}>
+
+      <View style={containerStyle}>
+        <Image
+          style={thumbnailStyle}
+          source={{ uri: picture }}
+        />
+        <View style={textViewStyle}>
+          <View style={commentHeaderStyle}>
             <Text style={nameStyle}>{name}</Text>
-            <Text style={commentStyle}>{comment}</Text>
+            <Text style={likesStyle}>12</Text>
           </View>
-          <TouchableOpacity style={buttonStyle}>
-            <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
-          </TouchableOpacity>
+          <Text style={commentStyle}>{comment}</Text>
         </View>
-      </Card>
+        <ActionButton
+          imageSource={require('../../assets/images/heart.png')}
+          buttonStyle={buttonStyle}
+          iconStyle={iconStyle}
+        />
+      </View>
+
     );
   }
 }
+// onPress={() => sendPijn({ postId, author, currentDate })}
+// disabled={alreadyLiked}
+// <TouchableOpacity style={buttonStyle}>
+// <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
+// </TouchableOpacity>
 
 const styles = {
   containerStyle: {
-    marginLeft: 0,
-    marginRight: 0,
-    marginTop: 0,
-    marginBottom: 0,
-    borderottomWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     padding: 10,
     backgroundColor: 'white',
-  },
-  mainViewStyle: {
-    flexDirection: 'row',
-    alignItems: 'flex-start'
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD'
   },
   textViewStyle: {
     flex: 1,
     paddingLeft: 5,
     paddingRight: 5,
   },
+  commentHeaderStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   nameStyle: {
     fontSize: 14,
-    fontWeight: '800',
+    fontWeight: '700',
     marginBottom: 1
+  },
+  likesStyle: {
+    fontSize: 14,
+    marginBottom: 1,
+    fontStyle: 'italic',
+    color: '#808080'
   },
   commentStyle: {
     color: '#000',
@@ -83,25 +103,31 @@ const styles = {
     width: 47,
     borderRadius: 25,
     marginRight: 8,
-    // marginBottom: 19
   },
   buttonStyle: {
     height: 47,
-    width: 47,
-    borderRadius: 25,
-    // marginBottom: 19,
-    marginLeft: 8,
-    borderWidth: 1,
-    borderColor: 'rgba(0,125,255,1)',
+    width: 22,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-start',
+    // marginLeft: 8,
+    // marginTop: 4
+    // borderRadius: 25,
+    // marginLeft: 8,
+    // borderWidth: 1,
+    // borderColor: 'rgba(0,125,255,1)',
+    // display: 'flex',
   },
-  buttonTextStyle: {
-    color: 'rgba(0,125,255,1)',
-    fontSize: 16,
-    fontWeight: '600'
-  }
+  iconNotLikedStyle: {
+    height: 17,
+    width: 17,
+    tintColor: '#D3D3D3'
+  },
+  iconLikedStyle: {
+    height: 17,
+    width: 17,
+    tintColor: '#FF0000'
+  },
 };
 
 export default connect(null, { postEditUpdate })(CommentListItem);
