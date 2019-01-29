@@ -2,7 +2,6 @@ import firebase from 'firebase';
 import {
   COMMENT_CREATE_SAVE,
   COMMENTS_POPULATE,
-  COMMENT_LIKE,
   // COMMENT_CREATE_UPDATE,
   // COMMENT_EDIT_UPDATE,
   // COMMENT_SAVE_SUCCESS,
@@ -10,23 +9,26 @@ import {
  } from './types';
 
  export const commentCreateSave = ({ user, comment, postAuthorId, postId }) => {
+   const db = firebase.database();
+   const userRef = db.ref(`/users/${postAuthorId}/posts/${postId}/comments`);
+   const key = userRef.push().getKey();
+
    return (dispatch) => {
-     saveToFirebase(user, comment, postAuthorId, postId);
+     saveToFirebase(user, comment, postAuthorId, postId, key);
      dispatch({
        type: COMMENT_CREATE_SAVE,
-       payload: { author: user, comment }
+       payload: { author: user, comment, commentId: key }
      });
    };
  };
 
- export const likeComment = ({ userId, userName, commentId, postAuthorId, postId }) => {
-   return (dispatch) => {
+ export const likeComment = ({
+   userId, userName, commentId, postAuthorId, postId
+ }) => {
+   return () => {
      saveLike({ userId, userName, commentId, postAuthorId, postId });
    };
  };
- // dispatch({
- //   type: COMMENT_LIKE
- // });
 
  export const commentsPopulate = (comments) => {
    return ({
@@ -35,11 +37,10 @@ import {
    });
  };
 
- const saveToFirebase = async (author, comment, postAuthorId, postId) => {
+ const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {
    const db = firebase.database();
    const userRef = db.ref(`/users/${postAuthorId}/posts/${postId}/comments`);
    const postRef = db.ref(`/posts/${postId}/comments`);
-   const key = userRef.push().getKey();
    const createdOn = new Date().toString();
    const timestamp = -Date.now();
 

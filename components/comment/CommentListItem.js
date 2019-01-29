@@ -6,6 +6,10 @@ import { likeComment } from '../../actions';
 import { ActionButton } from '../../components/common';
 
 class CommentListItem extends Component {
+  state = {
+    likes: this.props.comment.likes
+  };
+
   likeComment = () => {
     const { user, activePost, comment } = this.props;
     this.props.likeComment({
@@ -13,15 +17,27 @@ class CommentListItem extends Component {
       userName: user.name,
       commentId: comment.commentId,
       postAuthorId: activePost.author.id,
-      postId: activePost.id
+      postId: activePost.id,
+      likesCount: comment.likes
     });
+
+    this.setState({ likes: this.state.likes + 1 });
+    console.log('likes', this.likes);
   };
+
+  alreadyLiked() {
+    const { comment } = this.props;
+    if (comment.likedBy && comment.likedBy[this.props.user.uid]) {
+      return true;
+    }
+
+    return false;
+  }
 
   render() {
     const {
       author,
       comment,
-      likes,
       timestamp,
       createdOn,
       navigation
@@ -41,8 +57,9 @@ class CommentListItem extends Component {
       iconLikedStyle,
     } = styles;
 
+    const { likes } = this.state;
     const { name, picture } = author;
-    const iconStyle = iconLikedStyle;
+    const iconStyle = this.alreadyLiked() ? iconLikedStyle : iconNotLikedStyle;
 
     return (
       <View style={containerStyle}>
