@@ -7,10 +7,12 @@ import { ActionButton } from '../../components/common';
 
 class CommentListItem extends Component {
   state = {
-    likes: this.props.comment.likes
+    likes: this.props.comment.likes || 0,
+    alreadyLiked: this.props.comment.likedBy && this.props.comment.likedBy[this.props.user.uid]
   };
 
   likeComment = () => {
+    this.setState({ alreadyLiked: true });
     const { user, activePost, comment } = this.props;
     this.props.likeComment({
       userId: user.uid,
@@ -59,7 +61,7 @@ class CommentListItem extends Component {
 
     const { likes } = this.state;
     const { name, picture } = author;
-    const iconStyle = this.alreadyLiked() ? iconLikedStyle : iconNotLikedStyle;
+    const iconStyle = this.state.alreadyLiked ? iconLikedStyle : iconNotLikedStyle;
 
     return (
       <View style={containerStyle}>
