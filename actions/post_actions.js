@@ -5,7 +5,8 @@ import {
   POST_EDIT_UPDATE,
   POSTS_FETCH_SUCCESS,
   POST_SAVE_SUCCESS,
-  POST_DELETE
+  POST_DELETE,
+  POST_SET_ACTIVE
  } from './types';
 
 export const postCreateUpdate = ({ prop, value }) => {
@@ -38,8 +39,12 @@ const saveToFirebase = async (author, content) => {
   const createdOn = new Date().toString();
   const timestamp = -Date.now();
 
-  await userRef.child(key).set({ author, content, createdOn, timestamp, notes: 0 });
-  await postRef.child(key).set({ author, content, createdOn, timestamp, notes: 0 });
+  await userRef.child(key).set({
+    author, content, createdOn, timestamp, notes: 0
+  });
+  await postRef.child(key).set({
+    author, content, createdOn, timestamp, notes: 0
+  });
 };
 
 export const postEditUpdate = ({ prop, value }) => {
@@ -83,5 +88,12 @@ export const postsFetch = () => {
         );
       }
     );
+  };
+};
+
+export const setActivePost = ({ postId, postAuthor }) => {
+  return {
+    type: POST_SET_ACTIVE,
+    payload: { id: postId, author: postAuthor }
   };
 };

@@ -25,7 +25,7 @@ class CommentsScreen extends Component {
         <CommentList
           postAuthorId={postAuthorId}
           postId={postId}
-          author={user}
+          user={user}
         />
         <CommentInput
           user={user}
@@ -43,7 +43,6 @@ const styles = {
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-end',
-    // paddingTop: 10,
     paddingBottom: 10
   }
 };

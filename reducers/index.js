@@ -4,6 +4,7 @@ import user from './user_reducer';
 import postEdit from './post_edit_reducer';
 import postCreate from './post_create_reducer';
 import posts from './posts_reducer';
+import activePost from './active_post_reducer';
 import comments from './comments_reducer';
 import pijnLog from './pijn_log_reducer';
 import navigation from './navigation_reducer';
@@ -12,6 +13,7 @@ import navigation from './navigation_reducer';
 export default combineReducers({
   auth,
   user,
+  activePost,
   postEdit,
   postCreate,
   posts,

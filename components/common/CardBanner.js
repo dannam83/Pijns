@@ -104,11 +104,11 @@ const styles = {
     paddingLeft: 10
   },
   headerAuthorStyle: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold'
   },
   headerDetailStyle: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '100',
     color: 'gray'
   },

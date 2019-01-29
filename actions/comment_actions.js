@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import {
   COMMENT_CREATE_SAVE,
   COMMENTS_POPULATE,
+  COMMENT_LIKE,
   // COMMENT_CREATE_UPDATE,
   // COMMENT_EDIT_UPDATE,
   // COMMENT_SAVE_SUCCESS,
@@ -18,26 +19,72 @@ import {
    };
  };
 
- const saveToFirebase = async (author, comment, postAuthorId, postId) => {
-   const db = firebase.database();
-   const userRef = db.ref(`/users/${postAuthorId}/posts/${postId}/comments`);
-   const postRef = db.ref(`/posts/${postId}/comments`);
-   const createdOn = new Date().toString();
-   const timestamp = -Date.now();
-
-   try {
-     await userRef.push({ author, comment, createdOn, timestamp, likes: 0 });
-     await postRef.push({ author, comment, createdOn, timestamp, likes: 0 });
-   } catch (err) {
-     console.warn(err);
-   }
+ export const likeComment = ({ userId, userName, commentId, postAuthorId, postId }) => {
+   return (dispatch) => {
+     saveLike({ userId, userName, commentId, postAuthorId, postId });
+   };
  };
+ // dispatch({
+ //   type: COMMENT_LIKE
+ // });
 
  export const commentsPopulate = (comments) => {
    return ({
      type: COMMENTS_POPULATE,
      payload: comments
    });
+ };
+
+ const saveToFirebase = async (author, comment, postAuthorId, postId) => {
+   const db = firebase.database();
+   const userRef = db.ref(`/users/${postAuthorId}/posts/${postId}/comments`);
+   const postRef = db.ref(`/posts/${postId}/comments`);
+   const key = userRef.push().getKey();
+   const createdOn = new Date().toString();
+   const timestamp = -Date.now();
+
+   try {
+     await userRef.child(key).set({
+       author, comment, createdOn, timestamp, likes: 0
+     });
+     await postRef.child(key).set({
+       author, comment, createdOn, timestamp, likes: 0
+     });
+   } catch (err) {
+     console.warn(err);
+   }
+ };
+
+ const saveLike = async ({ userId, userName, commentId, postAuthorId, postId }) => {
+   const db = firebase.database();
+   const userRef = db.ref(
+     `/users/${postAuthorId}/posts/${postId}/comments/${commentId}/likedBy/${userId}`
+   );
+   const postRef = db.ref(
+     `/posts/${postId}/comments/${commentId}/likedBy/${userId}`
+   );
+   const createdOn = new Date().toString();
+   const timestamp = -Date.now();
+
+   try {
+     await userRef.update({ name: userName, createdOn, timestamp });
+     await postRef.update({ name: userName, createdOn, timestamp });
+     incrementCommentLikeCount(db, commentId, postAuthorId, postId);
+   } catch (err) {
+     console.warn(err);
+   }
+ };
+
+ const incrementCommentLikeCount = (db, commentId, postAuthorId, postId) => {
+   const postAuthorRef = db.ref(
+     `/users/${postAuthorId}/posts/${postId}/comments/${commentId}/likes`
+   );
+   const postsRef = db.ref(
+     `/posts/${postId}/comments/${commentId}/likes`
+   );
+
+   postAuthorRef.transaction((currentCount) => (currentCount || 0) + 1);
+   postsRef.transaction((currentCount) => (currentCount || 0) + 1);
  };
 
 // export const commentCreateUpdate = ({ prop, value }) => {

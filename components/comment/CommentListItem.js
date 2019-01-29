@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
-import { postEditUpdate } from '../../actions';
+import { likeComment } from '../../actions';
 import { ActionButton } from '../../components/common';
 
 class CommentListItem extends Component {
+  likeComment = () => {
+    const { user, activePost, comment } = this.props;
+    this.props.likeComment({
+      userId: user.uid,
+      userName: user.name,
+      commentId: comment.commentId,
+      postAuthorId: activePost.author.id,
+      postId: activePost.id
+    });
+  };
+
   render() {
     const {
       author,
@@ -15,6 +26,7 @@ class CommentListItem extends Component {
       createdOn,
       navigation
     } = this.props.comment;
+    console.log(this.props);
 
     const {
       containerStyle,
@@ -33,7 +45,6 @@ class CommentListItem extends Component {
     const iconStyle = iconLikedStyle;
 
     return (
-
       <View style={containerStyle}>
         <Image
           style={thumbnailStyle}
@@ -42,7 +53,7 @@ class CommentListItem extends Component {
         <View style={textViewStyle}>
           <View style={commentHeaderStyle}>
             <Text style={nameStyle}>{name}</Text>
-            <Text style={likesStyle}>12</Text>
+            <Text style={likesStyle}>{likes > 0 ? likes : null}</Text>
           </View>
           <Text style={commentStyle}>{comment}</Text>
         </View>
@@ -50,13 +61,12 @@ class CommentListItem extends Component {
           imageSource={require('../../assets/images/heart.png')}
           buttonStyle={buttonStyle}
           iconStyle={iconStyle}
+          onPress={this.likeComment}
         />
       </View>
-
     );
   }
 }
-// onPress={() => sendPijn({ postId, author, currentDate })}
 // disabled={alreadyLiked}
 // <TouchableOpacity style={buttonStyle}>
 // <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
@@ -83,12 +93,10 @@ const styles = {
     justifyContent: 'space-between'
   },
   nameStyle: {
-    fontSize: 14,
     fontWeight: '700',
     marginBottom: 1
   },
   likesStyle: {
-    fontSize: 14,
     marginBottom: 1,
     fontStyle: 'italic',
     color: '#808080'
@@ -110,13 +118,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // marginLeft: 8,
-    // marginTop: 4
-    // borderRadius: 25,
-    // marginLeft: 8,
-    // borderWidth: 1,
-    // borderColor: 'rgba(0,125,255,1)',
-    // display: 'flex',
   },
   iconNotLikedStyle: {
     height: 17,
@@ -130,4 +131,9 @@ const styles = {
   },
 };
 
-export default connect(null, { postEditUpdate })(CommentListItem);
+function mapStateToProps(state) {
+  const { user, activePost } = state;
+  return { user, activePost };
+}
+
+export default connect(mapStateToProps, { likeComment })(CommentListItem);
