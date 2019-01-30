@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import PostList from '../components/post/PostList';
 
-class HomeScreen extends Component {
+class MyPostsScreen extends Component {
   static navigationOptions = {
-    title: 'Pijns',
+    title: 'My Posts',
   };
 
   render() {
@@ -16,4 +16,4 @@ class HomeScreen extends Component {
   }
 }
 
-export default HomeScreen;
+export default MyPostsScreen;

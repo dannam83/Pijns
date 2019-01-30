@@ -1,48 +1,59 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { AntDesign } from '@expo/vector-icons';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import MyPostsScreen from '../screens/MyPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import LinksScreen from '../screens/LinksScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-  PostCreate: PostCreateScreen,
-  PostEdit: PostEditScreen,
-  Comments: CommentsScreen
-});
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? 'ios-home'
-          : 'md-home'
-      }
-    />
-  ),
-};
-
 const LinksStack = createStackNavigator({
   Links: LinksScreen,
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+  tabBarOptions: {
+    showLabel: false,
+    activeTintColor: 'rgba(0,125,255,1)',
+    inactiveTintColor: 'gray'
+  },
+  tabBarIcon: ({ focused, tintColor }) => (
+    <AntDesign
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={'team'}
+      size={25}
+      color={tintColor}
     />
   ),
+};
+
+const MyPostsStack = createStackNavigator({
+  MyPosts: MyPostsScreen,
+  PostCreate: PostCreateScreen,
+  PostEdit: PostEditScreen,
+  Comments: CommentsScreen
+});
+
+MyPostsStack.navigationOptions = {
+  tabBarOptions: {
+    showLabel: false,
+    activeTintColor: 'rgba(0,125,255,1)',
+    inactiveTintColor: 'gray'
+  },
+  tabBarIcon: ({ focused, tintColor }) => {
+    return (
+      <AntDesign
+        focused={focused}
+        name={'user'}
+        size={25}
+        color={tintColor}
+      />
+    );
+  },
 };
 
 const ProfileStack = createStackNavigator({
@@ -50,7 +61,7 @@ const ProfileStack = createStackNavigator({
 });
 
 ProfileStack.navigationOptions = {
-  tabBarLabel: 'Profile',
+  tabBarOptions,
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -59,8 +70,14 @@ ProfileStack.navigationOptions = {
   ),
 };
 
+const tabBarOptions = {
+  showLabel: false,
+  activeTintColor: 'rgba(0,125,255,1)',
+  inactiveTintColor: 'gray'
+};
+
 export default createBottomTabNavigator({
-  HomeStack,
   LinksStack,
+  MyPostsStack,
   ProfileStack,
 });

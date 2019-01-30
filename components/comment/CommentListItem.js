@@ -8,7 +8,9 @@ import { ActionButton } from '../../components/common';
 class CommentListItem extends Component {
   state = {
     likes: this.props.comment.likes || 0,
-    alreadyLiked: this.props.comment.likedBy && this.props.comment.likedBy[this.props.user.uid]
+    alreadyLiked: (
+      this.props.comment.likedBy && this.props.comment.likedBy[this.props.user.uid]
+    )
   };
 
   likeComment = () => {
@@ -39,9 +41,8 @@ class CommentListItem extends Component {
     const {
       author,
       comment,
-      timestamp,
-      createdOn,
-      navigation
+      // timestamp,
+      // createdOn
     } = this.props.comment;
     console.log(this.props);
 
@@ -86,10 +87,6 @@ class CommentListItem extends Component {
     );
   }
 }
-// disabled={alreadyLiked}
-// <TouchableOpacity style={buttonStyle}>
-// <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
-// </TouchableOpacity>
 
 const styles = {
   containerStyle: {

@@ -28,7 +28,7 @@ class PostCreateScreen extends Component {
   onSharePress = () => {
     const { postText, author } = this.props;
     this.props.postCreateSave({ postText, author });
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('MyPosts');
   }
 
   render() {
