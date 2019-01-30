@@ -5,17 +5,17 @@ import { AntDesign } from '@expo/vector-icons';
 
 import TabBarIcon from '../components/TabBarIcon';
 import MyPostsScreen from '../screens/MyPostsScreen';
+import FriendPostsScreen from '../screens/FriendPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import CommentsScreen from '../screens/CommentsScreen';
-import LinksScreen from '../screens/LinksScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FriendPostsStack = createStackNavigator({
+  FriendPosts: FriendPostsScreen,
 });
 
-LinksStack.navigationOptions = {
+FriendPostsStack.navigationOptions = {
   tabBarOptions: {
     showLabel: false,
     activeTintColor: 'rgba(0,125,255,1)',
@@ -77,7 +77,7 @@ const tabBarOptions = {
 };
 
 export default createBottomTabNavigator({
-  LinksStack,
+  FriendPostsStack,
   MyPostsStack,
   ProfileStack,
 });
