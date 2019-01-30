@@ -10,7 +10,7 @@ import { ButtonAsText } from '../components/common';
 class PostEdit extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Write a post',
+      title: 'Edit post',
       headerRight: (
         <ButtonAsText
           onPress={navigation.getParam('onSavePress')}
