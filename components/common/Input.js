@@ -1,12 +1,15 @@
 import React from 'react';
 import { TextInput, View, Text, Image } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+const Input = ({
+  value, onChangeText, placeholder, secureTextEntry, iconName
+}) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
   return (
     <View style={containerStyle}>
-
+      <AntDesign name={iconName} />
       <TextInput
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
@@ -18,7 +21,6 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
     </View>
   );
 };
-// <Text style={labelStyle}>{label}</Text>
 
 const styles = {
   inputStyle: {

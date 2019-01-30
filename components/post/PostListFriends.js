@@ -22,11 +22,11 @@ class PostListFriends extends Component {
     return (
       <View style={styles.writePostView}>
         <Button
-          title="Write a post!"
-          onPress={() => this.props.redirect('PostCreate')}
+          title="Search for friends!"
+          onPress={() => this.props.redirect('SearchFriends')}
           backgroundColor="rgba(0,125,255,1)"
           borderRadius={20}
-          icon={{ name: 'create' }}
+          icon={{ name: 'search' }}
         />
       </View>
     );

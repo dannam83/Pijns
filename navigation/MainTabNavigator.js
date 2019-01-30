@@ -4,8 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import { AntDesign } from '@expo/vector-icons';
 
 // import TabBarIcon from '../components/TabBarIcon';
-import MyPostsScreen from '../screens/MyPostsScreen';
 import FriendPostsScreen from '../screens/FriendPostsScreen';
+import SearchFriendsScreen from '../screens/SearchFriendsScreen';
+import MyPostsScreen from '../screens/MyPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import CommentsScreen from '../screens/CommentsScreen';
@@ -13,6 +14,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
+  SearchFriends: SearchFriendsScreen
 });
 
 FriendPostsStack.navigationOptions = {
