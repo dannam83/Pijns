@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
-import { connect } from 'react-redux';
 
-import * as actions from '../actions';
+import PostListFriends from '../components/post/PostListFriends';
 
 class FriendPostsScreen extends Component {
   static navigationOptions = {
@@ -15,35 +12,13 @@ class FriendPostsScreen extends Component {
     },
   };
 
-  logoutPress = () => {
-    this.props.logout(() => {
-      this.props.navigation.navigate('Auth');
-    });
-  }
-
   render() {
-    return (
-      <View>
-        <Text>FriendPostsScreen</Text>
-        <Text>FriendPostsScreen</Text>
-        <Text>FriendPostsScreen</Text>
-        <Text>FriendPostsScreen</Text>
-        <Text>FriendPostsScreen</Text>
+    const redirect = this.props.navigation.navigate;
 
-        <Button
-          title="Logout"
-          large
-          icon={{ name: 'settings' }}
-          backgroundColor="#F44336"
-          onPress={this.logoutPress}
-        />
-      </View>
+    return (
+      <PostListFriends redirect={redirect} />
     );
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { token: auth.token };
-}
-
-export default connect(mapStateToProps, actions)(FriendPostsScreen);
+export default (FriendPostsScreen);

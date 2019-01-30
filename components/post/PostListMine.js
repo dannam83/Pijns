@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { sendPijn, postsFetch } from '../../actions';
 import PostListItem from './PostListItem';
 
-class PostList extends Component {
+class PostListMine extends Component {
   componentWillMount() {
     this.props.postsFetch();
   }
@@ -74,4 +74,4 @@ function mapStateToProps(state) {
   return { posts };
 }
 
-export default connect(mapStateToProps, { postsFetch })(PostList);
+export default connect(mapStateToProps, { postsFetch })(PostListMine);

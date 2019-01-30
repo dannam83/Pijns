@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import PostList from '../components/post/PostList';
+import PostListMine from '../components/post/PostListMine';
 
 class MyPostsScreen extends Component {
   static navigationOptions = {
@@ -11,7 +11,7 @@ class MyPostsScreen extends Component {
     const redirect = this.props.navigation.navigate;
 
     return (
-      <PostList redirect={redirect} />
+      <PostListMine redirect={redirect} />
     );
   }
 }

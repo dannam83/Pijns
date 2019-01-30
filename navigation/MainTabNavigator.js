@@ -1,9 +1,9 @@
 import React from 'react';
-import { Platform } from 'react-native';
+// import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { AntDesign } from '@expo/vector-icons';
 
-import TabBarIcon from '../components/TabBarIcon';
+// import TabBarIcon from '../components/TabBarIcon';
 import MyPostsScreen from '../screens/MyPostsScreen';
 import FriendPostsScreen from '../screens/FriendPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
@@ -61,19 +61,21 @@ const ProfileStack = createStackNavigator({
 });
 
 ProfileStack.navigationOptions = {
-  tabBarOptions,
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
-
-const tabBarOptions = {
-  showLabel: false,
-  activeTintColor: 'rgba(0,125,255,1)',
-  inactiveTintColor: 'gray'
+  tabBarOptions: {
+    showLabel: false,
+    activeTintColor: 'rgba(0,125,255,1)',
+    inactiveTintColor: 'gray'
+  },
+  tabBarIcon: ({ focused, tintColor }) => {
+    return (
+      <AntDesign
+        focused={focused}
+        name={'profile'}
+        size={25}
+        color={tintColor}
+      />
+    );
+  },
 };
 
 export default createBottomTabNavigator({
