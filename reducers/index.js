@@ -7,6 +7,7 @@ import posts from './posts_reducer';
 import activePost from './active_post_reducer';
 import comments from './comments_reducer';
 import pijnLog from './pijn_log_reducer';
+import searchResults from './search_reducer';
 import navigation from './navigation_reducer';
 // import likedJobs from './likes_reducer';
 
@@ -19,6 +20,7 @@ export default combineReducers({
   posts,
   comments,
   pijnLog,
-  navigation
+  navigation,
+  searchResults
   // likedJobs
 });

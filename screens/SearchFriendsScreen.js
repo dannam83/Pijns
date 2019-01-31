@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Input } from '../components/common';
+import { searchUpdate } from '../actions';
 
 class SearchFriendsScreen extends Component {
   static navigationOptions = {
     title: 'Search for friends',
   };
+
+  onChangeText = (value) => {
+    console.log('props', this.props);
+    this.props.searchUpdate({ value });
+  }
 
   renderHeader = () => {
     const { containerStyle } = styles;
@@ -16,6 +23,7 @@ class SearchFriendsScreen extends Component {
         iconName='search1'
         placeholder={'Search'}
         containerRestyle={containerStyle}
+        onChangeText={value => this.onChangeText(value)}
       />
     );
   }
@@ -48,4 +56,8 @@ const styles = {
   }
 };
 
-export default (SearchFriendsScreen);
+function mapStateToProps(state) {
+  return state;
+}
+
+export default connect(mapStateToProps, { searchUpdate })(SearchFriendsScreen);
