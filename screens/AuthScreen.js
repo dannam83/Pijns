@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements';
 
 import * as actions from '../actions';
 import { Spinner } from '../components/common';
+import { backgroundBlue } from '../assets/colors';
 
 class AuthScreen extends Component {
   state = { isProcessing: false }
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    backgroundColor: '#03A9F4'
+    backgroundColor: backgroundBlue
   },
   logoTextStyle: {
     fontFamily: 'coiny',

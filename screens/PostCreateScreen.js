@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { postCreateSave } from '../actions';
 import { ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
+import { disabledGray, headerButtonBlue } from '../assets/colors';
 
 class PostCreateScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -48,11 +49,11 @@ class PostCreateScreen extends Component {
 const styles = {
   editTextStyle: {
     fontWeight: 'bold',
-    color: 'rgba(0,125,255,1)'
+    color: headerButtonBlue
   },
   disabledTextStyle: {
     fontWeight: 'bold',
-    color: '#D3D3D3'
+    color: disabledGray
   }
 };
 

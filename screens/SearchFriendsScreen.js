@@ -12,7 +12,6 @@ class SearchFriendsScreen extends Component {
   };
 
   onChangeText = (value) => {
-    console.log('props', this.props);
     this.props.searchUpdate({ value });
   }
 
@@ -32,8 +31,7 @@ class SearchFriendsScreen extends Component {
   }
 
   render() {
-    // const { posts } = this.props;
-
+    console.log('props', this.props);
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
