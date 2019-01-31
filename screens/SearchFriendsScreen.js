@@ -36,10 +36,10 @@ class SearchFriendsScreen extends Component {
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
-          data={[{ one: 'hi', two: 1 }, { one: 'hello', two: 2 }]}
-          renderItem={({ item }) => <Text>{item.one}</Text>}
+          data={this.props.searchResults}
+          renderItem={({ item }) => <Text>{item.searchName}</Text>}
           ListHeaderComponent={this.renderHeader}
-          keyExtractor={({ item }, two) => two.toString()}
+          keyExtractor={({ item }, userId) => userId.toString()}
         />
       </View>
     );
