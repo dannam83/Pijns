@@ -15,9 +15,9 @@ export const doFbLogin = async dispatch => {
     await firebaseFbLogin(token);
 
     let { data } = await fetchFbProfileData(token);
-    await setUserSliceOfState(dispatch);
-    const { uid, photoURL } = firebase.auth().currentUser;
-    await saveUserProfile(data, photoURL, uid);
+    await setUserSliceOfState(data, dispatch);
+    // const { uid, photoURL } = firebase.auth().currentUser;
+    // await saveUserProfile(data, photoURL, uid);
     await AsyncStorage.setItem('auth_token', token);
     dispatch({ type: LOGIN_SUCCESS, payload: token });
   } catch (err) {
@@ -43,22 +43,42 @@ const firebaseFbLogin = async (token) => {
     await firebase.auth().signInAndRetrieveDataWithCredential(credential);
 };
 
-const setUserSliceOfState = async (dispatch) => {
+const setUserSliceOfState = async (data, dispatch) => {
   let ref = await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
   let { uid, displayName, photoURL } = firebase.auth().currentUser;
   await ref.once('value', snapshot => {
+      const isNew = !snapshot.val();
+      if (isNew) {
+        saveUserProfile(data, photoURL, uid);
+      } else {
+        updateUserProfile(data, photoURL, uid);
+      }
       dispatch({
         type: USER_LOGIN,
         uid,
         name: displayName,
         picture: photoURL,
-        isNew: !snapshot.val() });
+        isNew
+      });
   });
 };
 
 const saveUserProfile = async (data, picture, uid) => {
   const { name, birthday, email, gender } = data;
   await firebase.database().ref(`/users/${uid}/profile`)
-    .set({ name, birthday, email, gender, picture }
+    .set({ name, displayName: name, birthday, email, gender, picture }
+  );
+  await firebase.database().ref(`/userSearch/${uid}/`)
+    .set({ name, searchName: name.toLowerCase(), picture }
+  );
+};
+
+const updateUserProfile = async (data, picture, uid) => {
+  const { name, birthday, email, gender } = data;
+  await firebase.database().ref(`/users/${uid}/profile`)
+    .update({ name, birthday, email, gender, picture }
+  );
+  await firebase.database().ref(`/userSearch/${uid}/`)
+    .update({ name, picture }
   );
 };
