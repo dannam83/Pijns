@@ -24,6 +24,7 @@ class SearchFriendsScreen extends Component {
         placeholder={'Search'}
         containerRestyle={containerStyle}
         onChangeText={value => this.onChangeText(value)}
+        autoCapitalize={'none'}
       />
     );
   }

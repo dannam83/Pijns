@@ -4,8 +4,8 @@ import { SEARCH_UPDATE } from './types';
 
 export const searchUpdate = ({ value }) => {
   return (dispatch) => {
-    firebase.database().ref('/users')
-      .orderByChild('profile/name')
+    firebase.database().ref('/userSearch')
+      .orderByChild('searchName')
       .startAt(value)
       .endAt(`${value}\uf8ff`)
       .limitToFirst(50)

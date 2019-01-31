@@ -7,6 +7,7 @@ const Input = ({
   onChangeText,
   placeholder,
   secureTextEntry,
+  autoCapitalize,
   iconName,
   containerRestyle,
   inputRestyle
@@ -23,6 +24,7 @@ const Input = ({
         style={[inputStyle, inputRestyle]}
         value={value}
         onChangeText={onChangeText}
+        autoCapitalize={autoCapitalize}
       />
     </View>
   );
