@@ -3,7 +3,7 @@ import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { Input } from '../components/common';
+import { Input, ListItemAsButton } from '../components/common';
 import { searchUpdate } from '../actions';
 
 class SearchFriendsScreen extends Component {
@@ -30,13 +30,19 @@ class SearchFriendsScreen extends Component {
     );
   }
 
+  renderRow = (item) => {
+    return (
+      <Text>{item.searchName}</Text>
+    );
+  }
+
   render() {
     console.log('props', this.props);
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
           data={this.props.searchResults}
-          renderItem={({ item }) => <Text>{item.searchName}</Text>}
+          renderItem={({ item }) => this.renderRow(item)}
           ListHeaderComponent={this.renderHeader}
           keyExtractor={({ item }, userId) => userId.toString()}
         />
