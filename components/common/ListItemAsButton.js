@@ -32,7 +32,8 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 10
   },
   imageStyle: {
     height: 47,
@@ -40,7 +41,7 @@ const styles = {
     borderRadius: 25
   },
   textStyle: {
-    paddingLeft: 5,
+    paddingLeft: 8,
     fontSize: 16
   }
 };

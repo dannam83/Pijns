@@ -26,6 +26,7 @@ class SearchFriendsScreen extends Component {
         inputRestyle={inputRestyle}
         onChangeText={value => this.onChangeText(value)}
         autoCapitalize={'none'}
+        autoFocus
       />
     );
   }

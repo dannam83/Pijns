@@ -10,7 +10,8 @@ const Input = ({
   autoCapitalize,
   iconName,
   containerRestyle,
-  inputRestyle
+  inputRestyle,
+  autoFocus
 }) => {
   const { inputStyle, containerStyle, iconStyle } = styles;
 
@@ -25,6 +26,7 @@ const Input = ({
         value={value}
         onChangeText={onChangeText}
         autoCapitalize={autoCapitalize}
+        autoFocus={autoFocus}
       />
     </View>
   );
