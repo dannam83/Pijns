@@ -32,7 +32,10 @@ class SearchFriendsScreen extends Component {
 
   renderRow = (item) => {
     return (
-      <Text>{item.searchName}</Text>
+      <ListItemAsButton
+        text={item.searchName}
+        imageSource={item.picture}
+      />
     );
   }
 

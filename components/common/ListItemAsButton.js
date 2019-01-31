@@ -1,53 +1,47 @@
 import React from 'react';
-import { Text, Image, TouchableOpacity } from 'react-native';
+import { Text, Image, TouchableOpacity, View } from 'react-native';
 
 const ListItemAsButton = ({
-  imageSource, text, onPress, disabled, iconStyle, buttonStyle
+  imageSource, text, onPress, disabled, imageRestyle, viewRestyle
 }) => {
   const {
-    actionButtonStyle, actionIconStyle, disabledIconStyle, actionTextStyle
+    viewStyle, textStyle, imageStyle
   } = styles;
-
-  const iconDefaultStyle = disabled ? disabledIconStyle : actionIconStyle;
 
   return (
     <TouchableOpacity
-      style={[actionButtonStyle, buttonStyle]}
+      // style={[buttonStyle, buttonRestyle]}
       onPress={onPress}
       disabled={disabled}
     >
-      <Image
-        source={imageSource}
-        style={[iconDefaultStyle, iconStyle]}
-      />
-      <Text style={actionTextStyle}>
-        {text}
-      </Text>
+      <View style={[viewStyle, viewRestyle]}>
+        <Image
+          source={{ uri: imageSource }}
+          style={[imageStyle, imageRestyle]}
+        />
+        <Text style={textStyle}>
+          {text}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = {
-  actionButtonStyle: {
+  viewStyle: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
   },
-  actionIconStyle: {
-    height: 25,
-    width: 25,
+  imageStyle: {
+    height: 47,
+    width: 47,
+    borderRadius: 25
   },
-  disabledIconStyle: {
-    height: 25,
-    width: 25,
-    tintColor: '#D3D3D3'
-  },
-  actionTextStyle: {
-    // display: 'flex',
-    // alignSelf: 'center',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignContent: 'center'
+  textStyle: {
+    paddingLeft: 5,
+    fontSize: 16
   }
 };
 
