@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import { Input } from '../components/common';
 import { searchUpdate } from '../actions';
@@ -58,7 +59,10 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  return state;
+  let searchResults = _.map(state.searchResults, (val, userId) => {
+    return { ...val, userId };
+  });
+  return { searchResults };
 }
 
 export default connect(mapStateToProps, { searchUpdate })(SearchFriendsScreen);
