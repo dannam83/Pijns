@@ -1,20 +1,26 @@
 import React from 'react';
-import { TextInput, View, Text, Image } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const Input = ({
-  value, onChangeText, placeholder, secureTextEntry, iconName
+  value,
+  onChangeText,
+  placeholder,
+  secureTextEntry,
+  iconName,
+  containerRestyle,
+  inputRestyle
 }) => {
-  const { inputStyle, labelStyle, containerStyle } = styles;
+  const { inputStyle, containerStyle, iconStyle } = styles;
 
   return (
-    <View style={containerStyle}>
-      <AntDesign name={iconName} />
+    <View style={[containerStyle, containerRestyle]}>
+      <AntDesign name={iconName} size={18} style={iconStyle} />
       <TextInput
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         autoCorrect={false}
-        style={inputStyle}
+        style={[inputStyle, inputRestyle]}
         value={value}
         onChangeText={onChangeText}
       />
@@ -23,26 +29,22 @@ const Input = ({
 };
 
 const styles = {
-  inputStyle: {
-    color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
-    lineHeight: 23,
-    flex: 2,
-    backgroundColor: 'yellow'
-  },
-  labelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
-    flex: 1
-  },
   containerStyle: {
-    height: 40,
-    flex: 1,
     flexDirection: 'row',
+    flex: 1,
+    height: 40,
     alignItems: 'center',
-    border: 2
+    marginBottom: 10
+  },
+  inputStyle: {
+    flex: 1,
+    paddingRight: 5,
+    paddingLeft: 10,
+    fontSize: 16,
+    lineHeight: 23,
+  },
+  iconStyle: {
+    paddingLeft: 15,
   }
 };
 

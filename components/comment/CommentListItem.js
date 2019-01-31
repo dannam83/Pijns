@@ -26,7 +26,6 @@ class CommentListItem extends Component {
     });
 
     this.setState({ likes: this.state.likes + 1 });
-    console.log('likes', this.likes);
   };
 
   alreadyLiked() {
@@ -44,7 +43,6 @@ class CommentListItem extends Component {
       // timestamp,
       // createdOn
     } = this.props.comment;
-    console.log(this.props);
 
     const {
       containerStyle,

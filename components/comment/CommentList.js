@@ -13,7 +13,6 @@ class CommentList extends Component {
 
   render() {
     const { comments } = this.props;
-    console.log('comments', this.props);
 
     return (
       <View style={styles.masterContainerStyle}>
@@ -38,7 +37,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log('state', state);
   const { comments } = state;
   return { comments };
 }

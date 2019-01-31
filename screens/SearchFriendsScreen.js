@@ -9,10 +9,13 @@ class SearchFriendsScreen extends Component {
   };
 
   renderHeader = () => {
+    const { containerStyle } = styles;
+
     return (
       <Input
         iconName='search1'
         placeholder={'Search'}
+        containerRestyle={containerStyle}
       />
     );
   }
@@ -37,7 +40,12 @@ const styles = {
   masterContainerStyle: {
     flex: 1,
     backgroundColor: '#cef0ff',
+    padding: 10
   },
+  containerStyle: {
+    backgroundColor: '#fff',
+    borderRadius: 25
+  }
 };
 
 export default (SearchFriendsScreen);
