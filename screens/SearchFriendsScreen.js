@@ -17,13 +17,14 @@ class SearchFriendsScreen extends Component {
   }
 
   renderHeader = () => {
-    const { containerStyle } = styles;
+    const { containerStyle, inputRestyle } = styles;
 
     return (
       <Input
         iconName='search1'
         placeholder={'Search'}
         containerRestyle={containerStyle}
+        inputRestyle={inputRestyle}
         onChangeText={value => this.onChangeText(value)}
         autoCapitalize={'none'}
       />
@@ -49,13 +50,12 @@ class SearchFriendsScreen extends Component {
 const styles = {
   masterContainerStyle: {
     flex: 1,
-    backgroundColor: '#cef0ff',
     padding: 10
   },
   containerStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: '#EAEAEA',
     borderRadius: 25
-  }
+  },
 };
 
 function mapStateToProps(state) {

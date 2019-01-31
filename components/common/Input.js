@@ -39,7 +39,7 @@ const styles = {
     marginBottom: 10
   },
   inputStyle: {
-    flex: 1,
+    flex: 0.9,
     paddingRight: 5,
     paddingLeft: 10,
     fontSize: 16,
