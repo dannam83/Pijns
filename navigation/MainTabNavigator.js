@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 // import TabBarIcon from '../components/TabBarIcon';
 import FriendPostsScreen from '../screens/FriendPostsScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
+import PublicProfileScreen from '../screens/PublicProfileScreen';
 import MyPostsScreen from '../screens/MyPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
@@ -14,7 +15,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
-  SearchFriends: SearchFriendsScreen
+  SearchFriends: SearchFriendsScreen,
+  PublicProfile: PublicProfileScreen,
 });
 
 FriendPostsStack.navigationOptions = {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -36,9 +36,18 @@ class SearchFriendsScreen extends Component {
       <ListItemAsButton
         text={item.searchName}
         imageSource={item.picture}
+        onPress={this.goToPublicProfile}
       />
     );
   }
+
+  // await this.props.commentsPopulate(comments);
+  // await this.props.setActivePost({ postId, postAuthor: author });
+  goToPublicProfile = async () => {
+    this.props.navigation.navigate('PublicProfile', {
+    });
+  };
+  // user, postAuthorId: author.id, postId, redirect
 
   render() {
     console.log('props', this.props);
