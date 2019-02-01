@@ -15,6 +15,10 @@ class SearchFriendsScreen extends Component {
     this.props.searchUpdate({ value });
   }
 
+  goToPublicProfile = async (user) => {
+    this.props.navigation.navigate('PublicProfile', { user });
+  };
+
   renderHeader = () => {
     const { containerStyle, inputRestyle } = styles;
 
@@ -36,21 +40,12 @@ class SearchFriendsScreen extends Component {
       <ListItemAsButton
         text={item.searchName}
         imageSource={item.picture}
-        onPress={this.goToPublicProfile}
+        onPress={() => this.goToPublicProfile(item)}
       />
     );
   }
 
-  // await this.props.commentsPopulate(comments);
-  // await this.props.setActivePost({ postId, postAuthor: author });
-  goToPublicProfile = async () => {
-    this.props.navigation.navigate('PublicProfile', {
-    });
-  };
-  // user, postAuthorId: author.id, postId, redirect
-
   render() {
-    console.log('props', this.props);
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
