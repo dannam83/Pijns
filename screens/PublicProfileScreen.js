@@ -16,7 +16,7 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    const user = this.props.navigation.getParam('user');
+    const user = this.props.navigation.getParam('profileUser');
     const { name, picture, userId } = user;
     const { containerStyle, imageStyle, nameStyle, buttonsViewStyle } = styles;
 
@@ -58,7 +58,10 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log('state', state);
   return ({ currentUser: state.user });
 }
 
-export default connect(mapStateToProps, { friendRequest })(PublicProfileScreen);
+export default connect(mapStateToProps, {
+  friendRequest
+})(PublicProfileScreen);

@@ -1,16 +1,28 @@
 import firebase from 'firebase';
 
-import { FRIEND_REQUEST } from './types';
+import { FRIEND_STATUS } from './types';
 
 export const friendRequest = ({ profileUserId, currentUserId }) => {
-  console.log('profileUser', profileUserId);
-  console.log('currentUser', currentUserId);
   return (dispatch) => {
     processRequest({ profileUserId, currentUserId });
     dispatch({
-      type: FRIEND_REQUEST,
+      type: FRIEND_STATUS,
       payload: 'requestSent'
     });
+  };
+};
+
+export const friendStatus = ({ profileUserId, currentUserId }) => {
+  return (dispatch) => {
+    const db = firebase.database();
+    db.ref(`/friends/${currentUserId}/${profileUserId}`)
+      .once('value', snapshot => {
+        dispatch({
+          type: FRIEND_STATUS,
+          payload: snapshot.val()
+        });
+      }
+    );
   };
 };
 

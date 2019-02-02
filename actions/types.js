@@ -27,7 +27,7 @@ export const SAVE_NAVIGATION = 'SAVE_NAVIGATION';
 
 export const SEARCH_UPDATE = 'SEARCH_UPDATE';
 
-export const FRIEND_REQUEST = 'FRIEND_REQUEST';
+export const FRIEND_STATUS = 'FRIEND_STATUS';
 
 export const LIKE_JOB = 'LIKE_JOB';
 export const CLEAR_LIKED_JOBS = 'CLEAR_LIKED_JOBS';
