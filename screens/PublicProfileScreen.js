@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
+import { friendRequest } from '../actions';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
+
+  onFriendPress = (profileUserId) => {
+    const currentUserId = this.props.currentUser.uid;
+    this.props.friendRequest({ profileUserId, currentUserId });
+  }
 
   render() {
     const user = this.props.navigation.getParam('user');
@@ -18,7 +25,7 @@ class PublicProfileScreen extends Component {
         <Image source={{ uri: `${picture}?type=large` }} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
         <View style={buttonsViewStyle}>
-          <Button>Follow</Button>
+          <Button onPress={() => this.onFriendPress(userId)}>Add Friend</Button>
           <Button>Message</Button>
         </View>
       </View>
@@ -50,4 +57,8 @@ const styles = {
   }
 };
 
-export default (PublicProfileScreen);
+function mapStateToProps(state) {
+  return ({ currentUser: state.user });
+}
+
+export default connect(mapStateToProps, { friendRequest })(PublicProfileScreen);
