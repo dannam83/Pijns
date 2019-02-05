@@ -3,20 +3,17 @@ import firebase from 'firebase';
 import { FRIEND_STATUS } from './types';
 
 export const friendRequest = ({ profileUserId, currentUserId }) => {
-  return (dispatch) => {
+  return () => {
     processRequest({ profileUserId, currentUserId });
-    dispatch({
-      type: FRIEND_STATUS,
-      payload: 'Request Sent'
-    });
   };
 };
+
 
 export const friendStatus = ({ profileUserId, currentUserId }) => {
   return (dispatch) => {
     const db = firebase.database();
     db.ref(`/friends/${currentUserId}/${profileUserId}`)
-      .once('value', snapshot => {
+      .on('value', snapshot => {
         dispatch({
           type: FRIEND_STATUS,
           payload: snapshot.val()
@@ -29,7 +26,7 @@ export const friendStatus = ({ profileUserId, currentUserId }) => {
 const processRequest = async ({ profileUserId, currentUserId }) => {
   const db = firebase.database();
 
-  await db.ref(`/friends/${currentUserId}/${profileUserId}`).set('Request Sent');
+  await db.ref(`/friends/${currentUserId}/${profileUserId}`).set('Requested');
   await db.ref(`/friends/${profileUserId}/${currentUserId}`).set('See Requests');
   await db.ref(`/requests/${profileUserId}/${currentUserId}`).set(Date.now());
 

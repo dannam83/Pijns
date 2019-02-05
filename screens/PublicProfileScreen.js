@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
 import { friendRequest } from '../actions';
+import { disabledGray } from '../assets/colors';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
@@ -15,17 +16,50 @@ class PublicProfileScreen extends Component {
     this.props.friendRequest({ profileUserId, currentUserId });
   }
 
+  buttonStyle(status) {
+    const { buttonDisabled } = styles;
+
+    if (status === 'Requested') {
+      return buttonDisabled;
+    }
+  }
+
+  buttonTextStyle(status) {
+    const { buttonTextDisabled } = styles;
+
+    if (status === 'Requested') {
+      return buttonTextDisabled;
+    }
+  }
+
+  disableButton(status) {
+    if (status === 'Requested') {
+      return true;
+    }
+  }
+
   render() {
+    console.log(this.props);
     const user = this.props.navigation.getParam('profileUser');
     const { name, picture, userId } = user;
-    const { containerStyle, imageStyle, nameStyle, buttonsViewStyle } = styles;
+    const {
+      containerStyle, imageStyle, nameStyle, buttonsViewStyle
+    } = styles;
+    const { status } = this.props.friend;
 
     return (
       <View style={containerStyle}>
         <Image source={{ uri: `${picture}?type=large` }} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
         <View style={buttonsViewStyle}>
-          <Button onPress={() => this.onFriendPress(userId)}>Add Friend</Button>
+          <Button
+            onPress={() => this.onFriendPress(userId)}
+            buttonRestyle={this.buttonStyle(status)}
+            textRestyle={this.buttonTextStyle(status)}
+            disabled={this.disableButton(status)}
+          >
+            { !status ? 'Add Friend' : status }
+          </Button>
           <Button>Message</Button>
         </View>
       </View>
@@ -54,7 +88,13 @@ const styles = {
   buttonsViewStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
-  }
+  },
+  buttonDisabled: {
+    borderColor: disabledGray
+  },
+  buttonTextDisabled: {
+    color: disabledGray
+  },
 };
 
 function mapStateToProps(state) {

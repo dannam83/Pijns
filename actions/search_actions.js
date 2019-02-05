@@ -10,7 +10,6 @@ export const searchUpdate = ({ value }) => {
       .endAt(`${value}\uf8ff`)
       .limitToFirst(50)
       .once('value', snapshot => {
-        console.log(snapshot.val());
         dispatch({ type: SEARCH_UPDATE, payload: snapshot.val() });
       }
     );
