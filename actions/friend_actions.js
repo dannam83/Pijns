@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 import { FRIEND_STATUS } from './types';
 
-export const friendRequest = ({ profileUserId, currentUserId }) => {
+export const friendRequest = async ({ profileUserId, currentUserId }) => {
   return () => {
     processRequest({ profileUserId, currentUserId });
   };
@@ -13,13 +13,12 @@ export const friendStatus = ({ profileUserId, currentUserId }) => {
   return (dispatch) => {
     const db = firebase.database();
     db.ref(`/friends/${currentUserId}/${profileUserId}`)
-      .on('value', snapshot => {
-        dispatch({
-          type: FRIEND_STATUS,
-          payload: snapshot.val()
-        });
-      }
-    );
+    .on('value', snapshot => {
+      dispatch({
+        type: FRIEND_STATUS,
+        payload: snapshot.val()
+      });
+    });
   };
 };
 

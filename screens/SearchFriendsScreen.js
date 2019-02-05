@@ -15,12 +15,14 @@ class SearchFriendsScreen extends Component {
     this.props.searchUpdate({ value });
   }
 
-  goToPublicProfile = (profileUser) => {
+  goToPublicProfile = async (profileUser) => {
     const currentUserId = this.props.currentUser.uid;
     const profileUserId = profileUser.userId;
-
-    this.props.friendStatus({ profileUserId, currentUserId });
-    this.props.navigation.navigate('PublicProfile', { profileUser });
+    const { navigate } = this.props.navigation;
+    const redirect = () => navigate('PublicProfile', { profileUser });
+    
+    await this.props.friendStatus({ profileUserId, currentUserId });
+    redirect();
   };
 
   renderHeader = () => {
