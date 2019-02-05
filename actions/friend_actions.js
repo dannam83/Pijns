@@ -7,7 +7,7 @@ export const friendRequest = ({ profileUserId, currentUserId }) => {
     processRequest({ profileUserId, currentUserId });
     dispatch({
       type: FRIEND_STATUS,
-      payload: 'requestSent'
+      payload: 'Request Sent'
     });
   };
 };
@@ -29,8 +29,12 @@ export const friendStatus = ({ profileUserId, currentUserId }) => {
 const processRequest = async ({ profileUserId, currentUserId }) => {
   const db = firebase.database();
 
-  await db.ref(`/friends/${currentUserId}/${profileUserId}`).set('requestSent');
-  await db.ref(`/friends/${profileUserId}/${currentUserId}`).set('requestReceived');
+  await db.ref(`/friends/${currentUserId}/${profileUserId}`).set('Request Sent');
+  await db.ref(`/friends/${profileUserId}/${currentUserId}`).set('See Requests');
+  await db.ref(`/requests/${profileUserId}/${currentUserId}`).set(Date.now());
+
+  const profileUserRef = db.ref(`/users/${profileUserId}/requests`);
+  profileUserRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
 
 // export const sendPijn = ({ postId, author, currentDate }) => {
