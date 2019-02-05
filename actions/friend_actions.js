@@ -8,7 +8,6 @@ export const friendRequest = async ({ profileUserId, currentUserId }) => {
   };
 };
 
-
 export const friendStatus = ({ profileUserId, currentUserId }) => {
   return (dispatch) => {
     const db = firebase.database();
@@ -31,6 +30,10 @@ const processRequest = async ({ profileUserId, currentUserId }) => {
 
   const profileUserRef = db.ref(`/users/${profileUserId}/requests`);
   profileUserRef.transaction((currentCount) => (currentCount || 0) + 1);
+};
+
+const updateFriend = async dispatch => {
+  dispatch({ type: FRIEND_STATUS, payload: status });
 };
 
 // export const sendPijn = ({ postId, author, currentDate }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
-// import { Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 // import TabBarIcon from '../components/TabBarIcon';
 import FriendPostsScreen from '../screens/FriendPostsScreen';
@@ -12,6 +12,7 @@ import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 
 const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
@@ -60,6 +61,37 @@ MyPostsStack.navigationOptions = {
   },
 };
 
+const NotificationsStack = createStackNavigator({
+  Notifications: NotificationsScreen,
+});
+
+NotificationsStack.navigationOptions = {
+  tabBarOptions: {
+    showLabel: false,
+    activeTintColor: 'rgba(0,125,255,1)',
+    inactiveTintColor: 'gray'
+  },
+  tabBarIcon: ({ focused, tintColor }) => {
+    return (
+      Platform.OS === 'ios' ? (
+        <Ionicons
+          focused={focused}
+          name={'ios-notifications-outline'}
+          size={30}
+          color={tintColor}
+        />
+      ) : (
+        <Ionicons
+          focused={focused}
+          name={'md-notifications-outline'}
+          size={30}
+          color={tintColor}
+        />
+      )
+    );
+  },
+};
+
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
 });
@@ -85,5 +117,6 @@ ProfileStack.navigationOptions = {
 export default createBottomTabNavigator({
   FriendPostsStack,
   MyPostsStack,
+  NotificationsStack,
   ProfileStack,
 });
