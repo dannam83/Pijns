@@ -15,14 +15,3 @@ export const searchUpdate = ({ value }) => {
     );
   };
 };
-
-//   console.log('action val', value);
-//
-//  return (dispatch) => {
-//    firebase.database().ref('users/profile')
-//       .on('value', snapshot => {
-//         console.log('snapshot', snapshot.val());
-//       }
-//     );
-//   };
-// };

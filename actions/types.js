@@ -29,5 +29,4 @@ export const SEARCH_UPDATE = 'SEARCH_UPDATE';
 
 export const FRIEND_STATUS = 'FRIEND_STATUS';
 
-export const LIKE_JOB = 'LIKE_JOB';
-export const CLEAR_LIKED_JOBS = 'CLEAR_LIKED_JOBS';
+export const FETCH_REQUESTS = 'FETCH_REQUESTS';

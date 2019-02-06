@@ -39,7 +39,6 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    console.log(this.props);
     const user = this.props.navigation.getParam('profileUser');
     const { name, picture, userId } = user;
     const {

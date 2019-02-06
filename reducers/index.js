@@ -8,6 +8,7 @@ import activePost from './active_post_reducer';
 import comments from './comments_reducer';
 import pijnLog from './pijn_log_reducer';
 import searchResults from './search_reducer';
+import requests from './requests_reducer';
 import friend from './friend_reducer';
 import navigation from './navigation_reducer';
 
@@ -22,5 +23,6 @@ export default combineReducers({
   pijnLog,
   navigation,
   searchResults,
+  requests,
   friend
 });
