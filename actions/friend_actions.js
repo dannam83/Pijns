@@ -2,9 +2,9 @@ import firebase from 'firebase';
 
 import { FRIEND_STATUS } from './types';
 
-export const friendRequest = async ({ profileUserId, currentUserId }) => {
+export const friendRequest = ({ profileUserId, currentUser }) => {
   return () => {
-    processRequest({ profileUserId, currentUserId });
+    processRequest({ profileUserId, currentUser });
   };
 };
 
@@ -21,20 +21,21 @@ export const friendStatus = ({ profileUserId, currentUserId }) => {
   };
 };
 
-const processRequest = async ({ profileUserId, currentUserId }) => {
+const processRequest = async ({ profileUserId, currentUser }) => {
   const db = firebase.database();
+  const currentUserId = currentUser.uid;
 
   await db.ref(`/friends/${currentUserId}/${profileUserId}`).set('Requested');
   await db.ref(`/friends/${profileUserId}/${currentUserId}`).set('See Requests');
-  await db.ref(`/requests/${profileUserId}/${currentUserId}`).set(Date.now());
+  await db.ref(`/requests/${profileUserId}/${currentUserId}`).set(currentUser);
 
   const profileUserRef = db.ref(`/users/${profileUserId}/requests`);
   profileUserRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
 
-const updateFriend = async dispatch => {
-  dispatch({ type: FRIEND_STATUS, payload: status });
-};
+// const updateFriend = async dispatch => {
+//   dispatch({ type: FRIEND_STATUS, payload: status });
+// };
 
 // export const sendPijn = ({ postId, author, currentDate }) => {
 //   const db = firebase.database();

@@ -10,7 +10,6 @@ import pijnLog from './pijn_log_reducer';
 import searchResults from './search_reducer';
 import friend from './friend_reducer';
 import navigation from './navigation_reducer';
-// import likedJobs from './likes_reducer';
 
 export default combineReducers({
   auth,
@@ -24,5 +23,4 @@ export default combineReducers({
   navigation,
   searchResults,
   friend
-  // likedJobs
 });

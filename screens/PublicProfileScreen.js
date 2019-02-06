@@ -12,8 +12,8 @@ class PublicProfileScreen extends Component {
   };
 
   onFriendPress = (profileUserId) => {
-    const currentUserId = this.props.currentUser.uid;
-    this.props.friendRequest({ profileUserId, currentUserId });
+    const { currentUser } = this.props;
+    this.props.friendRequest({ profileUserId, currentUser });
   }
 
   buttonStyle(status) {
