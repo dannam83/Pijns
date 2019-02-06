@@ -4,31 +4,40 @@ import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
 import { friendRequest } from '../actions';
-import { disabledGray } from '../assets/colors';
+import { disabledGray, buttonBlue } from '../assets/colors';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
 
-  onFriendPress = (profileUserId) => {
+  onFriendPress = (profileUserId, status) => {
     const { currentUser } = this.props;
-    this.props.friendRequest({ profileUserId, currentUser });
+
+    if (!status) {
+      this.props.friendRequest({ profileUserId, currentUser });
+    } else if (status === 'See Requests') {
+      this.props.navigation.navigate('Notifications');
+    }
   }
 
   buttonStyle(status) {
-    const { buttonDisabled } = styles;
+    const { buttonDisabled, buttonActive } = styles;
 
-    if (status === 'Requested') {
-      return buttonDisabled;
+    switch (status) {
+      case 'Requested': return buttonDisabled;
+      case 'See Requests': return buttonActive;
+      default: return {};
     }
   }
 
   buttonTextStyle(status) {
-    const { buttonTextDisabled } = styles;
+    const { buttonTextDisabled, buttonTextActive } = styles;
 
-    if (status === 'Requested') {
-      return buttonTextDisabled;
+    switch (status) {
+      case 'Requested': return buttonTextDisabled;
+      case 'See Requests': return buttonTextActive;
+      default: return {};
     }
   }
 
@@ -52,7 +61,7 @@ class PublicProfileScreen extends Component {
         <Text style={nameStyle}>{name}</Text>
         <View style={buttonsViewStyle}>
           <Button
-            onPress={() => this.onFriendPress(userId)}
+            onPress={() => this.onFriendPress(userId, status)}
             buttonRestyle={this.buttonStyle(status)}
             textRestyle={this.buttonTextStyle(status)}
             disabled={this.disableButton(status)}
@@ -93,6 +102,13 @@ const styles = {
   },
   buttonTextDisabled: {
     color: disabledGray
+  },
+  buttonActive: {
+    borderColor: buttonBlue,
+    backgroundColor: buttonBlue
+  },
+  buttonTextActive: {
+    color: 'white'
   },
 };
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { Input, ListItemAsButton } from '../components/common';
-import { searchUpdate, friendStatus } from '../actions';
+import { searchUpdate, getFriendStatus } from '../actions';
 
 class SearchFriendsScreen extends Component {
   static navigationOptions = {
@@ -21,7 +21,7 @@ class SearchFriendsScreen extends Component {
     const { navigate } = this.props.navigation;
     const redirect = () => navigate('PublicProfile', { profileUser });
 
-    this.props.friendStatus({ profileUserId, currentUserId });
+    this.props.getFriendStatus({ profileUserId, currentUserId });
     redirect();
   };
 
@@ -86,5 +86,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   searchUpdate,
-  friendStatus
+  getFriendStatus
 })(SearchFriendsScreen);

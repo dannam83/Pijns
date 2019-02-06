@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { ListItemAsButton } from '../components/common';
-import { fetchRequests } from '../actions';
+import { fetchRequests, setFriendStatus } from '../actions';
 
 class NotificationsScreen extends Component {
   static navigationOptions = {
@@ -16,21 +16,19 @@ class NotificationsScreen extends Component {
   }
 
   goToPublicProfile = (profileUser) => {
-    // const currentUserId = this.props.currentUser.uid;
-    // const profileUserId = profileUser.userId;
-    // const { navigate } = this.props.navigation;
-    // const redirect = () => navigate('PublicProfile', { profileUser });
-    //
-    // this.props.friendStatus({ profileUserId, currentUserId });
-    // redirect();
+    const { navigate } = this.props.navigation;
+    const redirect = () => navigate('PublicProfile', { profileUser });
+
+    this.props.setFriendStatus({ status: 'See Requests' });
+    redirect();
   };
 
-  // onPress={() => this.goToPublicProfile(item)}
   renderRow = (item) => {
     return (
       <ListItemAsButton
         text={item.name}
         imageSource={item.picture}
+        onPress={() => this.goToPublicProfile(item)}
       />
     );
   }
@@ -69,5 +67,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchRequests
+  fetchRequests,
+  setFriendStatus
 })(NotificationsScreen);

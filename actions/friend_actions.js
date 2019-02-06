@@ -8,7 +8,7 @@ export const friendRequest = ({ profileUserId, currentUser }) => {
   };
 };
 
-export const friendStatus = ({ profileUserId, currentUserId }) => {
+export const getFriendStatus = ({ profileUserId, currentUserId }) => {
   return (dispatch) => {
     const db = firebase.database();
     db.ref(`/friends/${currentUserId}/${profileUserId}`)
@@ -18,6 +18,13 @@ export const friendStatus = ({ profileUserId, currentUserId }) => {
         payload: snapshot.val()
       });
     });
+  };
+};
+
+export const setFriendStatus = ({ status }) => {
+  return {
+      type: FRIEND_STATUS,
+      payload: status
   };
 };
 
