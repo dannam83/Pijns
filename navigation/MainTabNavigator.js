@@ -77,14 +77,14 @@ NotificationsStack.navigationOptions = {
         <Ionicons
           focused={focused}
           name={'ios-notifications-outline'}
-          size={30}
+          size={29}
           color={tintColor}
         />
       ) : (
         <Ionicons
           focused={focused}
           name={'md-notifications-outline'}
-          size={30}
+          size={29}
           color={tintColor}
         />
       )

@@ -3,8 +3,9 @@ import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { ListItemAsButton } from '../components/common';
+import { ListItemAsButton, Button, ButtonAsText } from '../components/common';
 import { fetchRequests, setFriendStatus } from '../actions';
+import { buttonBlue } from '../assets/colors';
 
 class NotificationsScreen extends Component {
   static navigationOptions = {
@@ -24,12 +25,25 @@ class NotificationsScreen extends Component {
   };
 
   renderRow = (item) => {
+    const {
+      itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle
+    } = styles;
+
     return (
-      <ListItemAsButton
-        text={item.name}
-        imageSource={item.picture}
-        onPress={() => this.goToPublicProfile(item)}
-      />
+      <View style={itemStyle}>
+        <ListItemAsButton
+          text={item.name}
+          imageSource={item.picture}
+          onPress={() => this.goToPublicProfile(item)}
+        />
+        <View style={actionsViewStyle}>
+          <Button
+            buttonRestyle={acceptButtonStyle}
+            textRestyle={acceptTextStyle}
+          >Accept</Button>
+          <ButtonAsText>x</ButtonAsText>
+        </View>
+      </View>
     );
   }
 
@@ -55,6 +69,32 @@ const styles = {
     backgroundColor: '#EAEAEA',
     borderRadius: 25
   },
+  itemStyle: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  actionsViewStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: 10
+  },
+  acceptButtonStyle: {
+    width: 75,
+    height: 25,
+    backgroundColor: buttonBlue,
+    borderColor: buttonBlue,
+    display: 'flex',
+    justifyContent: 'center',
+    marginRight: 17
+  },
+  acceptTextStyle: {
+    paddingTop: 0,
+    paddingBottom: 0,
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 14
+  }
 };
 
 function mapStateToProps(state) {
