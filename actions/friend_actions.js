@@ -20,6 +20,12 @@ export const declineFriend = ({ profileUserId, currentUser }) => {
   };
 };
 
+export const unfriend = ({ profileUserId, currentUser }) => {
+  return () => {
+    processRequest({ profileUserId, currentUser, type: 'unfriend' });
+  };
+};
+
 export const getFriendStatus = ({ profileUserId, currentUserId }) => {
   return (dispatch) => {
     const db = firebase.database();
@@ -57,8 +63,6 @@ const friendStatusValues = type => {
       return { userStatus: 'Requested', profileStatus: 'See Requests' };
     case 'accept':
       return { userStatus: 'Unfriend', profileStatus: 'Unfriend' };
-    case 'decline':
-      return { userStatus: null, profileStatus: null };
     default:
       return { userStatus: null, profileStatus: null };
   }

@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
-import { friendRequest } from '../actions';
+import { friendRequest, unfriend } from '../actions';
 import { disabledGray, buttonBlue } from '../assets/colors';
 
 class PublicProfileScreen extends Component {
@@ -18,25 +18,29 @@ class PublicProfileScreen extends Component {
       this.props.friendRequest({ profileUserId, currentUser });
     } else if (status === 'See Requests') {
       this.props.navigation.navigate('Notifications');
+    } else if (status === 'Unfriend') {
+      this.props.unfriend({ profileUserId, currentUser });
     }
   }
 
   buttonStyle(status) {
-    const { buttonDisabled, buttonActive } = styles;
+    const { buttonBorderGray, buttonBodyBlue } = styles;
 
     switch (status) {
-      case 'Requested': return buttonDisabled;
-      case 'See Requests': return buttonActive;
+      case 'Requested': return buttonBorderGray;
+      case 'See Requests': return buttonBodyBlue;
+      case 'Unfriend': return buttonBorderGray;
       default: return {};
     }
   }
 
   buttonTextStyle(status) {
-    const { buttonTextDisabled, buttonTextActive } = styles;
+    const { buttonTextGray, buttonTextWhite } = styles;
 
     switch (status) {
-      case 'Requested': return buttonTextDisabled;
-      case 'See Requests': return buttonTextActive;
+      case 'Requested': return buttonTextGray;
+      case 'See Requests': return buttonTextWhite;
+      case 'Unfriend': return buttonTextGray;
       default: return {};
     }
   }
@@ -97,17 +101,17 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  buttonDisabled: {
+  buttonBorderGray: {
     borderColor: disabledGray
   },
-  buttonTextDisabled: {
+  buttonTextGray: {
     color: disabledGray
   },
-  buttonActive: {
+  buttonBodyBlue: {
     borderColor: buttonBlue,
     backgroundColor: buttonBlue
   },
-  buttonTextActive: {
+  buttonTextWhite: {
     color: 'white'
   },
 };
@@ -118,5 +122,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  friendRequest
+  friendRequest, unfriend
 })(PublicProfileScreen);
