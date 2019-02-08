@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
-import { friendRequest, unfriend } from '../actions';
+import { friendRequest, unfriend, fetchFriendList } from '../actions';
 import { disabledGray, buttonBlue } from '../assets/colors';
 
 class PublicProfileScreen extends Component {
@@ -11,16 +11,9 @@ class PublicProfileScreen extends Component {
     title: 'Profile',
   };
 
-  onFriendPress = (profileUserId, status) => {
-    const { currentUser } = this.props;
-
-    if (!status) {
-      this.props.friendRequest({ profileUserId, currentUser });
-    } else if (status === 'See Requests') {
-      this.props.navigation.navigate('Notifications');
-    } else if (status === 'Unfriend') {
-      this.props.unfriend({ profileUserId, currentUser });
-    }
+  onFriendsPress = (userId) => {
+    this.props.fetchFriendList(userId);
+    this.props.navigation.navigate('Friends');
   }
 
   buttonStyle(status) {
@@ -52,11 +45,18 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    const user = this.props.navigation.getParam('profileUser');
-    const { name, picture, userId } = user;
+    console.log(this.props);
+
+    let user = this.props.navigation.getParam('profileUser');
+    user = !user ? this.props.currentUser : user;
+
+    let { name, picture, userId } = user;
+    userId = !userId ? user.uid : userId;
+
     const {
       containerStyle, imageStyle, nameStyle, buttonsViewStyle
     } = styles;
+
     const { status } = this.props.friend;
 
     return (
@@ -64,14 +64,18 @@ class PublicProfileScreen extends Component {
         <Image source={{ uri: `${picture}?type=large` }} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
         <View style={buttonsViewStyle}>
-          <Button
-            onPress={() => this.onFriendPress(userId, status)}
-            buttonRestyle={this.buttonStyle(status)}
-            textRestyle={this.buttonTextStyle(status)}
-            disabled={this.disableButton(status)}
-          >
-            { !status ? 'Add Friend' : status }
-          </Button>
+          { userId === this.props.currentUser.uid ? (
+            <Button
+              onPress={() => this.onFriendsPress(userId)}
+            >Friends</Button>
+          ) : (
+            <Button
+              onPress={() => this.onFriendPress(userId, status)}
+              buttonRestyle={this.buttonStyle(status)}
+              textRestyle={this.buttonTextStyle(status)}
+              disabled={this.disableButton(status)}
+            >{ !status ? 'Add Friend' : status }</Button>
+          )}
           <Button>Message</Button>
         </View>
       </View>
@@ -117,10 +121,11 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log(state);
   const { user, friend } = state;
   return ({ currentUser: user, friend });
 }
 
 export default connect(mapStateToProps, {
-  friendRequest, unfriend
+  friendRequest, unfriend, fetchFriendList
 })(PublicProfileScreen);

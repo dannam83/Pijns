@@ -12,6 +12,7 @@ import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import FriendsScreen from '../screens/FriendsScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 
 const FriendPostsStack = createStackNavigator({
@@ -93,7 +94,9 @@ NotificationsStack.navigationOptions = {
 };
 
 const ProfileStack = createStackNavigator({
-  Profile: ProfileScreen,
+  Profile: PublicProfileScreen,
+  Friends: FriendsScreen,
+  FriendProfile: PublicProfileScreen,
 });
 
 ProfileStack.navigationOptions = {

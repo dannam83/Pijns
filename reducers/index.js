@@ -10,6 +10,7 @@ import pijnLog from './pijn_log_reducer';
 import searchResults from './search_reducer';
 import requests from './requests_reducer';
 import friend from './friend_reducer';
+import friendList from './friend_list_reducer';
 import navigation from './navigation_reducer';
 
 export default combineReducers({
@@ -24,5 +25,6 @@ export default combineReducers({
   navigation,
   searchResults,
   requests,
-  friend
+  friend,
+  friendList
 });

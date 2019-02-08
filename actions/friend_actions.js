@@ -8,15 +8,15 @@ export const friendRequest = ({ profileUserId, currentUser }) => {
   };
 };
 
-export const acceptFriend = ({ profileUserId, currentUser }) => {
+export const acceptFriend = ({ profileUserId, currentUser, friend }) => {
   return () => {
-    processRequest({ profileUserId, currentUser, type: 'accept' });
+    processRequest({ profileUserId, currentUser, type: 'accept', friend });
   };
 };
 
-export const declineFriend = ({ profileUserId, currentUser }) => {
+export const declineFriend = ({ profileUserId, currentUser, friend }) => {
   return () => {
-    processRequest({ profileUserId, currentUser, type: 'decline' });
+    processRequest({ profileUserId, currentUser, type: 'decline', friend });
   };
 };
 
@@ -46,13 +46,22 @@ export const setFriendStatus = ({ status }) => {
   };
 };
 
-const processRequest = ({ profileUserId, currentUser, type }) => {
+const processRequest = async ({ profileUserId, currentUser, type, friend }) => {
   const db = firebase.database();
   const currentUserId = currentUser.uid;
-  
-  updateFriends({ db, type, profileUserId, currentUser });
+
   updateRequests({ db, type, profileUserId, currentUser });
   incrementRequestsCounter({ db, type, profileUserId, currentUserId });
+
+  try {
+    await updateFriends({ db, type, profileUserId, currentUser });
+    if (!friend === false) {
+      const { status } = friend;
+      setFriendStatus({ status });
+    }
+  } catch (err) {
+    console.warn(err);
+  }
 };
 
 const friendStatusValues = type => {

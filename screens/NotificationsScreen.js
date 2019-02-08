@@ -27,18 +27,16 @@ class NotificationsScreen extends Component {
   };
 
   acceptFriend = (profileUserId) => {
-    const { currentUser } = this.props;
-    this.props.acceptFriend({ profileUserId, currentUser });
+    const { currentUser, friend } = this.props;
+    this.props.acceptFriend({ profileUserId, currentUser, friend });
   }
 
   declineFriend = (profileUserId) => {
-    const { currentUser } = this.props;
-    this.props.declineFriend({ profileUserId, currentUser });
+    const { currentUser, friend } = this.props;
+    this.props.declineFriend({ profileUserId, currentUser, friend });
   }
 
   renderRow = (item) => {
-    console.log(item);
-    console.log('props', this.props);
     const {
       itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
     } = styles;
@@ -122,12 +120,11 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   let requests = _.map(state.requests, (val) => {
     return { ...val };
   });
-  const { user } = state;
-  return { requests, currentUser: user };
+  const { user, friend } = state;
+  return { requests, currentUser: user, friend };
 }
 
 export default connect(mapStateToProps, {
