@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../components/common';
-import { fetchRequests, setFriendStatus } from '../actions';
+import {
+  fetchRequests, setFriendStatus, acceptFriend, declineFriend
+} from '../actions';
 import { buttonBlue } from '../assets/colors';
 
 class NotificationsScreen extends Component {
@@ -24,24 +26,41 @@ class NotificationsScreen extends Component {
     redirect();
   };
 
+  acceptFriend = (profileUserId) => {
+    const { currentUser } = this.props;
+    this.props.acceptFriend({ profileUserId, currentUser });
+  }
+
+  declineFriend = (profileUserId) => {
+    const { currentUser } = this.props;
+    this.props.declineFriend({ profileUserId, currentUser });
+  }
+
   renderRow = (item) => {
+    console.log(item);
+    console.log('props', this.props);
     const {
-      itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle
+      itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
     } = styles;
+    const { name, picture, uid } = item;
 
     return (
       <View style={itemStyle}>
         <ListItemAsButton
-          text={item.name}
-          imageSource={item.picture}
+          text={name}
+          imageSource={picture}
           onPress={() => this.goToPublicProfile(item)}
         />
         <View style={actionsViewStyle}>
           <Button
             buttonRestyle={acceptButtonStyle}
             textRestyle={acceptTextStyle}
+            onPress={() => this.acceptFriend(uid)}
           >Accept</Button>
-          <ButtonAsText>x</ButtonAsText>
+          <ButtonAsText
+            editTextStyle={xStyle}
+            onPress={() => this.declineFriend(uid)}
+          >x</ButtonAsText>
         </View>
       </View>
     );
@@ -94,7 +113,12 @@ const styles = {
     color: 'white',
     fontWeight: '500',
     fontSize: 14
-  }
+  },
+  xStyle: {
+    paddingBottom: 2,
+    fontWeight: '700',
+    fontSize: 14
+  },
 };
 
 function mapStateToProps(state) {
@@ -108,5 +132,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   fetchRequests,
-  setFriendStatus
+  setFriendStatus,
+  acceptFriend,
+  declineFriend
 })(NotificationsScreen);
