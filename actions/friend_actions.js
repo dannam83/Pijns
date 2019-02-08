@@ -29,7 +29,7 @@ export const unfriend = ({ profileUserId, currentUser }) => {
 export const getFriendStatus = ({ profileUserId, currentUserId }) => {
   return (dispatch) => {
     const db = firebase.database();
-    db.ref(`/friends/${currentUserId}/${profileUserId}`)
+    db.ref(`/friends/${currentUserId}/${profileUserId}/status`)
     .on('value', snapshot => {
       dispatch({
         type: FRIEND_STATUS,
@@ -49,10 +49,8 @@ export const setFriendStatus = ({ status }) => {
 const processRequest = ({ profileUserId, currentUser, type }) => {
   const db = firebase.database();
   const currentUserId = currentUser.uid;
-  const { userStatus, profileStatus } = friendStatusValues(type);
-
-  db.ref(`/friends/${currentUserId}/${profileUserId}`).set(userStatus);
-  db.ref(`/friends/${profileUserId}/${currentUserId}`).set(profileStatus);
+  
+  updateFriends({ db, type, profileUserId, currentUser });
   updateRequests({ db, type, profileUserId, currentUser });
   incrementRequestsCounter({ db, type, profileUserId, currentUserId });
 };
@@ -66,6 +64,38 @@ const friendStatusValues = type => {
     default:
       return { userStatus: null, profileStatus: null };
   }
+};
+
+const updateFriends = ({ db, type, profileUserId, currentUser }) => {
+  if (type === 'decline' || type === 'unfriend') {
+    removeFriends({ db, profileUserId, currentUser });
+  }
+
+  if (type === 'request' || type === 'accept') {
+    saveFriends({ db, type, profileUserId, currentUser });
+  }
+};
+
+const saveFriends = ({ db, type, profileUserId, currentUser }) => {
+  const { userStatus, profileStatus } = friendStatusValues(type);
+  const currentUserId = currentUser.uid;
+
+  db.ref(`/userSearch/${profileUserId}`).once('value', snapshot => {
+    const { name, picture } = snapshot.val();
+    const profileUser = { name, picture, uid: profileUserId };
+    db.ref(`/friends/${currentUserId}/${profileUserId}/user`).set(profileUser);
+  });
+
+  db.ref(`/friends/${profileUserId}/${currentUserId}/user`).set(currentUser);
+  db.ref(`/friends/${currentUserId}/${profileUserId}/status`).set(userStatus);
+  db.ref(`/friends/${profileUserId}/${currentUserId}/status`).set(profileStatus);
+};
+
+const removeFriends = ({ db, profileUserId, currentUser }) => {
+  const currentUserId = currentUser.uid;
+
+  db.ref(`/friends/${currentUserId}/${profileUserId}`).set(null);
+  db.ref(`/friends/${profileUserId}/${currentUserId}`).set(null);
 };
 
 const updateRequests = async ({ db, type, profileUserId, currentUser }) => {

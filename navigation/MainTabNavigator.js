@@ -30,7 +30,7 @@ FriendPostsStack.navigationOptions = {
     <AntDesign
       focused={focused}
       name={'team'}
-      size={25}
+      size={28}
       color={tintColor}
     />
   ),
