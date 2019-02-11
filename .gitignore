@@ -1,7 +1,7 @@
 googleAndroidClientId.js
 googleIosClientId.js
 service_account.json
-node_modules/
+functions/node_modules/
 
 node_modules/**/*
 .expo/*
