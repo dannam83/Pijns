@@ -8,63 +8,37 @@ module.exports = (req, res) => {
     return res.status(422).send({ error: 'No userId' });
   }
 
-  let friendKeys;
-  let friendPostsArray = [];
-  let friendPromises;
+  const friendPostsArray = [];
 
   db.ref('friends/' + userId)
-    .orderByChild('status')
-    .equalTo('Unfriend')
-    .on('value', snapshot => {
-      const friends = snapshot.val();
-      friendKeys = Object.keys(friends);
+  .orderByChild('status')
+  .equalTo('Unfriend')
+  .on('value', snapshot => {
+    const friends = snapshot.val();
+    const friendKeys = Object.keys(friends);
+    const friendPromises = friendKeys.map((key) => {
+      return (
+        db.ref('users/' + key + '/posts').on('value', snapshot => {
+          const posts = snapshot.val();
+          const postKeys = Object.keys(posts);
 
-      friendPromises = friendKeys.map((key) => {
-        return (
-
-          db.ref('users/' + key + '/posts').on('value', snapshot => {
-            const posts = snapshot.val();
-            const postKeys = Object.keys(posts);
-
-            postKeys.forEach((key) => {
-              posts[key]['postId'] = key;
-              friendPostsArray.push(posts[key]);
-            });
-
-          })
-
-        )
-      });
-
-      const results = Promise.all(friendPromises);
-
-      results.then(() => {
-        friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);
-        res.send({ friendPostsArray });
-        return null;
-      })
-      .catch(err => console.warn(err))
-    })
-  return null;
-}
-
-function forEachPromise(items, fn) {
-    return items.reduce((promise, item) => {
-        return promise.then(() => {
-            return fn(item);
-        });
-    }, Promise.resolve());
-}
-
-function getUserPosts(userId) {
-  db.ref('users/' + userId + '/posts')
-  .once('value', snapshot => {
-    const posts = snapshot.val();
-    const postKeys = Object.keys(posts);
-
-    postKeys.forEach((key) => {
-      posts[key]['postId'] = key;
-      friendPostsArray.push(posts[key]);
+          postKeys.forEach((key) => {
+            posts[key]['postId'] = key;
+            friendPostsArray.push(posts[key]);
+          });
+        })
+      )
     });
+
+    const results = Promise.all(friendPromises);
+
+    Promise.all(friendPromises)
+    .then(() => {
+      friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);
+      res.send({ friendPostsArray });
+      return null;
+    })
+    .catch(err => console.warn(err))
   })
+  return null;
 }
