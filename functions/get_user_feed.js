@@ -10,18 +10,19 @@ module.exports = (req, res) => {
 
   let friendKeys;
   let friendPostsArray = [];
+  let friendPromises;
 
   db.ref('friends/' + userId)
     .orderByChild('status')
     .equalTo('Unfriend')
-    .once('value', snapshot => {
+    .on('value', snapshot => {
       const friends = snapshot.val();
       friendKeys = Object.keys(friends);
 
-      const getFriendPosts = async () => {
-        await Promise.all(friendKeys.map(async key => {
-          await db.ref('users/' + userId + '/posts')
-          .once('value', snapshot => {
+      friendPromises = friendKeys.map((key) => {
+        return (
+
+          db.ref('users/' + key + '/posts').on('value', snapshot => {
             const posts = snapshot.val();
             const postKeys = Object.keys(posts);
 
@@ -29,19 +30,41 @@ module.exports = (req, res) => {
               posts[key]['postId'] = key;
               friendPostsArray.push(posts[key]);
             });
-          })
-        }))
-        res.send({ friendPostsArray });
-      }
 
-      getFriendPosts();
+          })
+
+        )
+      });
+
+      const results = Promise.all(friendPromises);
+
+      results.then(() => {
+        friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);
+        res.send({ friendPostsArray });
+        return null;
+      })
+      .catch(err => console.warn(err))
     })
-  .then(() => {
-    friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);
-    return null;
-  })
-  .catch((err) => {
-    console.log(err);
-  })
   return null;
+}
+
+function forEachPromise(items, fn) {
+    return items.reduce((promise, item) => {
+        return promise.then(() => {
+            return fn(item);
+        });
+    }, Promise.resolve());
+}
+
+function getUserPosts(userId) {
+  db.ref('users/' + userId + '/posts')
+  .once('value', snapshot => {
+    const posts = snapshot.val();
+    const postKeys = Object.keys(posts);
+
+    postKeys.forEach((key) => {
+      posts[key]['postId'] = key;
+      friendPostsArray.push(posts[key]);
+    });
+  })
 }
