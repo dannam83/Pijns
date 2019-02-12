@@ -35,7 +35,7 @@ module.exports = (req, res) => {
     Promise.all(friendPromises)
     .then(() => {
       friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);
-      res.send({ friendPostsArray });
+      res.send(friendPostsArray);
       return null;
     })
     .catch(err => console.warn(err))

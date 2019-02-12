@@ -11,6 +11,7 @@ import searchResults from './search_reducer';
 import requests from './requests_reducer';
 import friend from './friend_reducer';
 import friendList from './friend_list_reducer';
+import userFeed from './user_feed_reducer';
 import navigation from './navigation_reducer';
 
 export default combineReducers({
@@ -26,5 +27,6 @@ export default combineReducers({
   searchResults,
   requests,
   friend,
-  friendList
+  friendList,
+  userFeed
 });

@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import { Button } from 'react-native-elements';
 import _ from 'lodash';
+import axios from 'axios';
 
-import { sendPijn, postsFetch } from '../../actions';
+import { sendPijn, postsFetch, fetchUserFeed } from '../../actions';
 import PostListItem from './PostListItem';
+
+const ROOT_URL = 'https://us-central1-pijns-dc1c1.cloudfunctions.net';
 
 class PostListFriends extends Component {
   componentWillMount() {
     this.props.postsFetch();
+    this.props.fetchUserFeed(this.props.user.uid);
+  }
+
+  getUserFeed() {
+    return axios.post(`${ROOT_URL}/getUserFeed`, { userId: this.props.user.uid });
   }
 
   renderRow = (post) => {
@@ -60,18 +68,19 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { user } = state;
-  let posts = _.map(state.posts, (val, uid) => {
-    const pijnSentToday = !!state.pijnLog[uid];
+  console.log(state);
+  const { user, userFeed } = state;
+  let posts = _.map(userFeed, (post) => {
+    const pijnSentToday = !!state.pijnLog[post.postId];
     const { navigation } = state;
-    let comments = _.map(val.comments, (value, commentId) => {
+    let comments = _.map(post.comments, (value, commentId) => {
       return { ...value, commentId };
     });
     return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation, comments
+      ...post, sendPijn, pijnSentToday, user, navigation, comments
     };
-  }).reverse();
-  return { posts };
+  });
+  return { posts, user };
 }
 
-export default connect(mapStateToProps, { postsFetch })(PostListFriends);
+export default connect(mapStateToProps, { postsFetch, fetchUserFeed })(PostListFriends);
