@@ -4,8 +4,13 @@ import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
 import CommentListItem from '../comment/CommentListItem';
+import { commentsClear } from '../../actions';
 
 class CommentList extends Component {
+  componentWillUnmount() {
+    this.props.commentsClear();
+  }
+
   renderRow = (comment) => {
     return (
       <CommentListItem comment={comment} />
@@ -44,4 +49,4 @@ function mapStateToProps(state) {
   return { comments };
 }
 
-export default connect(mapStateToProps)(CommentList);
+export default connect(mapStateToProps, { commentsClear })(CommentList);

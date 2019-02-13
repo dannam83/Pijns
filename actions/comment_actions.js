@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import {
   COMMENT_CREATE_SAVE,
   COMMENTS_POPULATE,
-  // COMMENT_CREATE_UPDATE,
+  COMMENTS_CLEAR,
   // COMMENT_EDIT_UPDATE,
   // COMMENT_SAVE_SUCCESS,
   // COMMENT_DELETE
@@ -39,6 +39,12 @@ import {
        }
      );
    };
+ };
+
+ export const commentsClear = () => {
+   return ({
+     type: COMMENTS_CLEAR
+   });
  };
 
  const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {
