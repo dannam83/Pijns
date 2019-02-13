@@ -22,7 +22,11 @@ class PostListFriends extends Component {
 
   renderRow = (post) => {
     return (
-      <PostListItem post={post} redirect={this.props.redirect} />
+      <PostListItem
+        post={post}
+        redirect={this.props.redirect}
+        redirectTo='FriendPostComments'
+      />
     );
   }
 

@@ -19,6 +19,7 @@ const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
   SearchFriends: SearchFriendsScreen,
   PublicProfile: PublicProfileScreen,
+  FriendPostComments: CommentsScreen
 });
 
 FriendPostsStack.navigationOptions = {

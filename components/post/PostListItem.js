@@ -21,7 +21,7 @@ class PostListItem extends Component {
       navigation,
       comments
     } = this.props.post;
-    const { redirect } = this.props;
+    const { redirect, redirectTo } = this.props;
     const count = notes ? notes.count : 0;
     const userId = user.uid;
     const currentDate = new Date(
@@ -38,7 +38,7 @@ class PostListItem extends Component {
     const goToComments = async () => {
       await this.props.commentsPopulate(comments);
       await this.props.setActivePost({ postId, postAuthor: author });
-      navigation.navigate('Comments', {
+      navigation.navigate(redirectTo, {
         user, postAuthorId: author.id, postId, redirect
       });
     };
