@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
+import _ from 'lodash';
 
 import CommentListItem from '../comment/CommentListItem';
 
@@ -37,7 +38,9 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { comments } = state;
+  let comments = _.map(state.comments, val => {
+    return { ...val };
+  });
   return { comments };
 }
 

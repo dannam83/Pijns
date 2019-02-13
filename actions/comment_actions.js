@@ -30,11 +30,15 @@ import {
    };
  };
 
- export const commentsPopulate = (comments) => {
-   return ({
-     type: COMMENTS_POPULATE,
-     payload: comments
-   });
+ export const commentsPopulate = (postId) => {
+   return (dispatch) => {
+     firebase.database().ref(`/postComments/${postId}`)
+       .on('value', snapshot => {
+         dispatch({ type: COMMENTS_POPULATE, payload: snapshot.val() }
+         );
+       }
+     );
+   };
  };
 
  const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {

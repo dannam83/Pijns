@@ -36,7 +36,7 @@ class PostListItem extends Component {
       pijnsCountStyle
     } = styles;
     const goToComments = async () => {
-      await this.props.commentsPopulate(comments);
+      await this.props.commentsPopulate(postId);
       await this.props.setActivePost({ postId, postAuthor: author });
       navigation.navigate(redirectTo, {
         user, postAuthorId: author.id, postId, redirect

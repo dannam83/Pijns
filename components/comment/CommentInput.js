@@ -15,15 +15,14 @@ class CommentInput extends Component {
   }
 
   saveComment = () => {
-    const { user, postAuthorId, postId, navigation } = this.props;
+    const { user, postAuthorId, postId } = this.props;
     const { newValue } = this.state;
 
     try {
       this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
       this.setState({ newValue: '' });
-      navigation.navigate('Comments');
     } catch (err) {
-      console.warn(err);
+      console.warn('Error saving comment.', err);
     }
   }
 
