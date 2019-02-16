@@ -15,9 +15,10 @@ class PostListMine extends Component {
   renderRow = (post) => {
     return (
       <PostListItem
-        post={post} 
+        post={post}
         redirect={this.props.redirect}
         redirectTo='Comments'
+        list='Mine'
       />
     );
   }

@@ -40,10 +40,10 @@ const saveToFirebase = async (author, content) => {
   const timestamp = -Date.now();
 
   await userRef.child(key).set({
-    author, content, createdOn, timestamp, notes: 0
+    author, content, createdOn, timestamp, notes: 0, commentCount: 0
   });
   await postRef.child(key).set({
-    author, content, createdOn, timestamp, notes: 0
+    author, content, createdOn, timestamp, notes: 0, commentCount: 0
   });
 };
 

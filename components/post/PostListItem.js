@@ -1,47 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 
 import { CardBanner, ActionButton } from '../common';
+import PostCounts from './PostCounts';
 import { postEditUpdate, commentsPopulate, setActivePost } from '../../actions';
 
 class PostListItem extends Component {
-  render() {
-    const {
-      user,
-      author,
-      content,
-      notes,
-      timestamp,
-      createdOn,
-      postId,
-      sendPijn,
-      pijnSentToday,
-      navigation,
-      comments
-    } = this.props.post;
+  state = {
+    noteCount: this.props.post.notes ? this.props.post.notes.count : 0
+  }
+
+  goToComments = async ({ user, postId, author }) => {
     const { redirect, redirectTo } = this.props;
-    const count = notes ? notes.count : 0;
+    const { navigation } = this.props.post;
+
+    await this.props.commentsPopulate(postId);
+    await this.props.setActivePost({ postId, postAuthor: author });
+
+    navigation.navigate(redirectTo, {
+      user, postAuthorId: author.id, postId, redirect
+    });
+  };
+
+  sendPijn = ({ postId, author, currentDate }) => {
+    const { list } = this.props;
+
+    if (list === 'Friends') {
+      this.setState({ noteCount: this.state.noteCount + 1 });
+    }
+
+    this.props.post.sendPijn({ postId, author, currentDate });
+  }
+
+  render() {
+    const { redirect, post, list } = this.props;
+    const { user, author, content, notes, timestamp, createdOn } = post;
+    const { postId, pijnSentToday, commentCount } = post;
+    const noteCount = notes ? notes.count : 0;
+    const displayNoteCount = list === 'Friends' ? this.state.noteCount : noteCount;
     const userId = user.uid;
+
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
     );
+
     const {
-      containerStyle,
-      contentStyle,
-      dividerStyle,
-      actionsViewStyle,
-      loveNoteIconStyle,
-      pijnsCountStyle
+      containerStyle, contentStyle, dividerStyle, actionsViewStyle,
     } = styles;
-    const goToComments = async () => {
-      await this.props.commentsPopulate(postId);
-      await this.props.setActivePost({ postId, postAuthor: author });
-      navigation.navigate(redirectTo, {
-        user, postAuthorId: author.id, postId, redirect
-      });
-    };
 
     return (
       <Card containerStyle={containerStyle}>
@@ -56,28 +63,18 @@ class PostListItem extends Component {
           userId={userId}
         />
         <Text style={contentStyle}>{content}</Text>
-        {
-          count > 0 ? (
-            <View style={pijnsCountStyle}>
-            <Image
-              source={require('../../assets/images/love-note.png')}
-              style={loveNoteIconStyle}
-            />
-            <Text>{count} {count === 1 ? 'note' : 'notes'}</Text>
-            </View>
-          ) : null
-        }
+        <PostCounts noteCount={displayNoteCount} commentCount={commentCount} />
         <Divider style={dividerStyle} />
         <View style={actionsViewStyle}>
           <ActionButton
             imageSource={require('../../assets/images/pijn.png')}
             iconStyle={{ height: 24, width: 26 }}
-            onPress={() => sendPijn({ postId, author, currentDate })}
+            onPress={() => this.sendPijn({ postId, author, currentDate })}
             disabled={pijnSentToday}
           />
           <ActionButton
             imageSource={require('../../assets/images/comment.png')}
-            onPress={goToComments}
+            onPress={() => this.goToComments({ user, postId, author })}
           />
           <ActionButton
             imageSource={require('../../assets/images/message.png')}
@@ -112,17 +109,6 @@ const styles = {
     paddingLeft: 60,
     paddingRight: 60
   },
-  pijnsCountStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10
-  },
-  loveNoteIconStyle: {
-    width: 23,
-    height: 23,
-    marginRight: 5
-  }
 };
 
 export default connect(null, {
