@@ -1,39 +1,74 @@
 import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
+
 import { postCreateUpdate, postEditUpdate } from '../../actions';
+import { lightTextGray } from '../../assets/colors';
 
 class PostCounts extends Component {
-  render() {
-    const { pijnsCountStyle, loveNoteIconStyle } = styles;
+  noteCount = () => {
+    const { countItemStyle, loveNoteIconStyle } = styles;
     const { noteCount } = this.props;
 
     return (
       noteCount > 0 ? (
-        <View style={pijnsCountStyle}>
-        <Image
-          source={require('../../assets/images/love-note.png')}
-          style={loveNoteIconStyle}
-        />
-        <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
+        <View style={countItemStyle}>
+          <Image
+            source={require('../../assets/images/love-note.png')}
+            style={loveNoteIconStyle}
+          />
+          <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
         </View>
       ) : null
+    );
+  }
+
+  commentCount = () => {
+    const { commentCount } = this.props;
+    const { countItemStyle, commentTextStyle } = styles;
+
+    return (
+      commentCount > 0 ? (
+        <View style={countItemStyle}>
+          <Text style={commentTextStyle}>{commentCount} comments</Text>
+        </View>
+      ) : null
+    );
+  }
+
+  render() {
+    const { countsViewStyle } = styles;
+
+    return (
+      <View style={countsViewStyle}>
+        {this.noteCount()}
+        {this.commentCount()}
+      </View>
     );
   }
 }
 
 const styles = {
-  pijnsCountStyle: {
+  countsViewStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10
+  },
+  countItemStyle: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10
   },
   loveNoteIconStyle: {
     width: 23,
     height: 23,
     marginRight: 5
-  }
+  },
+  commentTextStyle: {
+    color: lightTextGray,
+    fontStyle: 'italic'
+  },
 };
 
 const mapStateToProps = state => {
