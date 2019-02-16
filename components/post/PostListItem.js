@@ -63,7 +63,11 @@ class PostListItem extends Component {
           userId={userId}
         />
         <Text style={contentStyle}>{content}</Text>
-        <PostCounts noteCount={displayNoteCount} commentCount={commentCount} />
+        <PostCounts
+          noteCount={displayNoteCount}
+          commentCount={commentCount}
+          commentsPress={() => this.goToComments({ user, postId, author })}
+        />
         <Divider style={dividerStyle} />
         <View style={actionsViewStyle}>
           <ActionButton

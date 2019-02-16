@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { postCreateUpdate, postEditUpdate } from '../../actions';
@@ -24,14 +24,14 @@ class PostCounts extends Component {
   }
 
   commentCount = () => {
-    const { commentCount } = this.props;
+    const { commentCount, commentsPress } = this.props;
     const { countItemStyle, commentTextStyle } = styles;
 
     return (
       commentCount > 0 ? (
-        <View style={countItemStyle}>
+        <TouchableOpacity style={countItemStyle} onPress={commentsPress}>
           <Text style={commentTextStyle}>{commentCount} comments</Text>
-        </View>
+        </TouchableOpacity>
       ) : null
     );
   }
