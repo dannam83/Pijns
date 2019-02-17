@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 
 import { commentCreateSave, updateCommentCount } from '../../actions';
+import { disabledGray } from '../../assets/colors';
 
 class CommentInput extends Component {
   state = {
@@ -42,6 +43,7 @@ class CommentInput extends Component {
     const { picture } = this.props.user;
     const newStyle = { height };
     const emptyText = this.state.newValue.length === 0;
+    const buttonColor = emptyText ? disabledGray : 'rgba(0,125,255,1)';
 
     return (
       <View style={containerViewStyle}>
@@ -60,8 +62,12 @@ class CommentInput extends Component {
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
           />
       </View>
-        <TouchableOpacity style={buttonStyle} onPress={this.saveComment} disabled={emptyText}>
-          <Text style={buttonTextStyle}>Post</Text>
+        <TouchableOpacity
+          style={{ ...buttonStyle, borderColor: buttonColor }}
+          onPress={this.saveComment}
+          disabled={emptyText}
+        >
+          <Text style={{ ...buttonTextStyle, color: buttonColor }}>Post</Text>
         </TouchableOpacity>
       </View>
     );
@@ -107,13 +113,13 @@ const styles = {
     marginLeft: 8,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: 'rgba(0,125,255,1)',
+    // borderColor: 'rgba(0,125,255,1)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
   buttonTextStyle: {
-    color: 'rgba(0,125,255,1)',
+    // color: 'rgba(0,125,255,1)',
     fontSize: 16,
     fontWeight: '600'
   }
