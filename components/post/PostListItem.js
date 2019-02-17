@@ -9,20 +9,45 @@ import { postEditUpdate, commentsPopulate, setActivePost } from '../../actions';
 
 class PostListItem extends Component {
   state = {
-    noteCount: this.props.post.notes ? this.props.post.notes.count : 0
+    noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
+    commentCount: this.props.post.commentCount || 0,
   }
 
-  goToComments = async ({ user, postId, author }) => {
-    const { redirect, redirectTo } = this.props;
-    const { navigation } = this.props.post;
+  goToComments = async () => {
+    const { redirect, redirectTo, post } = this.props;
+    const { user, postId, author, index, navigation } = post;
 
     await this.props.commentsPopulate(postId);
     await this.props.setActivePost({ postId, postAuthor: author });
 
     navigation.navigate(redirectTo, {
-      user, postAuthorId: author.id, postId, redirect
+      user, postAuthorId: author.id, postId, redirect, index
     });
   };
+
+  displayNoteCount = () => {
+    const { post, list } = this.props;
+    const { notes } = post;
+    const noteCount = notes ? notes.count : 0;
+    return (
+      list === 'Friends' ? this.state.noteCount : noteCount
+    );
+  }
+
+  displayCommentCount = () => {
+    const { post, list } = this.props;
+    const { commentCount } = post;
+    let displayCommentCount;
+
+    if (list === 'Friends') {
+      displayCommentCount = this.state.commentCount;
+    }
+    if (list === 'Mine') {
+      displayCommentCount = !commentCount ? 0 : commentCount;
+    }
+
+    return displayCommentCount;
+  }
 
   sendPijn = ({ postId, author, currentDate }) => {
     const { list } = this.props;
@@ -35,11 +60,9 @@ class PostListItem extends Component {
   }
 
   render() {
-    const { redirect, post, list } = this.props;
-    const { user, author, content, notes, timestamp, createdOn } = post;
-    const { postId, pijnSentToday, commentCount } = post;
-    const noteCount = notes ? notes.count : 0;
-    const displayNoteCount = list === 'Friends' ? this.state.noteCount : noteCount;
+    const { redirect, post } = this.props;
+    const { user, author, content, timestamp, createdOn, index } = post;
+    const { postId, pijnSentToday } = post;
     const userId = user.uid;
 
     const currentDate = new Date(
@@ -64,9 +87,11 @@ class PostListItem extends Component {
         />
         <Text style={contentStyle}>{content}</Text>
         <PostCounts
-          noteCount={displayNoteCount}
-          commentCount={commentCount}
-          commentsPress={() => this.goToComments({ user, postId, author })}
+          noteCount={this.displayNoteCount()}
+          commentCount={this.displayCommentCount()}
+          commentsPress={() => this.goToComments({
+            user, postId, author, index
+          })}
         />
         <Divider style={dividerStyle} />
         <View style={actionsViewStyle}>
@@ -78,7 +103,7 @@ class PostListItem extends Component {
           />
           <ActionButton
             imageSource={require('../../assets/images/comment.png')}
-            onPress={() => this.goToComments({ user, postId, author })}
+            onPress={this.goToComments}
           />
           <ActionButton
             imageSource={require('../../assets/images/message.png')}

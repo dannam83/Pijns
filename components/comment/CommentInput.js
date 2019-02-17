@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 
-import { commentCreateSave } from '../../actions';
+import { commentCreateSave, updateCommentCount } from '../../actions';
 
 class CommentInput extends Component {
   state = {
@@ -15,12 +15,15 @@ class CommentInput extends Component {
   }
 
   saveComment = () => {
-    const { user, postAuthorId, postId } = this.props;
+    const { user, postAuthorId, postId, index } = this.props;
     const { newValue } = this.state;
 
     try {
       this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
       this.setState({ newValue: '' });
+      if (index >= 0) {
+        this.props.updateCommentCount(index);
+      }
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
@@ -115,4 +118,4 @@ const styles = {
   }
 };
 
-export default connect(null, { commentCreateSave })(CommentInput);
+export default connect(null, { commentCreateSave, updateCommentCount })(CommentInput);

@@ -12,13 +12,13 @@ class PostCounts extends Component {
 
     return (
       noteCount > 0 ? (
-        <View style={countItemStyle}>
+        <TouchableOpacity style={countItemStyle}>
           <Image
             source={require('../../assets/images/love-note.png')}
             style={loveNoteIconStyle}
           />
           <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
-        </View>
+        </TouchableOpacity>
       ) : null
     );
   }

@@ -10,10 +10,11 @@ class CommentsScreen extends Component {
   };
 
   render() {
-    const user = this.props.navigation.getParam('user');
-    const postAuthorId = this.props.navigation.getParam('postAuthorId');
-    const postId = this.props.navigation.getParam('postId');
-    const navigation = this.props.navigation;
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
+    const postAuthorId = navigation.getParam('postAuthorId');
+    const postId = navigation.getParam('postId');
+    const index = navigation.getParam('index');
 
     return (
       <KeyboardAvoidingView
@@ -32,6 +33,7 @@ class CommentsScreen extends Component {
           postAuthorId={postAuthorId}
           postId={postId}
           navigation={navigation}
+          index={index}
         />
       </KeyboardAvoidingView>
     );
