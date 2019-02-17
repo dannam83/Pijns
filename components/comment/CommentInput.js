@@ -41,6 +41,7 @@ class CommentInput extends Component {
      } = styles;
     const { picture } = this.props.user;
     const newStyle = { height };
+    const emptyText = this.state.newValue.length === 0;
 
     return (
       <View style={containerViewStyle}>
@@ -58,9 +59,9 @@ class CommentInput extends Component {
             value={newValue}
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
           />
-        </View>
-        <TouchableOpacity style={buttonStyle}>
-          <Text style={buttonTextStyle} onPress={this.saveComment}>Post</Text>
+      </View>
+        <TouchableOpacity style={buttonStyle} onPress={this.saveComment} disabled={emptyText}>
+          <Text style={buttonTextStyle}>Post</Text>
         </TouchableOpacity>
       </View>
     );
