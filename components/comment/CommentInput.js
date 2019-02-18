@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 
 import { commentCreateSave, updateCommentCount } from '../../actions';
-import { disabledGray } from '../../assets/colors';
+import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
 class CommentInput extends Component {
   state = {
@@ -43,7 +43,7 @@ class CommentInput extends Component {
     const { picture } = this.props.user;
     const newStyle = { height };
     const emptyText = this.state.newValue.length === 0;
-    const buttonColor = emptyText ? disabledGray : 'rgba(0,125,255,1)';
+    const buttonColor = emptyText ? disabledGray : activeButtonBlue;
 
     return (
       <View style={containerViewStyle}>
@@ -113,13 +113,11 @@ const styles = {
     marginLeft: 8,
     marginRight: 10,
     borderWidth: 1,
-    // borderColor: 'rgba(0,125,255,1)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
   buttonTextStyle: {
-    // color: 'rgba(0,125,255,1)',
     fontSize: 16,
     fontWeight: '600'
   }

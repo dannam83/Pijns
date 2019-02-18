@@ -17,7 +17,7 @@ export const fetchPijnLog = () => {
   );
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/pijns/${currentDate}`)
+    firebase.database().ref(`/userPijns/${currentUser.uid}/${currentDate}`)
       .on('value', snapshot => {
         dispatch({ type: FETCH_PIJN_LOG, payload: snapshot.val() }
         );
@@ -40,7 +40,7 @@ const incrementPostsPijnCount = (db, postId) => {
 
 const firebaseRecordPijn = (db, currentDate, postId) => {
   const { uid } = firebase.auth().currentUser;
-  const userPijnsRef = db.ref(`/users/${uid}/pijns/${currentDate}/${postId}`);
+  const userPijnsRef = db.ref(`/userPijns/${uid}/${currentDate}/${postId}`);
 
   userPijnsRef.set(Date.now());
 };
