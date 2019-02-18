@@ -49,14 +49,14 @@ class PostListItem extends Component {
     return displayCommentCount;
   }
 
-  sendPijn = ({ postId, author, currentDate }) => {
+  sendPijn = ({ postId, author, currentDate, user }) => {
     const { list } = this.props;
 
     if (list === 'Friends') {
       this.setState({ noteCount: this.state.noteCount + 1 });
     }
 
-    this.props.post.sendPijn({ postId, author, currentDate });
+    this.props.post.sendPijn({ postId, author, currentDate, user });
   }
 
   render() {
@@ -98,7 +98,7 @@ class PostListItem extends Component {
           <ActionButton
             imageSource={require('../../assets/images/pijn.png')}
             iconStyle={{ height: 24, width: 26 }}
-            onPress={() => this.sendPijn({ postId, author, currentDate })}
+            onPress={() => this.sendPijn({ postId, author, currentDate, user })}
             disabled={pijnSentToday}
           />
           <ActionButton

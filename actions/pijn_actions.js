@@ -2,12 +2,12 @@ import firebase from 'firebase';
 
 import { FETCH_PIJN_LOG } from './types';
 
-export const sendPijn = ({ postId, author, currentDate }) => {
+export const sendPijn = ({ postId, author, currentDate, user }) => {
   const db = firebase.database();
 
   incrementAuthorPostPijnCount(db, author.id, postId);
   incrementPostsPijnCount(db, postId);
-  firebaseRecordPijn(db, currentDate, postId);
+  firebaseRecordPijn({ db, currentDate, postId, user });
 };
 
 export const fetchPijnLog = () => {
@@ -38,9 +38,11 @@ const incrementPostsPijnCount = (db, postId) => {
   postsRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
 
-const firebaseRecordPijn = (db, currentDate, postId) => {
-  const { uid } = firebase.auth().currentUser;
+const firebaseRecordPijn = ({ db, currentDate, postId, user }) => {
+  const { uid } = user;
   const userPijnsRef = db.ref(`/userPijns/${uid}/${currentDate}/${postId}`);
+  const postPijnsRef = db.ref(`/postPijns/${postId}/${uid}${Date.now()}`);
 
   userPijnsRef.set(Date.now());
+  postPijnsRef.set({ ...user, timestamp: -Date.now() });
 };
