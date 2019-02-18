@@ -25,6 +25,19 @@ class PostListItem extends Component {
     });
   };
 
+  goToPostNotes = async () => {
+    const { list, post } = this.props;
+    const postList = list === 'Friends' ? 'FriendPostNotes' : 'MyPostNotes';
+    const { user, postId, author, index } = post;
+
+    // await this.props.commentsPopulate(postId);
+    // await this.props.setActivePost({ postId, postAuthor: author });
+
+    post.navigation.navigate(postList, {
+      user, postAuthorId: author.id, postId, index
+    });
+  };
+
   displayNoteCount = () => {
     const { post, list } = this.props;
     const { notes } = post;
@@ -92,6 +105,7 @@ class PostListItem extends Component {
           commentsPress={() => this.goToComments({
             user, postId, author, index
           })}
+          notesPress={this.goToPostNotes}
         />
         <Divider style={dividerStyle} />
         <View style={actionsViewStyle}>

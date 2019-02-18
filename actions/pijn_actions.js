@@ -41,8 +41,8 @@ const incrementPostsPijnCount = (db, postId) => {
 const firebaseRecordPijn = ({ db, currentDate, postId, user }) => {
   const { uid } = user;
   const userPijnsRef = db.ref(`/userPijns/${uid}/${currentDate}/${postId}`);
-  const postPijnsRef = db.ref(`/postPijns/${postId}/${uid}${Date.now()}`);
+  const postNotesRef = db.ref(`/postNotes/${postId}/${uid}${Date.now()}`);
 
   userPijnsRef.set(Date.now());
-  postPijnsRef.set({ ...user, timestamp: -Date.now() });
+  postNotesRef.set({ ...user, timestamp: -Date.now() });
 };

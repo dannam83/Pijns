@@ -10,6 +10,7 @@ import PublicProfileScreen from '../screens/PublicProfileScreen';
 import MyPostsScreen from '../screens/MyPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
+import PostNotesListScreen from '../screens/PostNotesListScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FriendsScreen from '../screens/FriendsScreen';
@@ -19,7 +20,8 @@ const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
   SearchFriends: SearchFriendsScreen,
   PublicProfile: PublicProfileScreen,
-  FriendPostComments: CommentsScreen
+  FriendPostComments: CommentsScreen,
+  FriendPostNotes: PostNotesListScreen
 });
 
 FriendPostsStack.navigationOptions = {
@@ -42,7 +44,8 @@ const MyPostsStack = createStackNavigator({
   MyPosts: MyPostsScreen,
   PostCreate: PostCreateScreen,
   PostEdit: PostEditScreen,
-  Comments: CommentsScreen
+  Comments: CommentsScreen,
+  MyPostNotes: PostNotesListScreen
 });
 
 MyPostsStack.navigationOptions = {

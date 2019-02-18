@@ -8,11 +8,11 @@ import { lightTextGray } from '../../assets/colors';
 class PostCounts extends Component {
   noteCount = () => {
     const { countItemStyle, loveNoteIconStyle } = styles;
-    const { noteCount } = this.props;
+    const { noteCount, notesPress } = this.props;
 
     return (
       noteCount > 0 ? (
-        <TouchableOpacity style={countItemStyle}>
+        <TouchableOpacity style={countItemStyle} onPress={notesPress}>
           <Image
             source={require('../../assets/images/love-note.png')}
             style={loveNoteIconStyle}
