@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class TestScreen extends Component {
+class PostNotesListScreen extends Component {
   static navigationOptions = {
-    title: 'Test Screen',
+    title: 'Notes',
   };
 
   render() {
@@ -19,4 +19,4 @@ class TestScreen extends Component {
   }
 }
 
-export default (TestScreen);
+export default (PostNotesListScreen);

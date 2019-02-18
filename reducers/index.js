@@ -7,6 +7,7 @@ import posts from './posts_reducer';
 import activePost from './active_post_reducer';
 import comments from './comments_reducer';
 import pijnLog from './pijn_log_reducer';
+import postNotes from './post_notes_reducer';
 import searchResults from './search_reducer';
 import requests from './requests_reducer';
 import friend from './friend_reducer';
@@ -23,6 +24,7 @@ export default combineReducers({
   posts,
   comments,
   pijnLog,
+  postNotes,
   navigation,
   searchResults,
   requests,
