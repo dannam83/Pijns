@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { ListItemAsButton } from '../components/common';
-import { getFriendStatus, fetchPostNotes } from '../actions';
+import { getFriendStatus, fetchPostNotes, notesClear } from '../actions';
 
 class PostNotesListScreen extends Component {
   static navigationOptions = {
@@ -18,11 +18,15 @@ class PostNotesListScreen extends Component {
     this.props.fetchPostNotes({ postId });
   }
 
+  componentWillUnmount() {
+    this.props.notesClear();
+  }
+
   goToPublicProfile = (friend) => {
     const currentUserId = this.props.currentUser.uid;
     const profileUserId = friend.uid;
     const { navigate } = this.props.navigation;
-    const redirect = () => navigate('FriendProfile', { profileUser: friend });
+    const redirect = () => navigate('PublicProfile', { profileUser: friend });
 
     this.props.getFriendStatus({ profileUserId, currentUserId });
     redirect();
@@ -72,5 +76,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   getFriendStatus,
-  fetchPostNotes
+  fetchPostNotes,
+  notesClear
 })(PostNotesListScreen);

@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { FETCH_POST_NOTES } from './types';
+import { FETCH_POST_NOTES, NOTES_CLEAR } from './types';
 
 export const fetchPostNotes = ({ postId }) => {
   return (dispatch) => {
@@ -13,4 +13,8 @@ export const fetchPostNotes = ({ postId }) => {
       }
     );
   };
+};
+
+export const notesClear = () => {
+  return ({ type: NOTES_CLEAR });
 };
