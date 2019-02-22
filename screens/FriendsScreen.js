@@ -36,7 +36,6 @@ class FriendsScreen extends Component {
   }
 
   render() {
-    console.log('list', this.props.friendList);
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
