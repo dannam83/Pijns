@@ -30,10 +30,7 @@ module.exports = (req, res) => {
       )
     });
 
-    const results = Promise.all(friendPromises);
-
-    Promise.all(friendPromises)
-    .then(() => {
+    Promise.all(friendPromises).then(() => {
       friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);
       res.send(friendPostsArray);
       return null;

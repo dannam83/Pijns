@@ -14,7 +14,7 @@ class PostNotesListScreen extends Component {
   constructor(props) {
     super(props);
     const postId = this.props.navigation.getParam('postId');
-    
+
     this.props.fetchPostNotes({ postId });
   }
 
@@ -67,12 +67,12 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log('state', state);
-  let friendList = _.map(state.friendList, (val) => {
-    return { ...val.user };
-  });
+  let notes = _.map(state.postNotes, (val) => {
+    return { ...val };
+  }).reverse();
+  console.log('notes', notes);
   const { user } = state;
-  return { friendList, currentUser: user };
+  return { notes, currentUser: user };
 }
 
 export default connect(mapStateToProps, {
