@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { ListItemAsButton } from '../components/common';
-import { searchUpdate, getFriendStatus, fetchPostNotes } from '../actions';
+import { getFriendStatus, fetchPostNotes } from '../actions';
 
 class PostNotesListScreen extends Component {
   static navigationOptions = {
@@ -16,10 +16,6 @@ class PostNotesListScreen extends Component {
     const postId = this.props.navigation.getParam('postId');
 
     this.props.fetchPostNotes({ postId });
-  }
-
-  onChangeText = (value) => {
-    this.props.searchUpdate({ value });
   }
 
   goToPublicProfile = (friend) => {
@@ -46,7 +42,7 @@ class PostNotesListScreen extends Component {
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
-          data={this.props.friendList}
+          data={this.props.notes}
           renderItem={({ item }) => this.renderRow(item)}
           keyExtractor={({ item }, uid) => uid.toString()}
         />
@@ -70,13 +66,11 @@ function mapStateToProps(state) {
   let notes = _.map(state.postNotes, (val) => {
     return { ...val };
   }).reverse();
-  console.log('notes', notes);
   const { user } = state;
   return { notes, currentUser: user };
 }
 
 export default connect(mapStateToProps, {
-  searchUpdate,
   getFriendStatus,
   fetchPostNotes
 })(PostNotesListScreen);
