@@ -6,6 +6,7 @@ export * from './Header';
 export * from './CardBanner';
 export * from './CardSection';
 export * from './ListItemAsButton';
+export * from './PeopleList';
 export * from './Input';
 export * from './LoginInput';
 export * from './LoginInputSection';

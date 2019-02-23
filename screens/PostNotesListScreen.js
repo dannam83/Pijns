@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { ListItemAsButton } from '../components/common';
+import { ListItemAsButton, PeopleList } from '../components/common';
 import { getFriendStatus, fetchPostNotes, notesClear } from '../actions';
 
 class PostNotesListScreen extends Component {
@@ -44,27 +43,14 @@ class PostNotesListScreen extends Component {
 
   render() {
     return (
-      <View style={styles.masterContainerStyle}>
-        <FlatList
-          data={this.props.notes}
-          renderItem={({ item }) => this.renderRow(item)}
-          keyExtractor={({ item }, uid) => uid.toString()}
-        />
-      </View>
+      <PeopleList
+        data={this.props.notes}
+        renderItem={({ item }) => this.renderRow(item)}
+        keyExtractor={({ item }, uid) => uid.toString()}
+      />
     );
   }
 }
-
-const styles = {
-  masterContainerStyle: {
-    flex: 1,
-    padding: 10
-  },
-  containerStyle: {
-    backgroundColor: '#EAEAEA',
-    borderRadius: 25
-  },
-};
 
 function mapStateToProps(state) {
   let notes = _.map(state.postNotes, (val) => {

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { Input, ListItemAsButton } from '../components/common';
+import { ListItemAsButton, PeopleList } from '../components/common';
 import { searchUpdate, getFriendStatus } from '../actions';
 
 class FriendsScreen extends Component {
@@ -37,27 +36,14 @@ class FriendsScreen extends Component {
 
   render() {
     return (
-      <View style={styles.masterContainerStyle}>
-        <FlatList
-          data={this.props.friendList}
-          renderItem={({ item }) => this.renderRow(item)}
-          keyExtractor={({ item }, uid) => uid.toString()}
-        />
-      </View>
+      <PeopleList
+        data={this.props.friendList}
+        renderItem={({ item }) => this.renderRow(item)}
+        keyExtractor={({ item }, uid) => uid.toString()}
+      />
     );
   }
 }
-
-const styles = {
-  masterContainerStyle: {
-    flex: 1,
-    padding: 10
-  },
-  containerStyle: {
-    backgroundColor: '#EAEAEA',
-    borderRadius: 25
-  },
-};
 
 function mapStateToProps(state) {
   let friendList = _.map(state.friendList, (val) => {
