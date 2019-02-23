@@ -20,6 +20,7 @@ const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
   SearchFriends: SearchFriendsScreen,
   PublicProfile: PublicProfileScreen,
+  FR_Friends: FriendsScreen,
   FriendPostComments: CommentsScreen,
   FriendPostNotes: PostNotesListScreen
 });

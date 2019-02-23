@@ -25,7 +25,9 @@ class PostNotesListScreen extends Component {
     const currentUserId = this.props.currentUser.uid;
     const profileUserId = friend.uid;
     const { navigate } = this.props.navigation;
-    const redirect = () => navigate('PublicProfile', { profileUser: friend });
+    const redirect = () => navigate('PublicProfile', {
+      profileUser: friend, tab: 'Friends'
+    });
 
     this.props.getFriendStatus({ profileUserId, currentUserId });
     redirect();

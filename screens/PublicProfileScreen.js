@@ -13,7 +13,14 @@ class PublicProfileScreen extends Component {
 
   onFriendsPress = (userId) => {
     this.props.fetchFriendList(userId);
-    this.props.navigation.navigate('Friends');
+    const nav = this.props.navigation;
+    const tab = nav.getParam('tab');
+
+    if (tab === 'Friends') {
+      this.props.navigation.navigate('FR_Friends');
+    } else {
+      this.props.navigation.navigate('Friends');
+    }
   }
 
   buttonStyle(status) {

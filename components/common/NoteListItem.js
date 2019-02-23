@@ -41,7 +41,7 @@ const formatTimeAgo = (timestamp, createdOn) => {
     return `${hoursAgoPosted} hour${hoursAgoPosted === 1 ? '' : 's'} ago`;
   }
   const daysAgoPosted = Math.floor(hoursAgoPosted / 24);
-  if (daysAgoPosted < 30) {
+  if (daysAgoPosted <= 30) {
     return `${daysAgoPosted} day${daysAgoPosted === 1 ? '' : 's'} ago`;
   }
   return createdOn;
