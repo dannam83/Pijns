@@ -17,9 +17,9 @@ class PublicProfileScreen extends Component {
     const tab = nav.getParam('tab');
 
     if (tab === 'Friends') {
-      this.props.navigation.navigate('FR_Friends');
+      nav.navigate('FR_Friends', { tab });
     } else {
-      this.props.navigation.navigate('Friends');
+      nav.navigate('Friends');
     }
   }
 
