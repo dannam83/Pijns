@@ -18,7 +18,7 @@ class PostListMine extends Component {
         post={post}
         redirect={this.props.redirect}
         redirectTo='Comments'
-        list='Mine'
+        tab={this.props.tab}
       />
     );
   }

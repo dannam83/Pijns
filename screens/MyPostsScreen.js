@@ -11,7 +11,7 @@ class MyPostsScreen extends Component {
     const redirect = this.props.navigation.navigate;
 
     return (
-      <PostListMine redirect={redirect} />
+      <PostListMine redirect={redirect} tab={'My'} />
     );
   }
 }

@@ -16,7 +16,7 @@ class FriendPostsScreen extends Component {
     const redirect = this.props.navigation.navigate;
 
     return (
-      <PostListFriends redirect={redirect} />
+      <PostListFriends redirect={redirect} tab={'Friends'} />
     );
   }
 }

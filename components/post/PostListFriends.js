@@ -26,7 +26,7 @@ class PostListFriends extends Component {
         post={post}
         redirect={this.props.redirect}
         redirectTo='FriendPostComments'
-        list='Friends'
+        tab={this.props.tab}
       />
     );
   }

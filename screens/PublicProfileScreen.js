@@ -18,6 +18,8 @@ class PublicProfileScreen extends Component {
 
     if (tab === 'Friends') {
       nav.navigate('FR_Friends', { tab });
+    } else if (tab === 'My') {
+      nav.navigate('MY_Friends', { tab });
     } else {
       nav.navigate('Friends');
     }

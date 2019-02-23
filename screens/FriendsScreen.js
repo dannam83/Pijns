@@ -23,6 +23,8 @@ class FriendsScreen extends Component {
 
     if (tab === 'Friends') {
       redirect = () => nav.navigate('PublicProfile', { profileUser: friend });
+    } else if (tab === 'My') {
+      redirect = () => nav.navigate('MY_PublicProfile', { profileUser: friend });
     } else {
       redirect = () => nav.navigate('FriendProfile', { profileUser: friend });
     }

@@ -46,7 +46,9 @@ const MyPostsStack = createStackNavigator({
   PostCreate: PostCreateScreen,
   PostEdit: PostEditScreen,
   Comments: CommentsScreen,
-  MyPostNotes: PostNotesListScreen
+  MyPostNotes: PostNotesListScreen,
+  MY_PublicProfile: PublicProfileScreen,
+  MY_Friends: FriendsScreen,
 });
 
 MyPostsStack.navigationOptions = {

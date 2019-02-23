@@ -26,33 +26,33 @@ class PostListItem extends Component {
   };
 
   goToPostNotes = async () => {
-    const { list, post } = this.props;
-    const postList = list === 'Friends' ? 'FriendPostNotes' : 'MyPostNotes';
+    const { tab, post } = this.props;
+    const postList = tab === 'Friends' ? 'FriendPostNotes' : 'MyPostNotes';
     const { user, postId, author, index } = post;
 
     post.navigation.navigate(postList, {
-      user, postAuthorId: author.id, postId, index
+      user, postAuthorId: author.id, postId, index, tab
     });
   };
 
   displayNoteCount = () => {
-    const { post, list } = this.props;
+    const { post, tab } = this.props;
     const { notes } = post;
     const noteCount = notes ? notes.count : 0;
     return (
-      list === 'Friends' ? this.state.noteCount : noteCount
+      tab === 'Friends' ? this.state.noteCount : noteCount
     );
   }
 
   displayCommentCount = () => {
-    const { post, list } = this.props;
+    const { post, tab } = this.props;
     const { commentCount } = post;
     let displayCommentCount;
 
-    if (list === 'Friends') {
+    if (tab === 'Friends') {
       displayCommentCount = this.state.commentCount;
     }
-    if (list === 'Mine') {
+    if (tab === 'Mine') {
       displayCommentCount = !commentCount ? 0 : commentCount;
     }
 
@@ -60,9 +60,9 @@ class PostListItem extends Component {
   }
 
   sendPijn = ({ postId, author, currentDate, user }) => {
-    const { list } = this.props;
+    const { tab } = this.props;
 
-    if (list === 'Friends') {
+    if (tab === 'Friends') {
       this.setState({ noteCount: this.state.noteCount + 1 });
     }
 
