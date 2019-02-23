@@ -25,6 +25,17 @@ class PublicProfileScreen extends Component {
     }
   }
 
+  onFriendPress = (profileUserId, status) => {
+    const { currentUser } = this.props;
+    if (!status) {
+      this.props.friendRequest({ profileUserId, currentUser });
+    } else if (status === 'See Requests') {
+      this.props.navigation.navigate('Notifications');
+    } else if (status === 'Unfriend') {
+      this.props.unfriend({ profileUserId, currentUser });
+    }
+  }
+
   buttonStyle(status) {
     const { buttonBorderGray, buttonBodyBlue } = styles;
 
