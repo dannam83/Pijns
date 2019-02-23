@@ -1,7 +1,6 @@
 export * from './Button';
 export * from './ButtonAsText';
 export * from './ActionButton';
-// export * from './Card';
 export * from './Header';
 export * from './CardBanner';
 export * from './CardSection';
@@ -14,3 +13,4 @@ export * from './LoginButton';
 export * from './LoginNewAccountButton';
 export * from './Spinner';
 export * from './Confirm';
+export * from './NoteListItem';

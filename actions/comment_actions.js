@@ -3,9 +3,6 @@ import {
   COMMENT_CREATE_SAVE,
   COMMENTS_POPULATE,
   COMMENTS_CLEAR,
-  // COMMENT_EDIT_UPDATE,
-  // COMMENT_SAVE_SUCCESS,
-  // COMMENT_DELETE
  } from './types';
 
  export const commentCreateSave = ({ user, comment, postAuthorId, postId }) => {
@@ -102,48 +99,3 @@ import {
    postAuthorRef.transaction((currentCount) => (currentCount || 0) + 1);
    postsRef.transaction((currentCount) => (currentCount || 0) + 1);
  };
-
-// export const commentCreateUpdate = ({ prop, value }) => {
-  // const currentDate = new Date();
-  // const month = currentDate.getMonth().toString();
-  // const day = currentDate.getDay().toString();
-  // const year = currentDate.getYear().toString();
-  // const dateString = month + day + year;
-  // console.log(dateString);
-
-//   return {
-//     type: COMMENT_CREATE_UPDATE,
-//     payload: { prop, value }
-//   };
-// };
-
-// export const commentEditUpdate = ({ prop, value }) => {
-//   return {
-//     type: COMMENT_EDIT_UPDATE,
-//     payload: { prop, value }
-//   };
-// };
-
-// export const commentEditSave = ({ commentText, commentId }) => {
-//   const { currentUser } = firebase.auth();
-//
-//   return (dispatch) => {
-//     firebase.database().ref(`/users/${currentUser.uid}/comments/${commentId}`)
-//       .update({ content: commentText })
-//       .then(() => {
-//         dispatch({ type: COMMENT_SAVE_SUCCESS });
-//       });
-//   };
-// };
-//
-// export const commentDelete = ({ commentId }) => {
-//   const { currentUser } = firebase.auth();
-//
-//   return (dispatch) => {
-//     firebase.database().ref(`/users/${currentUser.uid}/comments/${commentId}`)
-//       .remove()
-//       .then(() => {
-//         dispatch({ type: COMMENT_DELETE });
-//     });
-//   };
-// };

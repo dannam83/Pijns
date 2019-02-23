@@ -30,9 +30,6 @@ class PostListItem extends Component {
     const postList = list === 'Friends' ? 'FriendPostNotes' : 'MyPostNotes';
     const { user, postId, author, index } = post;
 
-    // await this.props.commentsPopulate(postId);
-    // await this.props.setActivePost({ postId, postAuthor: author });
-
     post.navigation.navigate(postList, {
       user, postAuthorId: author.id, postId, index
     });

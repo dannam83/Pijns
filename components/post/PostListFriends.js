@@ -73,16 +73,12 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   const { user, userFeed } = state;
   let posts = _.map(userFeed, (post, index) => {
     const pijnSentToday = !!state.pijnLog[post.postId];
     const { navigation } = state;
-    let comments = _.map(post.comments, (value, commentId) => {
-      return { ...value, commentId };
-    });
     return {
-      ...post, sendPijn, pijnSentToday, user, navigation, comments, index
+      ...post, sendPijn, pijnSentToday, user, navigation, index
     };
   });
   return { posts, user };

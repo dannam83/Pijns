@@ -45,8 +45,6 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     let user = this.props.navigation.getParam('profileUser');
     user = !user ? this.props.currentUser : user;
 
@@ -121,7 +119,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   const { user, friend } = state;
   return ({ currentUser: user, friend });
 }

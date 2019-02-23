@@ -8,7 +8,6 @@ const CardBanner = ({
   userId, author, redirect, postEditUpdate, postText, postId, timestamp, createdOn
 }) => {
   const { id, name, picture } = author;
-  const secondsAgoPosted = Math.floor((Date.now() + timestamp) / 1000);
   const {
     containerStyle,
     thumbnailStyle,
@@ -26,7 +25,7 @@ const CardBanner = ({
     await postEditUpdate({ prop: 'postId', value: postId });
   };
 
-  const posted = formatTimeAgo(secondsAgoPosted, createdOn);
+  const posted = formatTimeAgo(timestamp, createdOn);
   const options = (uid, authorId) => {
     if (uid === authorId) {
       return ['Edit', 'Cancel'];
@@ -71,7 +70,9 @@ const CardBanner = ({
   );
 };
 
-const formatTimeAgo = (secondsAgoPosted, createdOn) => {
+const formatTimeAgo = (timestamp, createdOn) => {
+  const secondsAgoPosted = Math.floor((Date.now() + timestamp) / 1000);
+
   if (secondsAgoPosted < 60) {
     return `${secondsAgoPosted} second${secondsAgoPosted === 1 ? '' : 's'} ago`;
   }

@@ -10,13 +10,6 @@ import {
  } from './types';
 
 export const postCreateUpdate = ({ prop, value }) => {
-  // const currentDate = new Date();
-  // const month = currentDate.getMonth().toString();
-  // const day = currentDate.getDay().toString();
-  // const year = currentDate.getYear().toString();
-  // const dateString = month + day + year;
-  // console.log(dateString);
-
   return {
     type: POST_CREATE_UPDATE,
     payload: { prop, value }
@@ -36,7 +29,8 @@ const saveToFirebase = async (author, content) => {
   const userRef = db.ref(`/users/${author.id}/posts`);
   const postRef = db.ref('/posts');
   const key = userRef.push().getKey();
-  const createdOn = new Date().toString();
+  const date = new Date().toString().slice(4, 16);
+  const createdOn = `${date.slice(0, 6)}, ${date.slice(7, 11)}`;
   const timestamp = -Date.now();
 
   await userRef.child(key).set({

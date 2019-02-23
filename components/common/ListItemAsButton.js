@@ -10,7 +10,6 @@ const ListItemAsButton = ({
 
   return (
     <TouchableOpacity
-      // style={[buttonStyle, buttonRestyle]}
       onPress={onPress}
       disabled={disabled}
     >

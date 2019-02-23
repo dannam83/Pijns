@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { ListItemAsButton, PeopleList } from '../components/common';
+import { NoteListItem, PeopleList } from '../components/common';
 import { getFriendStatus, fetchPostNotes, notesClear } from '../actions';
 
 class PostNotesListScreen extends Component {
@@ -33,9 +33,8 @@ class PostNotesListScreen extends Component {
 
   renderRow = (item) => {
     return (
-      <ListItemAsButton
-        text={item.name}
-        imageSource={item.picture}
+      <NoteListItem
+        note={item}
         onPress={() => this.goToPublicProfile(item)}
       />
     );

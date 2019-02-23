@@ -42,7 +42,9 @@ const firebaseRecordPijn = ({ db, currentDate, postId, user }) => {
   const { uid } = user;
   const userPijnsRef = db.ref(`/userPijns/${uid}/${currentDate}/${postId}`);
   const postNotesRef = db.ref(`/postNotes/${postId}/${uid}${Date.now()}`);
+  const date = new Date().toString().slice(4, 16);
+  const createdOn = `${date.slice(0, 6)}, ${date.slice(7, 11)}`;
 
   userPijnsRef.set(Date.now());
-  postNotesRef.set({ ...user, timestamp: -Date.now() });
+  postNotesRef.set({ ...user, timestamp: -Date.now(), createdOn });
 };
