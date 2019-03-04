@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const getUserFeed = require('./get_user_feed');
+const getUserFeed = require('./google_cloud/get_user_feed');
 const serviceAccount = require('./service_account.json');
 
 admin.initializeApp({

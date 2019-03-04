@@ -3,6 +3,7 @@ import { Text, View, Image } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 
 import { ActionButton } from './ActionButton';
+import { displayTimeAgo } from '../../functions/common';
 
 const CardBanner = ({
   userId, author, redirect, postEditUpdate, postText, postId, timestamp, createdOn
@@ -25,7 +26,7 @@ const CardBanner = ({
     await postEditUpdate({ prop: 'postId', value: postId });
   };
 
-  const posted = formatTimeAgo(timestamp, createdOn);
+  const posted = displayTimeAgo(timestamp, createdOn);
   const options = (uid, authorId) => {
     if (uid === authorId) {
       return ['Edit', 'Cancel'];
@@ -68,27 +69,6 @@ const CardBanner = ({
     </View>
 
   );
-};
-
-const formatTimeAgo = (timestamp, createdOn) => {
-  const secondsAgoPosted = Math.floor((Date.now() + timestamp) / 1000);
-
-  if (secondsAgoPosted < 60) {
-    return `${secondsAgoPosted} second${secondsAgoPosted === 1 ? '' : 's'} ago`;
-  }
-  const minutesAgoPosted = Math.floor(secondsAgoPosted / 60);
-  if (minutesAgoPosted < 60) {
-    return `${minutesAgoPosted} minute${minutesAgoPosted === 1 ? '' : 's'} ago`;
-  }
-  const hoursAgoPosted = Math.floor(minutesAgoPosted / 60);
-  if (hoursAgoPosted < 24) {
-    return `${hoursAgoPosted} hour${hoursAgoPosted === 1 ? '' : 's'} ago`;
-  }
-  const daysAgoPosted = Math.floor(hoursAgoPosted / 24);
-  if (daysAgoPosted <= 30) {
-    return `${daysAgoPosted} day${daysAgoPosted === 1 ? '' : 's'} ago`;
-  }
-  return createdOn;
 };
 
 const styles = {

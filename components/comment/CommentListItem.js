@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 
 import { likeComment } from '../../actions';
+import { displayTimeAgo } from '../../functions/common';
 import { ActionButton } from '../../components/common';
+import { lightTextGray } from '../../assets/colors';
 
 class CommentListItem extends Component {
   state = {
@@ -40,8 +42,8 @@ class CommentListItem extends Component {
     const {
       author,
       comment,
-      // timestamp,
-      // createdOn
+      timestamp,
+      createdOn
     } = this.props.comment;
 
     const {
@@ -49,6 +51,8 @@ class CommentListItem extends Component {
       thumbnailStyle,
       textViewStyle,
       commentHeaderStyle,
+      commentHeaderFrontStyle,
+      timeAgoStyle,
       nameStyle,
       likesStyle,
       commentStyle,
@@ -60,6 +64,7 @@ class CommentListItem extends Component {
     const { likes } = this.state;
     const { name, picture } = author;
     const iconStyle = this.alreadyLiked() ? iconLikedStyle : iconNotLikedStyle;
+    const timeAgo = displayTimeAgo(timestamp, createdOn);
 
     return (
       <View style={containerStyle}>
@@ -69,7 +74,10 @@ class CommentListItem extends Component {
         />
         <View style={textViewStyle}>
           <View style={commentHeaderStyle}>
-            <Text style={nameStyle}>{name}</Text>
+            <View style={commentHeaderFrontStyle}>
+              <Text style={nameStyle}>{name}</Text>
+              <Text style={timeAgoStyle}>{timeAgo}</Text>
+            </View>
             <Text style={likesStyle}>{likes > 0 ? likes : null}</Text>
           </View>
           <Text style={commentStyle}>{comment}</Text>
@@ -99,16 +107,26 @@ const styles = {
   textViewStyle: {
     flex: 1,
     paddingLeft: 5,
-    paddingRight: 5,
+    paddingRight: 5
   },
   commentHeaderStyle: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  commentHeaderFrontStyle: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginBottom: 1,
+  },
   nameStyle: {
     fontWeight: '700',
-    marginBottom: 1
+    fontSize: 16
+  },
+  timeAgoStyle: {
+    color: lightTextGray,
+    paddingLeft: 8,
   },
   likesStyle: {
     marginBottom: 1,
