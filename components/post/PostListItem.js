@@ -5,7 +5,12 @@ import { Card, Divider } from 'react-native-elements';
 
 import { CardBanner, ActionButton } from '../common';
 import PostCounts from './PostCounts';
-import { postEditUpdate, commentsPopulate, setActivePost } from '../../actions';
+import {
+  postEditUpdate,
+  commentsPopulate,
+  fetchPostCommentLikes,
+  setActivePost
+} from '../../actions';
 
 class PostListItem extends Component {
   state = {
@@ -17,6 +22,7 @@ class PostListItem extends Component {
     const { redirect, redirectTo, post } = this.props;
     const { user, postId, author, index, navigation } = post;
 
+    await this.props.fetchPostCommentLikes({ userId: user.uid, postId });
     await this.props.commentsPopulate(postId);
     await this.props.setActivePost({ postId, postAuthor: author });
 
@@ -154,5 +160,6 @@ const styles = {
 export default connect(null, {
   postEditUpdate,
   commentsPopulate,
-  setActivePost
+  setActivePost,
+  fetchPostCommentLikes
 })(PostListItem);

@@ -4,11 +4,13 @@ import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
 import CommentListItem from '../comment/CommentListItem';
-import { commentsClear } from '../../actions';
+import { commentsClear, commentLikesClear } from '../../actions';
 
 class CommentList extends Component {
   componentWillUnmount() {
+    const { user, postId } = this.props;
     this.props.commentsClear();
+    this.props.commentLikesClear({ userId: user.uid, postId });
   }
 
   renderRow = (comment) => {
@@ -49,4 +51,6 @@ function mapStateToProps(state) {
   return { comments };
 }
 
-export default connect(mapStateToProps, { commentsClear })(CommentList);
+export default connect(mapStateToProps, {
+  commentsClear, commentLikesClear
+})(CommentList);

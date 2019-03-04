@@ -6,6 +6,7 @@ import postCreate from './post_create_reducer';
 import posts from './posts_reducer';
 import activePost from './active_post_reducer';
 import comments from './comments_reducer';
+import postCommentLikes from './post_comment_likes_reducer';
 import pijnLog from './pijn_log_reducer';
 import postNotes from './post_notes_reducer';
 import searchResults from './search_reducer';
@@ -19,16 +20,17 @@ export default combineReducers({
   auth,
   user,
   activePost,
-  postEdit,
-  postCreate,
-  posts,
   comments,
-  pijnLog,
-  postNotes,
-  navigation,
-  searchResults,
-  requests,
   friend,
   friendList,
+  navigation,
+  pijnLog,
+  postCommentLikes,
+  postCreate,
+  postEdit,
+  postNotes,
+  posts,
+  requests,
+  searchResults,
   userFeed
 });

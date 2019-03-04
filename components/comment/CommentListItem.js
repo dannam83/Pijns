@@ -9,9 +9,9 @@ import { lightTextGray } from '../../assets/colors';
 
 class CommentListItem extends Component {
   state = {
-    likes: this.props.comment.likes || 0,
+    likes: this.props.comment.likeCount || 0,
     alreadyLiked: (
-      this.props.comment.likedBy && this.props.comment.likedBy[this.props.user.uid]
+      this.props.postCommentLikes && this.props.postCommentLikes[this.props.comment.commentId]
     )
   };
 
@@ -129,7 +129,7 @@ const styles = {
     paddingLeft: 8,
   },
   likesStyle: {
-    marginBottom: 1,
+    paddingTop: 2,
     fontStyle: 'italic',
     color: '#808080'
   },
@@ -147,6 +147,7 @@ const styles = {
   buttonStyle: {
     height: 47,
     width: 22,
+    paddingTop: 2,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -164,8 +165,8 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { user, activePost } = state;
-  return { user, activePost };
+  const { user, activePost, postCommentLikes } = state;
+  return { user, activePost, postCommentLikes };
 }
 
 export default connect(mapStateToProps, { likeComment })(CommentListItem);
