@@ -47,25 +47,29 @@ const CardBanner = ({
         <Text style={headerAuthorStyle}>{name}</Text>
         <Text style={headerDetailStyle}>{posted}</Text>
       </View>
-      <View style={ellipsisViewStyle}>
-        <ActionButton
-          iconStyle={ellipsisStyle}
-          buttonStyle={buttonStyle}
-          imageSource={require('../../assets/images/ellipsis.png')}
-          onPress={showActionSheet}
-        />
-        <ActionSheet
-          ref={o => this.ActionSheet = o}
-          options={options(userId, id)}
-          cancelButtonIndex={cancelButtonIndex()}
-          destructiveButtonIndex={-1}
-          onPress={(index) => {
-            if (index === 0) {
-              redirect('PostEdit');
-            }
-          }}
-        />
-      </View>
+
+      { id === userId ? 
+        <View style={ellipsisViewStyle}>
+          <ActionButton
+            iconStyle={ellipsisStyle}
+            buttonStyle={buttonStyle}
+            imageSource={require('../../assets/images/ellipsis.png')}
+            onPress={showActionSheet}
+          />
+          <ActionSheet
+            ref={o => this.ActionSheet = o}
+            options={options(userId, id)}
+            cancelButtonIndex={cancelButtonIndex()}
+            destructiveButtonIndex={-1}
+            onPress={(index) => {
+              if (index === 0) {
+                redirect('PostEdit');
+              }
+            }}
+          />
+        </View> : null
+      }
+
     </View>
 
   );
