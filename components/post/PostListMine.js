@@ -69,11 +69,8 @@ function mapStateToProps(state) {
   let posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!state.pijnLog[uid];
     const { navigation } = state;
-    let comments = _.map(val.comments, (value, commentId) => {
-      return { ...value, commentId };
-    });
     return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation, comments
+      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation
     };
   }).reverse();
   return { posts };

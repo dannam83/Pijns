@@ -58,7 +58,7 @@ class PostListItem extends Component {
     if (tab === 'Friends') {
       displayCommentCount = this.state.commentCount;
     }
-    if (tab === 'Mine') {
+    if (tab === 'My') {
       displayCommentCount = !commentCount ? 0 : commentCount;
     }
 
