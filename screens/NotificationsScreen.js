@@ -14,7 +14,8 @@ class NotificationsScreen extends Component {
     title: 'Notifications',
   };
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.props.fetchRequests(this.props.currentUser.uid);
   }
 

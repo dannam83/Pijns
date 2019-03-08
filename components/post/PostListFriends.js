@@ -11,7 +11,8 @@ import PostListItem from './PostListItem';
 const ROOT_URL = 'https://us-central1-pijns-dc1c1.cloudfunctions.net';
 
 class PostListFriends extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.props.postsFetch();
     this.props.fetchUserFeed(this.props.user.uid);
   }

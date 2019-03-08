@@ -8,7 +8,8 @@ import { sendPijn, postsFetch } from '../../actions';
 import PostListItem from './PostListItem';
 
 class PostListMine extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.props.postsFetch();
   }
 
