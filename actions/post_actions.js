@@ -16,15 +16,15 @@ export const postCreateUpdate = ({ prop, value }) => {
   };
 };
 
-export const postCreateSave = ({ postText, author }) => {
+export const postCreateSave = ({ postText, postType, author }) => {
   return (dispatch) => {
-    saveToFirebase(author, postText)
+    saveToFirebase(author, postText, postType)
     .then(() => dispatch({ type: POST_CREATE_SAVE })
     );
   };
 };
 
-const saveToFirebase = async (author, content) => {
+const saveToFirebase = async (author, content, type) => {
   const db = firebase.database();
   const userRef = db.ref(`/users/${author.id}/posts`);
   const postRef = db.ref('/posts');
@@ -34,10 +34,10 @@ const saveToFirebase = async (author, content) => {
   const timestamp = -Date.now();
 
   await userRef.child(key).set({
-    author, content, createdOn, timestamp, notes: 0, commentCount: 0
+    author, content, type, createdOn, timestamp, notes: 0, commentCount: 0
   });
   await postRef.child(key).set({
-    author, content, createdOn, timestamp, notes: 0, commentCount: 0
+    author, content, type, createdOn, timestamp, notes: 0, commentCount: 0
   });
 };
 
