@@ -75,19 +75,45 @@ class PostListItem extends Component {
     this.props.post.sendPijn({ postId, author, currentDate, user });
   }
 
-  render() {
-    const { redirect, post } = this.props;
-    const { user, author, content, timestamp, createdOn, index } = post;
-    const { postId, pijnSentToday } = post;
-    const userId = user.uid;
+  postActionButtons({ postId, author, currentDate, user }) {
+    const { pijnSentToday } = this.props.post;
+    const { actionsViewStyle, worshipHandsInactive, worshipHandsActive } = styles;
 
+    return (
+      <View style={actionsViewStyle}>
+        <ActionButton
+          imageSource={require('../../assets/images/pijn.png')}
+          iconStyle={{ height: 24, width: 26 }}
+          onPress={() => this.sendPijn({ postId, author, currentDate, user })}
+          disabled={pijnSentToday}
+        />
+        <ActionButton
+          imageSource={require('../../assets/images/comment.png')}
+          onPress={this.goToComments}
+        />
+        {user.uid === author.id ? (
+            <ActionButton
+              imageSource={require('../../assets/images/praise.png')}
+              iconStyle={worshipHandsInactive}
+            />
+          ) : (
+            <ActionButton
+              imageSource={require('../../assets/images/message.png')}
+            />
+          )
+        }
+      </View>
+    );
+  }
+
+  render() {
+    const { containerStyle, contentStyle, dividerStyle } = styles;
+    const { redirect, post } = this.props;
+    const { user, author, content, timestamp, createdOn, index, postId } = post;
+    const userId = user.uid;
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
     );
-
-    const {
-      containerStyle, contentStyle, dividerStyle, actionsViewStyle,
-    } = styles;
 
     return (
       <Card containerStyle={containerStyle}>
@@ -111,21 +137,7 @@ class PostListItem extends Component {
           notesPress={this.goToPostNotes}
         />
         <Divider style={dividerStyle} />
-        <View style={actionsViewStyle}>
-          <ActionButton
-            imageSource={require('../../assets/images/pijn.png')}
-            iconStyle={{ height: 24, width: 26 }}
-            onPress={() => this.sendPijn({ postId, author, currentDate, user })}
-            disabled={pijnSentToday}
-          />
-          <ActionButton
-            imageSource={require('../../assets/images/comment.png')}
-            onPress={this.goToComments}
-          />
-          <ActionButton
-            imageSource={require('../../assets/images/message.png')}
-          />
-        </View>
+        {this.postActionButtons({ postId, author, currentDate, user })}
       </Card>
     );
   }
@@ -154,6 +166,17 @@ const styles = {
     justifyContent: 'space-between',
     paddingLeft: 60,
     paddingRight: 60
+  },
+  worshipHandsInactive: {
+    height: 24,
+    width: 27,
+    marginLeft: -1.5,
+  },
+  worshipHandsActive: {
+    height: 24,
+    width: 27,
+    marginLeft: -1.5,
+    tintColor: '#50C35C'
   },
 };
 

@@ -5,3 +5,5 @@ export const buttonBlue = '#007aff';
 
 export const disabledGray = '#D3D3D3';
 export const lightTextGray = '#909090';
+
+export const greenActive = '#50C35C';
