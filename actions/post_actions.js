@@ -104,3 +104,15 @@ export const answerPrayer = ({ postId, user }) => {
       type: 'PRAYER_ANSWERED'
     };
 };
+
+export const unanswerPrayer = ({ postId, user }) => {
+    const db = firebase.database();
+    db.ref(`/users/${user.uid}/posts/${postId}`)
+      .update({ answered: false });
+    db.ref(`/posts/${postId}`)
+      .update({ answered: false });
+
+    return {
+      type: 'PRAYER_UNANSWERED'
+    };
+};

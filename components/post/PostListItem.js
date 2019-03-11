@@ -10,14 +10,15 @@ import {
   commentsPopulate,
   fetchPostCommentLikes,
   setActivePost,
-  answerPrayer
+  answerPrayer,
+  unanswerPrayer
 } from '../../actions';
 
 class PostListItem extends Component {
   state = {
     noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
     commentCount: this.props.post.commentCount || 0,
-    answered: this.props.post.answered ? this.props.post.answered : null
+    answered: this.props.post.answered ? this.props.post.answered : false
   }
 
   goToComments = async () => {
@@ -79,12 +80,12 @@ class PostListItem extends Component {
 
   worshipHandsPress = ({ postId, user }) => {
     if (this.state.answered) {
-      return;
+      this.setState({ answered: false });
+      this.props.unanswerPrayer({ postId, user });
+    } else {
+      this.setState({ answered: true });
+      this.props.answerPrayer({ postId, user });
     }
-
-    this.setState({ answered: true });
-
-    this.props.answerPrayer({ postId, user });
   }
 
   postActionButtons({ postId, author, currentDate, user }) {
@@ -199,5 +200,6 @@ export default connect(null, {
   commentsPopulate,
   setActivePost,
   fetchPostCommentLikes,
-  answerPrayer
+  answerPrayer,
+  unanswerPrayer
 })(PostListItem);
