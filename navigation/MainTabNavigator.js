@@ -13,6 +13,7 @@ import PostNotesListScreen from '../screens/PostNotesListScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import FriendsScreen from '../screens/FriendsScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import ChatScreen from '../screens/ChatScreen';
 
 const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
@@ -20,7 +21,8 @@ const FriendPostsStack = createStackNavigator({
   PublicProfile: PublicProfileScreen,
   FR_Friends: FriendsScreen,
   FriendPostComments: CommentsScreen,
-  FriendPostNotes: PostNotesListScreen
+  FriendPostNotes: PostNotesListScreen,
+  Chat: ChatScreen
 });
 
 FriendPostsStack.navigationOptions = {

@@ -34,6 +34,11 @@ class PostListItem extends Component {
     });
   };
 
+  goToChat = async () => {
+    const { post } = this.props;
+    post.navigation.navigate('Chat');
+  }
+
   goToPostNotes = async () => {
     const { tab, post } = this.props;
     const postList = tab === 'Friends' ? 'FriendPostNotes' : 'MyPostNotes';
@@ -114,6 +119,7 @@ class PostListItem extends Component {
           ) : (
             <ActionButton
               imageSource={require('../../assets/images/message.png')}
+              onPress={this.goToChat}
             />
           )
         }
