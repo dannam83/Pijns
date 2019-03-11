@@ -91,3 +91,16 @@ export const setActivePost = ({ postId, postAuthor }) => {
     payload: { id: postId, author: postAuthor }
   };
 };
+
+export const answerPrayer = ({ postId, user }) => {
+    const db = firebase.database();
+    const timestamp = -Date.now();
+    db.ref(`/users/${user.uid}/posts/${postId}`)
+      .update({ answered: timestamp });
+    db.ref(`/posts/${postId}`)
+      .update({ answered: timestamp });
+
+    return {
+      type: 'PRAYER_ANSWERED'
+    };
+};

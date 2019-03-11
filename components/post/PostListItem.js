@@ -9,13 +9,15 @@ import {
   postEditUpdate,
   commentsPopulate,
   fetchPostCommentLikes,
-  setActivePost
+  setActivePost,
+  answerPrayer
 } from '../../actions';
 
 class PostListItem extends Component {
   state = {
     noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
     commentCount: this.props.post.commentCount || 0,
+    answered: this.props.post.answered ? this.props.post.answered : null
   }
 
   goToComments = async () => {
@@ -75,9 +77,20 @@ class PostListItem extends Component {
     this.props.post.sendPijn({ postId, author, currentDate, user });
   }
 
+  worshipHandsPress = ({ postId, user }) => {
+    if (this.state.answered) {
+      return;
+    }
+
+    this.setState({ answered: true });
+
+    this.props.answerPrayer({ postId, user });
+  }
+
   postActionButtons({ postId, author, currentDate, user }) {
     const { pijnSentToday } = this.props.post;
     const { actionsViewStyle, worshipHandsInactive, worshipHandsActive } = styles;
+    const whStyle = this.state.answered ? worshipHandsActive : worshipHandsInactive;
 
     return (
       <View style={actionsViewStyle}>
@@ -94,7 +107,8 @@ class PostListItem extends Component {
         {user.uid === author.id ? (
             <ActionButton
               imageSource={require('../../assets/images/praise.png')}
-              iconStyle={worshipHandsInactive}
+              iconStyle={whStyle}
+              onPress={() => this.worshipHandsPress({ postId, user })}
             />
           ) : (
             <ActionButton
@@ -184,5 +198,6 @@ export default connect(null, {
   postEditUpdate,
   commentsPopulate,
   setActivePost,
-  fetchPostCommentLikes
+  fetchPostCommentLikes,
+  answerPrayer
 })(PostListItem);
