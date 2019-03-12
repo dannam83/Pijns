@@ -3,8 +3,8 @@ import {
   COMMENT_CREATE_SAVE,
   COMMENTS_POPULATE,
   COMMENTS_CLEAR,
+  COMMENT_LIKES_CLEAR,
   FETCH_POST_COMMENT_LIKES,
-  COMMENT_LIKES_CLEAR
  } from './types';
 
  export const commentCreateSave = ({ user, comment, postAuthorId, postId }) => {
@@ -69,6 +69,7 @@ import {
  };
 
  const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {
+   console.log(author, comment, postAuthorId, postId);
    const db = firebase.database();
    const postCommentsRef = db.ref(`/postComments/${postId}`);
    const createdOn = new Date().toString();

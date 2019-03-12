@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
 
 import CommentInput from '../components/comment/CommentInput';
 import CommentList from '../components/comment/CommentList';
+import { commentCreateSave, updateCommentCount } from '../actions';
+
 
 class CommentsScreen extends Component {
   static navigationOptions = {
     title: 'Comments',
   };
+
+  saveComment = ({ user, postAuthorId, postId, index, comment }) => {
+    try {
+      this.props.commentCreateSave({ user, comment, postAuthorId, postId });
+      if (index >= 0) {
+        this.props.updateCommentCount(index);
+      }
+    } catch (err) {
+      console.warn('Error saving comment.', err);
+    }
+  }
 
   render() {
     const { navigation } = this.props;
@@ -34,6 +48,7 @@ class CommentsScreen extends Component {
           postId={postId}
           navigation={navigation}
           index={index}
+          onSave={this.saveComment}
         />
       </KeyboardAvoidingView>
     );
@@ -49,4 +64,11 @@ const styles = {
   }
 };
 
-export default (CommentsScreen);
+function mapStateToProps(state) {
+  const { commentTyped } = state;
+  return { commentTyped };
+}
+
+export default connect(mapStateToProps, {
+  commentCreateSave, updateCommentCount
+})(CommentsScreen);

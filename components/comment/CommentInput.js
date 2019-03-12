@@ -15,16 +15,13 @@ class CommentInput extends Component {
     this.setState({ height });
   }
 
-  saveComment = () => {
-    const { user, postAuthorId, postId, index } = this.props;
+  save = () => {
+    const { onSave, user, postAuthorId, postId, index } = this.props;
     const { newValue } = this.state;
 
     try {
-      this.props.commentCreateSave({ user, comment: newValue, postAuthorId, postId });
+      onSave({ user, comment: newValue, postAuthorId, postId, index });
       this.setState({ newValue: '' });
-      if (index >= 0) {
-        this.props.updateCommentCount(index);
-      }
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
@@ -64,7 +61,7 @@ class CommentInput extends Component {
       </View>
         <TouchableOpacity
           style={{ ...buttonStyle, borderColor: buttonColor }}
-          onPress={this.saveComment}
+          onPress={this.save}
           disabled={emptyText}
         >
           <Text style={{ ...buttonTextStyle, color: buttonColor }}>Post</Text>

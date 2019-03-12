@@ -32,5 +32,5 @@ export default combineReducers({
   posts,
   requests,
   searchResults,
-  userFeed
+  userFeed,
 });
