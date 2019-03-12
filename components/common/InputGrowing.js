@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 
-import { commentCreateSave, updateCommentCount } from '../../actions';
 import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
-class CommentInput extends Component {
+class InputGrowing extends Component {
   state = {
     newValue: '',
     height: 40,
@@ -50,7 +48,7 @@ class CommentInput extends Component {
         />
         <View style={textInputViewStyle}>
           <TextInput
-            placeholder="Add a comment..."
+            placeholder={this.props.placeholder}
             onChangeText={(value) => this.setState({ newValue: value })}
             style={[inputStyle, newStyle]}
             editable
@@ -120,4 +118,4 @@ const styles = {
   }
 };
 
-export default connect(null, { commentCreateSave, updateCommentCount })(CommentInput);
+export { InputGrowing };

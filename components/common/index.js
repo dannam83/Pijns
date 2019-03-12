@@ -7,6 +7,7 @@ export * from './CardSection';
 export * from './ListItemAsButton';
 export * from './PeopleList';
 export * from './Input';
+export * from './InputGrowing';
 export * from './LoginInput';
 export * from './LoginInputSection';
 export * from './LoginButton';

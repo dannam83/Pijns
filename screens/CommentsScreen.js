@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
-import CommentInput from '../components/comment/CommentInput';
+import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
 import { commentCreateSave, updateCommentCount } from '../actions';
 
@@ -42,13 +42,14 @@ class CommentsScreen extends Component {
           postId={postId}
           user={user}
         />
-        <CommentInput
+        <InputGrowing
           user={user}
           postAuthorId={postAuthorId}
           postId={postId}
           navigation={navigation}
           index={index}
           onSave={this.saveComment}
+          placeholder="Add a comment..."
         />
       </KeyboardAvoidingView>
     );
