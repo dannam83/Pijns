@@ -112,7 +112,7 @@ const styles = {
   commentHeaderStyle: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   commentHeaderFrontStyle: {
     display: 'flex',
@@ -127,9 +127,10 @@ const styles = {
   timeAgoStyle: {
     color: lightTextGray,
     paddingLeft: 8,
+    marginBottom: 1.5,
   },
   likesStyle: {
-    paddingTop: 2,
+    paddingTop: 0.5,
     fontStyle: 'italic',
     color: '#808080'
   },
@@ -147,7 +148,7 @@ const styles = {
   buttonStyle: {
     height: 47,
     width: 22,
-    paddingTop: 2,
+    paddingTop: 0.5,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
