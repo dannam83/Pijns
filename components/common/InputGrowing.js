@@ -9,6 +9,13 @@ class InputGrowing extends Component {
     height: 40,
   }
 
+  onChangeText = (newValue) => {
+    this.setState({ newValue });
+    if (this.props.onChange) {
+      this.props.onChange(newValue);
+    }
+  }
+
   updateSize = (height) => {
     this.setState({ height });
   }
@@ -49,7 +56,7 @@ class InputGrowing extends Component {
         <View style={textInputViewStyle}>
           <TextInput
             placeholder={this.props.placeholder}
-            onChangeText={(value) => this.setState({ newValue: value })}
+            onChangeText={(value) => this.onChangeText(value)}
             style={[inputStyle, newStyle]}
             editable
             multiline

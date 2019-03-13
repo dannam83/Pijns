@@ -42,4 +42,5 @@ export const UPDATE_COMMENT_COUNT = 'UPDATE_COMMENT_COUNT';
 export const FETCH_POST_NOTES = 'FETCH_POST_NOTES';
 export const NOTES_CLEAR = 'NOTES_CLEAR';
 
-export const CHAT_TYPING = 'CHAT_TYPING';
+export const FETCH_CHAT = 'FETCH_CHAT';
+export const CHAT_CLEAR = 'CHAT_CLEAR';

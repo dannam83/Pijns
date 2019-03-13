@@ -4,13 +4,24 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
-import { commentCreateSave, updateCommentCount } from '../actions';
-
+import { fetchChat, updateCommentCount } from '../actions';
 
 class ChatScreen extends Component {
   static navigationOptions = {
     title: 'Chat',
   };
+
+  constructor(props) {
+    super(props);
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
+    const postAuthorId = navigation.getParam('postAuthorId');
+    this.props.fetchChat({ userId: user.uid, friendId: postAuthorId });
+  }
+
+  onChange = (text) => {
+    console.log(text);
+  }
 
   saveChat = ({ user, postAuthorId, postId, index, comment }) => {
     try {
@@ -50,6 +61,7 @@ class ChatScreen extends Component {
           index={index}
           onSave={this.saveChat}
           placeholder="Say something..."
+          onChange={(text) => this.onChange(text)}
         />
       </KeyboardAvoidingView>
     );
@@ -66,10 +78,11 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { commentTyped } = state;
-  return { commentTyped };
+  console.log('chat', state);
+  const { chat } = state;
+  return { chat };
 }
 
 export default connect(mapStateToProps, {
-  commentCreateSave, updateCommentCount
+  fetchChat, updateCommentCount
 })(ChatScreen);

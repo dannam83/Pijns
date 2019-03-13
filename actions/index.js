@@ -9,3 +9,4 @@ export * from './friend_actions';
 export * from './friend_list_actions';
 export * from './user_feed_actions';
 export * from './navigation_actions';
+export * from './chat_actions';
