@@ -24,11 +24,17 @@ export const fetchChat = ({ userId, friendId }) => {
 };
 
 export const chatTypingStart = () => {
-
+  console.log('started');
+  return ({
+    type: 'DUMMY'
+  });
 };
 
 export const chatTypingEnd = () => {
-
+  console.log('ended');
+  return ({
+    type: 'DUMMY'
+  });
 };
 
 export const chatClear = () => {

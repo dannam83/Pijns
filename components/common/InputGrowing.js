@@ -12,7 +12,8 @@ class InputGrowing extends Component {
   onChangeText = (newValue) => {
     this.setState({ newValue });
     if (this.props.onChange) {
-      this.props.onChange(newValue);
+      const { user, postAuthorId } = this.props;
+      this.props.onChange(newValue, user.uid, postAuthorId);
     }
   }
 

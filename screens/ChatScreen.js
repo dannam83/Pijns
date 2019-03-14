@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
-import { fetchChat, updateCommentCount } from '../actions';
+import { fetchChat, chatTypingStart, chatTypingEnd } from '../actions';
 
 class ChatScreen extends Component {
   static navigationOptions = {
@@ -17,10 +17,20 @@ class ChatScreen extends Component {
     const user = navigation.getParam('user');
     const postAuthorId = navigation.getParam('postAuthorId');
     this.props.fetchChat({ userId: user.uid, friendId: postAuthorId });
+    this.state = { isTyping: false };
   }
 
-  onChange = (text) => {
-    console.log(text);
+  onChange = (text, userId, postAuthorId) => {
+    const isTyping = this.state.isTyping;
+    console.log(text, isTyping);
+
+    if (!isTyping && text.length > 0) {
+      this.props.chatTypingStart();
+      this.setState({ isTyping: true });
+    } else if (text.length === 0 && isTyping) {
+      this.props.chatTypingEnd();
+      this.setState({ isTyping: false });
+    }
   }
 
   saveChat = ({ user, postAuthorId, postId, index, comment }) => {
@@ -61,7 +71,8 @@ class ChatScreen extends Component {
           index={index}
           onSave={this.saveChat}
           placeholder="Say something..."
-          onChange={(text) => this.onChange(text)}
+          onChange={
+            (text, userId, postAuthId) => this.onChange(text, userId, postAuthId)}
         />
       </KeyboardAvoidingView>
     );
@@ -84,5 +95,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchChat, updateCommentCount
+  fetchChat, chatTypingStart, chatTypingEnd
 })(ChatScreen);
