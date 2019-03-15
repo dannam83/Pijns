@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
-import { fetchChat, chatTypingStart, chatTypingEnd } from '../actions';
+import { fetchChat, chatTypingStart, chatTypingEnd, chatClear } from '../actions';
 
 class ChatScreen extends Component {
   static navigationOptions = {
@@ -20,15 +20,23 @@ class ChatScreen extends Component {
     this.state = { isTyping: false };
   }
 
+  componentWillUnmount() {
+    const { navigation } = this.props;
+    const userId = navigation.getParam('user').uid;
+    const postAuthorId = navigation.getParam('postAuthorId');
+    this.props.chatTypingEnd(userId, postAuthorId);
+    this.props.chatClear(userId, postAuthorId);
+  }
+
   onChange = (text, userId, postAuthorId) => {
     const isTyping = this.state.isTyping;
     console.log(text, isTyping);
 
     if (!isTyping && text.length > 0) {
-      this.props.chatTypingStart();
+      this.props.chatTypingStart(userId, postAuthorId);
       this.setState({ isTyping: true });
     } else if (text.length === 0 && isTyping) {
-      this.props.chatTypingEnd();
+      this.props.chatTypingEnd(userId, postAuthorId);
       this.setState({ isTyping: false });
     }
   }
@@ -95,5 +103,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchChat, chatTypingStart, chatTypingEnd
+  fetchChat, chatTypingStart, chatTypingEnd, chatClear
 })(ChatScreen);
