@@ -3,7 +3,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
-import CommentList from '../components/comment/CommentList';
+import ChatList from '../components/chat/ChatList';
 import {
   fetchChat,
   chatTypingStart,
@@ -69,7 +69,7 @@ class ChatScreen extends Component {
         enabled
         keyboardVerticalOffset={80}
       >
-        <CommentList
+        <ChatList
           postAuthorId={postAuthorId}
           postId={postId}
           user={user}
@@ -100,7 +100,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log('chat', state);
   const { chat } = state;
   return { chat };
 }

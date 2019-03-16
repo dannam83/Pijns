@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
-import CommentListItem from '../comment/CommentListItem';
+import CommentListItem from './CommentListItem';
 import { commentsClear, commentLikesClear } from '../../actions';
 
 class CommentList extends Component {
