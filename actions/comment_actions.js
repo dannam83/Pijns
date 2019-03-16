@@ -69,7 +69,6 @@ import {
  };
 
  const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {
-   console.log(author, comment, postAuthorId, postId);
    const db = firebase.database();
    const postCommentsRef = db.ref(`/postComments/${postId}`);
    const createdOn = new Date().toString();

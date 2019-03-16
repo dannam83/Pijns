@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
-import { fetchChat, chatTypingStart, chatTypingEnd, chatClear } from '../actions';
+import {
+  fetchChat,
+  chatTypingStart,
+  chatTypingEnd,
+  chatClear,
+  chatMessageSave
+} from '../actions';
 
 class ChatScreen extends Component {
   static navigationOptions = {
@@ -30,7 +36,6 @@ class ChatScreen extends Component {
 
   onChange = (text, userId, postAuthorId) => {
     const isTyping = this.state.isTyping;
-    console.log(text, isTyping);
 
     if (!isTyping && text.length > 0) {
       this.props.chatTypingStart(userId, postAuthorId);
@@ -41,12 +46,10 @@ class ChatScreen extends Component {
     }
   }
 
-  saveChat = ({ user, postAuthorId, postId, index, comment }) => {
+  saveChat = ({ user, postAuthorId, comment }) => {
     try {
-      this.props.commentCreateSave({ user, comment, postAuthorId, postId });
-      if (index >= 0) {
-        this.props.updateCommentCount(index);
-      }
+      this.props.chatMessageSave(user, postAuthorId, comment);
+      this.props.chatTypingEnd(user.uid, postAuthorId);
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
@@ -103,5 +106,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchChat, chatTypingStart, chatTypingEnd, chatClear
+  fetchChat, chatTypingStart, chatTypingEnd, chatClear, chatMessageSave
 })(ChatScreen);
