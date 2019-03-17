@@ -9,9 +9,16 @@ import { displayTimeAgo } from '../../functions/common';
 import { lightTextGray } from '../../assets/colors';
 
 class ChatListDay extends Component {
-  renderMessage = (message) => {
+  renderMessages = (messages) => {
     return (
-      <ChatListMessage message={message} />
+      messages.map(message => {
+        return (
+          <ChatListMessage
+            message={message}
+            key={message.messageId}
+          />
+        );
+      })
     );
   }
 
@@ -21,23 +28,14 @@ class ChatListDay extends Component {
 
     return (
       <View style={containerStyle}>
+
         <Text>{date}</Text>
-        {
-          messages.map(message => {
-            return (
-              <ChatListMessage message={message} />
-            );
-          })
-        }
+        {this.renderMessages(messages)}
+
       </View>
     );
   }
 }
-// <FlatList
-//   data={messages}
-//   renderItem={({ item }) => this.renderMessage(item)}
-//   keyExtractor={({ item }, messageId) => messageId.toString()}
-//   />
 
 const styles = {
   containerStyle: {
@@ -45,7 +43,7 @@ const styles = {
     alignItems: 'center',
     // justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     // borderBottomWidth: 1,
     // borderColor: '#DDDDDD'
   },

@@ -16,7 +16,7 @@ class ChatList extends Component {
     const { chatDays } = this.props;
 
     return (
-      <View style={styles.masterContainerStyle}>
+      <View style={styles.containerStyle}>
         <FlatList
           data={chatDays}
           renderItem={({ item }) => this.renderRow(item)}
@@ -28,9 +28,8 @@ class ChatList extends Component {
 }
 
 const styles = {
-  masterContainerStyle: {
+  containerStyle: {
     flex: 1,
-    backgroundColor: '#cef0ff',
   },
   writeCommentView: {
     paddingTop: 13

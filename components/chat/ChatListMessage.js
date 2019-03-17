@@ -2,49 +2,84 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image, Dimensions } from 'react-native';
 
-import { likeComment } from '../../actions';
-import { lightTextGray } from '../../assets/colors';
+import { chatBubbleGray, chatBorderGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ChatListMessage extends Component {
+  renderUserMessage(message) {
+    const { userMessage, textStyle } = styles;
+
+    return (
+      <View style={userMessage}>
+        <Text style={textStyle}>{message}</Text>
+      </View>
+    );
+  }
+
+  renderOtherMessage(message) {
+    const { otherMessage, textStyle } = styles;
+
+    return (
+      <View style={otherMessage}>
+        <Text style={textStyle}>{message}</Text>
+      </View>
+    );
+  }
+
   render() {
-    const { containerStyle } = styles;
+    const {
+      userContainer,
+      otherContainer,
+    } = styles;
     const { message, userId } = this.props.message;
+    const containerStyle = userId === this.props.userId ? otherContainer : otherContainer;
 
     return (
       <View style={containerStyle}>
-        <Text>{message}</Text>
+        {this.renderOtherMessage(message)}
       </View>
     );
   }
 }
 
 const styles = {
-  containerStyle: {
+  userContainer: {
+    width: SCREEN_WIDTH,
     flexDirection: 'row',
-    // alignItems: 'flex-start',
-    // justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+  },
+  userMessage: {
     padding: 10,
     marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
-    // backgroundColor: 'green',
-    borderWidth: 1,
-    borderColor: '#DDDDDD',
     borderRadius: 25,
-    // width: SCREEN_WIDTH
+    borderWidth: 1,
+    borderColor: '#F2F2F2',
+    backgroundColor: chatBubbleGray,
+    marginLeft: 60,
+    marginRight: 9,
   },
-  textViewStyle: {
-    flex: 1,
-    paddingLeft: 5,
-    paddingRight: 5
+  otherContainer: {
+    width: SCREEN_WIDTH,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  otherMessage: {
+    padding: 10,
+    marginTop: 5,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: chatBorderGray,
+    marginLeft: 9,
+    marginRight: 40,
+  },
+  textStyle: {
+    fontSize: 16
   },
 };
 
 function mapStateToProps(state) {
-  const { user, activePost, postCommentLikes } = state;
-  return { user, activePost, postCommentLikes };
+  return { userId: state.user.uid };
 }
 
-export default connect(mapStateToProps, { likeComment })(ChatListMessage);
+export default connect(mapStateToProps)(ChatListMessage);
