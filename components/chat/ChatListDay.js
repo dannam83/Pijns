@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, FlatList } from 'react-native';
+import _ from 'lodash';
 
+import ChatListMessage from './ChatListMessage';
 import { likeComment } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
 import { lightTextGray } from '../../assets/colors';
 
 class ChatListDay extends Component {
-  renderMessage = (chatDay) => {
+  renderMessage = (message) => {
     return (
-      <ChatListDay chatDay={chatDay} />
+      <ChatListMessage message={message} />
     );
   }
 
   render() {
-    console.log(this.props.chatDay);
     const { containerStyle } = styles;
     const { date, messages } = this.props.chatDay;
 
     return (
       <View style={containerStyle}>
         <Text>{date}</Text>
+        <FlatList
+          data={messages}
+          renderItem={({ item }) => this.renderMessage(item)}
+          keyExtractor={({ item }, messageId) => messageId.toString()}
+        />
       </View>
     );
   }
@@ -28,13 +34,13 @@ class ChatListDay extends Component {
 
 const styles = {
   containerStyle: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    padding: 10,
+    // flexDirection: 'row',
+    alignItems: 'center',
+    // justifyContent: 'space-between',
+    // padding: 10,
     backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
+    // borderBottomWidth: 1,
+    // borderColor: '#DDDDDD'
   },
 };
 

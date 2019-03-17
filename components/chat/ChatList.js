@@ -39,7 +39,9 @@ const styles = {
 
 function mapStateToProps(state) {
   let chatDays = _.map(state.chat.messages, (val, key) => {
-    const messages = { ...val };
+    const messages = _.map({ ...val }, (message, messageId) => {
+      return { ...message, messageId };
+    });
     return { messages, date: key };
   });
   return { chatDays };
