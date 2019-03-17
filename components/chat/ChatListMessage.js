@@ -9,22 +9,12 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ChatListMessage extends Component {
   render() {
-    const { containerStyle, thumbnailStyle, textViewStyle } = styles;
-    const { message, userId, userPic } = this.props.message;
+    const { containerStyle } = styles;
+    const { message, userId } = this.props.message;
 
     return (
       <View style={containerStyle}>
-        <Image
-          style={thumbnailStyle}
-          source={{ uri: userPic }}
-        />
-
         <Text>{message}</Text>
-
-        <Image
-          style={thumbnailStyle}
-          source={{ uri: userPic }}
-        />
       </View>
     );
   }
@@ -32,28 +22,23 @@ class ChatListMessage extends Component {
 
 const styles = {
   containerStyle: {
-    // display: 'flex',
     flexDirection: 'row',
-    // flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    // alignItems: 'flex-start',
+    // justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    // backgroundColor: 'green',
+    borderWidth: 1,
     borderColor: '#DDDDDD',
-    width: SCREEN_WIDTH
+    borderRadius: 25,
+    // width: SCREEN_WIDTH
   },
   textViewStyle: {
     flex: 1,
     paddingLeft: 5,
     paddingRight: 5
-  },
-  thumbnailStyle: {
-    height: 47,
-    width: 47,
-    borderRadius: 25,
-    marginRight: 8,
-    marginLeft: 8,
   },
 };
 

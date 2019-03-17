@@ -22,26 +22,36 @@ class ChatListDay extends Component {
     return (
       <View style={containerStyle}>
         <Text>{date}</Text>
-        <FlatList
-          data={messages}
-          renderItem={({ item }) => this.renderMessage(item)}
-          keyExtractor={({ item }, messageId) => messageId.toString()}
-        />
+        {
+          messages.map(message => {
+            return (
+              <ChatListMessage message={message} />
+            );
+          })
+        }
       </View>
     );
   }
 }
+// <FlatList
+//   data={messages}
+//   renderItem={({ item }) => this.renderMessage(item)}
+//   keyExtractor={({ item }, messageId) => messageId.toString()}
+//   />
 
 const styles = {
   containerStyle: {
     // flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'space-between',
-    // padding: 10,
+    padding: 10,
     backgroundColor: 'white',
     // borderBottomWidth: 1,
     // borderColor: '#DDDDDD'
   },
+  dateStyle: {
+
+  }
 };
 
 function mapStateToProps(state) {
