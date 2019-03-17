@@ -8,36 +8,39 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ChatListMessage extends Component {
   renderUserMessage(message) {
-    const { userMessage, textStyle } = styles;
+    const { userContainer, userMessage, textStyle } = styles;
 
     return (
-      <View style={userMessage}>
-        <Text style={textStyle}>{message}</Text>
+      <View style={userContainer}>
+        <View style={userMessage}>
+          <Text style={textStyle}>{message.message}</Text>
+        </View>
       </View>
     );
   }
 
   renderOtherMessage(message) {
-    const { otherMessage, textStyle } = styles;
+    const { thumbnailStyle, otherContainer, otherMessage, textStyle } = styles;
 
     return (
-      <View style={otherMessage}>
-        <Text style={textStyle}>{message}</Text>
+      <View style={otherContainer}>
+        <Image style={thumbnailStyle} source={{ uri: message.userPic }} />
+        <View style={otherMessage}>
+          <Text style={textStyle}>{message.message}</Text>
+        </View>
       </View>
     );
   }
 
   render() {
-    const {
-      userContainer,
-      otherContainer,
-    } = styles;
-    const { message, userId } = this.props.message;
-    const containerStyle = userId === this.props.userId ? otherContainer : otherContainer;
+    const { message, userId } = this.props;
 
     return (
-      <View style={containerStyle}>
-        {this.renderOtherMessage(message)}
+      <View>
+        {
+          userId === message.userId ?
+            this.renderUserMessage(message) : this.renderOtherMessage(message)
+        }
       </View>
     );
   }
@@ -48,6 +51,8 @@ const styles = {
     width: SCREEN_WIDTH,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingLeft: 60,
+    paddingRight: 9,
   },
   userMessage: {
     padding: 10,
@@ -56,13 +61,13 @@ const styles = {
     borderWidth: 1,
     borderColor: '#F2F2F2',
     backgroundColor: chatBubbleGray,
-    marginLeft: 60,
-    marginRight: 9,
   },
   otherContainer: {
     width: SCREEN_WIDTH,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    paddingLeft: 9,
+    paddingRight: 60
   },
   otherMessage: {
     padding: 10,
@@ -71,10 +76,15 @@ const styles = {
     borderWidth: 1,
     borderColor: chatBorderGray,
     marginLeft: 9,
-    marginRight: 40,
   },
   textStyle: {
     fontSize: 16
+  },
+  thumbnailStyle: {
+    padding: 10,
+    height: 35,
+    width: 35,
+    borderRadius: 18,
   },
 };
 

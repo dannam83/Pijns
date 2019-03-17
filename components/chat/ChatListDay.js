@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, Text, Image, FlatList } from 'react-native';
-import _ from 'lodash';
+import { View, Text } from 'react-native';
 
 import ChatListMessage from './ChatListMessage';
-import { likeComment } from '../../actions';
-import { displayTimeAgo } from '../../functions/common';
 import { lightTextGray } from '../../assets/colors';
 
 class ChatListDay extends Component {
@@ -23,13 +19,13 @@ class ChatListDay extends Component {
   }
 
   render() {
-    const { containerStyle } = styles;
+    const { containerStyle, dateStyle } = styles;
     const { date, messages } = this.props.chatDay;
 
     return (
       <View style={containerStyle}>
 
-        <Text>{date}</Text>
+        <Text style={dateStyle}>{date}</Text>
         {this.renderMessages(messages)}
 
       </View>
@@ -39,22 +35,14 @@ class ChatListDay extends Component {
 
 const styles = {
   containerStyle: {
-    // flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'space-between',
     padding: 10,
-    // backgroundColor: 'white',
-    // borderBottomWidth: 1,
-    // borderColor: '#DDDDDD'
   },
   dateStyle: {
-
+    marginBottom: 15,
+    color: lightTextGray,
+    fontStyle: 'italic',
   }
 };
 
-function mapStateToProps(state) {
-  const { user, activePost, postCommentLikes } = state;
-  return { user, activePost, postCommentLikes };
-}
-
-export default connect(mapStateToProps, { likeComment })(ChatListDay);
+export default(ChatListDay);
