@@ -38,10 +38,6 @@ class PostListItem extends Component {
     const { redirect, post } = this.props;
     const { user, postId, author, index, navigation } = post;
 
-    await this.props.fetchPostCommentLikes({ userId: user.uid, postId });
-    await this.props.commentsPopulate(postId);
-    await this.props.setActivePost({ postId, postAuthor: author });
-
     navigation.navigate('Chat', {
       user, postAuthorId: author.id, postId, redirect, index
     });

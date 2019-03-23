@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
-import { friendRequest, unfriend, fetchFriendList } from '../actions';
+import { friendRequest, unfriend, fetchFriendList, logout } from '../actions';
 import { disabledGray, buttonBlue } from '../assets/colors';
 
 class PublicProfileScreen extends Component {
@@ -64,6 +64,14 @@ class PublicProfileScreen extends Component {
     }
   }
 
+  goToChat = async (userId) => {
+    const { currentUser, navigation } = this.props;
+
+    navigation.navigate('ProfileChat', {
+      user: currentUser, postAuthorId: userId
+    });
+  }
+
   render() {
     let user = this.props.navigation.getParam('profileUser');
     user = !user ? this.props.currentUser : user;
@@ -81,21 +89,34 @@ class PublicProfileScreen extends Component {
       <View style={containerStyle}>
         <Image source={{ uri: `${picture}?type=large` }} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
-        <View style={buttonsViewStyle}>
+
+
           { userId === this.props.currentUser.uid ? (
-            <Button
-              onPress={() => this.onFriendsPress(userId)}
-            >Friends</Button>
+            <View style={buttonsViewStyle}>
+              <Button
+                onPress={() => this.onFriendsPress(userId)}
+              >Friends
+              </Button>
+              <Button
+                onPress={() => this.props.logout()}
+              >Logout
+              </Button>
+            </View>
           ) : (
-            <Button
-              onPress={() => this.onFriendPress(userId, status)}
-              buttonRestyle={this.buttonStyle(status)}
-              textRestyle={this.buttonTextStyle(status)}
-              disabled={this.disableButton(status)}
-            >{ !status ? 'Add Friend' : status }</Button>
+            <View style={buttonsViewStyle}>
+              <Button
+                onPress={() => this.onFriendPress(userId, status)}
+                buttonRestyle={this.buttonStyle(status)}
+                textRestyle={this.buttonTextStyle(status)}
+                disabled={this.disableButton(status)}
+              >{ !status ? 'Add Friend' : status }
+              </Button>
+              <Button
+                onPress={() => this.goToChat(userId)}
+              >Message
+              </Button>
+            </View>
           )}
-          <Button>Message</Button>
-        </View>
       </View>
     );
   }
@@ -144,5 +165,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  friendRequest, unfriend, fetchFriendList
+  friendRequest, unfriend, fetchFriendList, logout
 })(PublicProfileScreen);

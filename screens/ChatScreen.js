@@ -59,8 +59,6 @@ class ChatScreen extends Component {
     const { chat, navigation } = this.props;
     const user = navigation.getParam('user');
     const postAuthorId = navigation.getParam('postAuthorId');
-    const postId = navigation.getParam('postId');
-    const index = navigation.getParam('index');
 
     return (
       <KeyboardAvoidingView
@@ -71,7 +69,6 @@ class ChatScreen extends Component {
       >
         <ChatList
           postAuthorId={postAuthorId}
-          postId={postId}
           user={user}
           otherTyping={chat[postAuthorId]}
           chat={chat.messages}
@@ -79,9 +76,7 @@ class ChatScreen extends Component {
         <InputGrowing
           user={user}
           postAuthorId={postAuthorId}
-          postId={postId}
           navigation={navigation}
-          index={index}
           onSave={this.saveChat}
           placeholder="Say something..."
           onChange={

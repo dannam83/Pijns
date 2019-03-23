@@ -104,6 +104,7 @@ const ProfileStack = createStackNavigator({
   Profile: PublicProfileScreen,
   Friends: FriendsScreen,
   FriendProfile: PublicProfileScreen,
+  ProfileChat: ChatScreen
 });
 
 ProfileStack.navigationOptions = {
