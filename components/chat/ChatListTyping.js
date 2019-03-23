@@ -23,6 +23,7 @@ const styles = {
     width: SCREEN_WIDTH,
     paddingLeft: 15,
     paddingTop: 5,
+    marginBottom: -5
   },
   textStyle: {
     // fontSize: 8,sdfsf

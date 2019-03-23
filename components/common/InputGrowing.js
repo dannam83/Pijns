@@ -48,12 +48,12 @@ class InputGrowing extends Component {
     const emptyText = this.state.newValue.length === 0;
     const buttonColor = emptyText ? disabledGray : activeButtonBlue;
 
+    // <Image
+    //   style={thumbnailStyle}
+    //   source={{ uri: picture }}
+    //   />
     return (
       <View style={containerViewStyle}>
-        <Image
-          style={thumbnailStyle}
-          source={{ uri: picture }}
-        />
         <View style={textInputViewStyle}>
           <TextInput
             placeholder={this.props.placeholder}
@@ -82,15 +82,17 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    paddingTop: 10
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5
   },
   textInputViewStyle: {
     flex: 1,
-    marginBottom: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    marginBottom: 10,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 15,
+    paddingRight: 15,
     borderWidth: 1,
     borderRadius: 25,
     borderColor: '#D3D3D3',
@@ -101,20 +103,20 @@ const styles = {
     lineHeight: 23,
   },
   thumbnailStyle: {
-    height: 47,
-    width: 47,
+    height: 45,
+    width: 45,
     borderRadius: 25,
-    marginLeft: 10,
-    marginRight: 8,
-    marginBottom: 19
+    marginLeft: 11,
+    marginRight: 9,
+    marginBottom: 10
   },
   buttonStyle: {
-    height: 47,
-    width: 47,
+    height: 40,
+    width: 40,
     borderRadius: 25,
-    marginBottom: 19,
+    marginBottom: 10,
     marginLeft: 8,
-    marginRight: 10,
+    // marginRight: 10,
     borderWidth: 1,
     display: 'flex',
     justifyContent: 'center',
