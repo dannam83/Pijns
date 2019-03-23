@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 
 import { chatTypingGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ChatListTyping extends Component {
-  // const { typing } = this.props;
   render() {
-    const { thumbnailStyle, container } = styles;
+    const { textStyle, container } = styles;
 
     return (
       <View style={container}>
-        <Image
-          style={thumbnailStyle}
-          source={require('../../assets/images/typing.png')}
-        />
+        <Text style={textStyle}>typing...</Text>
       </View>
     );
   }
@@ -25,11 +21,17 @@ class ChatListTyping extends Component {
 const styles = {
   container: {
     width: SCREEN_WIDTH,
-    paddingLeft: 20,
+    paddingLeft: 15,
+    paddingTop: 5,
+  },
+  textStyle: {
+    // fontSize: 8,sdfsf
+    fontStyle: 'italic',
+    color: chatTypingGray
   },
   thumbnailStyle: {
-    height: 35,
-    width: 35,
+    height: 20,
+    width: 20,
     tintColor: chatTypingGray
   },
 };

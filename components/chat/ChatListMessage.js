@@ -24,7 +24,7 @@ class ChatListMessage extends Component {
 
     return (
       <View style={otherContainer}>
-        <Image style={thumbnailStyle} source={{ uri: message.userPic }} />
+      <Image style={thumbnailStyle} source={{ uri: message.userPic }} />
         <View style={otherMessage}>
           <Text style={textStyle}>{message.message}</Text>
         </View>
@@ -82,9 +82,9 @@ const styles = {
   },
   thumbnailStyle: {
     padding: 10,
-    height: 35,
-    width: 35,
-    borderRadius: 18,
+    height: 25,
+    width: 25,
+    borderRadius: 12,
   },
 };
 
