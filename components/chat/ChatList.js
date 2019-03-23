@@ -18,6 +18,7 @@ class ChatList extends Component {
     return (
       <View style={styles.containerStyle}>
         <FlatList
+          inverted
           data={chatDays}
           renderItem={({ item }) => this.renderRow(item)}
           keyExtractor={({ item }, date) => date.toString()}
@@ -43,6 +44,7 @@ function mapStateToProps(state) {
     });
     return { messages, date: key };
   });
+  chatDays = chatDays.reverse();
   return { chatDays };
 }
 
