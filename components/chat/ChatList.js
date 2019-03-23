@@ -32,7 +32,6 @@ class ChatList extends Component {
 
   render() {
     const { chat, otherTyping } = this.props;
-    console.log(this.props);
 
     return (
       <View style={{ flex: 1 }}>

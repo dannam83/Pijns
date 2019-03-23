@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 
 import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
@@ -39,19 +39,13 @@ class InputGrowing extends Component {
       containerViewStyle,
       textInputViewStyle,
       inputStyle,
-      thumbnailStyle,
       buttonStyle,
       buttonTextStyle
      } = styles;
-    const { picture } = this.props.user;
     const newStyle = { height };
     const emptyText = this.state.newValue.length === 0;
     const buttonColor = emptyText ? disabledGray : activeButtonBlue;
 
-    // <Image
-    //   style={thumbnailStyle}
-    //   source={{ uri: picture }}
-    //   />
     return (
       <View style={containerViewStyle}>
         <View style={textInputViewStyle}>
@@ -116,7 +110,6 @@ const styles = {
     borderRadius: 25,
     marginBottom: 10,
     marginLeft: 8,
-    // marginRight: 10,
     borderWidth: 1,
     display: 'flex',
     justifyContent: 'center',

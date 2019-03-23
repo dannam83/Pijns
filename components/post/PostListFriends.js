@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements';
 import _ from 'lodash';
-import axios from 'axios';
 
 import { sendPijn, postsFetch, fetchUserFeed } from '../../actions';
 import PostListItem from './PostListItem';
 
-const ROOT_URL = 'https://us-central1-pijns-dc1c1.cloudfunctions.net';
-
 class PostListFriends extends Component {
-  constructor(props) {
-    super(props);
-    this.props.postsFetch();
-    this.props.fetchUserFeed(this.props.user.uid);
+  // List data now being loaded on LoadAppScreen rather than component constructor
+  // constructor(props) {
+  //   super(props);
+  // }
+  state = { refreshing: false };
+
+  refreshList = async () => {
+    this.setState({ refreshing: true });
+    await this.props.fetchUserFeed(this.props.user.uid);
+    this.setState({ refreshing: false });
   }
 
-  getUserFeed() {
-    return axios.post(`${ROOT_URL}/getUserFeed`, { userId: this.props.user.uid });
+  showRefreshSpinner = () => {
+    return this.state.refreshing ? (
+      <View style={{ paddingTop: 5, paddingBottom: 15 }}>
+        <ActivityIndicator />
+      </View>
+    ) : null;
   }
 
   renderRow = (post) => {
@@ -35,6 +42,7 @@ class PostListFriends extends Component {
   renderHeader = () => {
     return (
       <View style={styles.writePostView}>
+        {this.showRefreshSpinner()}
         <Button
           title="Search for friends!"
           onPress={() => this.props.redirect('SearchFriends')}
@@ -56,6 +64,8 @@ class PostListFriends extends Component {
           renderItem={({ item }) => this.renderRow(item)}
           ListHeaderComponent={this.renderHeader}
           keyExtractor={({ item }, postId) => postId.toString()}
+          onRefresh={this.refreshList}
+          refreshing={this.state.refreshing}
         />
       </View>
     );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { View, Text, Dimensions } from 'react-native';
 
 import { chatTypingGray } from '../../assets/colors';
@@ -26,7 +25,6 @@ const styles = {
     marginBottom: -5
   },
   textStyle: {
-    // fontSize: 8,sdfsf
     fontStyle: 'italic',
     color: chatTypingGray
   },
@@ -37,8 +35,4 @@ const styles = {
   },
 };
 
-function mapStateToProps(state) {
-  return { userId: state.user.uid };
-}
-
-export default connect(mapStateToProps)(ChatListTyping);
+export default (ChatListTyping);
