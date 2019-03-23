@@ -56,7 +56,7 @@ class ChatScreen extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
+    const { chat, navigation } = this.props;
     const user = navigation.getParam('user');
     const postAuthorId = navigation.getParam('postAuthorId');
     const postId = navigation.getParam('postId');
@@ -73,6 +73,8 @@ class ChatScreen extends Component {
           postAuthorId={postAuthorId}
           postId={postId}
           user={user}
+          otherTyping={chat[postAuthorId]}
+          chat={chat.messages}
         />
         <InputGrowing
           user={user}

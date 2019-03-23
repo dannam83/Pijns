@@ -7,5 +7,6 @@ export const disabledGray = '#D3D3D3';
 export const lightTextGray = '#909090';
 export const chatBubbleGray = '#F2F2F2';
 export const chatBorderGray = '#D3D3D3';
+export const chatTypingGray = '#ADADAD';
 
 export const greenActive = '#50C35C';

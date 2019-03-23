@@ -35,11 +35,11 @@ class ChatListDay extends Component {
 
 const styles = {
   containerStyle: {
-    alignItems: 'center',
-    padding: 10,
+    alignItems: 'center'
   },
   dateStyle: {
-    marginBottom: 15,
+    marginTop: 15,
+    marginBottom: 17,
     color: lightTextGray,
     fontStyle: 'italic',
   }
