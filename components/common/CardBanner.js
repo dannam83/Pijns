@@ -48,7 +48,7 @@ const CardBanner = ({
         <Text style={headerDetailStyle}>{posted}</Text>
       </View>
 
-      { id === userId ? 
+      { id === userId ?
         <View style={ellipsisViewStyle}>
           <ActionButton
             iconStyle={ellipsisStyle}

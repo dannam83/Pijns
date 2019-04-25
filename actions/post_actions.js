@@ -8,6 +8,7 @@ import {
   POST_DELETE,
   POST_SET_ACTIVE
  } from './types';
+import { getCurrentDate } from '../functions/common';
 
 export const postCreateUpdate = ({ prop, value }) => {
   return {
@@ -29,8 +30,7 @@ const saveToFirebase = async (author, content, type) => {
   const userRef = db.ref(`/users/${author.id}/posts`);
   const postRef = db.ref('/posts');
   const key = userRef.push().getKey();
-  const date = new Date().toString().slice(4, 16);
-  const createdOn = `${date.slice(0, 6)}, ${date.slice(7, 11)}`;
+  const createdOn = getCurrentDate();
   const timestamp = -Date.now();
 
   await userRef.child(key).set({

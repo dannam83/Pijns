@@ -6,6 +6,7 @@ import {
   COMMENT_LIKES_CLEAR,
   FETCH_POST_COMMENT_LIKES,
  } from './types';
+import { getCurrentDate } from '../functions/common';
 
  export const commentCreateSave = ({ user, comment, postAuthorId, postId }) => {
    const db = firebase.database();
@@ -71,7 +72,7 @@ import {
  const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {
    const db = firebase.database();
    const postCommentsRef = db.ref(`/postComments/${postId}`);
-   const createdOn = new Date().toString();
+   const createdOn = getCurrentDate();
    const timestamp = -Date.now();
 
    try {

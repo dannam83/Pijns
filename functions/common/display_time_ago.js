@@ -1,6 +1,6 @@
 export const displayTimeAgo = (timestamp, createdOn) => {
   const ago = timeAgo(timestamp);
-  return ago === 'x' ? formatDate(createdOn) : ago;
+  return ago === 'over 30 days' ? formatDate(createdOn) : ago;
 };
 
 // designed to work with a negative timestamp
@@ -25,10 +25,13 @@ const timeAgo = (timestamp) => {
     return `${daysAgoPosted} day${daysAgoPosted === 1 ? '' : 's'} ago`;
   }
 
-  return 'x';
+  return 'over 30 days';
 }
 
 const formatDate = (date) => {
+  if (date.length < 16) {
+    return date;
+  }
   const monthDay = date.slice(4, 10);
   const year = date.slice(11, 16);
   return `${monthDay}, ${year}`;
