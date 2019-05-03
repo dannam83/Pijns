@@ -6,6 +6,15 @@ export const getCurrentDate = () => {
   return `${monthString(monthNumber)} ${day}, ${year}`;
 };
 
+export const getDateFromTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  const monthNumber = date.getMonth();
+  const day = date.getDate().toString();
+  const year = date.getFullYear().toString();
+
+  return `${monthString(monthNumber)} ${day}, ${year}`;
+};
+
 const monthString = (monthNumber) => {
   const months = [
     'January',

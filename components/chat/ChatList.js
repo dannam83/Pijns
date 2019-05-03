@@ -11,7 +11,7 @@ class ChatList extends Component {
       const messages = _.map({ ...val }, (message, messageId) => {
         return { ...message, messageId };
       });
-      return { messages, date: key };
+      return { messages, dateTimestamp: key };
     });
     return chatDays.reverse();
   }

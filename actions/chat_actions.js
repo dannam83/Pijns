@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 import { FETCH_CHAT, CHAT_CLEAR } from './types';
-import { getCurrentTime } from '../functions/common';
+import { getCurrentTime, getTimestampDate } from '../functions/common';
 
 export const fetchChat = ({ userId, friendId }) => {
   const chatKey = formatChatKey(userId, friendId);
@@ -17,7 +17,7 @@ export const fetchChat = ({ userId, friendId }) => {
 };
 
 export const chatMessageSave = (user, otherId, message) => {
-  const date = new Date();
+  const date = getTimestampDate();
   const time = getCurrentTime();
   const chatKey = formatChatKey(user.uid, otherId);
   const db = firebase.database();

@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 
 import ChatListMessage from './ChatListMessage';
 import { lightTextGray } from '../../assets/colors';
+import { getDateFromTimestamp } from '../../functions/common';
 
 class ChatListDay extends Component {
   renderMessages = (messages) => {
@@ -20,7 +21,10 @@ class ChatListDay extends Component {
 
   render() {
     const { containerStyle, dateStyle } = styles;
-    const { date, messages } = this.props.chatDay;
+    const { dateTimestamp, messages } = this.props.chatDay;
+    const date = getDateFromTimestamp(parseInt(dateTimestamp, 10));
+    console.log('timestamp', dateTimestamp);
+    console.log('date', date);
 
     return (
       <View style={containerStyle}>
