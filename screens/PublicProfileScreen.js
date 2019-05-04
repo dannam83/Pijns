@@ -86,6 +86,8 @@ class PublicProfileScreen extends Component {
 
     const { status } = this.props.friend;
     const redirect = this.props.navigation.navigate;
+    const tab = this.props.navigation.getParam('tab');
+    console.log(tab);
 
     return (
       <View style={containerStyle}>
@@ -105,25 +107,30 @@ class PublicProfileScreen extends Component {
               </Button>
             </View>
           ) : (
-            <View style={buttonsViewStyle}>
-              <Button
-                onPress={() => this.onFriendPress(userId, status)}
-                buttonRestyle={this.buttonStyle(status)}
-                textRestyle={this.buttonTextStyle(status)}
-                disabled={this.disableButton(status)}
-              >{ !status ? 'Add Friend' : status }
-              </Button>
-              <Button
-                onPress={() => this.goToChat(userId)}
-              >Message
-              </Button>
-            </View>
-          )}
+            <View>
+              
+              <View style={buttonsViewStyle}>
+                <Button
+                  onPress={() => this.onFriendPress(userId, status)}
+                  buttonRestyle={this.buttonStyle(status)}
+                  textRestyle={this.buttonTextStyle(status)}
+                  disabled={this.disableButton(status)}
+                >{ !status ? 'Add Friend' : status }
+                </Button>
 
-          { status === 'Unfriend' ? (
-            <PostListFriend redirect={redirect} tab={'My'} />
-          ) : (
-            <Text>we are not friends</Text>
+                <Button
+                  onPress={() => this.goToChat(userId)}
+                >Message
+                </Button>
+              </View>
+
+              { status === 'Unfriend' ? (
+                <PostListFriend redirect={redirect} tab={'Friends'} />
+              ) : (
+                <Text>we are not friends</Text>
+              )}
+
+            </View>
           )}
       </View>
     );
