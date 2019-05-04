@@ -58,6 +58,7 @@ const styles = {
   masterContainerStyle: {
     flex: 1,
     backgroundColor: '#cef0ff',
+    paddingTop: 5
   },
   writePostView: {
     paddingTop: 10,

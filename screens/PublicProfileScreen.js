@@ -81,7 +81,7 @@ class PublicProfileScreen extends Component {
     userId = !userId ? user.uid : userId;
 
     const {
-      containerStyle, imageStyle, nameStyle, buttonsViewStyle
+      containerStyle, imageStyle, nameStyle, buttonsViewStyle, postsViewStyle
     } = styles;
 
     const { status } = this.props.friend;
@@ -94,9 +94,9 @@ class PublicProfileScreen extends Component {
         <Image source={{ uri: `${picture}?type=large` }} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
 
-
           { userId === this.props.currentUser.uid ? (
             <View style={buttonsViewStyle}>
+
               <Button
                 onPress={() => this.onFriendsPress(userId)}
               >Friends
@@ -105,10 +105,11 @@ class PublicProfileScreen extends Component {
                 onPress={() => this.props.logout()}
               >Logout
               </Button>
+
             </View>
           ) : (
             <View>
-              
+
               <View style={buttonsViewStyle}>
                 <Button
                   onPress={() => this.onFriendPress(userId, status)}
@@ -124,11 +125,13 @@ class PublicProfileScreen extends Component {
                 </Button>
               </View>
 
-              { status === 'Unfriend' ? (
-                <PostListFriend redirect={redirect} tab={'Friends'} />
-              ) : (
-                <Text>we are not friends</Text>
-              )}
+              <View style={postsViewStyle}>
+                { status === 'Unfriend' ? (
+                  <PostListFriend redirect={redirect} tab={'Friends'} />
+                ) : (
+                  null
+                )}
+              </View>
 
             </View>
           )}
@@ -158,6 +161,9 @@ const styles = {
   buttonsViewStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
+    paddingBottom: 20,
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD'
   },
   buttonBorderGray: {
     borderColor: disabledGray
@@ -172,6 +178,9 @@ const styles = {
   buttonTextWhite: {
     color: 'white'
   },
+  postsViewStyle: {
+    // marginTop: 30
+  }
 };
 
 function mapStateToProps(state) {
