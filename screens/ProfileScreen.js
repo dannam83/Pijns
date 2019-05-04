@@ -1,44 +1,70 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
+import ProfileHeaderLarge from '../components/profile/ProfileHeaderLarge';
+import { friendRequest, unfriend, fetchFriendList, logout } from '../actions';
 
 class ProfileScreen extends Component {
   static navigationOptions = {
-    title: 'Username',
+    title: 'Profile',
   };
 
-  logoutPress = () => {
-    this.props.logout(() => {
-      this.props.navigation.navigate('Auth');
-    });
+  onFriendsPress = (userId) => {
+    this.props.fetchFriendList(userId);
+    const nav = this.props.navigation;
+    const tab = nav.getParam('tab');
+
+    if (tab === 'Friends') {
+      nav.navigate('FR_Friends', { tab });
+    } else if (tab === 'My') {
+      nav.navigate('MY_Friends', { tab });
+    } else {
+      nav.navigate('Friends');
+    }
   }
 
   render() {
-    return (
-      <View>
-        <Text>ProfileScreen</Text>
-        <Text>ProfileScreen</Text>
-        <Text>ProfileScreen</Text>
-        <Text>ProfileScreen</Text>
-        <Text>ProfileScreen</Text>
+    let user = this.props.navigation.getParam('profileUser');
+    user = !user ? this.props.currentUser : user;
 
-        <Button
-          title="Logout"
-          large
-          icon={{ name: 'settings' }}
-          backgroundColor="#F44336"
-          onPress={this.logoutPress}
+    let { name, picture, userId } = user;
+    userId = !userId ? user.uid : userId;
+
+    const { status } = this.props.friend;
+    const redirect = this.props.navigation.navigate;
+    const tab = this.props.navigation.getParam('tab');
+
+    return (
+      <View style={styles.containerStyle}>
+        <ProfileHeaderLarge
+          imgSource={{ uri: `${picture}?type=large` }}
+          name={name}
+          userId={userId}
+          status={status}
+          tab={tab}
+          redirect={redirect}
+          logout={this.props.logout}
         />
       </View>
     );
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { token: auth.token };
+const styles = {
+  containerStyle: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40
+  }
+};
+
+function mapStateToProps(state) {
+  const { user, friend } = state;
+  return ({ currentUser: user, friend });
 }
 
-export default connect(mapStateToProps, actions)(ProfileScreen);
+export default connect(mapStateToProps, {
+  friendRequest, unfriend, fetchFriendList, logout
+})(ProfileScreen);

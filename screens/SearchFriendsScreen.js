@@ -8,7 +8,7 @@ import { searchUpdate, getFriendStatus } from '../actions';
 
 class SearchFriendsScreen extends Component {
   static navigationOptions = {
-    title: 'Search for friends',
+    title: 'Search',
   };
 
   onChangeText = (value) => {

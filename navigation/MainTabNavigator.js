@@ -6,6 +6,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import FriendPostsScreen from '../screens/FriendPostsScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import MyPostsScreen from '../screens/MyPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
@@ -101,7 +102,7 @@ NotificationsStack.navigationOptions = {
 };
 
 const ProfileStack = createStackNavigator({
-  Profile: PublicProfileScreen,
+  Profile: ProfileScreen,
   Friends: FriendsScreen,
   FriendProfile: PublicProfileScreen,
   ProfileChat: ChatScreen

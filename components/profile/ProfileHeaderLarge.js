@@ -2,28 +2,20 @@ import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button } from '../components/common';
-import PostListFriend from '../components/post/PostListFriend';
-import ProfileHeaderLarge from '../components/profile/ProfileHeaderLarge';
-import { friendRequest, unfriend, fetchFriendList, logout } from '../actions';
-import { disabledGray, buttonBlue } from '../assets/colors';
+import { Button } from '../../components/common';
+import { friendRequest, unfriend, fetchFriendList } from '../../actions';
+import { disabledGray, buttonBlue } from '../../assets/colors';
 
-class PublicProfileScreen extends Component {
-  static navigationOptions = {
-    title: 'Profile',
-  };
-
-  onFriendsPress = (userId) => {
+class ProfileHeaderLarge extends Component {
+  onFriendsPress = (userId, tab, redirect) => {
     this.props.fetchFriendList(userId);
-    const nav = this.props.navigation;
-    const tab = nav.getParam('tab');
 
     if (tab === 'Friends') {
-      nav.navigate('FR_Friends', { tab });
+      redirect('FR_Friends', { tab });
     } else if (tab === 'My') {
-      nav.navigate('MY_Friends', { tab });
+      redirect('MY_Friends', { tab });
     } else {
-      nav.navigate('Friends');
+      redirect('Friends');
     }
   }
 
@@ -75,44 +67,47 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    let user = this.props.navigation.getParam('profileUser');
-    user = !user ? this.props.currentUser : user;
-
-    let { name, picture, userId } = user;
-    userId = !userId ? user.uid : userId;
+    const { imgSource, name, userId, tab, redirect, logout } = this.props;
 
     const {
-      containerStyle
+      containerStyle, imageStyle, nameStyle, buttonsViewStyle
     } = styles;
 
     const { status } = this.props.friend;
-    const redirect = this.props.navigation.navigate;
-    const tab = this.props.navigation.getParam('tab');
 
     return (
       <View style={containerStyle}>
-        { userId === this.props.currentUser.uid ? (
-          <ProfileHeaderLarge
-            imgSource={{ uri: `${picture}?type=large` }}
-            name={name}
-            userId={userId}
-            status={status}
-            tab={tab}
-            redirect={redirect}
-            logout={this.props.logout}
-          />
-        ) : (
-          <View>
-            { status === 'Unfriend' ? (
-              <PostListFriend
-                redirect={redirect}
-                tab={'Friends'}
-              />
-            ) : (
-              null
-            )}
-          </View>
-        )}
+        <Image source={imgSource} style={imageStyle} />
+        <Text style={nameStyle}>{name}</Text>
+
+          { userId === this.props.currentUser.uid ? (
+            <View style={buttonsViewStyle}>
+              <Button
+                onPress={() => this.onFriendsPress(userId, tab, redirect)}
+              >Friends
+              </Button>
+
+              <Button
+                onPress={() => logout(redirect)}
+              >Logout
+              </Button>
+            </View>
+          ) : (
+            <View style={buttonsViewStyle}>
+              <Button
+                onPress={() => this.onFriendPress(userId, status)}
+                buttonRestyle={this.buttonStyle(status)}
+                textRestyle={this.buttonTextStyle(status)}
+                disabled={this.disableButton(status)}
+              >{ !status ? 'Add Friend' : status }
+              </Button>
+
+              <Button
+                onPress={() => this.goToChat(userId)}
+              >Message
+              </Button>
+            </View>
+          )}
       </View>
     );
   }
@@ -155,7 +150,7 @@ const styles = {
   },
   buttonTextWhite: {
     color: 'white'
-  },
+  }
 };
 
 function mapStateToProps(state) {
@@ -164,5 +159,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  friendRequest, unfriend, fetchFriendList, logout
-})(PublicProfileScreen);
+  friendRequest, unfriend, fetchFriendList
+})(ProfileHeaderLarge);

@@ -39,5 +39,5 @@ export const logout = (redirect) => async dispatch => {
     dispatch({ type: LOGOUT_SUCCESS });
   }
 
-  redirect();
+  redirect('Auth');
 };
