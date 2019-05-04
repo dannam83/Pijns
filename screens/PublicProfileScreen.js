@@ -3,6 +3,7 @@ import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../components/common';
+import PostListFriend from '../components/post/PostListFriend';
 import { friendRequest, unfriend, fetchFriendList, logout } from '../actions';
 import { disabledGray, buttonBlue } from '../assets/colors';
 
@@ -84,6 +85,7 @@ class PublicProfileScreen extends Component {
     } = styles;
 
     const { status } = this.props.friend;
+    const redirect = this.props.navigation.navigate;
 
     return (
       <View style={containerStyle}>
@@ -116,6 +118,12 @@ class PublicProfileScreen extends Component {
               >Message
               </Button>
             </View>
+          )}
+
+          { status === 'Unfriend' ? (
+            <PostListFriend redirect={redirect} tab={'My'} />
+          ) : (
+            <Text>we are not friends</Text>
           )}
       </View>
     );
