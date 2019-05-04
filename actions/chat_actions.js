@@ -17,7 +17,7 @@ export const fetchChat = ({ userId, friendId }) => {
 };
 
 export const chatMessageSave = (user, otherId, message) => {
-  const date = getTimestampDate();
+  const date = -getTimestampDate();
   const time = getCurrentTime();
   const chatKey = formatChatKey(user.uid, otherId);
   const db = firebase.database();

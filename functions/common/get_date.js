@@ -7,7 +7,8 @@ export const getCurrentDate = () => {
 };
 
 export const getDateFromTimestamp = (timestamp) => {
-  const date = new Date(timestamp);
+  const positiveTimestamp = Math.abs(timestamp);
+  const date = new Date(positiveTimestamp);
   const monthNumber = date.getMonth();
   const day = date.getDate().toString();
   const year = date.getFullYear().toString();
