@@ -12,7 +12,7 @@ class ProfileScreen extends Component {
   render() {
     const { name, picture, uid } = this.props.currentUser;
     const redirect = this.props.navigation.navigate;
-    const tab = 'My';
+    const tab = 'PersonalProfile';
 
     return (
       <ProfileHeaderPersonal
