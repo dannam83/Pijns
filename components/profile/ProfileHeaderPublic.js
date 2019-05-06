@@ -6,7 +6,7 @@ import { Button } from '../../components/common';
 import { friendRequest, unfriend, fetchFriendList } from '../../actions';
 import { disabledGray, buttonBlue } from '../../assets/colors';
 
-class ProfileHeaderLarge extends Component {
+class ProfileHeaderPersonal extends Component {
   onFriendsPress = (userId, tab, redirect) => {
     this.props.fetchFriendList(userId);
 
@@ -160,4 +160,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   friendRequest, unfriend, fetchFriendList
-})(ProfileHeaderLarge);
+})(ProfileHeaderPersonal);
