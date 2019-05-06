@@ -1,100 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { connect } from 'react-redux';
 
 import { Button } from '../../components/common';
-import { friendRequest, unfriend, fetchFriendList } from '../../actions';
-import { disabledGray, buttonBlue } from '../../assets/colors';
 
-class ProfileHeaderPersonal extends Component {
-  onFriendsPress = (userId, tab, redirect) => {
-    this.props.fetchFriendList(userId);
+const ProfileHeaderPersonal = (props) => {
+  const onFriendsPress = (redirect) => {
+    const { fetchFriendList, userId, tab } = props;
+    fetchFriendList(userId);
+    redirect(tab);
+  };
 
-    if (tab === 'Friends') {
-      redirect('FR_Friends', { tab });
-    } else if (tab === 'My') {
-      redirect('MY_Friends', { tab });
-    } else {
-      redirect('Friends');
-    }
-  }
+  const { imgSource, name, redirect, logout } = props;
 
-  onFriendPress = (profileUserId, status) => {
-    const { currentUser } = this.props;
-    if (!status) {
-      this.props.friendRequest({ profileUserId, currentUser });
-    } else if (status === 'See Requests') {
-      this.props.navigation.navigate('Notifications');
-    } else if (status === 'Unfriend') {
-      this.props.unfriend({ profileUserId, currentUser });
-    }
-  }
+  const {
+    containerStyle, imageStyle, nameStyle, buttonsViewStyle
+  } = styles;
 
-  buttonStyle(status) {
-    const { buttonBorderGray, buttonBodyBlue } = styles;
+  return (
+    <View style={containerStyle}>
+      <Image source={imgSource} style={imageStyle} />
 
-    switch (status) {
-      case 'Requested': return buttonBorderGray;
-      case 'See Requests': return buttonBodyBlue;
-      case 'Unfriend': return buttonBorderGray;
-      default: return {};
-    }
-  }
+      <Text style={nameStyle}>{name}</Text>
 
-  buttonTextStyle(status) {
-    const { buttonTextGray, buttonTextWhite } = styles;
+      <View style={buttonsViewStyle}>
+        <Button
+          onPress={() => onFriendsPress(redirect)}
+        >Friends
+        </Button>
 
-    switch (status) {
-      case 'Requested': return buttonTextGray;
-      case 'See Requests': return buttonTextWhite;
-      case 'Unfriend': return buttonTextGray;
-      default: return {};
-    }
-  }
-
-  disableButton(status) {
-    if (status === 'Requested') {
-      return true;
-    }
-  }
-
-  goToChat = async (userId) => {
-    const { currentUser, navigation } = this.props;
-
-    navigation.navigate('ProfileChat', {
-      user: currentUser, postAuthorId: userId
-    });
-  }
-
-  render() {
-    console.log(this.props);
-    const { imgSource, name, userId, tab, redirect, logout } = this.props;
-
-    const {
-      containerStyle, imageStyle, nameStyle, buttonsViewStyle
-    } = styles;
-
-    return (
-      <View style={containerStyle}>
-        <Image source={imgSource} style={imageStyle} />
-
-        <Text style={nameStyle}>{name}</Text>
-
-        <View style={buttonsViewStyle}>
-          <Button
-            onPress={() => this.onFriendsPress(userId, tab, redirect)}
-          >Friends
-          </Button>
-
-          <Button
-            onPress={() => logout(redirect)}
-          >Logout
-          </Button>
-        </View>
+        <Button
+          onPress={() => logout(redirect)}
+        >Logout
+        </Button>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = {
   containerStyle: {
@@ -120,27 +61,7 @@ const styles = {
     paddingBottom: 20,
     borderBottomWidth: 1,
     borderColor: '#DDDDDD'
-  },
-  buttonBorderGray: {
-    borderColor: disabledGray
-  },
-  buttonTextGray: {
-    color: disabledGray
-  },
-  buttonBodyBlue: {
-    borderColor: buttonBlue,
-    backgroundColor: buttonBlue
-  },
-  buttonTextWhite: {
-    color: 'white'
   }
 };
 
-function mapStateToProps(state) {
-  const { user, friend } = state;
-  return ({ currentUser: user, friend });
-}
-
-export default connect(mapStateToProps, {
-  friendRequest, unfriend, fetchFriendList
-})(ProfileHeaderPersonal);
+export default ProfileHeaderPersonal;

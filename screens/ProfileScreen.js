@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ProfileHeaderPersonal from '../components/profile/ProfileHeaderPersonal';
-import { logout } from '../actions';
+import { fetchFriendList, logout } from '../actions';
 
 class ProfileScreen extends Component {
   static navigationOptions = {
@@ -12,7 +12,7 @@ class ProfileScreen extends Component {
   render() {
     const { name, picture, uid } = this.props.currentUser;
     const redirect = this.props.navigation.navigate;
-    const tab = 'PersonalProfile';
+    const tab = 'Friends';
 
     return (
       <ProfileHeaderPersonal
@@ -21,6 +21,7 @@ class ProfileScreen extends Component {
         userId={uid}
         tab={tab}
         redirect={redirect}
+        fetchFriendList={this.props.fetchFriendList}
         logout={this.props.logout}
       />
     );
@@ -32,4 +33,6 @@ function mapStateToProps(state) {
   return ({ currentUser: user, friend });
 }
 
-export default connect(mapStateToProps, { logout })(ProfileScreen);
+export default connect(mapStateToProps, {
+  fetchFriendList, logout
+})(ProfileScreen);
