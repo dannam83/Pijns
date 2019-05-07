@@ -10,7 +10,6 @@ import PostListItem from './PostListItem';
 class PostListFriend extends Component {
   constructor(props) {
     super(props);
-    console.log('props', props);
     this.props.friendPostsFetch(props.profileUserId);
   }
 
@@ -68,7 +67,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   const { user } = state;
   let posts = _.map(state.friend.posts, (val, uid) => {
     const pijnSentToday = !!state.pijnLog[uid];

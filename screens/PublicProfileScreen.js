@@ -62,7 +62,6 @@ const styles = {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    // paddingTop: 40
   },
   imageStyle: {
     borderRadius: 70,

@@ -23,8 +23,6 @@ class ChatListDay extends Component {
     const { containerStyle, dateStyle } = styles;
     const { dateTimestamp, messages } = this.props.chatDay;
     const date = getDateFromTimestamp(parseInt(dateTimestamp, 10));
-    console.log('timestamp', dateTimestamp);
-    console.log('date', date);
 
     return (
       <View style={containerStyle}>

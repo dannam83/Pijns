@@ -40,8 +40,6 @@ export const getFriendStatus = ({ profileUserId, currentUserId }) => {
 };
 
 export const friendPostsFetch = (userId) => {
-  console.log('hi');
-  console.log(userId);
   return (dispatch) => {
     firebase.database().ref(`/users/${userId}/posts`)
       .on('value', snapshot => {

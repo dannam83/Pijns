@@ -113,7 +113,6 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     backgroundColor: 'white',
-    // alignSelf: 'stretch',
     paddingTop: 40,
     marginBottom: 5,
     width: SCREEN_WIDTH
