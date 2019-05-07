@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button } from '../components/common';
 import PostListFriend from '../components/post/PostListFriend';
-import ProfileHeaderPersonal from '../components/profile/ProfileHeaderPersonal';
+import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
 import { friendRequest, unfriend, fetchFriendList, logout } from '../actions';
 import { disabledGray, buttonBlue } from '../assets/colors';
 
@@ -74,6 +73,19 @@ class PublicProfileScreen extends Component {
     });
   }
 
+  renderHeader(picture, name, userId, status, tab, redirect) {
+    return (
+      <ProfileHeaderPublic
+        imgSource={{ uri: `${picture}?type=large` }}
+        name={name}
+        userId={userId}
+        status={status}
+        tab={tab}
+        redirect={redirect}
+      />
+    );
+  }
+
   render() {
     let user = this.props.navigation.getParam('profileUser');
     user = !user ? this.props.currentUser : user;
@@ -91,20 +103,10 @@ class PublicProfileScreen extends Component {
 
     return (
       <View style={containerStyle}>
-        { userId === this.props.currentUser.uid ? (
-          <ProfileHeaderPersonal
-            imgSource={{ uri: `${picture}?type=large` }}
-            name={name}
-            userId={userId}
-            status={status}
-            tab={tab}
-            redirect={redirect}
-            logout={this.props.logout}
-          />
-        ) : (
           <View>
             { status === 'Unfriend' ? (
               <PostListFriend
+                header={this.renderHeader(picture, name, userId, status, tab, redirect)}
                 redirect={redirect}
                 tab={'Friends'}
               />
@@ -112,7 +114,6 @@ class PublicProfileScreen extends Component {
               null
             )}
           </View>
-        )}
       </View>
     );
   }

@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../../components/common';
 import { friendRequest, unfriend, fetchFriendList } from '../../actions';
 import { disabledGray, buttonBlue } from '../../assets/colors';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
 class ProfileHeaderPersonal extends Component {
-  onFriendsPress = (userId, tab, redirect) => {
-    this.props.fetchFriendList(userId);
-
-    if (tab === 'Friends') {
-      redirect('FR_Friends', { tab });
-    } else if (tab === 'My') {
-      redirect('MY_Friends', { tab });
-    } else {
-      redirect('Friends');
-    }
-  }
-
   onFriendPress = (profileUserId, status) => {
     const { currentUser } = this.props;
     if (!status) {
@@ -58,6 +48,43 @@ class ProfileHeaderPersonal extends Component {
     }
   }
 
+  // friendRequestButton() {
+  //   return (
+  //     <View style={buttonsViewStyle}>
+  //       <Button
+  //         onPress={() => this.onFriendPress(userId, status)}
+  //         buttonRestyle={this.buttonStyle(status)}
+  //         textRestyle={this.buttonTextStyle(status)}
+  //         disabled={this.disableButton(status)}
+  //       >{ !status ? 'Add Friend' : status }</Button>
+  //
+  //       <Button
+  //         onPress={() => this.goToChat(userId)}
+  //       >Message</Button>
+  //     </View>
+  //   )
+  // }
+  //
+  // renderButtons(status) {
+  //   if (!status) {
+  //     return friendRequestButton();
+  //   } else if (status === 'Requested') {
+  //     return requestedButton();
+  //   } else if (status === 'See Requests') {
+  //     return goToNotificationButton();
+  //   } else if (status === 'Unfriend') {
+  //     return unfriendButton();
+  //   }
+  // }
+
+  friendRequestButton(userId, status) {
+    return (
+      <Button onPress={() => this.onFriendPress(userId, status)}>
+        Add Friend
+      </Button>
+    );
+  }
+
   goToChat = async (userId) => {
     const { currentUser, navigation } = this.props;
 
@@ -66,8 +93,14 @@ class ProfileHeaderPersonal extends Component {
     });
   }
 
+  // <Button
+  //   onPress={() => this.onFriendPress(userId, status)}
+  //   buttonRestyle={this.buttonStyle(status)}
+  //   textRestyle={this.buttonTextStyle(status)}
+  //   disabled={this.disableButton(status)}
+  //   >{ !status ? 'Add Friend' : status }</Button>
   render() {
-    const { imgSource, name, userId, tab, redirect, logout } = this.props;
+    const { imgSource, name, userId } = this.props;
 
     const {
       containerStyle, imageStyle, nameStyle, buttonsViewStyle
@@ -79,35 +112,12 @@ class ProfileHeaderPersonal extends Component {
       <View style={containerStyle}>
         <Image source={imgSource} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
-
-          { userId === this.props.currentUser.uid ? (
-            <View style={buttonsViewStyle}>
-              <Button
-                onPress={() => this.onFriendsPress(userId, tab, redirect)}
-              >Friends
-              </Button>
-
-              <Button
-                onPress={() => logout(redirect)}
-              >Logout
-              </Button>
-            </View>
-          ) : (
-            <View style={buttonsViewStyle}>
-              <Button
-                onPress={() => this.onFriendPress(userId, status)}
-                buttonRestyle={this.buttonStyle(status)}
-                textRestyle={this.buttonTextStyle(status)}
-                disabled={this.disableButton(status)}
-              >{ !status ? 'Add Friend' : status }
-              </Button>
-
-              <Button
-                onPress={() => this.goToChat(userId)}
-              >Message
-              </Button>
-            </View>
-          )}
+          <View style={buttonsViewStyle}>
+            {this.friendRequestButton(userId, status)}
+            <Button
+              onPress={() => this.goToChat(userId)}
+            >Message</Button>
+          </View>
       </View>
     );
   }
@@ -118,7 +128,10 @@ const styles = {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    paddingTop: 40
+    backgroundColor: 'white',
+    alignSelf: 'stretch',
+    marginBottom: 5,
+    width: SCREEN_WIDTH
   },
   imageStyle: {
     borderRadius: 70,
@@ -136,7 +149,8 @@ const styles = {
     justifyContent: 'center',
     paddingBottom: 20,
     borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
+    borderColor: '#DDDDDD',
+    alignSelf: 'stretch'
   },
   buttonBorderGray: {
     borderColor: disabledGray

@@ -11,6 +11,7 @@ class PostListFriend extends Component {
   constructor(props) {
     super(props);
     this.props.postsFetch();
+    console.log(props);
   }
 
   renderRow = (post) => {
@@ -47,6 +48,7 @@ class PostListFriend extends Component {
           data={posts}
           renderItem={({ item }) => this.renderRow(item)}
           keyExtractor={({ item }, postId) => postId.toString()}
+          ListHeaderComponent={this.props.header}
         />
       </View>
     );
@@ -56,8 +58,7 @@ class PostListFriend extends Component {
 const styles = {
   masterContainerStyle: {
     flex: 1,
-    backgroundColor: '#cef0ff',
-    paddingTop: 5
+    backgroundColor: '#cef0ff'
   },
   writePostView: {
     paddingTop: 10,
