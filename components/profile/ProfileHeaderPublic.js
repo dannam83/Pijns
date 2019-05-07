@@ -9,96 +9,80 @@ import { disabledGray, buttonBlue } from '../../assets/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ProfileHeaderPersonal extends Component {
-  onFriendPress = (profileUserId, status) => {
-    const { currentUser } = this.props;
-    if (!status) {
-      this.props.friendRequest({ profileUserId, currentUser });
-    } else if (status === 'See Requests') {
-      this.props.navigation.navigate('Notifications');
-    } else if (status === 'Unfriend') {
-      this.props.unfriend({ profileUserId, currentUser });
-    }
-  }
-
-  buttonStyle(status) {
-    const { buttonBorderGray, buttonBodyBlue } = styles;
-
-    switch (status) {
-      case 'Requested': return buttonBorderGray;
-      case 'See Requests': return buttonBodyBlue;
-      case 'Unfriend': return buttonBorderGray;
-      default: return {};
-    }
-  }
-
-  buttonTextStyle(status) {
-    const { buttonTextGray, buttonTextWhite } = styles;
-
-    switch (status) {
-      case 'Requested': return buttonTextGray;
-      case 'See Requests': return buttonTextWhite;
-      case 'Unfriend': return buttonTextGray;
-      default: return {};
-    }
-  }
-
-  disableButton(status) {
-    if (status === 'Requested') {
-      return true;
-    }
-  }
-
-  // friendRequestButton() {
-  //   return (
-  //     <View style={buttonsViewStyle}>
-  //       <Button
-  //         onPress={() => this.onFriendPress(userId, status)}
-  //         buttonRestyle={this.buttonStyle(status)}
-  //         textRestyle={this.buttonTextStyle(status)}
-  //         disabled={this.disableButton(status)}
-  //       >{ !status ? 'Add Friend' : status }</Button>
-  //
-  //       <Button
-  //         onPress={() => this.goToChat(userId)}
-  //       >Message</Button>
-  //     </View>
-  //   )
-  // }
-  //
-  // renderButtons(status) {
-  //   if (!status) {
-  //     return friendRequestButton();
-  //   } else if (status === 'Requested') {
-  //     return requestedButton();
-  //   } else if (status === 'See Requests') {
-  //     return goToNotificationButton();
-  //   } else if (status === 'Unfriend') {
-  //     return unfriendButton();
-  //   }
-  // }
-
-  friendRequestButton(userId, status) {
+  friendRequestButton(profileUserId, currentUser) {
     return (
-      <Button onPress={() => this.onFriendPress(userId, status)}>
+      <Button
+        onPress={() => this.props.friendRequest({ profileUserId, currentUser })}
+      >
         Add Friend
       </Button>
     );
   }
 
-  goToChat = async (userId) => {
-    const { currentUser, navigation } = this.props;
+  requestedButton() {
+    const { buttonBorderGray, buttonTextGray } = styles;
 
-    navigation.navigate('ProfileChat', {
+    return (
+      <Button
+        buttonRestyle={buttonBorderGray}
+        textRestyle={buttonTextGray}
+        disabled
+      >
+        Requested
+      </Button>
+    );
+  }
+
+  unfriendButton(profileUserId, currentUser) {
+    const { buttonBorderGray, buttonTextGray } = styles;
+
+    return (
+      <Button
+        onPress={() => this.props.unfriend({ profileUserId, currentUser })}
+        buttonRestyle={buttonBorderGray}
+        textRestyle={buttonTextGray}
+      >
+        Unfriend
+      </Button>
+    );
+  }
+
+  seeRequestsButton() {
+    const { buttonBodyBlue, buttonTextWhite } = styles;
+
+    return (
+      <Button
+        onPress={() => this.props.redirect('Notifications')}
+        buttonRestyle={buttonBodyBlue}
+        textRestyle={buttonTextWhite}
+      >
+        See Requests
+      </Button>
+    );
+  }
+
+  chatButton = async (userId) => {
+    const { currentUser, redirect } = this.props;
+
+    redirect('ProfileChat', {
       user: currentUser, postAuthorId: userId
     });
   }
 
-  // <Button
-  //   onPress={() => this.onFriendPress(userId, status)}
-  //   buttonRestyle={this.buttonStyle(status)}
-  //   textRestyle={this.buttonTextStyle(status)}
-  //   disabled={this.disableButton(status)}
-  //   >{ !status ? 'Add Friend' : status }</Button>
+  renderFriendButtons(userId, status) {
+    const { currentUser } = this.props;
+
+    if (!status) {
+      return this.friendRequestButton(userId, currentUser);
+    } else if (status === 'Requested') {
+      return this.requestedButton();
+    } else if (status === 'See Requests') {
+      return this.seeRequestsButton();
+    } else if (status === 'Unfriend') {
+      return this.unfriendButton(userId, currentUser);
+    }
+  }
+
   render() {
     const { imgSource, name, userId } = this.props;
 
@@ -113,9 +97,9 @@ class ProfileHeaderPersonal extends Component {
         <Image source={imgSource} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
           <View style={buttonsViewStyle}>
-            {this.friendRequestButton(userId, status)}
+            {this.renderFriendButtons(userId, status)}
             <Button
-              onPress={() => this.goToChat(userId)}
+              onPress={() => this.chatButton(userId)}
             >Message</Button>
           </View>
       </View>

@@ -111,7 +111,7 @@ class PublicProfileScreen extends Component {
                 tab={'Friends'}
               />
             ) : (
-              null
+              this.renderHeader(picture, name, userId, status, tab, redirect)
             )}
           </View>
       </View>

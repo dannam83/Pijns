@@ -11,7 +11,6 @@ class PostListFriend extends Component {
   constructor(props) {
     super(props);
     this.props.postsFetch();
-    console.log(props);
   }
 
   renderRow = (post) => {
@@ -34,6 +33,7 @@ class PostListFriend extends Component {
           backgroundColor="rgba(0,125,255,1)"
           borderRadius={20}
           icon={{ name: 'create' }}
+          redirect={this.props.redirect}
         />
       </View>
     );
