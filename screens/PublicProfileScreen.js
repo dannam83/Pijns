@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import PostListFriend from '../components/post/PostListFriend';
@@ -11,67 +11,6 @@ class PublicProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
-
-  onFriendsPress = (userId) => {
-    this.props.fetchFriendList(userId);
-    const nav = this.props.navigation;
-    const tab = nav.getParam('tab');
-
-    if (tab === 'Friends') {
-      nav.navigate('FR_Friends', { tab });
-    } else if (tab === 'My') {
-      nav.navigate('MY_Friends', { tab });
-    } else {
-      nav.navigate('Friends');
-    }
-  }
-
-  onFriendPress = (profileUserId, status) => {
-    const { currentUser } = this.props;
-    if (!status) {
-      this.props.friendRequest({ profileUserId, currentUser });
-    } else if (status === 'See Requests') {
-      this.props.navigation.navigate('Notifications');
-    } else if (status === 'Unfriend') {
-      this.props.unfriend({ profileUserId, currentUser });
-    }
-  }
-
-  buttonStyle(status) {
-    const { buttonBorderGray, buttonBodyBlue } = styles;
-
-    switch (status) {
-      case 'Requested': return buttonBorderGray;
-      case 'See Requests': return buttonBodyBlue;
-      case 'Unfriend': return buttonBorderGray;
-      default: return {};
-    }
-  }
-
-  buttonTextStyle(status) {
-    const { buttonTextGray, buttonTextWhite } = styles;
-
-    switch (status) {
-      case 'Requested': return buttonTextGray;
-      case 'See Requests': return buttonTextWhite;
-      case 'Unfriend': return buttonTextGray;
-      default: return {};
-    }
-  }
-
-  disableButton(status) {
-    if (status === 'Requested') {
-      return true;
-    }
-  }
-
-  goToChat = async (userId) => {
-    const { currentUser, navigation } = this.props;
-
-    navigation.navigate('ProfileChat', {
-      user: currentUser, postAuthorId: userId
-    });
-  }
 
   renderHeader(picture, name, userId, status, tab, redirect) {
     return (
@@ -87,11 +26,9 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    let user = this.props.navigation.getParam('profileUser');
-    user = !user ? this.props.currentUser : user;
-
-    let { name, picture, userId } = user;
-    userId = !userId ? user.uid : userId;
+    const user = this.props.navigation.getParam('profileUser');
+    const { name, picture } = user;
+    const userId = user.uid;
 
     const {
       containerStyle
@@ -109,6 +46,7 @@ class PublicProfileScreen extends Component {
                 header={this.renderHeader(picture, name, userId, status, tab, redirect)}
                 redirect={redirect}
                 tab={'Friends'}
+                profileUserId={userId}
               />
             ) : (
               this.renderHeader(picture, name, userId, status, tab, redirect)
@@ -124,7 +62,7 @@ const styles = {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    paddingTop: 40
+    // paddingTop: 40
   },
   imageStyle: {
     borderRadius: 70,

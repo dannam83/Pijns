@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { FRIEND_STATUS } from './types';
+import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS } from './types';
 
 export const friendRequest = ({ profileUserId, currentUser }) => {
   return () => {
@@ -36,6 +36,19 @@ export const getFriendStatus = ({ profileUserId, currentUserId }) => {
         payload: snapshot.val()
       });
     });
+  };
+};
+
+export const friendPostsFetch = (userId) => {
+  console.log('hi');
+  console.log(userId);
+  return (dispatch) => {
+    firebase.database().ref(`/users/${userId}/posts`)
+      .on('value', snapshot => {
+        dispatch({ type: FRIEND_POSTS_FETCH_SUCCESS, payload: snapshot.val() }
+        );
+      }
+    );
   };
 };
 

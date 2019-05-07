@@ -61,7 +61,7 @@ class ProfileHeaderPersonal extends Component {
     );
   }
 
-  chatButton = async (userId) => {
+  chatButton(userId) {
     const { currentUser, redirect } = this.props;
 
     redirect('ProfileChat', {
@@ -113,7 +113,8 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     backgroundColor: 'white',
-    alignSelf: 'stretch',
+    // alignSelf: 'stretch',
+    paddingTop: 40,
     marginBottom: 5,
     width: SCREEN_WIDTH
   },

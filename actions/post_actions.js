@@ -4,7 +4,6 @@ import {
   POST_CREATE_SAVE,
   POST_EDIT_UPDATE,
   POSTS_FETCH_SUCCESS,
-  FRIEND_POSTS_FETCH_SUCCESS,
   POST_SAVE_SUCCESS,
   POST_DELETE,
   POST_SET_ACTIVE
@@ -80,17 +79,6 @@ export const postsFetch = () => {
     firebase.database().ref(`/users/${currentUser.uid}/posts`)
       .on('value', snapshot => {
         dispatch({ type: POSTS_FETCH_SUCCESS, payload: snapshot.val() }
-        );
-      }
-    );
-  };
-};
-
-export const friendPostsFetch = (userId) => {
-  return (dispatch) => {
-    firebase.database().ref(`/users/${userId}/posts`)
-      .on('value', snapshot => {
-        dispatch({ type: FRIEND_POSTS_FETCH_SUCCESS, payload: snapshot.val() }
         );
       }
     );
