@@ -24,24 +24,8 @@ class PostListFriend extends Component {
     );
   }
 
-  renderHeader = () => {
-    return (
-      <View style={styles.writePostView}>
-        <Button
-          title="Write a post!"
-          onPress={() => this.props.redirect('PostCreate')}
-          backgroundColor="rgba(0,125,255,1)"
-          borderRadius={20}
-          icon={{ name: 'create' }}
-          redirect={this.props.redirect}
-        />
-      </View>
-    );
-  }
-
   render() {
     const { posts } = this.props;
-
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList

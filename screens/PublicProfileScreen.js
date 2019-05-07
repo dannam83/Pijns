@@ -4,22 +4,19 @@ import { connect } from 'react-redux';
 
 import PostListFriend from '../components/post/PostListFriend';
 import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
-import { friendRequest, unfriend, fetchFriendList, logout } from '../actions';
-import { disabledGray, buttonBlue } from '../assets/colors';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
 
-  renderHeader(picture, name, userId, status, tab, redirect) {
+  renderHeader = (picture, name, userId, status, redirect) => {
     return (
       <ProfileHeaderPublic
         imgSource={{ uri: `${picture}?type=large` }}
         name={name}
         userId={userId}
         status={status}
-        tab={tab}
         redirect={redirect}
       />
     );
@@ -28,30 +25,28 @@ class PublicProfileScreen extends Component {
   render() {
     const user = this.props.navigation.getParam('profileUser');
     const { name, picture } = user;
-    const userId = user.uid;
 
-    const {
-      containerStyle
-    } = styles;
-
-    const { status } = this.props.friend;
+    // param comes in as user.userId from search and as user.uid from friends
+    const userId = !user.uid ? user.userId : user.uid;
     const redirect = this.props.navigation.navigate;
-    const tab = this.props.navigation.getParam('tab');
+    let status = this.props.navigation.getParam('status');
+    if (!status) { status = this.props.friend.status; }
+    const { containerStyle } = styles;
 
     return (
       <View style={containerStyle}>
-          <View>
-            { status === 'Unfriend' ? (
-              <PostListFriend
-                header={this.renderHeader(picture, name, userId, status, tab, redirect)}
-                redirect={redirect}
-                tab={'Friends'}
-                profileUserId={userId}
-              />
-            ) : (
-              this.renderHeader(picture, name, userId, status, tab, redirect)
-            )}
-          </View>
+        <View>
+          { status === 'Unfriend' ? (
+            <PostListFriend
+              header={this.renderHeader(picture, name, userId, status, redirect)}
+              redirect={redirect}
+              profileUserId={userId}
+              status={status}
+            />
+          ) : (
+            this.renderHeader(picture, name, userId, status, redirect)
+          )}
+        </View>
       </View>
     );
   }
@@ -62,45 +57,12 @@ const styles = {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-  },
-  imageStyle: {
-    borderRadius: 70,
-    height: 140,
-    width: 140,
-    marginBottom: 20
-  },
-  nameStyle: {
-    fontWeight: 'bold',
-    fontSize: 28,
-    marginBottom: 35
-  },
-  buttonsViewStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingBottom: 20,
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
-  },
-  buttonBorderGray: {
-    borderColor: disabledGray
-  },
-  buttonTextGray: {
-    color: disabledGray
-  },
-  buttonBodyBlue: {
-    borderColor: buttonBlue,
-    backgroundColor: buttonBlue
-  },
-  buttonTextWhite: {
-    color: 'white'
-  },
+  }
 };
 
 function mapStateToProps(state) {
-  const { user, friend } = state;
-  return ({ currentUser: user, friend });
+  const { friend } = state;
+  return ({ friend });
 }
 
-export default connect(mapStateToProps, {
-  friendRequest, unfriend, fetchFriendList, logout
-})(PublicProfileScreen);
+export default connect(mapStateToProps)(PublicProfileScreen);

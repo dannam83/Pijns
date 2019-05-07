@@ -90,7 +90,8 @@ class ProfileHeaderPersonal extends Component {
       containerStyle, imageStyle, nameStyle, buttonsViewStyle
     } = styles;
 
-    const { status } = this.props.friend;
+    let status = this.props.status;
+    if (!status) { status = this.props.friend.status; }
 
     return (
       <View style={containerStyle}>
