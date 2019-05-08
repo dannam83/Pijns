@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS } from './types';
+import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
 
 export const friendRequest = ({ profileUserId, currentUser }) => {
   return () => {
@@ -47,6 +47,12 @@ export const friendPostsFetch = (userId) => {
         );
       }
     );
+  };
+};
+
+export const clearFriend = () => {
+  return {
+    type: FRIEND_CLEAR
   };
 };
 

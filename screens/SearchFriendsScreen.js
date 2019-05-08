@@ -4,12 +4,17 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { Input, ListItemAsButton } from '../components/common';
-import { searchUpdate, getFriendStatus } from '../actions';
+import { searchUpdate, getFriendStatus, fetchFriendList } from '../actions';
 
 class SearchFriendsScreen extends Component {
   static navigationOptions = {
     title: 'Search',
   };
+
+  constructor(props) {
+    super(props);
+    props.fetchFriendList(props.currentUser.uid);
+  }
 
   onChangeText = (value) => {
     this.props.searchUpdate({ value });
@@ -19,10 +24,12 @@ class SearchFriendsScreen extends Component {
     const currentUserId = this.props.currentUser.uid;
     const profileUserId = profileUser.userId;
     const { navigate } = this.props.navigation;
-    const redirect = () => navigate('PublicProfile', { profileUser });
-
-    this.props.getFriendStatus({ profileUserId, currentUserId });
-    redirect();
+    if (this.props.friendList[profileUserId]) {
+      navigate('PublicProfile', { profileUser, status: 'Unfriend' });
+    } else {
+      this.props.getFriendStatus({ profileUserId, currentUserId });
+      navigate('PublicProfile', { profileUser });
+    }
   };
 
   renderHeader = () => {
@@ -80,11 +87,12 @@ function mapStateToProps(state) {
   let searchResults = _.map(state.searchResults, (val, userId) => {
     return { ...val, userId };
   });
-  const { user } = state;
-  return { searchResults, currentUser: user };
+  const { user, friendList } = state;
+  return { searchResults, currentUser: user, friendList };
 }
 
 export default connect(mapStateToProps, {
   searchUpdate,
-  getFriendStatus
+  getFriendStatus,
+  fetchFriendList
 })(SearchFriendsScreen);

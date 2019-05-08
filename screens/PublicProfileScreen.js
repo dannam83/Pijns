@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 
 import PostListFriend from '../components/post/PostListFriend';
 import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
+import { clearFriend } from '../actions';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
+
+  componentWillUnmount() {
+    this.props.clearFriend();
+  }
 
   renderHeader = (picture, name, userId, status, redirect) => {
     return (
@@ -65,4 +70,4 @@ function mapStateToProps(state) {
   return ({ friend });
 }
 
-export default connect(mapStateToProps)(PublicProfileScreen);
+export default connect(mapStateToProps, { clearFriend })(PublicProfileScreen);
