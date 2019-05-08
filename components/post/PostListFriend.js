@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
 import _ from 'lodash';
 
 import { sendPijn, friendPostsFetch, postsFetch } from '../../actions';

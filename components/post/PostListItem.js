@@ -5,6 +5,7 @@ import { Card, Divider } from 'react-native-elements';
 
 import { CardBanner, ActionButton } from '../common';
 import PostCounts from './PostCounts';
+import PostPrayerAnswered from './PostPrayerAnswered';
 import {
   postEditUpdate,
   commentsPopulate,
@@ -161,7 +162,11 @@ class PostListItem extends Component {
           })}
           notesPress={this.goToPostNotes}
         />
-        <Divider style={dividerStyle} />
+        {this.state.answered ? (
+          <PostPrayerAnswered />
+        ) : (
+          <Divider style={dividerStyle} />
+        )}
         {this.postActionButtons({ postId, author, currentDate, user })}
       </Card>
     );
