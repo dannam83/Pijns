@@ -165,7 +165,11 @@ class PostListItem extends Component {
           notesPress={this.goToPostNotes}
         />
         {this.state.answered ? (
-          <PostPrayerAnswered date={answered} />
+          <View>
+            <Divider style={dividerStyle} />
+            <PostPrayerAnswered date={answered} />
+            <Divider style={dividerStyle} />
+          </View>
         ) : (
           <Divider style={dividerStyle} />
         )}

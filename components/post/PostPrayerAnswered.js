@@ -24,14 +24,13 @@ const styles = {
   containerStyle: {
     alignItems: 'center',
     position: 'relative',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 2
   },
   badgeStyle: {
     padding: 5,
     backgroundColor: greenBanner,
-    width: 300,
-    borderRadius: 150,
+    width: 150,
+    borderRadius: 75,
     alignItems: 'center'
   },
   dateStyle: {
