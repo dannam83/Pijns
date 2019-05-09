@@ -10,3 +10,4 @@ export const chatBorderGray = '#D3D3D3';
 export const chatTypingGray = '#ADADAD';
 
 export const greenActive = '#50C35C';
+export const greenBanner = '#18E455';
