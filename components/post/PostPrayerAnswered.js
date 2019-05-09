@@ -24,7 +24,8 @@ const styles = {
   containerStyle: {
     alignItems: 'center',
     position: 'relative',
-    marginTop: 2
+    marginTop: 2,
+    marginBottom: -1
   },
   badgeStyle: {
     padding: 5,
