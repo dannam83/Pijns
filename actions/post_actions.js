@@ -94,11 +94,12 @@ export const setActivePost = ({ postId, postAuthor }) => {
 
 export const answerPrayer = ({ postId, user }) => {
     const db = firebase.database();
-    const timestamp = -Date.now();
+    const answeredOn = getCurrentDate();
+
     db.ref(`/users/${user.uid}/posts/${postId}`)
-      .update({ answered: timestamp });
+      .update({ answered: answeredOn });
     db.ref(`/posts/${postId}`)
-      .update({ answered: timestamp });
+      .update({ answered: answeredOn });
 
     return {
       type: 'PRAYER_ANSWERED'

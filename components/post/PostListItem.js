@@ -135,7 +135,9 @@ class PostListItem extends Component {
   render() {
     const { containerStyle, contentStyle, dividerStyle } = styles;
     const { redirect, post } = this.props;
-    const { user, author, content, timestamp, createdOn, index, postId } = post;
+    const {
+      user, author, content, timestamp, createdOn, index, postId, answered
+    } = post;
     const userId = user.uid;
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
@@ -163,7 +165,7 @@ class PostListItem extends Component {
           notesPress={this.goToPostNotes}
         />
         {this.state.answered ? (
-          <PostPrayerAnswered />
+          <PostPrayerAnswered date={answered} />
         ) : (
           <Divider style={dividerStyle} />
         )}

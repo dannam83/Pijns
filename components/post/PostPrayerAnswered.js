@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { greenBanner } from '../../assets/colors';
+import { greenBanner, lightTextGray } from '../../assets/colors';
 
-const PostPrayerAnswered = () => {
-  const { containerStyle, badgeStyle, textStyle } = styles;
+const PostPrayerAnswered = ({ date }) => {
+  const { containerStyle, badgeStyle, dateStyle, textStyle } = styles;
 
   return (
     <View style={containerStyle}>
@@ -13,14 +13,16 @@ const PostPrayerAnswered = () => {
           Prayer Answered
         </Text>
       </View>
+      <Text style={dateStyle}>
+        on {date}
+      </Text>
     </View>
   );
 };
 
 const styles = {
   containerStyle: {
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: 'center',
     position: 'relative',
     marginTop: 10,
     marginBottom: 10,
@@ -28,9 +30,15 @@ const styles = {
   badgeStyle: {
     padding: 5,
     backgroundColor: greenBanner,
-    width: 200,
-    borderRadius: 100,
+    width: 300,
+    borderRadius: 150,
     alignItems: 'center'
+  },
+  dateStyle: {
+    color: lightTextGray,
+    fontWeight: '500',
+    fontSize: 13,
+    marginTop: 3,
   },
   textStyle: {
     color: 'white',
