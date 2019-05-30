@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 
-import { CardBanner, ActionButton } from '../common';
+import { ActionButton } from '../common';
+import PostListItemBanner from './PostListItemBanner';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
 import {
@@ -145,7 +146,7 @@ class PostListItem extends Component {
 
     return (
       <Card containerStyle={containerStyle}>
-        <CardBanner
+        <PostListItemBanner
           author={author}
           redirect={redirect}
           postEditUpdate={this.props.postEditUpdate}

@@ -43,11 +43,6 @@ const styles = {
     tintColor: '#D3D3D3'
   },
   actionTextStyle: {
-    // display: 'flex',
-    // alignSelf: 'center',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignContent: 'center'
   }
 };
 

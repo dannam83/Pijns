@@ -13,6 +13,6 @@ export default createAppContainer(createSwitchNavigator(
     Main: MainTabNavigator,
   },
   {
-    initialRouteName: 'LoadApp',
+    initialRouteName: 'Welcome',
   }
 ));

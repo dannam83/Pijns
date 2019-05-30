@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+
 import Slides from '../components/Slides';
+import { activeButtonBlue, backgroundBlue } from '../assets/colors';
 
 const SLIDE_DATA = [
-  { text: 'Welcome to job app', color: '#03A9F4' },
-  { text: 'This app will help you find jobs', color: '#009688' },
-  { text: 'Select your location, then swipe away', color: '#03A9F4' }
+  { text: 'Welcome to Pijns!',
+    color: backgroundBlue },
+  { text: 'Pijns is about encouraging people with prayer.',
+    color: activeButtonBlue },
+  { text: 'When friends share prayer requests, you can send them Pijn notes.',
+    color: backgroundBlue },
+  { text: "A note lets your friend know you've prayed for this prayer request.",
+    color: activeButtonBlue },
+  { text: "Pray In Jesus' Name = PIJN",
+    color: backgroundBlue },
+  { text: 'Thanks for being part of the community!',
+    color: activeButtonBlue },
 ];
 
 class WelcomeScreen extends Component {

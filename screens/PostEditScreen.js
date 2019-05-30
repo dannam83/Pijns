@@ -5,7 +5,7 @@ import { StackActions } from 'react-navigation';
 
 import PostForm from '../components/post/PostForm';
 import { postEditUpdate, postEditSave, postDelete } from '../actions';
-import { ButtonAsText } from '../components/common';
+import { CardBanner, ButtonAsText } from '../components/common';
 
 class PostEdit extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -56,6 +56,7 @@ class PostEdit extends Component {
         keyboardVerticalOffset={80}
         enabled
       >
+        <CardBanner />
         <PostForm postEditText={this.props.postText} routeName='postEdit' />
       </KeyboardAvoidingView>
     );
