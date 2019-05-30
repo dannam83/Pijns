@@ -12,10 +12,12 @@ const SLIDE_DATA = [
     color: backgroundBlue },
   { text: "A note lets your friend know you've prayed for this prayer request.",
     color: activeButtonBlue },
-  { text: "Pray In Jesus' Name = PIJN",
+  { text: 'You can send one Pijn everyday for any prayer request.',
     color: backgroundBlue },
-  { text: 'Thanks for being part of the community!',
+  { text: "Pray In Jesus' Name = PIJN",
     color: activeButtonBlue },
+  { text: 'Thanks for being part of the community!',
+    color: backgroundBlue },
 ];
 
 class WelcomeScreen extends Component {
