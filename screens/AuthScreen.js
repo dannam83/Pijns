@@ -30,9 +30,10 @@ class AuthScreen extends Component {
     }
   }
 
-  onFbLoginPress = () => {
+  onFbLoginPress = async () => {
     this.setState({ isProcessing: true });
-    this.props.fbLogin();
+    await this.props.fbLogin();
+    this.setState({ isProcessing: true });
   }
 
 

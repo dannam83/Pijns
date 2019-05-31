@@ -39,7 +39,7 @@ class ChatScreen extends Component {
     console.log('istyping', isTyping);
 
     if (!isTyping && text.length > 0) {
-      this.props.chatTypingStart(userId, postAuthorId);
+      this.props.chatTypingStart(userId, postAuthorId, text);
       this.setState({ isTyping: true });
     } else if (text.length === 0 && isTyping) {
       this.props.chatTypingEnd(userId, postAuthorId);

@@ -16,8 +16,6 @@ export const doFbLogin = async dispatch => {
 
     let { data } = await fetchFbProfileData(token);
     await setUserSliceOfState(data, dispatch);
-    // const { uid, photoURL } = firebase.auth().currentUser;
-    // await saveUserProfile(data, photoURL, uid);
     await AsyncStorage.setItem('auth_token', token);
     dispatch({ type: LOGIN_SUCCESS, payload: token });
   } catch (err) {

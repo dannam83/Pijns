@@ -10,14 +10,13 @@ export const sendPijn = ({ postId, author, currentDate, user }) => {
   firebaseRecordPijn({ db, currentDate, postId, user });
 };
 
-export const fetchPijnLog = () => {
-  const { currentUser } = firebase.auth();
+export const fetchPijnLog = (currentUid) => {
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
 
   return (dispatch) => {
-    return firebase.database().ref(`/userPijns/${currentUser.uid}/${currentDate}`)
+    return firebase.database().ref(`/userPijns/${currentUid}/${currentDate}`)
       .on('value', snapshot => {
         dispatch({ type: FETCH_PIJN_LOG, payload: snapshot.val() }
         );
