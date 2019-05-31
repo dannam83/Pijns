@@ -18,19 +18,19 @@ class LoadAppScreen extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  async componentWillReceiveProps(nextProps) {
     const { currentUid, navigation } = nextProps;
     const { fetchPijnLog, fetchUserFeed, saveNavigation } = this.props;
 
-    Promise.all([
+    await Promise.all([
       fetchUserFeed(currentUid), fetchPijnLog(), saveNavigation(navigation)
-    ]).then(() => {
-      if (nextProps.token) {
-        navigation.navigate('Main');
-      } else {
-        navigation.navigate('Auth');
-      }
-    });
+    ]);
+
+    if (nextProps.token) {
+      navigation.navigate('Main');
+    } else {
+      navigation.navigate('Auth');
+    }
   }
 
   render() {

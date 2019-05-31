@@ -8,11 +8,6 @@ import { sendPijn, postsFetch, fetchUserFeed } from '../../actions';
 import PostListItem from './PostListItem';
 
 class PostListFriends extends Component {
-  // List data now being loaded on LoadAppScreen rather than component constructor
-  // constructor(props) {
-  //   super(props);
-  //   this.props.fetchUserFeed(props.user.uid);
-  // }
   state = { refreshing: false };
 
   refreshList = async () => {
