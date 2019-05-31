@@ -19,6 +19,8 @@ class AuthScreen extends Component {
   }
 
   onAuthComplete(props) {
+    this.setState({ isProcessing: false });
+    
     const redirect = this.props.navigation.navigate;
 
     if (props.token) {
@@ -32,8 +34,7 @@ class AuthScreen extends Component {
 
   onFbLoginPress = async () => {
     this.setState({ isProcessing: true });
-    await this.props.fbLogin();
-    this.setState({ isProcessing: true });
+    this.props.fbLogin();
   }
 
 

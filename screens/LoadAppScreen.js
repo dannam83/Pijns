@@ -10,8 +10,6 @@ class LoadAppScreen extends Component {
   constructor() {
     super();
     firebase.auth().onAuthStateChanged((user) => {
-      console.log('user', user);
-      console.log('props', this.props);
       if (!user) {
         this.props.navigation.navigate('Auth');
       } else if (user.uid !== this.props.currentUid) {
@@ -23,18 +21,21 @@ class LoadAppScreen extends Component {
   async componentWillReceiveProps(nextProps) {
     const { currentUid, navigation } = nextProps;
     const { fetchPijnLog, fetchUserFeed, saveNavigation } = this.props;
-    saveNavigation(navigation);
 
     console.log('promise start');
-    await Promise.all([
-      fetchUserFeed(currentUid),
-      fetchPijnLog(currentUid),
-    ]);
+    if (currentUid) {
+      await Promise.all([
+        fetchUserFeed(currentUid),
+        fetchPijnLog(currentUid),
+        saveNavigation(navigation)
+      ]);
+    }
     console.log('promise end');
 
     if (nextProps.token) {
       navigation.navigate('Main');
     } else {
+      console.log('attempting redirect');
       navigation.navigate('Auth');
     }
   }
