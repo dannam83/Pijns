@@ -40,7 +40,6 @@ class PostCreateScreen extends Component {
         keyboardVerticalOffset={80}
         enabled
       >
-        <CardBanner />
         <PostForm {...this.props} />
       </KeyboardAvoidingView>
     );

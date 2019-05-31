@@ -56,7 +56,6 @@ class PostEdit extends Component {
         keyboardVerticalOffset={80}
         enabled
       >
-        <CardBanner />
         <PostForm postEditText={this.props.postText} routeName='postEdit' />
       </KeyboardAvoidingView>
     );
