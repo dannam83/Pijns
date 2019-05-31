@@ -11,6 +11,7 @@ class PostListFriends extends Component {
   // List data now being loaded on LoadAppScreen rather than component constructor
   // constructor(props) {
   //   super(props);
+  //   this.props.fetchUserFeed(props.user.uid);
   // }
   state = { refreshing: false };
 
@@ -18,14 +19,6 @@ class PostListFriends extends Component {
     this.setState({ refreshing: true });
     await this.props.fetchUserFeed(this.props.user.uid);
     this.setState({ refreshing: false });
-  }
-
-  showRefreshSpinner = () => {
-    return this.state.refreshing ? (
-      <View style={{ paddingTop: 5, paddingBottom: 15 }}>
-        <ActivityIndicator />
-      </View>
-    ) : null;
   }
 
   renderRow = (post) => {
@@ -42,7 +35,6 @@ class PostListFriends extends Component {
   renderHeader = () => {
     return (
       <View style={styles.writePostView}>
-        {this.showRefreshSpinner()}
         <Button
           title="Search for friends!"
           onPress={() => this.props.redirect('SearchFriends')}
