@@ -20,15 +20,17 @@ class LoadAppScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { currentUid, navigation } = nextProps;
-    this.props.fetchPijnLog();
-    this.props.fetchUserFeed(currentUid);
-    this.props.saveNavigation(navigation);
+    const { fetchPijnLog, fetchUserFeed, saveNavigation } = this.props;
 
-    if (nextProps.token) {
-      navigation.navigate('Main');
-    } else {
-      navigation.navigate('Auth');
-    }
+    Promise.all([
+      fetchUserFeed(currentUid), fetchPijnLog(), saveNavigation(navigation)
+    ]).then(() => {
+      if (nextProps.token) {
+        navigation.navigate('Main');
+      } else {
+        navigation.navigate('Auth');
+      }
+    });
   }
 
   render() {
