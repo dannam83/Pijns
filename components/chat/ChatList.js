@@ -17,11 +17,11 @@ class ChatList extends Component {
   }
 
   showChatTyping(isTyping) {
-    return isTyping ? (
-      <View style={{ paddingBottom: 5 }}>
-        <ChatListTyping />
+    return (
+      <View style={{ height: 25 }}>
+        { isTyping ? <ChatListTyping /> : null }
       </View>
-    ) : null;
+    );
   }
 
   renderRow = (chatDay) => {

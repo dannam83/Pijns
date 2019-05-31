@@ -36,6 +36,7 @@ class ChatScreen extends Component {
 
   onChange = (text, userId, postAuthorId) => {
     const isTyping = this.state.isTyping;
+    console.log('istyping', isTyping);
 
     if (!isTyping && text.length > 0) {
       this.props.chatTypingStart(userId, postAuthorId);
@@ -50,6 +51,7 @@ class ChatScreen extends Component {
     try {
       this.props.chatMessageSave(user, postAuthorId, comment);
       this.props.chatTypingEnd(user.uid, postAuthorId);
+      this.setState({ isTyping: false });
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
