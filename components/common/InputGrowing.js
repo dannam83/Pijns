@@ -9,6 +9,12 @@ class InputGrowing extends Component {
     height: 23,
   }
 
+  componentWillReceiveProps(props) {
+    const { value } = props;
+    let { newValue } = this.state;
+    if (value && value !== newValue) { this.setState({ newValue: value }); }
+  }
+
   onChangeText = (newValue) => {
     const { user, postAuthorId } = this.props;
     this.props.onChange(newValue, user.uid, postAuthorId);
@@ -32,10 +38,7 @@ class InputGrowing extends Component {
   }
 
   render() {
-    const { height } = this.state;
-    const { value } = this.props;
-    let { newValue } = this.state;
-    if (value) { newValue = value; }
+    const { height, newValue } = this.state;
 
     const {
       containerViewStyle,
