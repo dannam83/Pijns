@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
+import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
+
 const ButtonAsField = ({
   onPress, disabled, children, buttonRestyle, textRestyle, iconName, iconRestyle
 }) => {
@@ -24,19 +26,17 @@ const ButtonAsField = ({
 
 const styles = {
   textStyle: {
-    alignSelf: 'center',
-    color: '#007aff',
+    alignSelf: 'flex-start',
+    color: darkTextGray,
     fontSize: 16,
-    fontWeight: '600',
     paddingTop: 10,
     paddingBottom: 10
   },
   buttonStyle: {
-    width: 120,
+    flex: 1,
     alignSelf: 'center',
-    borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#007aff',
+    borderColor: buttonFieldBorderGray,
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: 'white',
@@ -44,6 +44,9 @@ const styles = {
   },
   iconStyle: {
     alignSelf: 'center',
+    color: darkTextGray,
+    paddingLeft: 15,
+    paddingRight: 8
   }
 };
 

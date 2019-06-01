@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { sendPijn, postsFetch, fetchUserFeed } from '../../actions';
 import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
-import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
 
 class PostListFriends extends Component {
   state = { refreshing: false };
@@ -27,17 +26,15 @@ class PostListFriends extends Component {
       />
     );
   }
-  
+
   renderHeader = () => {
-    const { writePostView, buttonStyle, textStyle, iconStyle } = styles;
+    const { writePostView, buttonStyle } = styles;
 
     return (
       <View style={writePostView}>
         <ButtonAsField
           onPress={() => this.props.redirect('SearchFriends')}
           buttonRestyle={buttonStyle}
-          textRestyle={textStyle}
-          iconRestyle={iconStyle}
           iconName={'search1'}
         >Search for friends...</ButtonAsField>
       </View>
@@ -79,22 +76,7 @@ const styles = {
     margin: 10,
   },
   buttonStyle: {
-    flex: 1,
     borderRadius: 25,
-    borderColor: buttonFieldBorderGray
-  },
-  textStyle: {
-    alignSelf: 'flex-start',
-    color: darkTextGray,
-    fontSize: 16,
-    fontWeight: '400',
-    paddingTop: 10,
-    paddingBottom: 10
-  },
-  iconStyle: {
-    color: darkTextGray,
-    paddingLeft: 15,
-    paddingRight: 8
   }
 };
 
