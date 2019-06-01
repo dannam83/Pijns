@@ -31,9 +31,10 @@ export const chatMessageSave = (user, otherId, message) => {
   });
 };
 
-export const chatTypingStart = (userId, otherId) => {
+export const chatTypingStart = (userId, otherId, text) => {
   const chatKey = formatChatKey(userId, otherId);
-  firebase.database().ref(`/chats/${chatKey}/${userId}`).set(true);
+  firebase.database().ref(`/chats/${chatKey}/${userId}`).set(text);
+  
   return ({
     type: 'DUMMY'
   });
@@ -41,7 +42,7 @@ export const chatTypingStart = (userId, otherId) => {
 
 export const chatTypingEnd = (userId, otherId) => {
   const chatKey = formatChatKey(userId, otherId);
-  firebase.database().ref(`/chats/${chatKey}/${userId}`).set(false);
+  firebase.database().ref(`/chats/${chatKey}/${userId}`).set('');
   return ({
     type: 'DUMMY'
   });

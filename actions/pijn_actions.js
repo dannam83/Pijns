@@ -16,7 +16,7 @@ export const fetchPijnLog = (currentUid) => {
   );
 
   return (dispatch) => {
-    return firebase.database().ref(`/userPijns/${currentUid}/${currentDate}`)
+    firebase.database().ref(`/userPijns/${currentUid}/${currentDate}`)
       .on('value', snapshot => {
         dispatch({ type: FETCH_PIJN_LOG, payload: snapshot.val() }
         );

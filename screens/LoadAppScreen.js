@@ -22,7 +22,6 @@ class LoadAppScreen extends Component {
     const { currentUid, navigation } = nextProps;
     const { fetchPijnLog, fetchUserFeed, saveNavigation } = this.props;
 
-    console.log('promise start');
     if (currentUid) {
       await Promise.all([
         fetchUserFeed(currentUid),
@@ -30,12 +29,10 @@ class LoadAppScreen extends Component {
         saveNavigation(navigation)
       ]);
     }
-    console.log('promise end');
 
     if (nextProps.token) {
       navigation.navigate('Main');
     } else {
-      console.log('attempting redirect');
       navigation.navigate('Auth');
     }
   }

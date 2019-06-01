@@ -3,7 +3,6 @@ import { FETCH_USER_FEED, UPDATE_COMMENT_COUNT } from '../actions/types';
 const INITIAL_STATE = [];
 
 export default (state = INITIAL_STATE, action) => {
-  console.log('action in reducer', action);
   switch (action.type) {
     case FETCH_USER_FEED:
       return action.payload;

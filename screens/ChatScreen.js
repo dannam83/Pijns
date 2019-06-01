@@ -30,16 +30,14 @@ class ChatScreen extends Component {
     const { navigation } = this.props;
     const userId = navigation.getParam('user').uid;
     const postAuthorId = navigation.getParam('postAuthorId');
-    this.props.chatTypingEnd(userId, postAuthorId);
     this.props.chatClear(userId, postAuthorId);
   }
 
   onChange = (text, userId, postAuthorId) => {
     const isTyping = this.state.isTyping;
-    console.log('istyping', isTyping);
+    this.props.chatTypingStart(userId, postAuthorId, text);
 
     if (!isTyping && text.length > 0) {
-      this.props.chatTypingStart(userId, postAuthorId, text);
       this.setState({ isTyping: true });
     } else if (text.length === 0 && isTyping) {
       this.props.chatTypingEnd(userId, postAuthorId);
@@ -61,6 +59,7 @@ class ChatScreen extends Component {
     const { chat, navigation } = this.props;
     const user = navigation.getParam('user');
     const postAuthorId = navigation.getParam('postAuthorId');
+    const alreadyTyped = chat[user.uid];
 
     return (
       <KeyboardAvoidingView
@@ -81,6 +80,7 @@ class ChatScreen extends Component {
           navigation={navigation}
           onSave={this.saveChat}
           placeholder="Say something..."
+          value={alreadyTyped}
           onChange={
             (text, userId, postAuthId) => this.onChange(text, userId, postAuthId)}
         />

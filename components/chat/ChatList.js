@@ -41,7 +41,7 @@ class ChatList extends Component {
           renderItem={({ item }) => this.renderRow(item)}
           keyExtractor={({ item }, date) => date.toString()}
         />
-        {this.showChatTyping(otherTyping)}
+      {this.showChatTyping(otherTyping !== '')}
       </View>
     );
   }

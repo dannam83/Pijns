@@ -6,15 +6,13 @@ import { disabledGray, activeButtonBlue } from '../../assets/colors';
 class InputGrowing extends Component {
   state = {
     newValue: '',
-    height: 40,
+    height: 23,
   }
 
   onChangeText = (newValue) => {
+    const { user, postAuthorId } = this.props;
+    this.props.onChange(newValue, user.uid, postAuthorId);
     this.setState({ newValue });
-    if (this.props.onChange) {
-      const { user, postAuthorId } = this.props;
-      this.props.onChange(newValue, user.uid, postAuthorId);
-    }
   }
 
   updateSize = (height) => {
@@ -34,7 +32,11 @@ class InputGrowing extends Component {
   }
 
   render() {
-    const { newValue, height } = this.state;
+    const { height } = this.state;
+    const { value } = this.props;
+    let { newValue } = this.state;
+    if (value) { newValue = value; }
+
     const {
       containerViewStyle,
       textInputViewStyle,
@@ -43,7 +45,7 @@ class InputGrowing extends Component {
       buttonTextStyle
      } = styles;
     const newStyle = { height };
-    const emptyText = this.state.newValue.length === 0;
+    const emptyText = newValue.length === 0;
     const buttonColor = emptyText ? disabledGray : activeButtonBlue;
 
     return (
@@ -51,7 +53,7 @@ class InputGrowing extends Component {
         <View style={textInputViewStyle}>
           <TextInput
             placeholder={this.props.placeholder}
-            onChangeText={(value) => this.onChangeText(value)}
+            onChangeText={(text) => this.onChangeText(text)}
             style={[inputStyle, newStyle]}
             editable
             multiline
