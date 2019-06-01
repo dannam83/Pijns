@@ -36,7 +36,7 @@ class PostListFriends extends Component {
           onPress={() => this.props.redirect('SearchFriends')}
           buttonRestyle={buttonStyle}
           iconName={'search1'}
-        >Search for friends...</ButtonAsField>
+        >Search for friends</ButtonAsField>
       </View>
     );
   }

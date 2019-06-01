@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
 import _ from 'lodash';
 
 import { sendPijn, postsFetch } from '../../actions';
+import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
 class PostListMine extends Component {
@@ -27,13 +27,11 @@ class PostListMine extends Component {
   renderHeader = () => {
     return (
       <View style={styles.writePostView}>
-        <Button
-          title="Write a post!"
+        <ButtonAsField
           onPress={() => this.props.redirect('PostCreate')}
-          backgroundColor="rgba(0,125,255,1)"
-          borderRadius={20}
-          icon={{ name: 'create' }}
-        />
+          iconName={'form'}
+          iconRestyle={styles.iconStyle}
+        >Write a post</ButtonAsField>
       </View>
     );
   }
@@ -61,7 +59,12 @@ const styles = {
   },
   writePostView: {
     paddingTop: 10,
-    paddingBottom: 5
+    paddingBottom: 5,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  iconStyle: {
+    marginRight: 2
   }
 };
 
