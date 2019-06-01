@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
 import _ from 'lodash';
 
 import { sendPijn, postsFetch, fetchUserFeed } from '../../actions';
+import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
+import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
 
 class PostListFriends extends Component {
   state = { refreshing: false };
@@ -26,17 +27,19 @@ class PostListFriends extends Component {
       />
     );
   }
-
+  
   renderHeader = () => {
+    const { writePostView, buttonStyle, textStyle, iconStyle } = styles;
+
     return (
-      <View style={styles.writePostView}>
-        <Button
-          title="Search for friends!"
+      <View style={writePostView}>
+        <ButtonAsField
           onPress={() => this.props.redirect('SearchFriends')}
-          backgroundColor="rgba(0,125,255,1)"
-          borderRadius={20}
-          icon={{ name: 'search' }}
-        />
+          buttonRestyle={buttonStyle}
+          textRestyle={textStyle}
+          iconRestyle={iconStyle}
+          iconName={'search1'}
+        >Search for friends...</ButtonAsField>
       </View>
     );
   }
@@ -66,7 +69,32 @@ const styles = {
   },
   writePostView: {
     paddingTop: 10,
-    paddingBottom: 5
+    paddingBottom: 5,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  inputContainerStyle: {
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    margin: 10,
+  },
+  buttonStyle: {
+    flex: 1,
+    borderRadius: 25,
+    borderColor: buttonFieldBorderGray
+  },
+  textStyle: {
+    alignSelf: 'flex-start',
+    color: darkTextGray,
+    fontSize: 16,
+    fontWeight: '400',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  iconStyle: {
+    color: darkTextGray,
+    paddingLeft: 15,
+    paddingRight: 8
   }
 };
 

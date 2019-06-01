@@ -1,31 +1,24 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-const Button = ({
-  onPress,
-  disabled,
-  children,
-  buttonRestyle,
-  textRestyle,
-  iconName,
-  iconRestyle,
-  opacity
+const ButtonAsField = ({
+  onPress, disabled, children, buttonRestyle, textRestyle, iconName, iconRestyle
 }) => {
   const { buttonStyle, textStyle, iconStyle } = styles;
 
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
       onPress={onPress}
-      style={[buttonStyle, buttonRestyle]}
       disabled={disabled}
-      setOpacityTo={opacity}
     >
-      <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
-      <Text style={[textStyle, textRestyle]}>
-        {children}
-      </Text>
-    </TouchableOpacity>
+      <View style={[buttonStyle, buttonRestyle]}>
+        <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
+        <Text style={[textStyle, textRestyle]}>
+          {children}
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -41,12 +34,12 @@ const styles = {
   buttonStyle: {
     width: 120,
     alignSelf: 'center',
-    backgroundColor: 'white',
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#007aff',
     marginLeft: 10,
     marginRight: 10,
+    backgroundColor: 'white',
     flexDirection: 'row'
   },
   iconStyle: {
@@ -54,4 +47,4 @@ const styles = {
   }
 };
 
-export { Button };
+export { ButtonAsField };

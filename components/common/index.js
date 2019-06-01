@@ -1,4 +1,5 @@
 export * from './Button';
+export * from './ButtonAsField';
 export * from './ButtonAsText';
 export * from './ActionButton';
 export * from './Header';

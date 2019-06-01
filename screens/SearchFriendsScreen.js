@@ -33,14 +33,13 @@ class SearchFriendsScreen extends Component {
   };
 
   renderHeader = () => {
-    const { containerStyle, inputRestyle } = styles;
+    const { containerStyle } = styles;
 
     return (
       <Input
         iconName='search1'
         placeholder={'Search'}
         containerRestyle={containerStyle}
-        inputRestyle={inputRestyle}
         onChangeText={value => this.onChangeText(value)}
         autoCapitalize={'none'}
         autoFocus
