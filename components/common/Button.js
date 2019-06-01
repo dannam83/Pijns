@@ -10,7 +10,6 @@ const Button = ({
   textRestyle,
   iconName,
   iconRestyle,
-  opacity
 }) => {
   const { buttonStyle, textStyle, iconStyle } = styles;
 
@@ -19,7 +18,6 @@ const Button = ({
       onPress={onPress}
       style={[buttonStyle, buttonRestyle]}
       disabled={disabled}
-      setOpacityTo={opacity}
     >
       <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
       <Text style={[textStyle, textRestyle]}>
@@ -30,14 +28,6 @@ const Button = ({
 };
 
 const styles = {
-  textStyle: {
-    alignSelf: 'center',
-    color: '#007aff',
-    fontSize: 16,
-    fontWeight: '600',
-    paddingTop: 10,
-    paddingBottom: 10
-  },
   buttonStyle: {
     width: 120,
     alignSelf: 'center',
@@ -47,7 +37,16 @@ const styles = {
     borderColor: '#007aff',
     marginLeft: 10,
     marginRight: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  textStyle: {
+    alignSelf: 'center',
+    color: '#007aff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10
   },
   iconStyle: {
     alignSelf: 'center',

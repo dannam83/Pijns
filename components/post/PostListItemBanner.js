@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 
-import { ActionButton } from '../common';
+import { ActionButton, ActionButtonStill } from '../common';
 import { displayTimeAgo } from '../../functions/common';
 
 const PostListItemBanner = ({
@@ -15,9 +15,10 @@ const PostListItemBanner = ({
     headerContentStyle,
     headerAuthorStyle,
     headerDetailStyle,
-    ellipsisViewStyle,
+    rightIconViewStyle,
     ellipsisStyle,
-    buttonStyle
+    buttonStyle,
+    pinStyle
   } = styles;
 
   const showActionSheet = async () => {
@@ -37,6 +38,11 @@ const PostListItemBanner = ({
     return options(userId, id).length - 1;
   };
 
+  const savePost = async () => {
+    console.log('saving');
+    return null;
+  };
+
   return (
     <View style={containerStyle}>
       <Image
@@ -49,7 +55,7 @@ const PostListItemBanner = ({
       </View>
 
       { id === userId ?
-        <View style={ellipsisViewStyle}>
+        <View style={rightIconViewStyle}>
           <ActionButton
             iconStyle={ellipsisStyle}
             buttonStyle={buttonStyle}
@@ -67,7 +73,16 @@ const PostListItemBanner = ({
               }
             }}
           />
-        </View> : null
+        </View>
+        :
+        <View style={rightIconViewStyle}>
+          <ActionButtonStill
+            buttonStyle={buttonStyle}
+            iconName={'pushpino'}
+            iconStyle={pinStyle}
+            onPress={savePost}
+          />
+        </View>
       }
 
     </View>
@@ -102,7 +117,7 @@ const styles = {
     width: 50,
     borderRadius: 25
   },
-  ellipsisViewStyle: {
+  rightIconViewStyle: {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
@@ -115,7 +130,12 @@ const styles = {
   },
   buttonStyle: {
     alignItems: 'flex-start'
-  }
+  },
+  pinStyle: {
+    transform: [
+      { scaleX: -1 }
+    ]
+  },
 };
 
 export default PostListItemBanner;
