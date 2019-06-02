@@ -3,7 +3,7 @@ import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const ActionButtonStill = ({
-  text, onPress, disabled, buttonStyle, iconName, iconStyle
+  text, onPress, disabled, buttonStyle, iconName, iconStyle, iconSize
 }) => {
   const {
     actionButtonStyle, actionIconStyle, disabledIconStyle, actionTextStyle
@@ -17,7 +17,7 @@ const ActionButtonStill = ({
       disabled={disabled}
     >
       <View style={[actionButtonStyle, buttonStyle]}>
-        <AntDesign name={iconName} size={22} style={[iconDefaultStyle, iconStyle]} />
+        <AntDesign name={iconName} size={iconSize} style={[iconDefaultStyle, iconStyle]} />
         <Text style={actionTextStyle}>{text}</Text>
       </View>
     </TouchableWithoutFeedback>

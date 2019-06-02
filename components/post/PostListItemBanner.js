@@ -80,6 +80,7 @@ const PostListItemBanner = ({
             buttonStyle={buttonStyle}
             iconName={'pushpino'}
             iconStyle={pinStyle}
+            iconSize={20}
             onPress={savePost}
           />
         </View>
