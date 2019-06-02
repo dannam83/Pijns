@@ -6,10 +6,10 @@ const ActionButtonStill = ({
   text, onPress, disabled, buttonStyle, iconName, iconStyle, iconSize
 }) => {
   const {
-    actionButtonStyle, actionIconStyle, disabledIconStyle, actionTextStyle
+    actionButtonStyle, disabledIconStyle, actionTextStyle
   } = styles;
 
-  const iconDefaultStyle = disabled ? disabledIconStyle : actionIconStyle;
+  const iconDefaultStyle = disabled ? disabledIconStyle : {};
 
   return (
     <TouchableWithoutFeedback
@@ -24,26 +24,13 @@ const ActionButtonStill = ({
   );
 };
 
-// iconStyle: {
-//   alignSelf: 'center',
-//   color: darkTextGray,
-//   paddingLeft: 15,
-//   paddingRight: 8
-// }
-
 const styles = {
   actionButtonStyle: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
   },
-  // actionIconStyle: {
-  //   height: 30,
-  //   width: 30,
-  // },
   disabledIconStyle: {
-    // height: 25,
-    // width: 25,
     tintColor: '#D3D3D3'
   },
   actionTextStyle: {
