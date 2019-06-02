@@ -4,6 +4,7 @@ import ActionSheet from 'react-native-actionsheet';
 
 import { ActionButton, ActionButtonStill } from '../common';
 import { displayTimeAgo } from '../../functions/common';
+import { pinPost } from '../../actions';
 
 const PostListItemBanner = ({
   userId, author, redirect, postEditUpdate, postText, postId, timestamp, createdOn
@@ -38,9 +39,8 @@ const PostListItemBanner = ({
     return options(userId, id).length - 1;
   };
 
-  const savePost = async () => {
-    console.log('saving');
-    return null;
+  const pinPress = async () => {
+    pinPost({ postId, userId });
   };
 
   return (
@@ -81,7 +81,7 @@ const PostListItemBanner = ({
             iconName={'pushpino'}
             iconStyle={pinStyle}
             iconSize={20}
-            onPress={savePost}
+            onPress={pinPress}
           />
         </View>
       }
