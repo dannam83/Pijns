@@ -81,13 +81,13 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
-  const { user, userFeed } = state;
+  const { user, userFeed, pijnLog, pinboard } = state;
   let posts = _.map(userFeed, (post, index) => {
-    const pijnSentToday = !!state.pijnLog[post.postId];
+    const pijnSentToday = !!pijnLog[post.postId];
+    const pinned = !!pinboard[post.postId];
     const { navigation } = state;
     return {
-      ...post, sendPijn, pijnSentToday, user, navigation, index
+      ...post, sendPijn, pijnSentToday, pinned, user, navigation, index
     };
   });
   return { posts, user };

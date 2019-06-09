@@ -137,7 +137,7 @@ class PostListItem extends Component {
     const { containerStyle, contentStyle, dividerStyle } = styles;
     const { redirect, post } = this.props;
     const {
-      user, author, content, timestamp, createdOn, index, postId, answered
+      user, author, content, timestamp, createdOn, index, postId, answered, pinned
     } = post;
     const userId = user.uid;
     const currentDate = new Date(
@@ -155,6 +155,7 @@ class PostListItem extends Component {
           timestamp={timestamp}
           createdOn={createdOn}
           userId={userId}
+          pinned={pinned}
         />
         <Text style={contentStyle}>{content}</Text>
         <PostCounts

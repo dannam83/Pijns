@@ -4,10 +4,19 @@ import ActionSheet from 'react-native-actionsheet';
 
 import { ActionButton, ActionButtonStill } from '../common';
 import { displayTimeAgo } from '../../functions/common';
-import { pinPost } from '../../actions';
+import { pinPost, unpinPost } from '../../actions';
+import { disabledGray } from '../../assets/colors'
 
 const PostListItemBanner = ({
-  userId, author, redirect, postEditUpdate, postText, postId, timestamp, createdOn
+  userId,
+  author,
+  redirect,
+  postEditUpdate,
+  postText,
+  postId,
+  pinned,
+  timestamp,
+  createdOn
 }) => {
   const { id, name, picture } = author;
   const {
@@ -19,7 +28,8 @@ const PostListItemBanner = ({
     rightIconViewStyle,
     ellipsisStyle,
     buttonStyle,
-    pinStyle
+    pinStyle,
+    pinnedStyle
   } = styles;
 
   const showActionSheet = async () => {
@@ -40,8 +50,13 @@ const PostListItemBanner = ({
   };
 
   const pinPress = async () => {
-    pinPost({ postId, userId });
+    if (pinned) {
+      unpinPost({ postId, userId });
+    } else {
+      pinPost({ postId, userId });
+    }
   };
+  const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
 
   return (
     <View style={containerStyle}>
@@ -79,7 +94,7 @@ const PostListItemBanner = ({
           <ActionButtonStill
             buttonStyle={buttonStyle}
             iconName={'pushpino'}
-            iconStyle={pinStyle}
+            iconStyle={pinButtonStyle}
             iconSize={20}
             onPress={pinPress}
           />
@@ -133,6 +148,12 @@ const styles = {
     alignItems: 'flex-start'
   },
   pinStyle: {
+    transform: [
+      { scaleX: -1 }
+    ]
+  },
+  pinnedStyle: {
+    color: disabledGray,
     transform: [
       { scaleX: -1 }
     ]
