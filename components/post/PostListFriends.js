@@ -8,7 +8,7 @@ import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
 class PostListFriends extends Component {
-  state = { refreshing: false };
+  state = { refreshing: false, pinPressed: this.props.pinPressed };
 
   refreshList = async () => {
     this.setState({ refreshing: true });
@@ -17,12 +17,27 @@ class PostListFriends extends Component {
   }
 
   renderRow = (post) => {
+    const { redirect, tab } = this.props;
+
     return (
       <PostListItem
         post={post}
-        redirect={this.props.redirect}
+        redirect={redirect}
         redirectTo='FriendPostComments'
-        tab={this.props.tab}
+        tab={tab}
+      />
+    );
+  }
+
+  renderOnlyPinnedRow = (post) => {
+    const { redirect, tab } = this.props;
+
+    return (
+      <PostListItem
+        post={post}
+        redirect={redirect}
+        redirectTo='FriendPostComments'
+        tab={tab}
         pinnedOnly
       />
     );
@@ -43,7 +58,23 @@ class PostListFriends extends Component {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, pinPressed } = this.props;
+
+    if (pinPressed) {
+      return (
+        <View style={styles.masterContainerStyle}>
+          <FlatList
+            data={posts}
+            renderItem={({ item }) => this.renderOnlyPinnedRow(item)}
+            ListHeaderComponent={this.renderHeader}
+            keyExtractor={({ item }, postId) => postId.toString()}
+            onRefresh={this.refreshList}
+            refreshing={this.state.refreshing}
+            pinPressed
+          />
+        </View>
+      );
+    }
 
     return (
       <View style={styles.masterContainerStyle}>

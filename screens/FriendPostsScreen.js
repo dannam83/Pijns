@@ -49,9 +49,14 @@ class FriendPostsScreen extends Component {
 
   render() {
     const redirect = this.props.navigation.navigate;
+    const { pinPressed } = this.state;
 
     return (
-      <PostListFriends redirect={redirect} tab={'Friends'} />
+      <PostListFriends
+        redirect={redirect}
+        tab={'Friends'}
+        pinPressed={pinPressed}
+      />
     );
   }
 }
