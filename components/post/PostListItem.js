@@ -135,7 +135,7 @@ class PostListItem extends Component {
 
   render() {
     const { containerStyle, contentStyle, dividerStyle } = styles;
-    const { redirect, post } = this.props;
+    const { redirect, post, pinnedOnly } = this.props;
     const {
       user, author, content, timestamp, createdOn, index, postId, answered, pinned
     } = post;
@@ -143,6 +143,10 @@ class PostListItem extends Component {
     const currentDate = new Date(
       new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
     );
+
+    if (pinnedOnly && !pinned) {
+      return null;
+    }
 
     return (
       <Card containerStyle={containerStyle}>

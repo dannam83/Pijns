@@ -23,6 +23,7 @@ class PostListFriends extends Component {
         redirect={this.props.redirect}
         redirectTo='FriendPostComments'
         tab={this.props.tab}
+        pinnedOnly
       />
     );
   }
