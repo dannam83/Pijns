@@ -1,24 +1,16 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 
 import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
-const InputGrowingHooked = ({ value }) => {
+const InputGrowingHooked = ({
+  placeholder, onChange, onSave, user, postAuthorId, postId, index
+}) => {
   const [newValue, setNewValue] = useState('');
   const [height, setHeight] = useState(23);
 
-  useEffect(
-    () => {
-      setNewValue(value);
-    },
-    [value]
-  );
-
   const onChangeText = (text) => {
-    const { onChange } = this.props;
-
     if (onChange) {
-      const { user, postAuthorId } = this.props;
       onChange(newValue, user.uid, postAuthorId);
     }
 
@@ -29,6 +21,15 @@ const InputGrowingHooked = ({ value }) => {
     setHeight(h);
   };
 
+  const save = () => {
+    try {
+      onSave({ user, comment: newValue, postAuthorId, postId, index });
+      setNewValue('');
+    } catch (err) {
+      console.warn('Error saving comment.', err);
+    }
+  };
+
   const {
     containerViewStyle,
     textInputViewStyle,
@@ -37,14 +38,14 @@ const InputGrowingHooked = ({ value }) => {
     buttonTextStyle
    } = styles;
   const newStyle = { height };
-  const emptyText = newValue.length === 0;
+  const emptyText = (!newValue || newValue.length === 0);
   const buttonColor = emptyText ? disabledGray : activeButtonBlue;
 
   return (
     <View style={containerViewStyle}>
       <View style={textInputViewStyle}>
         <TextInput
-          placeholder={this.props.placeholder}
+          placeholder={placeholder}
           onChangeText={(text) => onChangeText(text)}
           style={[inputStyle, newStyle]}
           editable
@@ -55,7 +56,7 @@ const InputGrowingHooked = ({ value }) => {
     </View>
       <TouchableOpacity
         style={{ ...buttonStyle, borderColor: buttonColor }}
-        onPress={this.save}
+        onPress={save}
         disabled={emptyText}
       >
         <Text style={{ ...buttonTextStyle, color: buttonColor }}>Post</Text>
@@ -63,84 +64,6 @@ const InputGrowingHooked = ({ value }) => {
     </View>
   );
 };
-
-// class InputGrowingDep extends Component {
-//   state = {
-//     newValue: '',
-//     height: 23,
-//   }
-//
-//   componentWillReceiveProps(props) {
-//     const { value } = props;
-//     let { newValue } = this.state;
-//     if (value && value !== newValue) { this.setState({ newValue: value }); }
-//   }
-//
-//   onChangeText = (newValue) => {
-//     const { onChange } = this.props;
-//
-//     if (onChange) {
-//       const { user, postAuthorId } = this.props;
-//       onChange(newValue, user.uid, postAuthorId);
-//     }
-//
-//     this.setState({ newValue });
-//   }
-//
-//   updateSize = (height) => {
-//     this.setState({ height });
-//   }
-//
-//   save = () => {
-//     const { onSave, user, postAuthorId, postId, index } = this.props;
-//     const { newValue } = this.state;
-//
-//     try {
-//       onSave({ user, comment: newValue, postAuthorId, postId, index });
-//       this.setState({ newValue: '' });
-//     } catch (err) {
-//       console.warn('Error saving comment.', err);
-//     }
-//   }
-//
-//   render() {
-//     const { height, newValue } = this.state;
-//
-//     const {
-//       containerViewStyle,
-//       textInputViewStyle,
-//       inputStyle,
-//       buttonStyle,
-//       buttonTextStyle
-//      } = styles;
-//     const newStyle = { height };
-//     const emptyText = newValue.length === 0;
-//     const buttonColor = emptyText ? disabledGray : activeButtonBlue;
-//
-//     return (
-//       <View style={containerViewStyle}>
-//         <View style={textInputViewStyle}>
-//           <TextInput
-//             placeholder={this.props.placeholder}
-//             onChangeText={(text) => this.onChangeText(text)}
-//             style={[inputStyle, newStyle]}
-//             editable
-//             multiline
-//             value={newValue}
-//             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-//           />
-//       </View>
-//         <TouchableOpacity
-//           style={{ ...buttonStyle, borderColor: buttonColor }}
-//           onPress={this.save}
-//           disabled={emptyText}
-//         >
-//           <Text style={{ ...buttonTextStyle, color: buttonColor }}>Post</Text>
-//         </TouchableOpacity>
-//       </View>
-//     );
-//   }
-// }
 
 const styles = {
   containerViewStyle: {

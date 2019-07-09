@@ -63,7 +63,6 @@ class ProfileHeaderPublic extends Component {
 
   chatButton() {
     const { currentUser, userId, navigationTab, redirect } = this.props;
-    console.log('props', this.props);
     const chatScreen = navigationTab === 'MyProfile' ? 'ProfileChat' : 'Chat';
 
     redirect(chatScreen, {
