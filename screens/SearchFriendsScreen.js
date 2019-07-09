@@ -48,6 +48,10 @@ class SearchFriendsScreen extends Component {
   }
 
   renderRow = (item) => {
+    if (item.userId === this.props.currentUser.uid) {
+      return null;
+    }
+
     return (
       <ListItemAsButton
         text={item.searchName}
