@@ -10,17 +10,15 @@ class ProfileScreen extends Component {
   };
 
   render() {
-    const { name, picture, uid } = this.props.currentUser;
-    const redirect = this.props.navigation.navigate;
-    const tab = 'Friends';
+    const { currentUser, navigation } = this.props;
+    const { name, picture, uid } = currentUser;
 
     return (
       <ProfileHeaderPersonal
         imgSource={{ uri: `${picture}?type=large` }}
         name={name}
         userId={uid}
-        tab={tab}
-        redirect={redirect}
+        navigation={navigation}
         fetchFriendList={this.props.fetchFriendList}
         logout={this.props.logout}
       />

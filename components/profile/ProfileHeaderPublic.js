@@ -8,7 +8,7 @@ import { disabledGray, buttonBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-class ProfileHeaderPersonal extends Component {
+class ProfileHeaderPublic extends Component {
   friendRequestButton(profileUserId, currentUser) {
     return (
       <Button
@@ -61,16 +61,18 @@ class ProfileHeaderPersonal extends Component {
     );
   }
 
-  chatButton(userId) {
-    const { currentUser, redirect } = this.props;
+  chatButton() {
+    const { currentUser, userId, navigationTab, redirect } = this.props;
+    console.log('props', this.props);
+    const chatScreen = navigationTab === 'MyProfile' ? 'ProfileChat' : 'Chat';
 
-    redirect('ProfileChat', {
+    redirect(chatScreen, {
       user: currentUser, postAuthorId: userId
     });
   }
 
-  renderFriendButtons(userId, status) {
-    const { currentUser } = this.props;
+  renderFriendButtons(status) {
+    const { currentUser, userId } = this.props;
 
     if (!status) {
       return this.friendRequestButton(userId, currentUser);
@@ -84,7 +86,7 @@ class ProfileHeaderPersonal extends Component {
   }
 
   render() {
-    const { imgSource, name, userId } = this.props;
+    const { imgSource, name } = this.props;
 
     const {
       containerStyle, imageStyle, nameStyle, buttonsViewStyle
@@ -98,9 +100,9 @@ class ProfileHeaderPersonal extends Component {
         <Image source={imgSource} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
           <View style={buttonsViewStyle}>
-            {this.renderFriendButtons(userId, status)}
+            {this.renderFriendButtons(status)}
             <Button
-              onPress={() => this.chatButton(userId)}
+              onPress={() => this.chatButton()}
             >Message</Button>
           </View>
       </View>
@@ -159,4 +161,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   friendRequest, unfriend, fetchFriendList
-})(ProfileHeaderPersonal);
+})(ProfileHeaderPublic);

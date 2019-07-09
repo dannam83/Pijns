@@ -15,7 +15,7 @@ class PublicProfileScreen extends Component {
     this.props.clearFriend();
   }
 
-  renderHeader = (picture, name, userId, status, redirect) => {
+  renderHeader = (picture, name, userId, status, redirect, navigationTab) => {
     return (
       <ProfileHeaderPublic
         imgSource={{ uri: `${picture}?type=large` }}
@@ -23,33 +23,39 @@ class PublicProfileScreen extends Component {
         userId={userId}
         status={status}
         redirect={redirect}
+        navigationTab={navigationTab}
       />
     );
   }
 
   render() {
-    const user = this.props.navigation.getParam('profileUser');
+    const { navigation, friend } = this.props;
+    const user = navigation.getParam('profileUser');
+    const navigationTab = navigation.getParam('navigationTab');
     const { name, picture } = user;
 
     // param comes in as user.userId from search and as user.uid from friends
     const userId = !user.uid ? user.userId : user.uid;
-    const redirect = this.props.navigation.navigate;
-    let status = this.props.navigation.getParam('status');
-    if (!status) { status = this.props.friend.status; }
+    const redirect = navigation.navigate;
+    let status = navigation.getParam('status');
+    if (!status) { status = friend.status; }
     const { containerStyle } = styles;
+    console.log('tab', navigationTab);
 
     return (
       <View style={containerStyle}>
         <View>
           { status === 'Unfriend' ? (
             <PostListFriend
-              header={this.renderHeader(picture, name, userId, status, redirect)}
+              header={this.renderHeader(
+                picture, name, userId, status, redirect, navigationTab
+              )}
               redirect={redirect}
               profileUserId={userId}
               status={status}
             />
           ) : (
-            this.renderHeader(picture, name, userId, status, redirect)
+            this.renderHeader(picture, name, userId, status, redirect, 'MyProfile')
           )}
         </View>
       </View>

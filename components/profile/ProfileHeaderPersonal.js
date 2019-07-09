@@ -4,13 +4,12 @@ import { View, Text, Image } from 'react-native';
 import { Button } from '../../components/common';
 
 const ProfileHeaderPersonal = (props) => {
-  const onFriendsPress = (redirect) => {
-    const { fetchFriendList, userId, tab } = props;
-    fetchFriendList(userId);
-    redirect(tab);
-  };
+  const { imgSource, name, logout, fetchFriendList, userId, navigation } = props;
 
-  const { imgSource, name, redirect, logout } = props;
+  const onFriendsPress = () => {
+    fetchFriendList(userId);
+    navigation.navigate('Friends', { navigationTab: 'MyProfile' });
+  };
 
   const {
     containerStyle, imageStyle, nameStyle, buttonsViewStyle
@@ -24,12 +23,12 @@ const ProfileHeaderPersonal = (props) => {
 
       <View style={buttonsViewStyle}>
         <Button
-          onPress={() => onFriendsPress(redirect)}
+          onPress={() => onFriendsPress()}
         >Friends
         </Button>
 
         <Button
-          onPress={() => logout(redirect)}
+          onPress={() => logout(navigation.navigate)}
         >Logout
         </Button>
       </View>
