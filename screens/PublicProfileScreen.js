@@ -30,20 +30,21 @@ class PublicProfileScreen extends Component {
 
   render() {
     const { navigation, friend } = this.props;
-    const user = navigation.getParam('profileUser');
-    const navigationTab = navigation.getParam('navigationTab');
-    const { name, picture } = user;
+    const { navigate, getParam } = navigation;
+    const redirect = navigate;
 
+    const user = getParam('profileUser');
+    const navigationTab = getParam('navigationTab');
+
+    const { name, picture } = user;
     // param comes in as user.userId from search and as user.uid from friends
     const userId = !user.uid ? user.userId : user.uid;
-    const redirect = navigation.navigate;
-    let status = navigation.getParam('status');
+
+    let status = getParam('status');
     if (!status) { status = friend.status; }
-    const { containerStyle } = styles;
-    console.log('tab', navigationTab);
 
     return (
-      <View style={containerStyle}>
+      <View style={styles.containerStyle}>
         <View>
           { status === 'Unfriend' ? (
             <PostListFriend
@@ -55,7 +56,7 @@ class PublicProfileScreen extends Component {
               status={status}
             />
           ) : (
-            this.renderHeader(picture, name, userId, status, redirect, 'MyProfile')
+            this.renderHeader(picture, name, userId, status, redirect, navigationTab)
           )}
         </View>
       </View>
