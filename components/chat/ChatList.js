@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
 import ChatListDay from './ChatListDay';
 import ChatListTyping from './ChatListTyping';
 
-class ChatList extends Component {
-  formatChat(chat) {
+const ChatList = ({ chat, otherTyping }) => {
+  const formatChat = () => {
     let chatDays = _.map(chat, (val, key) => {
       const messages = _.map({ ...val }, (message, messageId) => {
         return { ...message, messageId };
@@ -14,37 +14,34 @@ class ChatList extends Component {
       return { messages, dateTimestamp: key };
     });
     return chatDays.reverse();
-  }
+  };
 
-  showChatTyping(isTyping) {
+  const showChatTyping = (isTyping) => {
     return (
       <View style={{ height: 25 }}>
         { isTyping ? <ChatListTyping /> : null }
       </View>
     );
-  }
+  };
 
-  renderRow = (chatDay) => {
+  const renderRow = (chatDay) => {
     return (
       <ChatListDay chatDay={chatDay} />
     );
-  }
+  };
 
-  render() {
-    const { chat, otherTyping } = this.props;
+  return (
+    <View style={{ flex: 1 }}>
+      <FlatList
+        inverted
+        data={formatChat(chat)}
+        renderItem={({ item }) => renderRow(item)}
+        keyExtractor={({ item }, date) => date.toString()}
+      />
+    {showChatTyping(otherTyping !== '')}
+    </View>
+  );
+};
 
-    return (
-      <View style={{ flex: 1 }}>
-        <FlatList
-          inverted
-          data={this.formatChat(chat)}
-          renderItem={({ item }) => this.renderRow(item)}
-          keyExtractor={({ item }, date) => date.toString()}
-        />
-      {this.showChatTyping(otherTyping !== '')}
-      </View>
-    );
-  }
-}
 
 export default(ChatList);

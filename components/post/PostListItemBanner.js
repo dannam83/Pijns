@@ -5,7 +5,7 @@ import ActionSheet from 'react-native-actionsheet';
 import { ActionButton, ActionButtonStill } from '../common';
 import { displayTimeAgo } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
-import { disabledGray } from '../../assets/colors'
+import { disabledGray } from '../../assets/colors';
 
 const PostListItemBanner = ({
   userId,
