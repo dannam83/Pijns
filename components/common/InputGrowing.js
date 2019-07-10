@@ -8,25 +8,18 @@ const InputGrowing = ({
 }) => {
   const [newValue, setNewValue] = useState('');
   const [height, setHeight] = useState(23);
-  // const height = 29;
 
   useEffect(() => {
-    if (value !== newValue) {
-      setNewValue(value);
-    }
+    if (value !== newValue) { setNewValue(value); }
   }, [value]);
 
   const onChangeText = (text) => {
-    if (onChange) {
-      onChange(text, user.uid, postAuthorId);
-    }
-
+    if (onChange) { onChange(text, user.uid, postAuthorId); }
     setNewValue(text);
   };
 
   const updateSize = (h) => {
-    setHeight(h);
-    // console.log('updating size');
+    if (h >= 23) { setHeight(h); }
   };
 
   const save = () => {
@@ -96,8 +89,7 @@ const styles = {
   inputStyle: {
     color: '#000',
     fontSize: 16,
-    lineHeight: 23,
-    backgroundColor: 'red'
+    lineHeight: 23
   },
   thumbnailStyle: {
     height: 45,
