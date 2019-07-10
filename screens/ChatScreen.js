@@ -26,13 +26,6 @@ class ChatScreen extends Component {
     this.state = { isTyping: false };
   }
 
-  componentWillUnmount() {
-    const { navigation } = this.props;
-    const userId = navigation.getParam('user').uid;
-    const postAuthorId = navigation.getParam('postAuthorId');
-    this.props.chatClear(userId, postAuthorId);
-  }
-
   onChange = (text, userId, postAuthorId) => {
     const isTyping = this.state.isTyping;
     this.props.chatTypingStart(userId, postAuthorId, text);

@@ -1,85 +1,77 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 
 import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
-class InputGrowing extends Component {
-  state = {
-    newValue: '',
-    height: 23,
-  }
+const InputGrowing = ({
+  value, placeholder, onChange, onSave, user, postAuthorId, postId, index
+}) => {
+  const [newValue, setNewValue] = useState('');
+  const [height, setHeight] = useState(23);
+  // const height = 29;
 
-  componentWillReceiveProps(props) {
-    const { value } = props;
-    let { newValue } = this.state;
-    if (value && value !== newValue) { this.setState({ newValue: value }); }
-  }
+  useEffect(() => {
+    if (value !== newValue) {
+      setNewValue(value);
+    }
+  }, [value]);
 
-  onChangeText = (newValue) => {
-    const { onChange } = this.props;
-
+  const onChangeText = (text) => {
     if (onChange) {
-      const { user, postAuthorId } = this.props;
-      onChange(newValue, user.uid, postAuthorId);
+      onChange(text, user.uid, postAuthorId);
     }
 
-    this.setState({ newValue });
-  }
+    setNewValue(text);
+  };
 
-  updateSize = (height) => {
-    this.setState({ height });
-  }
+  const updateSize = (h) => {
+    setHeight(h);
+    // console.log('updating size');
+  };
 
-  save = () => {
-    const { onSave, user, postAuthorId, postId, index } = this.props;
-    const { newValue } = this.state;
-
+  const save = () => {
     try {
       onSave({ user, comment: newValue, postAuthorId, postId, index });
-      this.setState({ newValue: '' });
+      setNewValue('');
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
-  }
+  };
 
-  render() {
-    const { height, newValue } = this.state;
+  const {
+    containerViewStyle,
+    textInputViewStyle,
+    inputStyle,
+    buttonStyle,
+    buttonTextStyle
+   } = styles;
+  const newStyle = { height };
+  const emptyText = (!newValue || newValue.length === 0);
+  const buttonColor = emptyText ? disabledGray : activeButtonBlue;
 
-    const {
-      containerViewStyle,
-      textInputViewStyle,
-      inputStyle,
-      buttonStyle,
-      buttonTextStyle
-     } = styles;
-    const newStyle = { height };
-    const emptyText = newValue.length === 0;
-    const buttonColor = emptyText ? disabledGray : activeButtonBlue;
-
-    return (
-      <View style={containerViewStyle}>
-        <View style={textInputViewStyle}>
-          <TextInput
-            placeholder={this.props.placeholder}
-            onChangeText={(text) => this.onChangeText(text)}
-            style={[inputStyle, newStyle]}
-            editable
-            multiline
-            value={newValue}
-            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-          />
-      </View>
-        <TouchableOpacity
-          style={{ ...buttonStyle, borderColor: buttonColor }}
-          onPress={this.save}
-          disabled={emptyText}
-        >
-          <Text style={{ ...buttonTextStyle, color: buttonColor }}>Post</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={containerViewStyle}>
+      <View style={textInputViewStyle}>
+        <TextInput
+          placeholder={placeholder}
+          onChangeText={(text) => onChangeText(text)}
+          style={[inputStyle, newStyle]}
+          editable
+          multiline
+          value={newValue}
+          onContentSizeChange={(e) => updateSize(e.nativeEvent.contentSize.height)}
+        />
+    </View>
+      <TouchableOpacity
+        style={{ ...buttonStyle, borderColor: buttonColor }}
+        onPress={save}
+        disabled={emptyText}
+      >
+        <Text style={{ ...buttonTextStyle, color: buttonColor }}>Post</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = {
   containerViewStyle: {
@@ -105,6 +97,7 @@ const styles = {
     color: '#000',
     fontSize: 16,
     lineHeight: 23,
+    backgroundColor: 'red'
   },
   thumbnailStyle: {
     height: 45,

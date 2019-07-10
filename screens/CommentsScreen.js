@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
-import { InputGrowing, InputGrowingHooked } from '../components/common';
+import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
 import { commentCreateSave, updateCommentCount } from '../actions';
 
@@ -42,7 +42,7 @@ class CommentsScreen extends Component {
           postId={postId}
           user={user}
         />
-      <InputGrowingHooked
+        <InputGrowing
           user={user}
           postAuthorId={postAuthorId}
           postId={postId}
