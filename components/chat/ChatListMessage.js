@@ -23,7 +23,7 @@ const ChatListMessage = ({ message, userId }) => {
 
     return (
       <View style={otherContainer}>
-      <Image style={thumbnailStyle} source={{ uri: message.userPic }} />
+        <Image style={thumbnailStyle} source={{ uri: message.userPic }} />
         <View style={otherMessage}>
           <Text style={textStyle}>{message.message}</Text>
         </View>
@@ -33,10 +33,7 @@ const ChatListMessage = ({ message, userId }) => {
 
   return (
     <View>
-      {
-        userId === message.userId ?
-          renderUserMessage() : renderOtherMessage()
-      }
+      {userId === message.userId ? renderUserMessage() : renderOtherMessage()}
     </View>
   );
 };
