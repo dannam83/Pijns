@@ -34,7 +34,7 @@ const ChatList = ({ chat, otherTyping }) => {
     <View style={{ flex: 1 }}>
       <FlatList
         inverted
-        data={formatChat(chat)}
+        data={formatChat()}
         renderItem={({ item }) => renderRow(item)}
         keyExtractor={({ item }, date) => date.toString()}
       />
@@ -42,6 +42,5 @@ const ChatList = ({ chat, otherTyping }) => {
     </View>
   );
 };
-
 
 export default(ChatList);

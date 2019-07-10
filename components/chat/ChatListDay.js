@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 
 import ChatListMessage from './ChatListMessage';
 import { lightTextGray } from '../../assets/colors';
 import { getDateFromTimestamp } from '../../functions/common';
 
-class ChatListDay extends Component {
-  renderMessages = (messages) => {
+const ChatListDay = ({ chatDay }) => {
+  const { dateTimestamp, messages } = chatDay;
+
+  const renderMessages = () => {
     return (
       messages.map(message => {
         return (
@@ -17,23 +19,20 @@ class ChatListDay extends Component {
         );
       })
     );
-  }
+  };
 
-  render() {
-    const { containerStyle, dateStyle } = styles;
-    const { dateTimestamp, messages } = this.props.chatDay;
-    const date = getDateFromTimestamp(parseInt(dateTimestamp, 10));
+  const { containerStyle, dateStyle } = styles;
+  const date = getDateFromTimestamp(parseInt(dateTimestamp, 10));
 
-    return (
-      <View style={containerStyle}>
+  return (
+    <View style={containerStyle}>
 
-        <Text style={dateStyle}>{date}</Text>
-        {this.renderMessages(messages)}
+      <Text style={dateStyle}>{date}</Text>
+      {renderMessages()}
 
-      </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = {
   containerStyle: {
