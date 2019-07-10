@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 
 import { chatTypingGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-class ChatListTyping extends Component {
-  render() {
-    const { textStyle, container } = styles;
+const ChatListTyping = () => {
+  const { textStyle, container } = styles;
 
-    return (
-      <View style={container}>
-        <Text style={textStyle}>typing...</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={container}>
+      <Text style={textStyle}>typing...</Text>
+    </View>
+  );
+};
 
 const styles = {
   container: {
