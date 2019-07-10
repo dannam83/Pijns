@@ -5,7 +5,7 @@ import _ from 'lodash';
 import ChatListDay from './ChatListDay';
 import ChatListTyping from './ChatListTyping';
 
-const ChatList = ({ chat, otherTyping }) => {
+const ChatList = ({ chat, userId, otherTyping }) => {
   const formatChat = () => {
     let chatDays = _.map(chat, (val, key) => {
       const messages = _.map({ ...val }, (message, messageId) => {
@@ -26,7 +26,7 @@ const ChatList = ({ chat, otherTyping }) => {
 
   const renderRow = (chatDay) => {
     return (
-      <ChatListDay chatDay={chatDay} />
+      <ChatListDay chatDay={chatDay} userId={userId} />
     );
   };
 
@@ -43,4 +43,4 @@ const ChatList = ({ chat, otherTyping }) => {
   );
 };
 
-export default(ChatList);
+export default ChatList;

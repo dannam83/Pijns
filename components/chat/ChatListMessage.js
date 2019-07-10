@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
 
 import { chatBubbleGray, chatBorderGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-class ChatListMessage extends Component {
-  renderUserMessage(message) {
+const ChatListMessage = ({ message, userId }) => {
+  const renderUserMessage = () => {
     const { userContainer, userMessage, textStyle } = styles;
 
     return (
@@ -17,9 +16,9 @@ class ChatListMessage extends Component {
         </View>
       </View>
     );
-  }
+  };
 
-  renderOtherMessage(message) {
+  const renderOtherMessage = () => {
     const { thumbnailStyle, otherContainer, otherMessage, textStyle } = styles;
 
     return (
@@ -30,21 +29,17 @@ class ChatListMessage extends Component {
         </View>
       </View>
     );
-  }
+  };
 
-  render() {
-    const { message, userId } = this.props;
-
-    return (
-      <View>
-        {
-          userId === message.userId ?
-            this.renderUserMessage(message) : this.renderOtherMessage(message)
-        }
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      {
+        userId === message.userId ?
+          renderUserMessage() : renderOtherMessage()
+      }
+    </View>
+  );
+};
 
 const styles = {
   userContainer: {
@@ -88,8 +83,4 @@ const styles = {
   },
 };
 
-function mapStateToProps(state) {
-  return { userId: state.user.uid };
-}
-
-export default connect(mapStateToProps)(ChatListMessage);
+export default ChatListMessage;

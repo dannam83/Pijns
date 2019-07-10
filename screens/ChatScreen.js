@@ -63,7 +63,7 @@ class ChatScreen extends Component {
       >
         <ChatList
           postAuthorId={postAuthorId}
-          user={user}
+          userId={user.uid}
           otherTyping={chat[postAuthorId]}
           chat={chat.messages}
         />

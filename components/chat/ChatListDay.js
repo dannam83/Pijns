@@ -5,7 +5,7 @@ import ChatListMessage from './ChatListMessage';
 import { lightTextGray } from '../../assets/colors';
 import { getDateFromTimestamp } from '../../functions/common';
 
-const ChatListDay = ({ chatDay }) => {
+const ChatListDay = ({ chatDay, userId }) => {
   const { dateTimestamp, messages } = chatDay;
 
   const renderMessages = () => {
@@ -15,6 +15,7 @@ const ChatListDay = ({ chatDay }) => {
           <ChatListMessage
             message={message}
             key={message.messageId}
+            userId={userId}
           />
         );
       })
@@ -26,10 +27,8 @@ const ChatListDay = ({ chatDay }) => {
 
   return (
     <View style={containerStyle}>
-
       <Text style={dateStyle}>{date}</Text>
       {renderMessages()}
-
     </View>
   );
 };
@@ -46,4 +45,4 @@ const styles = {
   }
 };
 
-export default(ChatListDay);
+export default ChatListDay;
