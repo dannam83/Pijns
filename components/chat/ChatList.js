@@ -38,7 +38,7 @@ const ChatList = ({ chat, userId, otherTyping }) => {
         renderItem={({ item }) => renderRow(item)}
         keyExtractor={({ item }, date) => date.toString()}
       />
-    {showChatTyping(otherTyping !== '')}
+    {showChatTyping(otherTyping)}
     </View>
   );
 };
