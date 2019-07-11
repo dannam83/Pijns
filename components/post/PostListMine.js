@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
-import { sendPijn, postsFetch } from '../../actions';
+import { sendPijn, postsFetch, postEditUpdate } from '../../actions';
 import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
@@ -14,12 +14,15 @@ class PostListMine extends Component {
   }
 
   renderRow = (post) => {
+    const { redirect, tab, postEditUpdate } = this.props;
+
     return (
       <PostListItem
         post={post}
-        redirect={this.props.redirect}
+        redirect={redirect}
         redirectTo='Comments'
-        tab={this.props.tab}
+        tab={tab}
+        postEditUpdate={postEditUpdate}
       />
     );
   }
@@ -80,4 +83,4 @@ function mapStateToProps(state) {
   return { posts };
 }
 
-export default connect(mapStateToProps, { postsFetch })(PostListMine);
+export default connect(mapStateToProps, { postsFetch, postEditUpdate })(PostListMine);

@@ -1,52 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
 
-import { postCreateUpdate, postEditUpdate } from '../../actions';
 import { lightTextGray } from '../../assets/colors';
 
-class PostCounts extends Component {
-  noteCount = () => {
-    const { countItemStyle, loveNoteIconStyle } = styles;
-    const { noteCount, notesPress } = this.props;
+const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
+  const {
+    countItemStyle, loveNoteIconStyle, commentTextStyle, countsViewStyle
+  } = styles;
 
-    return (
-      noteCount > 0 ? (
-        <TouchableOpacity style={countItemStyle} onPress={notesPress}>
-          <Image
-            source={require('../../assets/images/love-note.png')}
-            style={loveNoteIconStyle}
-          />
-          <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
-        </TouchableOpacity>
-      ) : null
-    );
-  }
+  return (
+    <View style={countsViewStyle}>
+      {
+        noteCount > 0 ? (
+          <TouchableOpacity style={countItemStyle} onPress={notesPress}>
+            <Image
+              source={require('../../assets/images/love-note.png')}
+              style={loveNoteIconStyle}
+            />
+            <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
+          </TouchableOpacity>
+        ) : null
+      }
 
-  commentCount = () => {
-    const { commentCount, commentsPress } = this.props;
-    const { countItemStyle, commentTextStyle } = styles;
-
-    return (
-      commentCount > 0 ? (
-        <TouchableOpacity style={countItemStyle} onPress={commentsPress}>
-          <Text style={commentTextStyle}>{commentCount} comments</Text>
-        </TouchableOpacity>
-      ) : null
-    );
-  }
-
-  render() {
-    const { countsViewStyle } = styles;
-
-    return (
-      <View style={countsViewStyle}>
-        {this.noteCount()}
-        {this.commentCount()}
-      </View>
-    );
-  }
-}
+      {
+        commentCount > 0 ? (
+          <TouchableOpacity style={countItemStyle} onPress={commentsPress}>
+            <Text style={commentTextStyle}>{commentCount} comments</Text>
+          </TouchableOpacity>
+        ) : null
+      }
+    </View>
+  );
+};
 
 const styles = {
   countsViewStyle: {
@@ -71,13 +56,4 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => {
-  return {
-    postEditText: state.postEdit.postText,
-    postCreateText: state.postCreate.postText
-  };
-};
-
-export default connect(mapStateToProps, {
-  postCreateUpdate, postEditUpdate
-})(PostCounts);
+export default PostCounts;

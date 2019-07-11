@@ -3,7 +3,6 @@ import { View, FlatList } from 'react-native';
 
 import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
-import PostListItemHooked from './PostListItemHooked';
 
 const PostListFriends = ({
   user, posts, fetchUserFeed, pinPressed, tab, redirect, postActions
@@ -18,7 +17,7 @@ const PostListFriends = ({
 
   const renderRow = (post) => {
     return (
-      <PostListItemHooked
+      <PostListItem
         post={post}
         redirect={redirect}
         redirectTo='FriendPostComments'
@@ -30,7 +29,7 @@ const PostListFriends = ({
 
   const renderOnlyPinnedRow = (post) => {
     return (
-      <PostListItemHooked
+      <PostListItem
         post={post}
         redirect={redirect}
         redirectTo='FriendPostComments'
