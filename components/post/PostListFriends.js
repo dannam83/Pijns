@@ -1,24 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
-import _ from 'lodash';
 
-import { sendPijn, postsFetch, fetchUserFeed } from '../../actions';
 import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
-class PostListFriends extends Component {
-  state = { refreshing: false, pinPressed: this.props.pinPressed };
+const PostListFriends = ({
+  user, posts, fetchUserFeed, pinPressed, tab, redirect
+}) => {
+  const [refreshing, setRefreshing] = useState(false);
 
-  refreshList = async () => {
-    this.setState({ refreshing: true });
-    await this.props.fetchUserFeed(this.props.user.uid);
-    this.setState({ refreshing: false });
-  }
+  const refreshList = async () => {
+    setRefreshing(true);
+    await fetchUserFeed(user.uid);
+    setRefreshing(false);
+  };
 
-  renderRow = (post) => {
-    const { redirect, tab } = this.props;
-
+  const renderRow = (post) => {
     return (
       <PostListItem
         post={post}
@@ -27,11 +24,9 @@ class PostListFriends extends Component {
         tab={tab}
       />
     );
-  }
+  };
 
-  renderOnlyPinnedRow = (post) => {
-    const { redirect, tab } = this.props;
-
+  const renderOnlyPinnedRow = (post) => {
     return (
       <PostListItem
         post={post}
@@ -41,55 +36,52 @@ class PostListFriends extends Component {
         pinnedOnly
       />
     );
-  }
+  };
 
-  renderHeader = () => {
+  const renderHeader = () => {
     const { writePostView, buttonStyle } = styles;
 
     return (
       <View style={writePostView}>
         <ButtonAsField
-          onPress={() => this.props.redirect('SearchFriends')}
+          onPress={() => redirect('SearchFriends')}
           buttonRestyle={buttonStyle}
           iconName={'search1'}
-        >Search for friends</ButtonAsField>
+        >Search for friends
+        </ButtonAsField>
       </View>
     );
-  }
+  };
 
-  render() {
-    const { posts, pinPressed } = this.props;
-
-    if (pinPressed) {
-      return (
-        <View style={styles.masterContainerStyle}>
-          <FlatList
-            data={posts}
-            renderItem={({ item }) => this.renderOnlyPinnedRow(item)}
-            ListHeaderComponent={this.renderHeader}
-            keyExtractor={({ item }, postId) => postId.toString()}
-            onRefresh={this.refreshList}
-            refreshing={this.state.refreshing}
-            pinPressed
-          />
-        </View>
-      );
-    }
-
+  if (pinPressed) {
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
           data={posts}
-          renderItem={({ item }) => this.renderRow(item)}
-          ListHeaderComponent={this.renderHeader}
+          renderItem={({ item }) => renderOnlyPinnedRow(item)}
+          ListHeaderComponent={renderHeader}
           keyExtractor={({ item }, postId) => postId.toString()}
-          onRefresh={this.refreshList}
-          refreshing={this.state.refreshing}
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          pinPressed
         />
       </View>
     );
   }
-}
+
+  return (
+    <View style={styles.masterContainerStyle}>
+      <FlatList
+        data={posts}
+        renderItem={({ item }) => renderRow(item)}
+        ListHeaderComponent={renderHeader}
+        keyExtractor={({ item }, postId) => postId.toString()}
+        onRefresh={refreshList}
+        refreshing={refreshing}
+      />
+    </View>
+  );
+};
 
 const styles = {
   masterContainerStyle: {
@@ -112,17 +104,4 @@ const styles = {
   }
 };
 
-function mapStateToProps(state) {
-  const { user, userFeed, pijnLog, pinboard } = state;
-  let posts = _.map(userFeed, (post, index) => {
-    const pijnSentToday = !!pijnLog[post.postId];
-    const pinned = !!pinboard[post.postId];
-    const { navigation } = state;
-    return {
-      ...post, sendPijn, pijnSentToday, pinned, user, navigation, index
-    };
-  });
-  return { posts, user };
-}
-
-export default connect(mapStateToProps, { postsFetch, fetchUserFeed })(PostListFriends);
+export default PostListFriends;

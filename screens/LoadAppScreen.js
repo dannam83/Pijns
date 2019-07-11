@@ -29,6 +29,7 @@ class LoadAppScreen extends Component {
         fetchPinboard(currentUid),
         saveNavigation(navigation)
       ]);
+      console.log('currentUid', currentUid);
     }
 
     if (nextProps.token) {

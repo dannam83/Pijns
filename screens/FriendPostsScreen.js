@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import PostListFriends from '../components/post/PostListFriends';
+import { sendPijn, fetchUserFeed } from '../actions';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
 
@@ -48,7 +51,8 @@ class FriendPostsScreen extends Component {
   }
 
   render() {
-    const redirect = this.props.navigation.navigate;
+    const { posts, user, fetchUserFeed, navigation } = this.props;
+    const redirect = navigation.navigate;
     const { pinPressed } = this.state;
 
     return (
@@ -56,6 +60,9 @@ class FriendPostsScreen extends Component {
         redirect={redirect}
         tab={'Friends'}
         pinPressed={pinPressed}
+        posts={posts}
+        user={user}
+        fetchUserFeed={fetchUserFeed}
       />
     );
   }
@@ -77,4 +84,17 @@ const styles = {
   },
 };
 
-export default (FriendPostsScreen);
+function mapStateToProps(state) {
+  const { user, userFeed, pijnLog, pinboard } = state;
+  let posts = _.map(userFeed, (post, index) => {
+    const pijnSentToday = !!pijnLog[post.postId];
+    const pinned = !!pinboard[post.postId];
+    const { navigation } = state;
+    return {
+      ...post, sendPijn, pijnSentToday, pinned, user, navigation, index
+    };
+  });
+  return { posts, user };
+}
+
+export default connect(mapStateToProps, { fetchUserFeed })(FriendPostsScreen);
