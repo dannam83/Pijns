@@ -3,9 +3,18 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import PostListFriends from '../components/post/PostListFriends';
-import { sendPijn, fetchUserFeed } from '../actions';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
+import {
+  sendPijn,
+  fetchUserFeed,
+  postEditUpdate,
+  commentsPopulate,
+  fetchPostCommentLikes,
+  setActivePost,
+  answerPrayer,
+  unanswerPrayer
+} from '../actions';
 
 class FriendPostsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -51,7 +60,7 @@ class FriendPostsScreen extends Component {
   }
 
   render() {
-    const { posts, user, fetchUserFeed, navigation } = this.props;
+    const { posts, user, fetchUserFeed, navigation, postActions } = this.props;
     const redirect = navigation.navigate;
     const { pinPressed } = this.state;
 
@@ -63,6 +72,7 @@ class FriendPostsScreen extends Component {
         posts={posts}
         user={user}
         fetchUserFeed={fetchUserFeed}
+        postActions={postActions}
       />
     );
   }
@@ -94,7 +104,15 @@ function mapStateToProps(state) {
       ...post, sendPijn, pijnSentToday, pinned, user, navigation, index
     };
   });
-  return { posts, user };
+  const postActions = {
+    postEditUpdate,
+    commentsPopulate,
+    fetchPostCommentLikes,
+    setActivePost,
+    answerPrayer,
+    unanswerPrayer
+  };
+  return { posts, user, postActions };
 }
 
 export default connect(mapStateToProps, { fetchUserFeed })(FriendPostsScreen);

@@ -18,25 +18,23 @@ const PostListFriends = ({
 
   const renderRow = (post) => {
     return (
-      <PostListItemHooked
+      <PostListItem
         post={post}
         redirect={redirect}
         redirectTo='FriendPostComments'
         tab={tab}
-        postActions={postActions}
       />
     );
   };
 
   const renderOnlyPinnedRow = (post) => {
     return (
-      <PostListItemHooked
+      <PostListItem
         post={post}
         redirect={redirect}
         redirectTo='FriendPostComments'
         tab={tab}
         pinnedOnly
-        postActions={postActions}
       />
     );
   };
