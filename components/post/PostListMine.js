@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
 import { View, FlatList } from 'react-native';
-import _ from 'lodash';
 
-import { sendPijn, postsFetch, postEditUpdate } from '../../actions';
 import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
-class PostListMine extends Component {
-  constructor(props) {
-    super(props);
-    this.props.postsFetch();
-  }
+const PostListMine = ({ posts, redirect, tab, postsFetch, postEditUpdate }) => {
+  useEffect(() => { postsFetch(); }, []);
 
-  renderRow = (post) => {
-    const { redirect, tab, postEditUpdate } = this.props;
+  const { writePostView, iconStyle, masterContainerStyle } = styles;
 
+  const renderRow = (post) => {
     return (
       <PostListItem
         post={post}
@@ -25,35 +19,31 @@ class PostListMine extends Component {
         postEditUpdate={postEditUpdate}
       />
     );
-  }
+  };
 
-  renderHeader = () => {
+  const renderHeader = () => {
     return (
-      <View style={styles.writePostView}>
+      <View style={writePostView}>
         <ButtonAsField
-          onPress={() => this.props.redirect('PostCreate')}
+          onPress={() => redirect('PostCreate')}
           iconName={'form'}
-          iconRestyle={styles.iconStyle}
+          iconRestyle={iconStyle}
         >Write a post</ButtonAsField>
       </View>
     );
-  }
+  };
 
-  render() {
-    const { posts } = this.props;
-
-    return (
-      <View style={styles.masterContainerStyle}>
-        <FlatList
-          data={posts}
-          renderItem={({ item }) => this.renderRow(item)}
-          ListHeaderComponent={this.renderHeader}
-          keyExtractor={({ item }, postId) => postId.toString()}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={masterContainerStyle}>
+      <FlatList
+        data={posts}
+        renderItem={({ item }) => renderRow(item)}
+        ListHeaderComponent={renderHeader}
+        keyExtractor={({ item }, postId) => postId.toString()}
+      />
+    </View>
+  );
+};
 
 const styles = {
   masterContainerStyle: {
@@ -71,16 +61,4 @@ const styles = {
   }
 };
 
-function mapStateToProps(state) {
-  const { user } = state;
-  let posts = _.map(state.posts, (val, uid) => {
-    const pijnSentToday = !!state.pijnLog[uid];
-    const { navigation } = state;
-    return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation
-    };
-  }).reverse();
-  return { posts };
-}
-
-export default connect(mapStateToProps, { postsFetch, postEditUpdate })(PostListMine);
+export default PostListMine;

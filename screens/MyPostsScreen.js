@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import PostListMine from '../components/post/PostListMine';
+import { sendPijn, postsFetch, postEditUpdate } from '../actions';
 
 class MyPostsScreen extends Component {
   static navigationOptions = {
@@ -9,11 +12,30 @@ class MyPostsScreen extends Component {
 
   render() {
     const redirect = this.props.navigation.navigate;
+    const { posts, postsFetch, postEditUpdate } = this.props;
 
     return (
-      <PostListMine redirect={redirect} tab={'My'} />
+      <PostListMine
+        posts={posts}
+        postEditUpdate={postEditUpdate}
+        postsFetch={postsFetch}
+        redirect={redirect}
+        tab={'My'}
+      />
     );
   }
 }
 
-export default MyPostsScreen;
+function mapStateToProps(state) {
+  const { user } = state;
+  let posts = _.map(state.posts, (val, uid) => {
+    const pijnSentToday = !!state.pijnLog[uid];
+    const { navigation } = state;
+    return {
+      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation
+    };
+  }).reverse();
+  return { posts };
+}
+
+export default connect(mapStateToProps, { postsFetch, postEditUpdate })(MyPostsScreen);
