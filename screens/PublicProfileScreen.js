@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import PostListFriend from '../components/post/PostListFriend';
 import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
-import { clearFriend } from '../actions';
+import { friendPostsFetch, clearFriend, sendPijn } from '../actions';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
+
+  constructor(props) {
+    super(props);
+    const user = props.navigation.getParam('profileUser');
+    const userId = !user.uid ? user.userId : user.uid;
+    props.friendPostsFetch(userId);
+  }
 
   componentWillUnmount() {
     this.props.clearFriend();
@@ -29,7 +37,7 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    const { navigation, friend } = this.props;
+    const { navigation, friend, posts } = this.props;
     const { navigate, getParam } = navigation;
     const redirect = navigate;
 
@@ -51,8 +59,8 @@ class PublicProfileScreen extends Component {
               header={this.renderHeader(
                 picture, name, userId, status, redirect, navigationTab
               )}
+              posts={posts}
               redirect={redirect}
-              profileUserId={userId}
               status={status}
             />
           ) : (
@@ -73,8 +81,18 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { friend } = state;
-  return ({ friend });
+  const { friend, user, pijnLog, pinboard } = state;
+  let posts = _.map(state.friend.posts, (val, uid) => {
+    const pijnSentToday = !!pijnLog[uid];
+    const pinned = !!pinboard[uid];
+    const { navigation } = state;
+    return {
+      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation, pinned
+    };
+  }).reverse();
+  return { friend, posts };
 }
 
-export default connect(mapStateToProps, { clearFriend })(PublicProfileScreen);
+export default connect(mapStateToProps, {
+  clearFriend, friendPostsFetch
+})(PublicProfileScreen);

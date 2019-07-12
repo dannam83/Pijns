@@ -12,13 +12,13 @@ class MyPostsScreen extends Component {
 
   render() {
     const redirect = this.props.navigation.navigate;
-    const { posts, postsFetch, postEditUpdate } = this.props;
+    const { posts, postEditUpdate } = this.props;
 
     return (
       <PostListMine
         posts={posts}
         postEditUpdate={postEditUpdate}
-        postsFetch={postsFetch}
+        postsFetch={this.props.postsFetch}
         redirect={redirect}
         tab={'My'}
       />

@@ -1,42 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { View, FlatList } from 'react-native';
-import _ from 'lodash';
 
-import { sendPijn, friendPostsFetch, postsFetch } from '../../actions';
 import PostListItem from './PostListItem';
 
-class PostListFriend extends Component {
-  constructor(props) {
-    super(props);
-    this.props.friendPostsFetch(props.profileUserId);
-  }
-
-  renderRow = (post) => {
+const PostListFriend = ({ posts, header, redirect, tab }) => {
+  const renderRow = (post) => {
     return (
       <PostListItem
         post={post}
-        redirect={this.props.redirect}
+        redirect={redirect}
         redirectTo='Comments'
-        tab={this.props.tab}
+        tab={tab}
       />
     );
-  }
+  };
 
-  render() {
-    const { posts } = this.props;
-    return (
-      <View style={styles.masterContainerStyle}>
-        <FlatList
-          data={posts}
-          renderItem={({ item }) => this.renderRow(item)}
-          keyExtractor={({ item }, postId) => postId.toString()}
-          ListHeaderComponent={this.props.header}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.masterContainerStyle}>
+      <FlatList
+        data={posts}
+        renderItem={({ item }) => renderRow(item)}
+        keyExtractor={({ item }, postId) => postId.toString()}
+        ListHeaderComponent={header}
+      />
+    </View>
+  );
+};
 
 const styles = {
   masterContainerStyle: {
@@ -49,16 +38,4 @@ const styles = {
   }
 };
 
-function mapStateToProps(state) {
-  const { user } = state;
-  let posts = _.map(state.friend.posts, (val, uid) => {
-    const pijnSentToday = !!state.pijnLog[uid];
-    const { navigation } = state;
-    return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation
-    };
-  }).reverse();
-  return { posts };
-}
-
-export default connect(mapStateToProps, { friendPostsFetch, postsFetch })(PostListFriend);
+export default PostListFriend;
