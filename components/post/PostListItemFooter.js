@@ -18,7 +18,6 @@ class PostListItemFooter extends Component {
   state = {
     noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
     commentCount: this.props.post.commentCount || 0,
-    answered: this.props.post.answered ? this.props.post.answered : false
   }
 
   goToComments = async () => {
@@ -88,11 +87,9 @@ class PostListItemFooter extends Component {
   }
 
   worshipHandsPress = ({ postId, user }) => {
-    if (this.state.answered) {
-      this.setState({ answered: false });
+    if (this.props.post.answered) {
       this.props.unanswerPrayer({ postId, user });
     } else {
-      this.setState({ answered: true });
       this.props.answerPrayer({ postId, user });
     }
   }
@@ -100,7 +97,7 @@ class PostListItemFooter extends Component {
   postActionButtons({ postId, author, currentDate, user }) {
     const { pijnSentToday } = this.props.post;
     const { actionsViewStyle, worshipHandsInactive, worshipHandsActive } = styles;
-    const whStyle = this.state.answered ? worshipHandsActive : worshipHandsInactive;
+    const whStyle = this.props.post.answered ? worshipHandsActive : worshipHandsInactive;
 
     return (
       <View style={actionsViewStyle}>
@@ -153,7 +150,7 @@ class PostListItemFooter extends Component {
           })}
           notesPress={this.goToPostNotes}
         />
-        {this.state.answered ? (
+        {answered ? (
           <View>
             <Divider style={dividerStyle} />
             <PostPrayerAnswered date={answered} />
