@@ -21,23 +21,26 @@ class PostListItemFooter extends Component {
   }
 
   goToComments = async () => {
-    const { redirect, redirectTo, post } = this.props;
+    const { redirect, redirectTo, post, navigationTab } = this.props;
     const { user, postId, author, index, navigation } = post;
 
     await this.props.fetchPostCommentLikes({ userId: user.uid, postId });
     await this.props.commentsPopulate(postId);
     await this.props.setActivePost({ postId, postAuthor: author });
 
-    navigation.navigate(redirectTo, {
+    const navigate = navigationTab === 'MyProfile' ? 'ProfilePostComment' : redirectTo;
+
+    navigation.navigate(navigate, {
       user, postAuthorId: author.id, postId, redirect, index
     });
   };
 
   goToChat = async () => {
-    const { redirect, post } = this.props;
+    const { redirect, post, navigationTab } = this.props;
     const { user, postId, author, index, navigation } = post;
+    const redirectTo = navigationTab === 'MyProfile' ? 'ProfileChat' : 'Chat';
 
-    navigation.navigate('Chat', {
+    navigation.navigate(redirectTo, {
       user, postAuthorId: author.id, postId, redirect, index
     });
   }

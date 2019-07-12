@@ -63,6 +63,7 @@ class PublicProfileScreen extends Component {
               tab='Profile'
               redirect={redirect}
               status={status}
+              navigationTab={navigationTab}
             />
           ) : (
             this.renderHeader(picture, name, userId, status, redirect, navigationTab)

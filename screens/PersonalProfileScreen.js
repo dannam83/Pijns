@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ProfileHeaderPersonal from '../components/profile/ProfileHeaderPersonal';
 import { fetchFriendList, logout } from '../actions';
 
-class ProfileScreen extends Component {
+class PersonalProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
@@ -33,4 +33,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   fetchFriendList, logout
-})(ProfileScreen);
+})(PersonalProfileScreen);

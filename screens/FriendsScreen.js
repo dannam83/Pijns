@@ -23,7 +23,7 @@ class FriendsScreen extends Component {
       redirect = () => navigate('PublicProfile', { profileUser: friend });
     } else if (navigationTab === 'MyPosts') {
       redirect = () => navigate('MY_PublicProfile', {
-        profileUser: friend, navigationTab: 'MyPosts' });
+        profileUser: friend, navigationTab });
     } else if (navigationTab === 'MyProfile') {
       redirect = () => navigate('FriendProfile', {
         profileUser: friend, status: 'Unfriend', navigationTab
