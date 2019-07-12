@@ -60,6 +60,7 @@ class PublicProfileScreen extends Component {
                 picture, name, userId, status, redirect, navigationTab
               )}
               posts={posts}
+              tab='Profile'
               redirect={redirect}
               status={status}
             />
