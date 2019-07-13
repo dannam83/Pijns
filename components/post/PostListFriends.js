@@ -5,7 +5,7 @@ import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
 const PostListFriends = ({
-  user, posts, fetchUserFeed, pinPressed, tab, redirect, postActions
+  user, posts, fetchUserFeed, pinPressed, redirect, postActions, navigationTab
 }) => {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -20,9 +20,8 @@ const PostListFriends = ({
       <PostListItem
         post={post}
         redirect={redirect}
-        redirectTo='FriendPostComments'
-        tab={tab}
         postActions={postActions}
+        navigationTab={navigationTab}
       />
     );
   };
@@ -32,10 +31,9 @@ const PostListFriends = ({
       <PostListItem
         post={post}
         redirect={redirect}
-        redirectTo='FriendPostComments'
-        tab={tab}
         pinnedOnly
         postActions={postActions}
+        navigationTab={navigationTab}
       />
     );
   };
@@ -46,7 +44,7 @@ const PostListFriends = ({
     return (
       <View style={writePostView}>
         <ButtonAsField
-          onPress={() => redirect('SearchFriends')}
+          onPress={() => redirect('FriendPosts_SearchFriends', { navigationTab })}
           buttonRestyle={buttonStyle}
           iconName={'search1'}
         >Search for friends

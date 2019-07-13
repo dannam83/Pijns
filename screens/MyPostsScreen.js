@@ -20,7 +20,6 @@ class MyPostsScreen extends Component {
         postEditUpdate={postEditUpdate}
         postsFetch={this.props.postsFetch}
         redirect={redirect}
-        tab={'My'}
       />
     );
   }

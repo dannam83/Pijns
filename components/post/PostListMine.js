@@ -4,7 +4,7 @@ import { View, FlatList } from 'react-native';
 import { ButtonAsField } from '../common';
 import PostListItem from './PostListItem';
 
-const PostListMine = ({ posts, redirect, tab, postsFetch, postEditUpdate }) => {
+const PostListMine = ({ posts, redirect, postsFetch, postEditUpdate }) => {
   useEffect(() => { postsFetch(); }, []);
 
   const { writePostView, iconStyle, masterContainerStyle } = styles;
@@ -14,9 +14,8 @@ const PostListMine = ({ posts, redirect, tab, postsFetch, postEditUpdate }) => {
       <PostListItem
         post={post}
         redirect={redirect}
-        redirectTo='Comments'
-        tab={tab}
         postEditUpdate={postEditUpdate}
+        navigationTab='MyPosts'
       />
     );
   };

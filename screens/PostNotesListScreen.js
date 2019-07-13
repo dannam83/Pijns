@@ -24,23 +24,15 @@ class PostNotesListScreen extends Component {
   goToPublicProfile = (friend) => {
     const currentUserId = this.props.currentUser.uid;
     const profileUserId = friend.uid;
-    const nav = this.props.navigation;
-    const tab = nav.getParam('tab');
-    let redirect;
-
-    if (tab === 'Friends') {
-      redirect = () => nav.navigate('PublicProfile', {
-        profileUser: friend, tab
-      });
-    } else if (tab === 'My') {
-      redirect = () => nav.navigate('MY_PublicProfile', {
-        profileUser: friend, tab
-      });
-    }
+    const { navigation } = this.props;
+    const navigationTab = navigation.getParam('navigationTab');
 
     this.props.getFriendStatus({ profileUserId, currentUserId });
-    redirect();
-  };
+    const goTo = currentUserId === profileUserId ?
+      'Profile' : `${navigationTab}_PublicProfile`;
+
+    navigation.navigate(goTo, { profileUser: friend, navigationTab });
+  }
 
   renderRow = (item) => {
     return (

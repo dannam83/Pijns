@@ -67,12 +67,12 @@ class FriendPostsScreen extends Component {
     return (
       <PostListFriends
         redirect={redirect}
-        tab={'Friends'}
         pinPressed={pinPressed}
         posts={posts}
         user={user}
         fetchUserFeed={fetchUserFeed}
         postActions={postActions}
+        navigationTab='FriendPosts'
       />
     );
   }

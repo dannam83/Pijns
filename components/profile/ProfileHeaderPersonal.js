@@ -8,7 +8,7 @@ const ProfileHeaderPersonal = (props) => {
 
   const onFriendsPress = () => {
     fetchFriendList(userId);
-    navigation.navigate('Friends', { navigationTab: 'MyProfile' });
+    navigation.navigate('Profile_FriendList', { navigationTab: 'Profile' });
   };
 
   const {

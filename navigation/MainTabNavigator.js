@@ -12,17 +12,17 @@ import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import PostNotesListScreen from '../screens/PostNotesListScreen';
 import CommentsScreen from '../screens/CommentsScreen';
-import FriendsScreen from '../screens/FriendsScreen';
+import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
 
 const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
-  SearchFriends: SearchFriendsScreen,
-  PublicProfile: PublicProfileScreen,
-  FriendPostComments: CommentsScreen,
-  FriendPostNotes: PostNotesListScreen,
-  Chat: ChatScreen
+  FriendPosts_SearchFriends: SearchFriendsScreen,
+  FriendPosts_PublicProfile: PublicProfileScreen,
+  FriendPosts_Comments: CommentsScreen,
+  FriendPosts_Notes: PostNotesListScreen,
+  FriendPosts_Chat: ChatScreen
 });
 
 FriendPostsStack.navigationOptions = {
@@ -45,10 +45,10 @@ const MyPostsStack = createStackNavigator({
   MyPosts: MyPostsScreen,
   PostCreate: PostCreateScreen,
   PostEdit: PostEditScreen,
-  Comments: CommentsScreen,
-  MyPostNotes: PostNotesListScreen,
+  MyPosts_Comments: CommentsScreen,
+  MyPosts_Notes: PostNotesListScreen,
   MY_PublicProfile: PublicProfileScreen,
-  MY_Friends: FriendsScreen,
+  MY_Friends: FriendListScreen,
 });
 
 MyPostsStack.navigationOptions = {
@@ -102,10 +102,11 @@ NotificationsStack.navigationOptions = {
 
 const ProfileStack = createStackNavigator({
   Profile: PersonalProfileScreen,
-  Friends: FriendsScreen,
-  FriendProfile: PublicProfileScreen,
-  ProfileChat: ChatScreen,
-  ProfilePostComment: CommentsScreen
+  Profile_FriendList: FriendListScreen,
+  Profile_PublicProfile: PublicProfileScreen,
+  Profile_Chat: ChatScreen,
+  Profile_Comments: CommentsScreen,
+  Profile_Notes: PostNotesListScreen
 });
 
 ProfileStack.navigationOptions = {

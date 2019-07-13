@@ -17,20 +17,17 @@ class FriendsScreen extends Component {
   goToPublicProfile = (friend) => {
     const { navigate, getParam } = this.props.navigation;
     const navigationTab = getParam('navigationTab');
-    let redirect;
 
     if (navigationTab === 'FriendsPosts') {
-      redirect = () => navigate('PublicProfile', { profileUser: friend });
+      navigate('FriendPosts_PublicProfile', { profileUser: friend });
     } else if (navigationTab === 'MyPosts') {
-      redirect = () => navigate('MY_PublicProfile', {
+      navigate('MyPosts_PublicProfile', {
         profileUser: friend, navigationTab });
-    } else if (navigationTab === 'MyProfile') {
-      redirect = () => navigate('FriendProfile', {
+    } else if (navigationTab === 'Profile') {
+      navigate('Profile_PublicProfile', {
         profileUser: friend, status: 'Unfriend', navigationTab
       });
     }
-
-    redirect();
   };
 
   renderRow = (item) => {

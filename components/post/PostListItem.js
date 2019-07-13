@@ -6,7 +6,7 @@ import PostListItemBanner from './PostListItemBanner';
 import PostListItemFooter from './PostListItemFooter';
 
 const PostListItem = ({
-  post, redirect, redirectTo, pinnedOnly, tab, postEditUpdate, navigationTab
+  post, redirect, pinnedOnly, postEditUpdate, navigationTab
 }) => {
   if (pinnedOnly && !post.pinned) { return null; }
 
@@ -33,8 +33,6 @@ const PostListItem = ({
       <PostListItemFooter
         post={post}
         redirect={redirect}
-        redirectTo={redirectTo}
-        tab={tab}
         pinnedOnly={pinnedOnly}
         navigationTab={navigationTab}
       />

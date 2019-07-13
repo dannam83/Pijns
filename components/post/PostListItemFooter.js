@@ -21,16 +21,14 @@ class PostListItemFooter extends Component {
   }
 
   goToComments = async () => {
-    const { redirect, redirectTo, post, navigationTab } = this.props;
+    const { redirect, post, navigationTab } = this.props;
     const { user, postId, author, index, navigation } = post;
 
     await this.props.fetchPostCommentLikes({ userId: user.uid, postId });
     await this.props.commentsPopulate(postId);
     await this.props.setActivePost({ postId, postAuthor: author });
 
-    const navigate = navigationTab === 'MyProfile' ? 'ProfilePostComment' : redirectTo;
-
-    navigation.navigate(navigate, {
+    navigation.navigate(`${navigationTab}_Comments`, {
       user, postAuthorId: author.id, postId, redirect, index
     });
   };
@@ -38,41 +36,39 @@ class PostListItemFooter extends Component {
   goToChat = async () => {
     const { redirect, post, navigationTab } = this.props;
     const { user, postId, author, index, navigation } = post;
-    const redirectTo = navigationTab === 'MyProfile' ? 'ProfileChat' : 'Chat';
 
-    navigation.navigate(redirectTo, {
+    navigation.navigate(`${navigationTab}_Chat`, {
       user, postAuthorId: author.id, postId, redirect, index
     });
   }
 
   goToPostNotes = async () => {
-    const { tab, post } = this.props;
-    const postList = tab === 'Friends' ? 'FriendPostNotes' : 'MyPostNotes';
+    const { navigationTab, post } = this.props;
     const { user, postId, author, index } = post;
 
-    post.navigation.navigate(postList, {
-      user, postAuthorId: author.id, postId, index, tab
+    post.navigation.navigate(`${navigationTab}_Notes`, {
+      user, postAuthorId: author.id, postId, index, navigationTab
     });
   };
 
   displayNoteCount = () => {
-    const { post, tab } = this.props;
+    const { post, navigationTab } = this.props;
     const { notes } = post;
     const noteCount = notes ? notes.count : 0;
     return (
-      tab === 'Friends' ? this.state.noteCount : noteCount
+      navigationTab === 'FriendPosts' ? this.state.noteCount : noteCount
     );
   }
 
   displayCommentCount = () => {
-    const { post, tab } = this.props;
+    const { post, navigationTab } = this.props;
     const { commentCount } = post;
     let displayCommentCount;
 
-    if (tab === 'Friends') {
+    if (navigationTab === 'FriendPosts') {
       displayCommentCount = this.state.commentCount;
     }
-    if (tab === 'My') {
+    if (navigationTab === 'MyPosts') {
       displayCommentCount = !commentCount ? 0 : commentCount;
     }
 
@@ -80,9 +76,9 @@ class PostListItemFooter extends Component {
   }
 
   sendPijn = ({ postId, author, currentDate, user }) => {
-    const { tab } = this.props;
+    const { navigationTab } = this.props;
 
-    if (tab === 'Friends') {
+    if (navigationTab === 'FriendPosts') {
       this.setState({ noteCount: this.state.noteCount + 1 });
     }
 
