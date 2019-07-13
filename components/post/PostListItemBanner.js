@@ -84,7 +84,7 @@ const PostListItemBanner = ({
             destructiveButtonIndex={-1}
             onPress={(index) => {
               if (index === 0) {
-                redirect('PostEdit');
+                redirect('MyPosts_PostEdit');
               }
             }}
           />

@@ -24,7 +24,7 @@ const PostListMine = ({ posts, redirect, postsFetch, postEditUpdate }) => {
     return (
       <View style={writePostView}>
         <ButtonAsField
-          onPress={() => redirect('PostCreate')}
+          onPress={() => redirect('MyPosts_PostCreate')}
           iconName={'form'}
           iconRestyle={iconStyle}
         >Write a post</ButtonAsField>
