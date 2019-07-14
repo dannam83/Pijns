@@ -16,7 +16,8 @@ const PostListItemBanner = ({
   postId,
   pinned,
   timestamp,
-  createdOn
+  createdOn,
+  showDeleteModal
 }) => {
   const { id, name, picture } = author;
   const {
@@ -38,10 +39,18 @@ const PostListItemBanner = ({
     await postEditUpdate({ prop: 'postId', value: postId });
   };
 
+  const onPressActionSheet = (index) => {
+    switch (index) {
+      case 0: showDeleteModal(); break;
+      case 1: redirect('MyPosts_PostEdit'); break;
+      default: console.warn('Invalid input'); break;
+    }
+  };
+
   const posted = displayTimeAgo(timestamp, createdOn);
   const options = (uid, authorId) => {
     if (uid === authorId) {
-      return ['Edit', 'Cancel'];
+      return ['Delete', 'Edit', 'Cancel'];
     }
     return ['Cancel'];
   };
@@ -56,6 +65,7 @@ const PostListItemBanner = ({
       pinPost({ postId, userId });
     }
   };
+
   const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
 
   return (
@@ -81,12 +91,8 @@ const PostListItemBanner = ({
             ref={o => this.ActionSheet = o}
             options={options(userId, id)}
             cancelButtonIndex={cancelButtonIndex()}
-            destructiveButtonIndex={-1}
-            onPress={(index) => {
-              if (index === 0) {
-                redirect('MyPosts_PostEdit');
-              }
-            }}
+            destructiveButtonIndex={0}
+            onPress={(index) => { onPressActionSheet(index); }}
           />
         </View>
         :

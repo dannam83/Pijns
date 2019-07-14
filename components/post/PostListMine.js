@@ -1,12 +1,22 @@
 import React, { useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 
-import { ButtonAsField } from '../common';
+import { ButtonAsField, Confirm } from '../common';
 import PostListItem from './PostListItem';
 
-const PostListMine = ({ posts, redirect, postsFetch, postEditUpdate }) => {
+const PostListMine = ({
+  posts,
+  redirect,
+  postsFetch,
+  postEditUpdate,
+  postDelete,
+  deleteModalVisible,
+  showDeleteModal,
+  hideDeleteModal,
+  postId
+}) => {
   useEffect(() => { postsFetch(); }, []);
-
+  
   const { writePostView, iconStyle, masterContainerStyle } = styles;
 
   const renderRow = (post) => {
@@ -16,6 +26,7 @@ const PostListMine = ({ posts, redirect, postsFetch, postEditUpdate }) => {
         redirect={redirect}
         postEditUpdate={postEditUpdate}
         navigationTab='MyPosts'
+        showDeleteModal={showDeleteModal}
       />
     );
   };
@@ -34,6 +45,13 @@ const PostListMine = ({ posts, redirect, postsFetch, postEditUpdate }) => {
 
   return (
     <View style={masterContainerStyle}>
+      <Confirm
+        visible={deleteModalVisible}
+        onDecline={hideDeleteModal}
+        onAccept={() => { postDelete({ postId }); }}
+      >
+        Are you sure you would like to delete this post? This action cannot be reversed.
+      </Confirm>
       <FlatList
         data={posts}
         renderItem={({ item }) => renderRow(item)}

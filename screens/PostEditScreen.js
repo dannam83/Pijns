@@ -5,7 +5,7 @@ import { StackActions } from 'react-navigation';
 
 import PostForm from '../components/post/PostForm';
 import { postEditUpdate, postEditSave, postDelete } from '../actions';
-import { CardBanner, ButtonAsText } from '../components/common';
+import { ButtonAsText } from '../components/common';
 
 class PostEdit extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -49,6 +49,7 @@ class PostEdit extends Component {
   }
 
   render() {
+    console.log(this.props.postId);
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}

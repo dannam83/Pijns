@@ -6,7 +6,9 @@ import {
   POSTS_FETCH_SUCCESS,
   POST_SAVE_SUCCESS,
   POST_DELETE,
-  POST_SET_ACTIVE
+  POST_SET_ACTIVE,
+  POST_SHOW_DELETE_MODAL,
+  POST_HIDE_DELETE_MODAL
  } from './types';
 import { getCurrentDate } from '../functions/common';
 
@@ -49,7 +51,9 @@ export const postEditUpdate = ({ prop, value }) => {
 };
 
 export const postEditSave = ({ postText, postId }) => {
+  console.log(postId);
   const { currentUser } = firebase.auth();
+  firebase.database().ref(`/posts/${postId}`).update({ content: postText });
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}`)
@@ -62,6 +66,8 @@ export const postEditSave = ({ postText, postId }) => {
 
 export const postDelete = ({ postId }) => {
   const { currentUser } = firebase.auth();
+  firebase.database().ref(`/posts/${postId}`).remove();
+  firebase.database().ref(`/postComments/${postId}`).remove();
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}`)
@@ -71,6 +77,9 @@ export const postDelete = ({ postId }) => {
     });
   };
 };
+
+export const showDeleteModal = () => { return ({ type: POST_SHOW_DELETE_MODAL }); };
+export const hideDeleteModal = () => { return ({ type: POST_HIDE_DELETE_MODAL }); };
 
 export const postsFetch = () => {
   const { currentUser } = firebase.auth();

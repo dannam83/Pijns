@@ -4,21 +4,22 @@ import { CardSection } from './CardSection';
 import { Button } from './Button';
 
 const Confirm = ({ children, visible, onAccept, onDecline }) => {
-  const { containerStyle, cardSectionStyle, textStyle } = styles;
+  const {
+    containerStyle, topCardSectionStyle, bottomCardSectionStyle, textStyle
+  } = styles;
 
   return (
     <Modal
-    visible={visible}
-    transparent
-    animationType="slide"
-    onRequestClose={() => {}}
+      visible={visible}
+      transparent
+      onRequestClose={() => {}}
     >
       <View style={containerStyle}>
-        <CardSection style={cardSectionStyle}>
+        <CardSection style={topCardSectionStyle}>
           <Text style={textStyle}>{children}</Text>
         </CardSection>
 
-        <CardSection>
+        <CardSection style={bottomCardSectionStyle}>
           <Button onPress={onDecline}>No</Button>
           <Button onPress={onAccept}>Yes</Button>
         </CardSection>
@@ -28,8 +29,19 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
 };
 
 const styles = {
-  cardSectionStyle: {
+  topCardSectionStyle: {
     justifyContent: 'center',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderWidth: 2,
+    borderBottomWidth: 0
+  },
+  bottomCardSectionStyle: {
+    justifyContent: 'center',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderWidth: 1,
+    borderTopWidth: 0
   },
   textStyle: {
     flex: 1,
@@ -38,11 +50,11 @@ const styles = {
     lineHeight: 30
   },
   containerStyle: {
-    backgroundColor: 'rgba(0,0,0,0.75)',
+    backgroundColor: 'rgba(0,0,0,0.50)',
     position: 'relative',
     flex: 1,
     justifyContent: 'center',
-    padding: 20
+    padding: 25
   }
 };
 

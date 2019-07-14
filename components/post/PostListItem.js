@@ -6,7 +6,7 @@ import PostListItemBanner from './PostListItemBanner';
 import PostListItemFooter from './PostListItemFooter';
 
 const PostListItem = ({
-  post, redirect, pinnedOnly, postEditUpdate, navigationTab
+  post, redirect, pinnedOnly, postEditUpdate, navigationTab, showDeleteModal
 }) => {
   if (pinnedOnly && !post.pinned) { return null; }
 
@@ -26,6 +26,7 @@ const PostListItem = ({
         createdOn={createdOn}
         userId={userId}
         pinned={pinned}
+        showDeleteModal={showDeleteModal}
       />
 
       <Text style={contentStyle}>{content}</Text>
