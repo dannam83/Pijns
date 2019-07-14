@@ -33,7 +33,7 @@ const styles = {
     justifyContent: 'center',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     borderBottomWidth: 0
   },
   bottomCardSectionStyle: {
