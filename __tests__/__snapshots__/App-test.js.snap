@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App snapshot renders the loading screen 1`] = `null`;
+
+exports[`App snapshot renders the root without loading screen 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#03A9F4",
+        "display": "flex",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontFamily": "coiny",
+          "fontSize": 32,
+        }
+      }
+    >
+      Pijns
+    </Text>
+    <Image
+      source={1}
+      style={
+        Object {
+          "height": 40,
+          "tintColor": "white",
+          "width": 44,
+        }
+      }
+    />
+  </View>
+</View>
+`;
