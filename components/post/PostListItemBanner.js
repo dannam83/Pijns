@@ -34,29 +34,24 @@ const PostListItemBanner = ({
   } = styles;
 
   const showActionSheet = async () => {
+    if (userId !== author.id) return;
     this.ActionSheet.show();
     await postEditUpdate({ prop: 'postText', value: postText });
     await postEditUpdate({ prop: 'postId', value: postId });
   };
 
+  const options = ['Delete', 'Edit', 'Cancel'];
+  const cancelButtonIndex = options.length - 1;
   const onPressActionSheet = (index) => {
     switch (index) {
       case 0: showDeleteModal(); break;
       case 1: redirect('MyPosts_PostEdit'); break;
+      case 2: break;
       default: console.warn('Invalid input'); break;
     }
   };
 
   const posted = displayTimeAgo(timestamp, createdOn);
-  const options = (uid, authorId) => {
-    if (uid === authorId) {
-      return ['Delete', 'Edit', 'Cancel'];
-    }
-    return ['Cancel'];
-  };
-  const cancelButtonIndex = () => {
-    return options(userId, id).length - 1;
-  };
 
   const pinPress = async () => {
     if (pinned) {
@@ -89,8 +84,8 @@ const PostListItemBanner = ({
           />
           <ActionSheet
             ref={o => this.ActionSheet = o}
-            options={options(userId, id)}
-            cancelButtonIndex={cancelButtonIndex()}
+            options={options}
+            cancelButtonIndex={cancelButtonIndex}
             destructiveButtonIndex={0}
             onPress={(index) => { onPressActionSheet(index); }}
           />
