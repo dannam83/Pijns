@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+import * as admin from "firebase-admin";
 
 module.exports = (req, res) => {
   const userId = req.body.userId;
