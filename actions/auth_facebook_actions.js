@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 
 import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOGIN } from './types';
+import { getCurrentDate } from '../functions/common';
 
 export const doFbLogin = async dispatch => {
   try {
@@ -62,6 +63,21 @@ const setUserSliceOfState = async (data, dispatch) => {
 };
 
 const saveUserProfile = async (data, picture, uid) => {
+  const firstPost = {
+    author: {
+      id: 'YCxr13n1U4SzL5tgq1r8hD8vI8C2',
+      name: 'Dan',
+      picture: 'https://graph.facebook.com/10108634445933038/picture'
+    },
+    content: 'Welcome to PIJNs!',
+    createdOn: getCurrentDate(),
+    notes: {
+      count: 0
+    },
+    timestamp: -Date.now(),
+    type: 'prayerRequest'
+  };
+
   const { name, birthday, email, gender } = data;
   await firebase.database().ref(`/users/${uid}/profile`)
     .set({ name, displayName: name, birthday, email, gender, picture }
@@ -69,6 +85,14 @@ const saveUserProfile = async (data, picture, uid) => {
   await firebase.database().ref(`/userSearch/${uid}/`)
     .set({ name, searchName: name.toLowerCase(), picture }
   );
+  await firebase.database().ref(`/users/${uid}/posts`).push(firstPost);
+
+  const currentDate = new Date(
+    new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
+  );
+  await firebase.database().ref(`/userPijns/${uid}/${currentDate}/${uid}`).set('ready');
+  await firebase.database().ref(`/pinboards/${uid}/${uid}`).set('ready');
+  await firebase.database().ref(`/friends/${uid}/${uid}`).set('ready');
 };
 
 const updateUserProfile = async (data, picture, uid) => {

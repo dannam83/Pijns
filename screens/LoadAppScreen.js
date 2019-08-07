@@ -21,10 +21,10 @@ class LoadAppScreen extends Component {
   async componentWillReceiveProps(nextProps) {
     const { currentUid, navigation } = nextProps;
     const { fetchPijnLog, fetchUserFeed, fetchPinboard, saveNavigation } = this.props;
+    console.log('comp will receive', nextProps);
 
     if (currentUid) {
       await Promise.all([
-        fetchUserFeed(currentUid),
         fetchPijnLog(currentUid),
         fetchPinboard(currentUid),
         saveNavigation(navigation)
