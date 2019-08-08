@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
+import { chatInitialize, chatDeleteAll } from './';
 
 export const friendRequest = ({ profileUserId, currentUser }) => {
   return () => {
@@ -11,6 +12,7 @@ export const friendRequest = ({ profileUserId, currentUser }) => {
 export const acceptFriend = ({ profileUserId, currentUser, friend }) => {
   return () => {
     processRequest({ profileUserId, currentUser, type: 'accept', friend });
+    chatInitialize(currentUser.uid, profileUserId);
   };
 };
 
@@ -23,6 +25,7 @@ export const declineFriend = ({ profileUserId, currentUser, friend }) => {
 export const unfriend = ({ profileUserId, currentUser }) => {
   return () => {
     processRequest({ profileUserId, currentUser, type: 'unfriend' });
+    chatDeleteAll(currentUser.uid, profileUserId);
   };
 };
 
@@ -88,7 +91,7 @@ const friendStatusValues = type => {
     case 'accept':
       return { userStatus: 'Unfriend', profileStatus: 'Unfriend' };
     default:
-      return { userStatus: null, profileStatus: null };
+      return { userStatus: 'Add Friend', profileStatus: 'Add Friend' };
   }
 };
 

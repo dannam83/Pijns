@@ -5,7 +5,6 @@ import { getCurrentTime, getTimestampDate } from '../functions/common';
 
 export const fetchChat = ({ userId, friendId }) => {
   const chatKey = formatChatKey(userId, friendId);
-
   return (dispatch) => {
     firebase.database().ref(`/chats/${chatKey}`)
       .on('value', snapshot => {
@@ -16,10 +15,10 @@ export const fetchChat = ({ userId, friendId }) => {
   };
 };
 
-export const chatMessageSave = (user, otherId, message) => {
+export const chatMessageSave = (user, friendId, message) => {
   const date = -getTimestampDate();
   const time = getCurrentTime();
-  const chatKey = formatChatKey(user.uid, otherId);
+  const chatKey = formatChatKey(user.uid, friendId);
   const db = firebase.database();
 
   db.ref(`/chats/${chatKey}/messages/${date}`).push({
@@ -31,37 +30,57 @@ export const chatMessageSave = (user, otherId, message) => {
   });
 };
 
-export const chatTypingStart = (userId, otherId, text) => {
-  const chatKey = formatChatKey(userId, otherId);
+export const chatTypingStart = (userId, friendId, text) => {
+  const chatKey = formatChatKey(userId, friendId);
   firebase.database().ref(`/chats/${chatKey}/${userId}`).set(text);
-  
+
   return ({
     type: 'DUMMY'
   });
 };
 
-export const chatTypingEnd = (userId, otherId) => {
-  const chatKey = formatChatKey(userId, otherId);
+export const chatTypingEnd = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
   firebase.database().ref(`/chats/${chatKey}/${userId}`).set('');
   return ({
     type: 'DUMMY'
   });
 };
 
-export const chatClear = (userId, otherId) => {
-  const chatKey = formatChatKey(userId, otherId);
+export const chatClear = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
   firebase.database().ref(`/chats/${chatKey}/${userId}`).off();
   return ({ type: CHAT_CLEAR });
 };
 
-const formatChatKey = (userId, otherId) => {
+export const chatDeleteAll = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
+  firebase.database().ref(`/chats/${chatKey}`).set(null);
+  return ({
+    type: 'DUMMY'
+  });
+};
+
+export const chatInitialize = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
+
+  firebase.database().ref(`/chats/${chatKey}/${userId}`).set('');
+  firebase.database().ref(`/chats/${chatKey}/${friendId}`).set('');
+  firebase.database().ref(`/chats/${chatKey}/messages`).set(0);
+
+  return ({
+    type: 'DUMMY'
+  });
+};
+
+const formatChatKey = (userId, friendId) => {
   let small;
   let big;
-  if (userId < otherId) {
+  if (userId < friendId) {
     small = userId;
-    big = otherId;
+    big = friendId;
   } else {
-    small = otherId;
+    small = friendId;
     big = userId;
   }
   return (small + big);
