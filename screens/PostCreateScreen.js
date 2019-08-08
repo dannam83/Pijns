@@ -3,7 +3,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { postCreateSave } from '../actions';
-import { CardBanner, ButtonAsText } from '../components/common';
+import { ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 import { disabledGray, headerButtonBlue } from '../assets/colors';
 

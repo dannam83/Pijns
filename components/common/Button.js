@@ -19,7 +19,11 @@ const Button = ({
       style={[buttonStyle, buttonRestyle]}
       disabled={disabled}
     >
-      <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
+      { iconName ?
+        <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
+        :
+        null
+      }
       <Text style={[textStyle, textRestyle]}>
         {children}
       </Text>

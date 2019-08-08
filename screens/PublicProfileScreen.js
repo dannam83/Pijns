@@ -43,6 +43,7 @@ class PublicProfileScreen extends Component {
 
     const user = getParam('profileUser');
     const navigationTab = getParam('navigationTab');
+    console.log(user);
 
     const { name, picture } = user;
     // param comes in as user.userId from search and as user.uid from friends

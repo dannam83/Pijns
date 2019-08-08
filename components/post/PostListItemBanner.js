@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 
-import { ActionButton, ActionButtonStill } from '../common';
+import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgo } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
 import { disabledGray } from '../../assets/colors';
@@ -61,16 +61,27 @@ const PostListItemBanner = ({
     }
   };
 
+  const goToPublicProfile = () => {
+    redirect('FriendPosts_PublicProfile', {
+      profileUser: { ...author, uid: author.id },
+      status: 'Unfriend',
+      navigationTab: 'FriendPosts'
+    });
+  };
+
   const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
 
   return (
     <View style={containerStyle}>
-      <Image
-        style={thumbnailStyle}
-        source={{ uri: picture }}
+      <ActionButton
+        iconStyle={thumbnailStyle}
+        imageSource={{ uri: picture }}
+        onPress={goToPublicProfile}
       />
       <View style={headerContentStyle}>
-        <Text style={headerAuthorStyle}>{name}</Text>
+        <ButtonAsText editTextStyle={headerAuthorStyle} onPress={goToPublicProfile}>
+          {name}
+        </ButtonAsText>
         <Text style={headerDetailStyle}>{posted}</Text>
       </View>
 
