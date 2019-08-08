@@ -14,21 +14,26 @@ module.exports = (req, res) => {
   .orderByChild('status')
   .equalTo('Unfriend')
   .on('value', snapshot => {
+    let friendPromises = [];
     const friends = snapshot.val();
-    const friendKeys = Object.keys(friends);
-    const friendPromises = friendKeys.map((key) => {
-      return (
-        db.ref('users/' + key + '/posts').on('value', snapshot => {
-          const posts = snapshot.val();
-          const postKeys = Object.keys(posts);
 
-          postKeys.forEach((key) => {
-            posts[key]['postId'] = key;
-            friendPostsArray.push(posts[key]);
-          });
-        })
-      )
-    });
+    if (friends) {
+      const friendKeys = Object.keys(friends);
+
+      friendPromises = friendKeys.map((key) => {
+        return (
+          db.ref('users/' + key + '/posts').on('value', snapshot => {
+            const posts = snapshot.val();
+            const postKeys = Object.keys(posts);
+
+            postKeys.forEach((key) => {
+              posts[key]['postId'] = key;
+              friendPostsArray.push(posts[key]);
+            });
+          })
+        )
+      })
+    }
 
     Promise.all(friendPromises).then(() => {
       friendPostsArray.sort((a, b) => a.timestamp - b.timestamp);

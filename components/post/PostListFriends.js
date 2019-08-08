@@ -10,7 +10,6 @@ const PostListFriends = ({
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshList = async () => {
-    console.log('userId', user.uid);
     setRefreshing(true);
     await fetchUserFeed(user.uid);
     setRefreshing(false);
@@ -53,7 +52,7 @@ const PostListFriends = ({
       </View>
     );
   };
-  console.log('posts', posts);
+  
   if (pinPressed) {
     return (
       <View style={styles.masterContainerStyle}>

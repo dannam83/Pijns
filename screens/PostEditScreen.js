@@ -49,7 +49,6 @@ class PostEdit extends Component {
   }
 
   render() {
-    console.log(this.props.postId);
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}

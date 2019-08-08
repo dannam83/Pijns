@@ -51,7 +51,6 @@ export const postEditUpdate = ({ prop, value }) => {
 };
 
 export const postEditSave = ({ postText, postId }) => {
-  console.log(postId);
   const { currentUser } = firebase.auth();
   firebase.database().ref(`/posts/${postId}`).update({ content: postText });
 
