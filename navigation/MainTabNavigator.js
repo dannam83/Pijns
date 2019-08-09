@@ -15,7 +15,7 @@ import CommentsScreen from '../screens/CommentsScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
-import { TabBarIcon } from '../components/common';
+import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
 const FriendPostsStack = createStackNavigator({
   FriendPosts: FriendPostsScreen,
@@ -83,7 +83,7 @@ NotificationsStack.navigationOptions = {
   tabBarIcon: ({ focused, tintColor }) => {
     return (
       Platform.OS === 'ios' ? (
-        <TabBarIcon
+        <NotificationsIcon
           focused={focused}
           name={'ios-notifications-outline'}
           size={29}

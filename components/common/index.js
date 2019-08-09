@@ -17,4 +17,3 @@ export * from './LoginNewAccountButton';
 export * from './Spinner';
 export * from './Confirm';
 export * from './NoteListItem';
-export * from './TabBarIcon';
