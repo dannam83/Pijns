@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
-import { LOGIN_FAIL, LOGOUT_SUCCESS, LOGOUT_FAIL, USER_FOUND } from './types';
+import { LOGIN_FAIL, LOGOUT_SUCCESS, LOGOUT_FAIL, USER_FOUND, FETCH_USER_FEED
+} from './types';
 import { doFbLogin } from './auth_facebook_actions';
 
 export const fbLogin = () => async dispatch => {
@@ -12,9 +13,14 @@ export const currentUserFound = (user) => async dispatch => {
 
   if (token) {
     let { uid, displayName, photoURL } = user;
+    let userFeed = await AsyncStorage.getItem('user_feed');
+
     try {
       dispatch({
         type: USER_FOUND, isNew: false, name: displayName, picture: photoURL, uid, token
+      });
+      dispatch({
+        type: FETCH_USER_FEED, payload: JSON.parse(userFeed)
       });
     } catch (err) {
       console.warn(err);
