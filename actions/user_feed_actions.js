@@ -17,7 +17,6 @@ export const fetchUserFeed = (userId) => {
 };
 
 const saveUserFeed = (feed) => {
-  console.log(feed);
   if (feed && feed.length > 0) {
     AsyncStorage.setItem('user_feed', JSON.stringify(feed));
   }

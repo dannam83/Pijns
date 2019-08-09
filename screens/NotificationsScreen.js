@@ -4,20 +4,13 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../components/common';
-import {
-  fetchRequests, setFriendStatus, acceptFriend, declineFriend
-} from '../actions';
+import { setFriendStatus, acceptFriend, declineFriend } from '../actions';
 import { buttonBlue } from '../assets/colors';
 
 class NotificationsScreen extends Component {
   static navigationOptions = {
     title: 'Notifications',
   };
-
-  constructor(props) {
-    super(props);
-    this.props.fetchRequests(this.props.currentUser.uid);
-  }
 
   goToPublicProfile = (profileUser) => {
     const { navigate } = this.props.navigation;
@@ -129,7 +122,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchRequests,
   setFriendStatus,
   acceptFriend,
   declineFriend
