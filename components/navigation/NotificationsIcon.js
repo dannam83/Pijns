@@ -5,17 +5,20 @@ import { Ionicons } from '@expo/vector-icons';
 
 class NotificationsIcon extends Component {
   render() {
-    const { name, size, focused, tintColor, notificationsCount } = this.props;
+    const { name, size, focused, color, notificationsCount } = this.props;
+
     return (
       <View>
         {notificationsCount > 0 ?
           <View style={styles.badgeViewStyle}>
-            <Text style={styles.badgeStyle}>{notificationsCount}</Text>
+            <Text style={styles.badgeStyle}>
+              { notificationsCount < 100 ? notificationsCount : '!' }
+            </Text>
           </View>
           :
           null
         }
-        <Ionicons focused={focused} name={name} size={size} color={tintColor} />
+        <Ionicons focused={focused} name={name} size={size} color={color} />
       </View>
     );
   }
@@ -27,14 +30,16 @@ const styles = {
     backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 16,
-    marginTop: -3,
-    width: 18,
-    height: 18,
-    borderRadius: 9
+    marginLeft: 17,
+    marginTop: -4,
+    width: 20,
+    height: 20,
+    borderRadius: 10
   },
   badgeStyle: {
-    color: 'white'
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold'
   }
 };
 
