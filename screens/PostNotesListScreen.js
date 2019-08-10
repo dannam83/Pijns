@@ -21,24 +21,28 @@ class PostNotesListScreen extends Component {
     this.props.notesClear();
   }
 
-  goToPublicProfile = (friend) => {
-    const currentUserId = this.props.currentUser.uid;
-    const profileUserId = friend.uid;
-    const { navigation } = this.props;
-    const navigationTab = navigation.getParam('navigationTab');
+  goToProfile = (note) => {
+    const profileUserId = note.uid;
+    const { uid } = this.props.currentUser;
+    const { getParam, navigate, push } = this.props.navigation;
+    const navigationTab = getParam('navigationTab');
 
-    this.props.getFriendStatus({ profileUserId, currentUserId });
+    this.props.getFriendStatus({ profileUserId, currentUserId: uid });
 
-    navigation.navigate(`${navigationTab}_PublicProfile`, {
-      profileUser: friend, navigationTab
-    });
+    if (profileUserId !== uid) {
+      push(`${navigationTab}_PublicProfile`, { profileUser: note, navigationTab });
+    } else if (navigationTab === 'Profile') {
+      push('Profile');
+    } else {
+      navigate('Profile');
+    }
   }
 
-  renderRow = (item) => {
+  renderRow = (note) => {
     return (
       <NoteListItem
-        note={item}
-        onPress={() => this.goToPublicProfile(item)}
+        note={note}
+        onPress={() => this.goToProfile(note)}
       />
     );
   }
