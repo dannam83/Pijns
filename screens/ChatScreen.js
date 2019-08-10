@@ -8,7 +8,6 @@ import {
   fetchChat,
   chatTypingStart,
   chatTypingEnd,
-  chatClear,
   chatMessageSave
 } from '../actions';
 
@@ -97,5 +96,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchChat, chatTypingStart, chatTypingEnd, chatClear, chatMessageSave
+  fetchChat, chatTypingStart, chatTypingEnd, chatMessageSave
 })(ChatScreen);

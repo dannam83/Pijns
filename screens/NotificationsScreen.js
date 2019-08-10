@@ -14,7 +14,8 @@ class NotificationsScreen extends Component {
 
   goToPublicProfile = (profileUser) => {
     const { navigate } = this.props.navigation;
-    const redirect = () => navigate('PublicProfile', { profileUser });
+    const redirect = () => navigate('Notifications_PublicProfile', {
+      profileUser, navigationTab: 'Notifications' });
 
     this.props.setFriendStatus({ status: 'See Requests' });
     redirect();

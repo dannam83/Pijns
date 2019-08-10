@@ -8,8 +8,14 @@ export const fetchChat = ({ userId, friendId }) => {
   return (dispatch) => {
     firebase.database().ref(`/chats/${chatKey}`)
       .on('value', snapshot => {
-        dispatch({ type: FETCH_CHAT, payload: snapshot.val() }
-        );
+        if (snapshot.val()) {
+          dispatch({ type: FETCH_CHAT, payload: snapshot.val() });
+        } else {
+          chatInitialize(userId, friendId);
+          firebase.database().ref(`/chats/${chatKey}`).on('value', snapshot => {
+            dispatch({ type: FETCH_CHAT, payload: snapshot.val() });
+          });
+        }
       }
     );
   };
@@ -61,12 +67,12 @@ export const chatDeleteAll = (userId, friendId) => {
   });
 };
 
-export const chatInitialize = (userId, friendId) => {
+export const chatInitialize = async (userId, friendId) => {
   const chatKey = formatChatKey(userId, friendId);
 
-  firebase.database().ref(`/chats/${chatKey}/${userId}`).set('');
-  firebase.database().ref(`/chats/${chatKey}/${friendId}`).set('');
-  firebase.database().ref(`/chats/${chatKey}/messages`).set(0);
+  await firebase.database().ref(`/chats/${chatKey}/${userId}`).set('');
+  await firebase.database().ref(`/chats/${chatKey}/${friendId}`).set('');
+  await firebase.database().ref(`/chats/${chatKey}/messages`).set(0);
 
   return ({
     type: 'DUMMY'
