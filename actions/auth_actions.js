@@ -37,6 +37,7 @@ export const logout = (redirect) => async dispatch => {
   if (token) {
     dispatch({ type: LOGOUT_FAIL, payload: token });
   } else {
+    AsyncStorage.removeItem('user_feed');
     dispatch({ type: LOGOUT_SUCCESS });
   }
 

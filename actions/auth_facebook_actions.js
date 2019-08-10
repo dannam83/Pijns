@@ -47,6 +47,7 @@ const setUserSliceOfState = async (data, dispatch) => {
   await ref.once('value', snapshot => {
       const isNew = !snapshot.val();
       if (isNew) {
+        AsyncStorage.setItem('user_feed', JSON.stringify({}));
         saveUserProfile(data, photoURL, uid);
       } else {
         updateUserProfile(data, photoURL, uid);
