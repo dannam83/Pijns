@@ -17,7 +17,8 @@ const PostListItemBanner = ({
   pinned,
   timestamp,
   createdOn,
-  showDeleteModal
+  showDeleteModal,
+  onProfile
 }) => {
   const { id, name, picture } = author;
   const {
@@ -70,6 +71,7 @@ const PostListItemBanner = ({
   };
 
   const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
+  const disabled = !!onProfile;
 
   return (
     <View style={containerStyle}>
@@ -77,9 +79,14 @@ const PostListItemBanner = ({
         iconStyle={thumbnailStyle}
         imageSource={{ uri: picture }}
         onPress={goToPublicProfile}
+        disabled={disabled}
       />
       <View style={headerContentStyle}>
-        <ButtonAsText editTextStyle={headerAuthorStyle} onPress={goToPublicProfile}>
+        <ButtonAsText
+          editTextStyle={headerAuthorStyle}
+          onPress={goToPublicProfile}
+          disabled={disabled}
+        >
           {name}
         </ButtonAsText>
         <Text style={headerDetailStyle}>{posted}</Text>

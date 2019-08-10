@@ -5,10 +5,12 @@ const ActionButton = ({
   imageSource, text, onPress, disabled, iconStyle, buttonStyle
 }) => {
   const {
-    actionButtonStyle, actionIconStyle, disabledIconStyle, actionTextStyle
+    actionButtonStyle, iconDefaultStyle, actionTextStyle
   } = styles;
 
-  const iconDefaultStyle = disabled ? disabledIconStyle : actionIconStyle;
+  const tintColor = (
+    !disabled || (imageSource && imageSource.uri)
+  ) ? {} : { tintColor: '#D3D3D3' };
 
   return (
     <TouchableOpacity
@@ -18,7 +20,7 @@ const ActionButton = ({
     >
       <Image
         source={imageSource}
-        style={[iconDefaultStyle, iconStyle]}
+        style={[iconDefaultStyle, tintColor, iconStyle]}
       />
       <Text style={actionTextStyle}>
         {text}
@@ -33,7 +35,7 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center'
   },
-  actionIconStyle: {
+  iconDefaultStyle: {
     height: 25,
     width: 25,
   },

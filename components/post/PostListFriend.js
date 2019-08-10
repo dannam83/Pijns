@@ -3,7 +3,9 @@ import { View, FlatList } from 'react-native';
 
 import PostListItem from './PostListItem';
 
-const PostListFriend = ({ posts, header, redirect, tab, navigationTab }) => {
+const PostListFriend = ({
+  posts, header, redirect, tab, navigationTab, onProfile
+}) => {
   const renderRow = (post) => {
     return (
       <PostListItem
@@ -12,6 +14,7 @@ const PostListFriend = ({ posts, header, redirect, tab, navigationTab }) => {
         redirectTo='Comments'
         tab={tab}
         navigationTab={navigationTab}
+        onProfile={onProfile}
       />
     );
   };
