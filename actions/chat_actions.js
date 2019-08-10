@@ -79,6 +79,15 @@ export const chatInitialize = async (userId, friendId) => {
   });
 };
 
+export const chatDetachListener = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
+  firebase.database().ref(`/chats/${chatKey}`).off();
+
+  return ({
+    type: 'DUMMY'
+  });
+};
+
 const formatChatKey = (userId, friendId) => {
   let small;
   let big;

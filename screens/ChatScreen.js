@@ -8,7 +8,8 @@ import {
   fetchChat,
   chatTypingStart,
   chatTypingEnd,
-  chatMessageSave
+  chatMessageSave,
+  chatDetachListener
 } from '../actions';
 
 class ChatScreen extends Component {
@@ -23,6 +24,13 @@ class ChatScreen extends Component {
     const postAuthorId = navigation.getParam('postAuthorId');
     this.props.fetchChat({ userId: user.uid, friendId: postAuthorId });
     this.state = { isTyping: false };
+  }
+
+  componentWillUnmount() {
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
+    const postAuthorId = navigation.getParam('postAuthorId');
+    this.props.chatDetachListener(user.uid, postAuthorId);
   }
 
   onChange = (text, userId, postAuthorId) => {
@@ -96,5 +104,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchChat, chatTypingStart, chatTypingEnd, chatMessageSave
+  fetchChat, chatTypingStart, chatTypingEnd, chatMessageSave,chatDetachListener
 })(ChatScreen);
