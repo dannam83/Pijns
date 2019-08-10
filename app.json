@@ -22,6 +22,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/dannam83/Pijns"
   }
 }

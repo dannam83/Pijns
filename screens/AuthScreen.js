@@ -20,7 +20,7 @@ class AuthScreen extends Component {
 
   onAuthComplete(props) {
     this.setState({ isProcessing: false });
-    
+
     const redirect = this.props.navigation.navigate;
 
     if (props.token) {

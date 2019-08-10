@@ -104,5 +104,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchChat, chatTypingStart, chatTypingEnd, chatMessageSave,chatDetachListener
+  fetchChat, chatTypingStart, chatTypingEnd, chatMessageSave, chatDetachListener
 })(ChatScreen);

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Dimensions } from 'react-native';
+import { View, Text, ScrollView, Dimensions, Image } from 'react-native';
 import { Button } from 'react-native-elements';
-import { slideButtonBlue } from '../assets/colors';
+import { slideButtonBlue, chatTypingGray } from '../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 class Slides extends Component {
-  renderLastSlide(idx) {
-    if (idx === this.props.data.length - 1) {
+  renderBottom(idx) {
+    const { length } = this.props.data;
+    if (idx === length - 1) {
       return (
         <Button
           title='Get started!'
@@ -17,6 +19,27 @@ class Slides extends Component {
         />
       );
     }
+
+    return (
+      <View style={[styles.dotsViewStyle, { height: SCREEN_HEIGHT / 2 }]}>
+        {this.renderDots(length, idx)}
+      </View>
+    );
+  }
+
+  renderDots(length, idx) {
+    const dots = [];
+    for (let i = 0; i < length; i++) {
+      const liveDotStyle = (i === idx) ? { tintColor: chatTypingGray } : {};
+      dots.push(
+        <Image
+          source={require('../assets/images/dot.png')}
+          style={[styles.dotsStyle, liveDotStyle]}
+          key={i}
+        />
+      );
+    }
+    return dots;
   }
 
   renderSlides() {
@@ -27,7 +50,7 @@ class Slides extends Component {
           style={[styles.slide, { backgroundColor: slide.color }]}
         >
           <Text style={styles.slideText}>{slide.text}</Text>
-          {this.renderLastSlide(idx)}
+          {this.renderBottom(idx)}
         </View>
       );
     });
@@ -48,7 +71,6 @@ class Slides extends Component {
 
 const styles = {
   slide: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: SCREEN_WIDTH
@@ -62,6 +84,21 @@ const styles = {
     backgroundColor: slideButtonBlue,
     marginTop: 15,
     borderRadius: 25
+  },
+  dotsViewStyle: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: 'transparent',
+  },
+  dotsStyle: {
+    height: 7,
+    width: 7,
+    marginLeft: 3,
+    marginRight: 3,
+    tintColor: 'white',
   }
 };
 
