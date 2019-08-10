@@ -44,9 +44,9 @@ class PostListItemFooter extends Component {
 
   goToPostNotes = async () => {
     const { navigationTab, post } = this.props;
-    const { user, postId, author, index } = post;
+    const { user, postId, author, index, navigation } = post;
 
-    post.navigation.navigate(`${navigationTab}_Notes`, {
+    navigation.navigate(`${navigationTab}_Notes`, {
       user, postAuthorId: author.id, postId, index, navigationTab
     });
   };
