@@ -28,10 +28,10 @@ class PostNotesListScreen extends Component {
     const navigationTab = navigation.getParam('navigationTab');
 
     this.props.getFriendStatus({ profileUserId, currentUserId });
-    const goTo = currentUserId === profileUserId ?
-      'Profile' : `${navigationTab}_PublicProfile`;
 
-    navigation.navigate(goTo, { profileUser: friend, navigationTab });
+    navigation.navigate(`${navigationTab}_PublicProfile`, {
+      profileUser: friend, navigationTab
+    });
   }
 
   renderRow = (item) => {
