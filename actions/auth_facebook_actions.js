@@ -78,6 +78,7 @@ const saveUserProfile = async (data, picture, uid) => {
   await firebase.database().ref(`/userPijns/${uid}/${currentDate}/${uid}`).set('INITIALIZED');
   await firebase.database().ref(`/pinboards/${uid}/${uid}`).set('INITIALIZED');
   await firebase.database().ref(`/friends/${uid}/${uid}/status`).set('INITIALIZED');
+  await firebase.database().ref(`/notifications/${uid}`).set('INITIALIZED');
 };
 
 const updateUserProfile = async (data, picture, uid) => {

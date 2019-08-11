@@ -17,6 +17,7 @@ import friendList from './friend_list_reducer';
 import userFeed from './user_feed_reducer';
 import navigation from './navigation_reducer';
 import chat from './chat_reducer';
+import notifications from './notifications_reducer';
 
 export default combineReducers({
   auth,
@@ -36,5 +37,6 @@ export default combineReducers({
   requests,
   searchResults,
   userFeed,
-  chat
+  chat,
+  notifications
 });

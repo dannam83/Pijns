@@ -31,7 +31,35 @@ class NotificationsScreen extends Component {
     this.props.declineFriend({ profileUserId, currentUser, friend });
   }
 
-  renderRow = (item) => {
+  renderRequestRow = (item) => {
+    const {
+      itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
+    } = styles;
+    const { name, picture, uid } = item;
+
+    return (
+      <View style={itemStyle}>
+        <ListItemAsButton
+          text={name}
+          imageSource={picture}
+          onPress={() => this.goToPublicProfile(item)}
+        />
+        <View style={actionsViewStyle}>
+          <Button
+            buttonRestyle={acceptButtonStyle}
+            textRestyle={acceptTextStyle}
+            onPress={() => this.acceptFriend(uid)}
+          >Accept</Button>
+          <ButtonAsText
+            editTextStyle={xStyle}
+            onPress={() => this.declineFriend(uid)}
+          >x</ButtonAsText>
+        </View>
+      </View>
+    );
+  }
+
+  renderNotificationRow = (item) => {
     const {
       itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
     } = styles;
@@ -60,11 +88,17 @@ class NotificationsScreen extends Component {
   }
 
   render() {
+    console.log(this.props.notifications);
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
           data={this.props.requests}
-          renderItem={({ item }) => this.renderRow(item)}
+          renderItem={({ item }) => this.renderRequestRow(item)}
+          keyExtractor={({ item }, uid) => uid.toString()}
+        />
+        <FlatList
+          data={this.props.requests}
+          renderItem={({ item }) => this.renderNotificationRow(item)}
           keyExtractor={({ item }, uid) => uid.toString()}
         />
       </View>
@@ -74,8 +108,7 @@ class NotificationsScreen extends Component {
 
 const styles = {
   masterContainerStyle: {
-    flex: 1,
-    padding: 10
+    padding: 10,
   },
   containerStyle: {
     backgroundColor: '#EAEAEA',
@@ -115,11 +148,16 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  let requests = _.map(state.requests, (val) => {
+  const requests = _.map(state.requests, (val) => {
     return { ...val };
   });
+
+  const notifications = _.map(state.notifications, (val) => {
+    return { ...val };
+  });
+
   const { user, friend } = state;
-  return { requests, currentUser: user, friend };
+  return { currentUser: user, friend, requests, notifications };
 }
 
 export default connect(mapStateToProps, {

@@ -13,6 +13,7 @@ import {
   answerPrayer,
   unanswerPrayer
 } from '../../actions';
+import { addPijnNotification } from '../../api/notifications';
 
 class PostListItemFooter extends Component {
   state = {
@@ -75,7 +76,7 @@ class PostListItemFooter extends Component {
     return displayCommentCount;
   }
 
-  sendPijn = ({ postId, author, currentDate, user }) => {
+  sendPijn = ({ postId, author, currentDate, user, post }) => {
     const { navigationTab } = this.props;
 
     if (navigationTab === 'FriendPosts') {
@@ -83,6 +84,7 @@ class PostListItemFooter extends Component {
     }
 
     this.props.post.sendPijn({ postId, author, currentDate, user });
+    this.props.addPijnNotification(user.uid, postId, post);
   }
 
   worshipHandsPress = ({ postId, user }) => {
@@ -94,7 +96,8 @@ class PostListItemFooter extends Component {
   }
 
   postActionButtons({ postId, author, currentDate, user }) {
-    const { pijnSentToday } = this.props.post;
+    const { post } = this.props;
+    const { pijnSentToday } = post;
     const { actionsViewStyle, worshipHandsInactive, worshipHandsActive } = styles;
     const whStyle = this.props.post.answered ? worshipHandsActive : worshipHandsInactive;
 
@@ -103,7 +106,7 @@ class PostListItemFooter extends Component {
         <ActionButton
           imageSource={require('../../assets/images/pijn.png')}
           iconStyle={{ height: 24, width: 26 }}
-          onPress={() => this.sendPijn({ postId, author, currentDate, user })}
+          onPress={() => this.sendPijn({ postId, author, currentDate, user, post })}
           disabled={pijnSentToday}
         />
         <ActionButton
@@ -190,10 +193,14 @@ const styles = {
   },
 };
 
-export default connect(null, {
+function mapStateToProps() {
+  return { addPijnNotification };
+}
+
+export default connect(mapStateToProps, {
   commentsPopulate,
   setActivePost,
   fetchPostCommentLikes,
   answerPrayer,
-  unanswerPrayer
+  unanswerPrayer,
 })(PostListItemFooter);

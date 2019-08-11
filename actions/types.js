@@ -51,3 +51,5 @@ export const NOTES_CLEAR = 'NOTES_CLEAR';
 
 export const FETCH_CHAT = 'FETCH_CHAT';
 export const CHAT_CLEAR = 'CHAT_CLEAR';
+
+export const FETCH_NOTIFICATIONS = 'FETCH_NOTIFICATIONS';
