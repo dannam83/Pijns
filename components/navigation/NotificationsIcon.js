@@ -44,11 +44,15 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { requests } = state;
+  const { requests, notifications } = state;
   let notificationsCount = 0;
 
   if (requests) {
     notificationsCount += Object.keys(requests).length;
+  }
+
+  if (notifications) {
+    notificationsCount += Object.keys(notifications).length;
   }
 
   return ({ notificationsCount });
