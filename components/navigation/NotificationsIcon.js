@@ -52,7 +52,9 @@ function mapStateToProps(state) {
   }
 
   if (notifications) {
-    notificationsCount += Object.keys(notifications).length;
+    Object.keys(notifications).forEach(key => {
+      if (notifications[key].newPijns > 0) { notificationsCount += 1; }
+    });
   }
 
   return ({ notificationsCount });

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Image, TouchableOpacity, View } from 'react-native';
 
 const ListItemAsButton = ({
-  imageSource, text, onPress, disabled, imageRestyle, viewRestyle
+  imageSource, text, onPress, disabled, imageRestyle, viewRestyle, textRestyle
 }) => {
   const {
     viewStyle, textStyle, imageStyle
@@ -18,7 +18,7 @@ const ListItemAsButton = ({
           source={{ uri: imageSource }}
           style={[imageStyle, imageRestyle]}
         />
-        <Text style={textStyle}>
+        <Text style={[textStyle, textRestyle]}>
           {text}
         </Text>
       </View>

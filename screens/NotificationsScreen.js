@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../components/common';
 import { setFriendStatus, acceptFriend, declineFriend } from '../actions';
 import { buttonBlue } from '../assets/colors';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class NotificationsScreen extends Component {
   static navigationOptions = {
@@ -33,12 +35,12 @@ class NotificationsScreen extends Component {
 
   renderRequestRow = (item) => {
     const {
-      itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
+      requestStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
     } = styles;
     const { name, picture, uid } = item;
 
     return (
-      <View style={itemStyle}>
+      <View style={requestStyle}>
         <ListItemAsButton
           text={name}
           imageSource={picture}
@@ -61,34 +63,28 @@ class NotificationsScreen extends Component {
 
   renderNotificationRow = (item) => {
     const {
-      itemStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
+      notificationStyle, imageStyle, messageStyle, messageViewStyle, actionsViewStyle, xStyle
     } = styles;
-    const { name, picture, uid } = item;
+    const { content, newPijns } = item;
+    const pijn = newPijns === 1 ? 'pijn' : 'pijns';
+    const message = `You received ${newPijns} new ${pijn} for this prayer request.`;
 
     return (
-      <View style={itemStyle}>
-        <ListItemAsButton
-          text={name}
-          imageSource={picture}
-          onPress={() => this.goToPublicProfile(item)}
-        />
+      <View style={notificationStyle}>
+        <TouchableOpacity style={styles.viewDetailsStyle}>
+          <Image source={require('../assets/images/pijn.png')} style={imageStyle} />
+          <View style={[messageViewStyle, { width: SCREEN_WIDTH - 90 }]}>
+            <Text style={messageStyle}>{message} "{content}"</Text>
+          </View>
+        </TouchableOpacity>
         <View style={actionsViewStyle}>
-          <Button
-            buttonRestyle={acceptButtonStyle}
-            textRestyle={acceptTextStyle}
-            onPress={() => this.acceptFriend(uid)}
-          >Accept</Button>
-          <ButtonAsText
-            editTextStyle={xStyle}
-            onPress={() => this.declineFriend(uid)}
-          >x</ButtonAsText>
+          <ButtonAsText editTextStyle={xStyle}>x</ButtonAsText>
         </View>
       </View>
     );
   }
 
   render() {
-    console.log(this.props.notifications);
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
@@ -97,9 +93,9 @@ class NotificationsScreen extends Component {
           keyExtractor={({ item }, uid) => uid.toString()}
         />
         <FlatList
-          data={this.props.requests}
+          data={this.props.notifications}
           renderItem={({ item }) => this.renderNotificationRow(item)}
-          keyExtractor={({ item }, uid) => uid.toString()}
+          keyExtractor={({ item }, postId) => postId.toString()}
         />
       </View>
     );
@@ -110,13 +106,27 @@ const styles = {
   masterContainerStyle: {
     padding: 10,
   },
-  containerStyle: {
-    backgroundColor: '#EAEAEA',
-    borderRadius: 25
-  },
-  itemStyle: {
+  viewDetailsStyle: {
     flexDirection: 'row',
-    flex: 1,
+  },
+  notificationStyle: {
+    flexDirection: 'row',
+    marginBottom: 9,
+    marginTop: 4
+  },
+  imageStyle: {
+    height: 26,
+    width: 30,
+    marginLeft: 3
+  },
+  messageViewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  messageStyle: {
+  },
+  requestStyle: {
+    flexDirection: 'row',
   },
   actionsViewStyle: {
     flexDirection: 'row',
