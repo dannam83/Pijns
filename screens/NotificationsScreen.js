@@ -63,19 +63,17 @@ class NotificationsScreen extends Component {
 
   renderNotificationRow = (item) => {
     const {
-      notificationStyle, imageStyle, messageStyle, messageViewStyle, actionsViewStyle, xStyle
+      notificationStyle, bodyStyle, imageStyle, actionsViewStyle, xStyle
     } = styles;
     const { content, newPijns } = item;
     const pijn = newPijns === 1 ? 'pijn' : 'pijns';
-    const message = `You received ${newPijns} new ${pijn} for this prayer request.`;
+    const message = `You received ${newPijns} new ${pijn} for this prayer request!`;
 
     return (
       <View style={notificationStyle}>
-        <TouchableOpacity style={styles.viewDetailsStyle}>
+        <TouchableOpacity style={bodyStyle}>
           <Image source={require('../assets/images/pijn.png')} style={imageStyle} />
-          <View style={[messageViewStyle, { width: SCREEN_WIDTH - 90 }]}>
-            <Text style={messageStyle}>{message} "{content}"</Text>
-          </View>
+          <Text style={{ width: SCREEN_WIDTH - 90 }}>{message} "{content}"</Text>
         </TouchableOpacity>
         <View style={actionsViewStyle}>
           <ButtonAsText editTextStyle={xStyle}>x</ButtonAsText>
@@ -106,24 +104,21 @@ const styles = {
   masterContainerStyle: {
     padding: 10,
   },
-  viewDetailsStyle: {
-    flexDirection: 'row',
-  },
   notificationStyle: {
     flexDirection: 'row',
+    flex: 1,
     marginBottom: 9,
     marginTop: 4
+  },
+  bodyStyle: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
   },
   imageStyle: {
     height: 26,
     width: 30,
-    marginLeft: 3
-  },
-  messageViewStyle: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  messageStyle: {
+    marginLeft: 3,
+    marginRight: 6
   },
   requestStyle: {
     flexDirection: 'row',
@@ -165,6 +160,7 @@ function mapStateToProps(state) {
   const notifications = _.map(state.notifications, (val) => {
     return { ...val };
   });
+  notifications.sort((a, b) => a.timestamp - b.timestamp);
 
   const { user, friend } = state;
   return { currentUser: user, friend, requests, notifications };
