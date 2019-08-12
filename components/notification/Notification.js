@@ -5,7 +5,7 @@ import { ButtonAsText } from '../../components/common';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const Notification = ({ item }) => {
+const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const {
     containerStyle, bodyStyle, messageStyle, imageStyle, actionsViewStyle, xStyle
   } = styles;
@@ -14,9 +14,20 @@ const Notification = ({ item }) => {
   const message = `You received ${newPijns} new ${pijn} for this prayer request!`;
   const post = content.length < 90 ? content : `${content.slice(0, 90)}...`;
 
+  const goToPostNotes = async () => {
+    const { postId } = item;
+
+    navigation.navigate(`${navigationTab}_Notes`, {
+      user: currentUser,
+      postAuthorId: currentUser.uid,
+      postId,
+      navigationTab
+    });
+  };
+
   return (
     <View style={containerStyle}>
-      <TouchableOpacity style={bodyStyle}>
+      <TouchableOpacity style={bodyStyle} onPress={goToPostNotes}>
         <Image
           style={imageStyle}
           source={require('../../assets/images/pijn.png')}

@@ -28,9 +28,14 @@ class NotificationsScreen extends Component {
   }
 
   renderNotification = (item) => {
+    const { navigation, currentUser } = this.props;
+
     return (
       <Notification
         item={item}
+        navigation={navigation}
+        currentUser={currentUser}
+        navigationTab={'Notifications'}
       />
     );
   }
@@ -66,6 +71,7 @@ function mapStateToProps(state) {
   notifications.sort((a, b) => a.timestamp - b.timestamp);
 
   const { user, friend } = state;
+
   return { currentUser: user, friend, requests, notifications };
 }
 
