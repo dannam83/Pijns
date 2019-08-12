@@ -63,17 +63,24 @@ class NotificationsScreen extends Component {
 
   renderNotificationRow = (item) => {
     const {
-      notificationStyle, bodyStyle, imageStyle, actionsViewStyle, xStyle
+      notificationStyle, bodyStyle, messageStyle, imageStyle, actionsViewStyle, xStyle
     } = styles;
     const { content, newPijns } = item;
     const pijn = newPijns === 1 ? 'pijn' : 'pijns';
     const message = `You received ${newPijns} new ${pijn} for this prayer request!`;
+    const post = content.length < 90 ? content : `${content.slice(0, 90)}...`;
 
     return (
       <View style={notificationStyle}>
         <TouchableOpacity style={bodyStyle}>
-          <Image source={require('../assets/images/pijn.png')} style={imageStyle} />
-          <Text style={{ width: SCREEN_WIDTH - 90 }}>{message} "{content}"</Text>
+          <Image
+            style={imageStyle}
+            source={require('../assets/images/pijn.png')}
+          />
+          <Text
+            style={messageStyle}
+            numberOfLines={2}
+          >{message} "{post}"</Text>
         </TouchableOpacity>
         <View style={actionsViewStyle}>
           <ButtonAsText editTextStyle={xStyle}>x</ButtonAsText>
@@ -90,11 +97,13 @@ class NotificationsScreen extends Component {
           renderItem={({ item }) => this.renderRequestRow(item)}
           keyExtractor={({ item }, uid) => uid.toString()}
         />
-        <FlatList
-          data={this.props.notifications}
-          renderItem={({ item }) => this.renderNotificationRow(item)}
-          keyExtractor={({ item }, postId) => postId.toString()}
-        />
+        <View style={{ marginTop: 6 }}>
+          <FlatList
+            data={this.props.notifications}
+            renderItem={({ item }) => this.renderNotificationRow(item)}
+            keyExtractor={({ item }, postId) => postId.toString()}
+          />
+        </View>
       </View>
     );
   }
@@ -107,18 +116,22 @@ const styles = {
   notificationStyle: {
     flexDirection: 'row',
     flex: 1,
-    marginBottom: 9,
-    marginTop: 4
+    marginBottom: 14
   },
   bodyStyle: {
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   imageStyle: {
     height: 26,
     width: 30,
     marginLeft: 3,
     marginRight: 6
+  },
+  messageStyle: {
+    width: SCREEN_WIDTH - 90,
+    fontSize: 15
   },
   requestStyle: {
     flexDirection: 'row',
