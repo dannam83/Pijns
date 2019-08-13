@@ -48,13 +48,11 @@ class NotificationsScreen extends Component {
           renderItem={({ item }) => this.renderRequest(item)}
           keyExtractor={({ item }, uid) => uid.toString()}
         />
-        <View style={{ marginTop: 6 }}>
-          <FlatList
-            data={this.props.notifications}
-            renderItem={({ item }) => this.renderNotification(item)}
-            keyExtractor={({ item }, postId) => postId.toString()}
-          />
-        </View>
+        <FlatList
+          data={this.props.notifications}
+          renderItem={({ item }) => this.renderNotification(item)}
+          keyExtractor={({ item }, postId) => postId.toString()}
+        />
       </View>
     );
   }

@@ -1,20 +1,25 @@
 import firebase from 'firebase';
 
-export const addPijnNotification = (userId, postId, post) => {
+export const addPijnNotification = (user, postId, post) => {
   const { author, content } = post;
   const timestamp = -Date.now();
   const db = firebase.database();
-  const postRef = db.ref(`/notifications/${author.id}/${postId}`);
-  const newPijnsRef = db.ref(`/notifications/${author.id}/${postId}/newPijns`);
+  const notificationsRef = db.ref(`/notifications/${author.id}`);
+  const notificationsCountRef = db.ref(`/users/${author.id}/notifications`);
+  const id = notificationsRef.push().getKey();
 
-  if (userId !== author.id) {
-    newPijnsRef.transaction((currentCount) => (currentCount || 0) + 1);
-    postRef.update({ content, postId, timestamp });
+  if (user.uid !== author.id) {
+    notificationsRef.child(id).set({ id, content, postId, timestamp, sender: user });
+    notificationsCountRef.transaction((currentCount) => (currentCount || 0) + 1);
   }
 };
 
-export const zeroPijnNotification = (userId, postId) => {
+export const deleteNotification = (userId, notificationId) => {
+  firebase.database.ref(`/notifications/${userId}/${notificationId}`).set(null);
+};
+
+export const resetNotificationsCount = (userId) => {
   const db = firebase.database();
 
-  db.ref(`/notifications/${userId}/${postId}/newPijns`).set(0);
+  db.ref(`/users/${userId}/notifications`).set(0);
 };

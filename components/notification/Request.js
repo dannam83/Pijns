@@ -22,7 +22,7 @@ const Request = ({ item, navigation, currentUser, friend, actions }) => {
   const {
     requestStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
   } = styles;
-  
+
   const { name, picture, uid } = item;
 
   return (
@@ -48,9 +48,6 @@ const Request = ({ item, navigation, currentUser, friend, actions }) => {
 };
 
 const styles = {
-  masterContainerStyle: {
-    padding: 10,
-  },
   requestStyle: {
     flexDirection: 'row',
   },

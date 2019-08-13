@@ -2,7 +2,14 @@ import React from 'react';
 import { Text, Image, TouchableOpacity, View } from 'react-native';
 
 const ListItemAsButton = ({
-  imageSource, text, onPress, disabled, imageRestyle, viewRestyle, textRestyle
+  imageSource,
+  text,
+  onPress,
+  disabled,
+  imageRestyle,
+  viewRestyle,
+  textRestyle,
+  numberOfLines
 }) => {
   const {
     viewStyle, textStyle, imageStyle
@@ -18,7 +25,10 @@ const ListItemAsButton = ({
           source={{ uri: imageSource }}
           style={[imageStyle, imageRestyle]}
         />
-        <Text style={[textStyle, textRestyle]}>
+        <Text
+          style={[textStyle, textRestyle]}
+          numberOfLines={numberOfLines}
+        >
           {text}
         </Text>
       </View>

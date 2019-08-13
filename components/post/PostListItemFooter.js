@@ -84,7 +84,7 @@ class PostListItemFooter extends Component {
     }
 
     this.props.post.sendPijn({ postId, author, currentDate, user });
-    this.props.addPijnNotification(user.uid, postId, post);
+    this.props.addPijnNotification(user, postId, post);
   }
 
   worshipHandsPress = ({ postId, user }) => {

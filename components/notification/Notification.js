@@ -1,21 +1,20 @@
 import React from 'react';
-import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Dimensions } from 'react-native';
 
-import { ButtonAsText } from '../../components/common';
-import { zeroPijnNotification } from '../../api/notifications';
+import { ButtonAsText, ListItemAsButton } from '../../components/common';
+import { deleteNotification } from '../../api/notifications';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const {
-    containerStyle, bodyStyle, messageStyle, imageStyle, actionsViewStyle, xStyle
+    notificationStyle, messageStyle, xViewStyle, xStyle
   } = styles;
-  const { content, newPijns, postId } = item;
-  const pijn = newPijns === 1 ? 'pijn' : 'pijns';
-  const message = `You received ${newPijns} new ${pijn} for this prayer request!`;
-  const post = content.length < 90 ? content : `${content.slice(0, 90)}...`;
+  const { id, content, newPijns, postId, sender } = item;
+  const { name, picture } = sender;
+  const message = `${name} sent you a pijn note! You received prayer for "${content}"`;
 
-  const goToPostNotes = async () => {
+  const goToPostNotes = () => {
     navigation.navigate(`${navigationTab}_Notes`, {
       user: currentUser,
       postAuthorId: currentUser.uid,
@@ -28,21 +27,18 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
     newPijns === 0 ? (
       null
     ) : (
-      <View style={containerStyle}>
-        <TouchableOpacity style={bodyStyle} onPress={goToPostNotes}>
-          <Image
-            style={imageStyle}
-            source={require('../../assets/images/pijn.png')}
-          />
-          <Text
-            style={messageStyle}
-            numberOfLines={2}
-          >{message} "{post}"</Text>
-        </TouchableOpacity>
-        <View style={actionsViewStyle}>
+      <View style={notificationStyle}>
+        <ListItemAsButton
+          text={message}
+          imageSource={picture}
+          onPress={goToPostNotes}
+          textRestyle={messageStyle}
+          numberOfLines={3}
+        />
+        <View style={xViewStyle}>
           <ButtonAsText
             editTextStyle={xStyle}
-            onPress={() => zeroPijnNotification(currentUser.uid, postId)}
+            onPress={() => deleteNotification(currentUser.uid, id)}
           >x</ButtonAsText>
         </View>
       </View>
@@ -51,27 +47,15 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
 };
 
 const styles = {
-  containerStyle: {
+  notificationStyle: {
     flexDirection: 'row',
     flex: 1,
-    marginBottom: 14
-  },
-  bodyStyle: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  imageStyle: {
-    height: 26,
-    width: 30,
-    marginLeft: 3,
-    marginRight: 6
   },
   messageStyle: {
-    width: SCREEN_WIDTH - 90,
+    width: SCREEN_WIDTH - 100,
     fontSize: 15
   },
-  actionsViewStyle: {
+  xViewStyle: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'flex-end',
