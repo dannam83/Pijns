@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Dimensions } from 'react-native';
 
 import { ButtonAsText, ListItemAsButton } from '../../components/common';
-import { deleteNotification } from '../../api/notifications';
+import { deleteNotification, resetNotificationsCount } from '../../api/notifications';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const Notification = ({ item, navigation, navigationTab, currentUser }) => {
-  if (item.count) { return null; }
+  if (item.count || item.count === 0) { return null; }
 
   const {
     notificationStyle, messageStyle, xViewStyle, xStyle
@@ -17,6 +17,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const message = `${name} sent you a pijn note! You received prayer for "${content}"`;
 
   const goToPostNotes = () => {
+    resetNotificationsCount(currentUser.uid);
     navigation.navigate(`${navigationTab}_Notes`, {
       user: currentUser,
       postAuthorId: currentUser.uid,

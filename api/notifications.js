@@ -5,7 +5,7 @@ export const addPijnNotification = (user, postId, post) => {
   const timestamp = -Date.now();
   const db = firebase.database();
   const notificationsRef = db.ref(`/notifications/${author.id}`);
-  const notificationsCountRef = db.ref(`/notifications/${author.id}/newNotifications`);
+  const notificationsCountRef = db.ref(`/notifications/${author.id}/newNotifications/count`);
   const id = notificationsRef.push().getKey();
 
   if (user.uid !== author.id) {
@@ -15,11 +15,10 @@ export const addPijnNotification = (user, postId, post) => {
 };
 
 export const deleteNotification = (userId, notificationId) => {
-  firebase.database.ref(`/notifications/${userId}/${notificationId}`).set(null);
+  firebase.database().ref(`/notifications/${userId}/${notificationId}`).set(null);
 };
 
 export const resetNotificationsCount = (userId) => {
   const db = firebase.database();
-
-  db.ref(`/users/${userId}/notifications`).set(0);
+  db.ref(`/notifications/${userId}/newNotifications/count`).set(0);
 };

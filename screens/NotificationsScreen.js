@@ -6,11 +6,20 @@ import _ from 'lodash';
 import Request from '../components/notification/Request';
 import Notification from '../components/notification/Notification';
 import { setFriendStatus, acceptFriend, declineFriend } from '../actions';
+import { resetNotificationsCount } from '../api/notifications';
 
 class NotificationsScreen extends Component {
   static navigationOptions = {
     title: 'Notifications',
   };
+
+  componentDidMount() {
+    this.props.resetNotificationsCount(this.props.currentUser.uid);
+  }
+
+  componentWillUnmount() {
+    this.props.resetNotificationsCount(this.props.currentUser.uid);
+  }
 
   renderRequest = (item) => {
     const { navigation, currentUser, friend } = this.props;
@@ -70,7 +79,7 @@ function mapStateToProps(state) {
 
   const { user, friend } = state;
 
-  return { currentUser: user, friend, requests, notifications };
+  return { currentUser: user, friend, requests, notifications, resetNotificationsCount };
 }
 
 export default connect(mapStateToProps, {

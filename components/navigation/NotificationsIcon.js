@@ -44,6 +44,19 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  // const { requests, notifications } = state;
+  // let notificationsCount = 0;
+  //
+  // if (requests) {
+  //   notificationsCount += Object.keys(requests).length;
+  // }
+  //
+  // if (notifications) {
+  //   Object.keys(notifications).forEach(key => {
+  //     if (notifications[key].newPijns > 0) { notificationsCount += 1; }
+  //   });
+  // }
+  console.log(state);
   const { count } = state.notifications.newNotifications;
   return ({ notifications: count });
 }
