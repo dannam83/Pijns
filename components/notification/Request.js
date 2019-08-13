@@ -1,8 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
 import { buttonBlue } from '../../assets/colors';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const Request = ({ item, navigation, currentUser, friend, actions }) => {
   const goToPublicProfile = (profileUser) => {
@@ -20,17 +22,34 @@ const Request = ({ item, navigation, currentUser, friend, actions }) => {
   };
 
   const {
-    requestStyle, actionsViewStyle, acceptButtonStyle, acceptTextStyle, xStyle
+    requestStyle,
+    messageStyle,
+    nameStyle,
+    actionsViewStyle,
+    acceptButtonStyle,
+    acceptTextStyle,
+    xStyle
   } = styles;
 
   const { name, picture, uid } = item;
 
+  const message = () => {
+    return (
+      <Text>
+        <Text style={nameStyle}>{name} </Text>
+        requested to be friends.
+      </Text>
+    );
+  };
+
   return (
     <View style={requestStyle}>
       <ListItemAsButton
-        text={name}
+        text={message()}
         imageSource={picture}
         onPress={() => goToPublicProfile(item)}
+        textRestyle={messageStyle}
+        numberOfLines={2}
       />
       <View style={actionsViewStyle}>
         <Button
@@ -50,6 +69,14 @@ const Request = ({ item, navigation, currentUser, friend, actions }) => {
 const styles = {
   requestStyle: {
     flexDirection: 'row',
+    flex: 1
+  },
+  messageStyle: {
+    width: SCREEN_WIDTH - 170,
+    fontSize: 15
+  },
+  nameStyle: {
+    fontWeight: 600
   },
   actionsViewStyle: {
     flexDirection: 'row',

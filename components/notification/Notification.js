@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 
 import { ButtonAsText, ListItemAsButton } from '../../components/common';
 import { deleteNotification, resetNotificationsCount } from '../../api/notifications';
@@ -10,11 +10,20 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   if (item.count || item.count === 0) { return null; }
 
   const {
-    notificationStyle, messageStyle, xViewStyle, xStyle
+    notificationStyle, messageStyle, nameStyle, contentStyle, xViewStyle, xStyle
   } = styles;
   const { id, content, postId, sender } = item;
   const { name, picture } = sender;
-  const message = `${name} sent you a pijn note! You received prayer for "${content}"`;
+
+  const message = () => {
+    return (
+      <Text style={messageStyle}>
+        <Text style={nameStyle}>{name} </Text>
+        sent you a pijn note! You received prayer for "
+        <Text style={contentStyle}>{content}"</Text>
+      </Text>
+    );
+  };
 
   const goToPostNotes = () => {
     resetNotificationsCount(currentUser.uid);
@@ -29,11 +38,11 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   return (
     <View style={notificationStyle}>
       <ListItemAsButton
-        text={message}
+        text={message()}
         imageSource={picture}
         onPress={goToPostNotes}
         textRestyle={messageStyle}
-        numberOfLines={3}
+        numberOfLines={2}
       />
       <View style={xViewStyle}>
         <ButtonAsText
@@ -53,6 +62,12 @@ const styles = {
   messageStyle: {
     width: SCREEN_WIDTH - 100,
     fontSize: 15
+  },
+  nameStyle: {
+    fontWeight: 600
+  },
+  contentStyle: {
+    fontStyle: 'italic'
   },
   xViewStyle: {
     flexDirection: 'row',
