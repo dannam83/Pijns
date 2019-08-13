@@ -3,6 +3,8 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ButtonAsText, ListItemAsButton } from '../../components/common';
 import { deleteNotification, resetNotificationsCount } from '../../api/notifications';
+import { displayTimeAgoShort } from '../../functions/common';
+import { timeAgoShortGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -10,9 +12,9 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   if (item.count || item.count === 0) { return null; }
 
   const {
-    notificationStyle, messageStyle, nameStyle, contentStyle, xViewStyle, xStyle
+    notificationStyle, messageStyle, nameStyle, contentStyle, xViewStyle, timeStyle
   } = styles;
-  const { id, content, postId, sender } = item;
+  const { id, content, postId, timestamp, sender } = item;
   const { name, picture } = sender;
 
   const message = () => {
@@ -45,10 +47,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         numberOfLines={2}
       />
       <View style={xViewStyle}>
-        <ButtonAsText
-          editTextStyle={xStyle}
-          onPress={() => deleteNotification(currentUser.uid, id)}
-        >x</ButtonAsText>
+        <Text style={timeStyle}>{displayTimeAgoShort(timestamp)}</Text>
       </View>
     </View>
   );
@@ -60,7 +59,7 @@ const styles = {
     flex: 1,
   },
   messageStyle: {
-    width: SCREEN_WIDTH - 100,
+    width: SCREEN_WIDTH - 111,
     fontSize: 15
   },
   nameStyle: {
@@ -73,12 +72,15 @@ const styles = {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'flex-end',
-    paddingBottom: 10
+    alignItems: 'center',
+    paddingBottom: 10,
+    paddingRight: 5
   },
-  xStyle: {
+  timeStyle: {
     paddingBottom: 2,
-    fontWeight: '700',
-    fontSize: 14
+    fontWeight: '400',
+    fontSize: 14,
+    color: timeAgoShortGray
   },
 };
 
