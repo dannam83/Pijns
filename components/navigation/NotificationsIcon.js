@@ -5,14 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 class NotificationsIcon extends Component {
   render() {
-    const { name, size, focused, color, notificationsCount } = this.props;
+    const { name, size, focused, color, notifications } = this.props;
 
     return (
       <View>
-        {notificationsCount > 0 ?
+        {notifications > 0 ?
           <View style={styles.badgeViewStyle}>
             <Text style={styles.badgeStyle}>
-              { notificationsCount < 100 ? notificationsCount : '!' }
+              { notifications < 100 ? notifications : '!' }
             </Text>
           </View>
           :
@@ -44,20 +44,8 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { requests, notifications } = state;
-  let notificationsCount = 0;
-
-  if (requests) {
-    notificationsCount += Object.keys(requests).length;
-  }
-
-  if (notifications) {
-    Object.keys(notifications).forEach(key => {
-      if (notifications[key].newPijns > 0) { notificationsCount += 1; }
-    });
-  }
-
-  return ({ notificationsCount });
+  const { count } = state.notifications.newNotifications;
+  return ({ notifications: count });
 }
 
 export default connect(mapStateToProps)(NotificationsIcon);

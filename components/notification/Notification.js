@@ -7,10 +7,12 @@ import { deleteNotification } from '../../api/notifications';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const Notification = ({ item, navigation, navigationTab, currentUser }) => {
+  if (item.count) { return null; }
+
   const {
     notificationStyle, messageStyle, xViewStyle, xStyle
   } = styles;
-  const { id, content, newPijns, postId, sender } = item;
+  const { id, content, postId, sender } = item;
   const { name, picture } = sender;
   const message = `${name} sent you a pijn note! You received prayer for "${content}"`;
 
@@ -24,25 +26,21 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   };
 
   return (
-    newPijns === 0 ? (
-      null
-    ) : (
-      <View style={notificationStyle}>
-        <ListItemAsButton
-          text={message}
-          imageSource={picture}
-          onPress={goToPostNotes}
-          textRestyle={messageStyle}
-          numberOfLines={3}
-        />
-        <View style={xViewStyle}>
-          <ButtonAsText
-            editTextStyle={xStyle}
-            onPress={() => deleteNotification(currentUser.uid, id)}
-          >x</ButtonAsText>
-        </View>
+    <View style={notificationStyle}>
+      <ListItemAsButton
+        text={message}
+        imageSource={picture}
+        onPress={goToPostNotes}
+        textRestyle={messageStyle}
+        numberOfLines={3}
+      />
+      <View style={xViewStyle}>
+        <ButtonAsText
+          editTextStyle={xStyle}
+          onPress={() => deleteNotification(currentUser.uid, id)}
+        >x</ButtonAsText>
       </View>
-    )
+    </View>
   );
 };
 

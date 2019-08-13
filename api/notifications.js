@@ -5,7 +5,7 @@ export const addPijnNotification = (user, postId, post) => {
   const timestamp = -Date.now();
   const db = firebase.database();
   const notificationsRef = db.ref(`/notifications/${author.id}`);
-  const notificationsCountRef = db.ref(`/users/${author.id}/notifications`);
+  const notificationsCountRef = db.ref(`/notifications/${author.id}/newNotifications`);
   const id = notificationsRef.push().getKey();
 
   if (user.uid !== author.id) {
