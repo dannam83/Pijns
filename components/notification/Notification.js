@@ -64,7 +64,7 @@ const styles = {
     fontSize: 15
   },
   nameStyle: {
-    fontWeight: 600
+    fontWeight: '600'
   },
   contentStyle: {
     fontStyle: 'italic'
