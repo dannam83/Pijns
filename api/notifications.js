@@ -1,7 +1,5 @@
 import firebase from 'firebase';
 
-import { getTimestampDate } from '../functions/common';
-
 export const addPijnNotification = (userId, postId, post) => {
   const { author, content } = post;
   const timestamp = -Date.now();
@@ -16,8 +14,7 @@ export const addPijnNotification = (userId, postId, post) => {
 };
 
 export const zeroPijnNotification = (userId, postId) => {
-  const date = getTimestampDate();
   const db = firebase.database();
 
-  db.ref(`/notifications/${userId}/${date}/${postId}`).set(0);
+  db.ref(`/notifications/${userId}/${postId}/newPijns`).set(0);
 };

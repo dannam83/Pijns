@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 
 import { ButtonAsText } from '../../components/common';
+import { zeroPijnNotification } from '../../api/notifications';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -9,14 +10,12 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const {
     containerStyle, bodyStyle, messageStyle, imageStyle, actionsViewStyle, xStyle
   } = styles;
-  const { content, newPijns } = item;
+  const { content, newPijns, postId } = item;
   const pijn = newPijns === 1 ? 'pijn' : 'pijns';
   const message = `You received ${newPijns} new ${pijn} for this prayer request!`;
   const post = content.length < 90 ? content : `${content.slice(0, 90)}...`;
 
   const goToPostNotes = async () => {
-    const { postId } = item;
-
     navigation.navigate(`${navigationTab}_Notes`, {
       user: currentUser,
       postAuthorId: currentUser.uid,
@@ -26,21 +25,28 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   };
 
   return (
-    <View style={containerStyle}>
-      <TouchableOpacity style={bodyStyle} onPress={goToPostNotes}>
-        <Image
-          style={imageStyle}
-          source={require('../../assets/images/pijn.png')}
-        />
-        <Text
-          style={messageStyle}
-          numberOfLines={2}
-        >{message} "{post}"</Text>
-      </TouchableOpacity>
-      <View style={actionsViewStyle}>
-        <ButtonAsText editTextStyle={xStyle}>x</ButtonAsText>
+    newPijns === 0 ? (
+      null
+    ) : (
+      <View style={containerStyle}>
+        <TouchableOpacity style={bodyStyle} onPress={goToPostNotes}>
+          <Image
+            style={imageStyle}
+            source={require('../../assets/images/pijn.png')}
+          />
+          <Text
+            style={messageStyle}
+            numberOfLines={2}
+          >{message} "{post}"</Text>
+        </TouchableOpacity>
+        <View style={actionsViewStyle}>
+          <ButtonAsText
+            editTextStyle={xStyle}
+            onPress={() => zeroPijnNotification(currentUser.uid, postId)}
+          >x</ButtonAsText>
+        </View>
       </View>
-    </View>
+    )
   );
 };
 
