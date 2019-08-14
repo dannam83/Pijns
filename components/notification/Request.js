@@ -72,7 +72,7 @@ const styles = {
     flex: 1
   },
   messageStyle: {
-    width: SCREEN_WIDTH - 170,
+    width: SCREEN_WIDTH - 190,
     fontSize: 15
   },
   nameStyle: {
