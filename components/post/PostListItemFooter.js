@@ -21,12 +21,12 @@ class PostListItemFooter extends Component {
     commentCount: this.props.post.commentCount || 0,
   }
 
+  // await this.props.fetchPostCommentLikes({ userId: user.uid, postId });
+  // await this.props.commentsPopulate(postId);
   goToComments = async () => {
     const { redirect, post, navigationTab } = this.props;
     const { user, postId, author, index, navigation } = post;
 
-    await this.props.fetchPostCommentLikes({ userId: user.uid, postId });
-    await this.props.commentsPopulate(postId);
     await this.props.setActivePost({ postId, postAuthor: author });
 
     navigation.navigate(`${navigationTab}_Comments`, {

@@ -5,6 +5,7 @@ import { ListItemAsButton } from '../../components/common';
 import { resetNotificationsCount } from '../../api/notifications';
 import { displayTimeAgoShort } from '../../functions/common';
 import { timeAgoShortGray } from '../../assets/colors';
+import { setActivePost } from '../../actions';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -38,10 +39,28 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const goToPostNotes = () => {
     resetNotificationsCount(currentUser.uid);
     const [user, postAuthorId] = [currentUser, currentUser.uid];
-    
+
     navigation.navigate(`${navigationTab}_Notes`, {
       user, postAuthorId, postId, navigationTab
     });
+  };
+
+  const goToComments = async () => {
+    const [redirect, userId] = [navigation.navigate, currentUser.uid];
+
+    await setActivePost({ postId, postAuthor: currentUser });
+
+    navigation.navigate(`${navigationTab}_Comments`, {
+      user: currentUser, postAuthorId: userId, postId, redirect
+    });
+  };
+
+  const onPress = () => {
+    if (type === 'pijnNote') {
+      return goToPostNotes;
+    } else if (type === 'comment') {
+      return goToComments;
+    }
   };
 
   return (
@@ -49,7 +68,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
       <ListItemAsButton
         text={message()}
         imageSource={picture}
-        onPress={goToPostNotes}
+        onPress={onPress()}
         textRestyle={messageStyle}
         numberOfLines={2}
       />

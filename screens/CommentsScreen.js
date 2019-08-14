@@ -4,14 +4,26 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
-import { commentCreateSave, updateCommentCount } from '../actions';
 import { addCommentNotification } from '../api/notifications';
+import {
+  commentCreateSave, updateCommentCount, commentsPopulate, fetchPostCommentLikes
+} from '../actions';
 
 
 class CommentsScreen extends Component {
   static navigationOptions = {
     title: 'Comments',
   };
+
+  componentDidMount() {
+    const { props } = this;
+    const { navigation, fetchPostCommentLikes, commentsPopulate } = props;
+    const user = props.user || navigation.getParam('user');
+    const postId = props.postId || navigation.getParam('postId');
+
+    fetchPostCommentLikes({ userId: user.uid, postId });
+    commentsPopulate(postId);
+  }
 
   saveComment = ({ user, postAuthorId, postId, index, comment }) => {
     const {
@@ -30,11 +42,11 @@ class CommentsScreen extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const user = navigation.getParam('user');
-    const postAuthorId = navigation.getParam('postAuthorId');
-    const postId = navigation.getParam('postId');
-    const index = navigation.getParam('index');
+    const [props, navigation] = [this.props, this.props.navigation];
+    const user = props.user || navigation.getParam('user');
+    const postAuthorId = props.postAuthorId || navigation.getParam('postAuthorId');
+    const postId = props.postId || navigation.getParam('postId');
+    const index = props.index || navigation.getParam('index');
 
     return (
       <KeyboardAvoidingView
@@ -77,5 +89,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  commentCreateSave, updateCommentCount
+  commentCreateSave, updateCommentCount, commentsPopulate, fetchPostCommentLikes
 })(CommentsScreen);
