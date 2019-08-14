@@ -14,26 +14,33 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const {
     notificationStyle, messageStyle, nameStyle, contentStyle, xViewStyle, timeStyle
   } = styles;
-  const { content, postId, timestamp, sender } = item;
+  const { content, postId, timestamp, sender, type } = item;
   const { name, picture } = sender;
+
+  const messageIntro = () => {
+    if (type === 'pijnNote') {
+      return 'sent you a pijn note! You received prayer for';
+    } else if (type === 'comment') {
+      return 'wrote a comment:';
+    }
+  };
 
   const message = () => {
     return (
       <Text style={messageStyle}>
         <Text style={nameStyle}>{name} </Text>
-        sent you a pijn note! You received prayer for "
-        <Text style={contentStyle}>{content}"</Text>
+         {messageIntro()}
+        <Text style={contentStyle}> "{content}"</Text>
       </Text>
     );
   };
 
   const goToPostNotes = () => {
     resetNotificationsCount(currentUser.uid);
+    const [user, postAuthorId] = [currentUser, currentUser.uid];
+    
     navigation.navigate(`${navigationTab}_Notes`, {
-      user: currentUser,
-      postAuthorId: currentUser.uid,
-      postId,
-      navigationTab
+      user, postAuthorId, postId, navigationTab
     });
   };
 
