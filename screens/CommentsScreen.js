@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
 import { commentCreateSave, updateCommentCount } from '../actions';
+import { addCommentNotification } from '../api/notifications';
 
 
 class CommentsScreen extends Component {
@@ -13,11 +14,16 @@ class CommentsScreen extends Component {
   };
 
   saveComment = ({ user, postAuthorId, postId, index, comment }) => {
+    const {
+      commentCreateSave, updateCommentCount, addCommentNotification
+    } = this.props;
+
     try {
-      this.props.commentCreateSave({ user, comment, postAuthorId, postId });
+      commentCreateSave({ user, comment, postAuthorId, postId });
       if (index >= 0) {
-        this.props.updateCommentCount(index);
+        updateCommentCount(index);
       }
+      addCommentNotification(user, postId, postAuthorId, comment);
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
@@ -67,7 +73,7 @@ const styles = {
 
 function mapStateToProps(state) {
   const { commentTyped } = state;
-  return { commentTyped };
+  return { commentTyped, addCommentNotification };
 }
 
 export default connect(mapStateToProps, {

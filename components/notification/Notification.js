@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 
-import { ButtonAsText, ListItemAsButton } from '../../components/common';
-import { deleteNotification, resetNotificationsCount } from '../../api/notifications';
+import { ListItemAsButton } from '../../components/common';
+import { resetNotificationsCount } from '../../api/notifications';
 import { displayTimeAgoShort } from '../../functions/common';
 import { timeAgoShortGray } from '../../assets/colors';
 
@@ -14,7 +14,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const {
     notificationStyle, messageStyle, nameStyle, contentStyle, xViewStyle, timeStyle
   } = styles;
-  const { id, content, postId, timestamp, sender } = item;
+  const { content, postId, timestamp, sender } = item;
   const { name, picture } = sender;
 
   const message = () => {
