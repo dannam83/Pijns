@@ -15,6 +15,7 @@ import CommentsScreen from '../screens/CommentsScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
+import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
 const FriendPostsStack = createStackNavigator({
@@ -75,7 +76,7 @@ const NotificationsStack = createStackNavigator({
   Notifications_PublicProfile: PublicProfileScreen,
   Notifications_Chat: ChatScreen,
   Notifications_Notes: PostNotesListScreen,
-  Notifications_Comments: CommentsScreen,
+  Notifications_Post: PostScreen,
 });
 
 NotificationsStack.navigationOptions = {

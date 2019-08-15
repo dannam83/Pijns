@@ -39,9 +39,3 @@ const incrementCounter = (postAuthorId) => {
 
   countRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
-
-
-export const resetNotificationsCount = (userId) => {
-  const db = firebase.database();
-  db.ref(`/notifications/${userId}/newNotifications/count`).set(0);
-};

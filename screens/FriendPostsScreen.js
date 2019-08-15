@@ -95,6 +95,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log('s', state);
   const { user, userFeed, pijnLog, pinboard } = state;
   let posts = _.map(userFeed, (post, index) => {
     const pijnSentToday = !!pijnLog[post.postId];

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-import { CommentsScreen } from './CommentsScreen';
+import CommentsScreen from './CommentsScreen';
 
 class PostScreen extends Component {
   static navigationOptions = {
-    title: 'Test Screen',
+    title: 'Post',
   };
 
 
@@ -14,14 +14,15 @@ class PostScreen extends Component {
     const user = getParam('user');
     const postAuthorId = getParam('postAuthorId');
     const postId = getParam('postId');
-    const index = getParam('index');
+    const author = getParam('author');
 
     return (
       <CommentsScreen
         user={user}
         postAuthorId={postAuthorId}
         postId={postId}
-        index={index}
+        author={author}
+        navigation={this.props.navigation}
       />
     );
   }

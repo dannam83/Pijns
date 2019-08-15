@@ -6,7 +6,11 @@ import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
 import { addCommentNotification } from '../api/notifications';
 import {
-  commentCreateSave, updateCommentCount, commentsPopulate, fetchPostCommentLikes
+  commentCreateSave,
+  updateCommentCount,
+  commentsPopulate,
+  fetchPostCommentLikes,
+  setActivePost
 } from '../actions';
 
 
@@ -17,12 +21,14 @@ class CommentsScreen extends Component {
 
   componentDidMount() {
     const { props } = this;
-    const { navigation, fetchPostCommentLikes, commentsPopulate } = props;
+    const { navigation, fetchPostCommentLikes, commentsPopulate, setActivePost } = props;
     const user = props.user || navigation.getParam('user');
     const postId = props.postId || navigation.getParam('postId');
+    const author = props.author || navigation.getParam('author');
 
     fetchPostCommentLikes({ userId: user.uid, postId });
     commentsPopulate(postId);
+    setActivePost({ postId, postAuthor: author });
   }
 
   saveComment = ({ user, postAuthorId, postId, index, comment }) => {
@@ -89,5 +95,9 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  commentCreateSave, updateCommentCount, commentsPopulate, fetchPostCommentLikes
+  commentCreateSave,
+  updateCommentCount,
+  commentsPopulate,
+  fetchPostCommentLikes,
+  setActivePost
 })(CommentsScreen);

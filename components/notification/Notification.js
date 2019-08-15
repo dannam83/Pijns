@@ -50,7 +50,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
 
     await setActivePost({ postId, postAuthor: currentUser });
 
-    navigation.navigate(`${navigationTab}_Comments`, {
+    navigation.navigate(`${navigationTab}_Post`, {
       user: currentUser, postAuthorId: userId, postId, redirect
     });
   };

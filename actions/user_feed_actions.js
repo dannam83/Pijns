@@ -27,6 +27,7 @@ const queryUserFeed = (userId) => {
 };
 
 export const updateCommentCount = (index) => {
+  console.log('act', index);
   return {
     type: UPDATE_COMMENT_COUNT,
     index
