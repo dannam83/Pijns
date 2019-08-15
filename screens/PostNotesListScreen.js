@@ -31,8 +31,6 @@ class PostNotesListScreen extends Component {
 
     if (profileUserId !== uid) {
       push(`${navigationTab}_PublicProfile`, { profileUser: note, navigationTab });
-    } else if (navigationTab === 'Profile') {
-      push('Profile');
     } else {
       navigate('Profile');
     }

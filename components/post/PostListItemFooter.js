@@ -115,7 +115,6 @@ class PostListItemFooter extends Component {
   }
 
   render() {
-    console.log('render', this.props.post.commentCount);
     const { dividerStyle } = styles;
     const { post, pinnedOnly } = this.props;
     const { user, author, index, postId, answered, pinned } = post;

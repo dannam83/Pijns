@@ -77,6 +77,7 @@ const NotificationsStack = createStackNavigator({
   Notifications_Chat: ChatScreen,
   Notifications_Notes: PostNotesListScreen,
   Notifications_Post: PostScreen,
+  Notifications_Comments: CommentsScreen,
 });
 
 NotificationsStack.navigationOptions = {
