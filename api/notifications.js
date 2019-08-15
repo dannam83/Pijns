@@ -33,7 +33,7 @@ const addNotification = (postAuthorId, notification) => {
   notificationsRef.child(key).set({ ...notification, id: key });
 };
 
-const incrementCounter = (postAuthorId) => {
+export const incrementCounter = (postAuthorId) => {
   const db = firebase.database();
   const countRef = db.ref(`/notifications/${postAuthorId}/newNotifications/count`);
 

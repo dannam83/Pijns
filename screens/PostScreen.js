@@ -8,7 +8,6 @@ class PostScreen extends Component {
     title: 'Post',
   };
 
-
   render() {
     const { getParam } = this.props.navigation;
     const user = getParam('user');

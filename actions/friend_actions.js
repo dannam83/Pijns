@@ -1,10 +1,13 @@
 import firebase from 'firebase';
 
+import { incrementCounter } from '../api/notifications';
+
 import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
 
 export const friendRequest = ({ profileUserId, currentUser }) => {
   return () => {
     processRequest({ profileUserId, currentUser, type: 'request' });
+    incrementCounter(profileUserId);
   };
 };
 

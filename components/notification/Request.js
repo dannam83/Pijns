@@ -3,6 +3,7 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
 import { buttonBlue } from '../../assets/colors';
+import { resetNotificationsCount } from '../../api/notifications';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -14,10 +15,12 @@ const Request = ({ item, navigation, currentUser, friend, actions }) => {
   };
 
   const acceptFriend = (profileUserId) => {
+    resetNotificationsCount(currentUser.uid);
     actions.acceptFriend({ profileUserId, currentUser, friend });
   };
 
   const declineFriend = (profileUserId) => {
+    resetNotificationsCount(currentUser.uid);
     actions.declineFriend({ profileUserId, currentUser, friend });
   };
 

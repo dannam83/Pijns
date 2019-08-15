@@ -9,6 +9,8 @@ import { disabledGray, buttonBlue } from '../../assets/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ProfileHeaderPublic extends Component {
+  state = { unfriend: 'Unfriend' };
+
   friendRequestButton(profileUserId, currentUser) {
     return (
       <Button
@@ -33,16 +35,21 @@ class ProfileHeaderPublic extends Component {
     );
   }
 
+  unfriend(profileUserId, currentUser) {
+    this.props.unfriend({ profileUserId, currentUser });
+    this.setState({ unfriend: 'in progress...' });
+  }
+
   unfriendButton(profileUserId, currentUser) {
     const { buttonBorderGray, buttonTextGray } = styles;
 
     return (
       <Button
-        onPress={() => this.props.unfriend({ profileUserId, currentUser })}
+        onPress={() => this.unfriend(profileUserId, currentUser)}
         buttonRestyle={buttonBorderGray}
         textRestyle={buttonTextGray}
       >
-        Unfriend
+        {this.state.unfriend}
       </Button>
     );
   }
