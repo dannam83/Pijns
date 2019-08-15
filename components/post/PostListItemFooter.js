@@ -18,7 +18,6 @@ import { addPijnNotification } from '../../api/notifications';
 class PostListItemFooter extends Component {
   state = {
     noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
-    commentCount: this.props.post.commentCount || 0,
   }
 
   goToComments = async () => {
@@ -58,18 +57,7 @@ class PostListItemFooter extends Component {
   }
 
   displayCommentCount = () => {
-    const { post, navigationTab } = this.props;
-    const { commentCount } = post;
-    let displayCommentCount;
-
-    if (navigationTab === 'FriendPosts') {
-      displayCommentCount = this.state.commentCount;
-    }
-    if (navigationTab === 'MyPosts') {
-      displayCommentCount = !commentCount ? 0 : commentCount;
-    }
-
-    return displayCommentCount;
+    return this.props.post.commentCount || 0;
   }
 
   sendPijn = ({ postId, author, currentDate, user, post }) => {
@@ -127,6 +115,7 @@ class PostListItemFooter extends Component {
   }
 
   render() {
+    console.log('render', this.props.post.commentCount);
     const { dividerStyle } = styles;
     const { post, pinnedOnly } = this.props;
     const { user, author, index, postId, answered, pinned } = post;

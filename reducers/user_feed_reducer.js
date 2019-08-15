@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
       console.log('b', post.commentCount);
       post.commentCount = post.commentCount ? post.commentCount + 1 : 1;
       console.log('after', post.commentCount);
-      return state;
+      return [...state];
     default:
       return state;
   }
