@@ -53,6 +53,7 @@ class CommentsScreen extends Component {
     const postAuthorId = props.postAuthorId || navigation.getParam('postAuthorId');
     const postId = props.postId || navigation.getParam('postId');
     const index = props.index || navigation.getParam('index');
+    const navigationTab = props.index || navigation.getParam('navigationTab');
 
     return (
       <KeyboardAvoidingView
@@ -65,6 +66,7 @@ class CommentsScreen extends Component {
           postAuthorId={postAuthorId}
           postId={postId}
           user={user}
+          navigationTab={navigationTab}
         />
         <InputGrowing
           user={user}

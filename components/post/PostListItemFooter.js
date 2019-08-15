@@ -25,7 +25,7 @@ class PostListItemFooter extends Component {
     const { user, postId, author, navigation, index } = post;
 
     navigation.navigate(`${navigationTab}_Comments`, {
-      user, postAuthorId: author.id, postId, redirect, author, index
+      user, postAuthorId: author.id, postId, redirect, author, index, navigationTab
     });
   };
 

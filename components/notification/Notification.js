@@ -40,7 +40,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
     resetNotificationsCount(currentUser.uid);
     const [user, postAuthorId] = [currentUser, currentUser.uid];
 
-    navigation.navigate(`${navigationTab}_Notes`, {
+    navigation.push(`${navigationTab}_Notes`, {
       user, postAuthorId, postId, navigationTab
     });
   };
@@ -51,8 +51,8 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
 
     await setActivePost({ postId, postAuthor: currentUser });
 
-    navigation.navigate(`${navigationTab}_Post`, {
-      user: currentUser, postAuthorId: userId, postId, redirect
+    navigation.push(`${navigationTab}_Post`, {
+      user: currentUser, postAuthorId: userId, postId, redirect, navigationTab
     });
   };
 

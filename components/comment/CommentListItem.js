@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 
-import { likeComment } from '../../actions';
+import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
-import { ActionButton } from '../../components/common';
+import { ActionButton, ButtonAsText } from '../../components/common';
 import { lightTextGray } from '../../assets/colors';
 
 class CommentListItem extends Component {
@@ -38,6 +38,25 @@ class CommentListItem extends Component {
     return false;
   }
 
+  goToPublicProfile = () => {
+    const currentUserId = this.props.user.uid;
+    const profileUserId = this.props.comment.author.uid;
+    const profileUser = this.props.comment.author;
+    const { navigate } = this.props.navigation;
+    const { navigationTab } = this.props;
+
+    if (currentUserId === profileUserId) {
+      navigate('Profile');
+    } else if (this.props.friendList && this.props.friendList[profileUserId]) {
+      navigate(`${navigationTab}_PublicProfile`, {
+        profileUser, status: 'Unfriend', navigationTab
+      });
+    } else {
+      this.props.getFriendStatus({ profileUserId, currentUserId });
+      navigate(`${navigationTab}_PublicProfile`, { profileUser, navigationTab });
+    }
+  };
+
   render() {
     const {
       author,
@@ -68,14 +87,21 @@ class CommentListItem extends Component {
 
     return (
       <View style={containerStyle}>
-        <Image
-          style={thumbnailStyle}
-          source={{ uri: picture }}
+        <ActionButton
+          iconStyle={thumbnailStyle}
+          imageSource={{ uri: picture }}
+          onPress={this.goToPublicProfile}
         />
         <View style={textViewStyle}>
           <View style={commentHeaderStyle}>
             <View style={commentHeaderFrontStyle}>
-              <Text style={nameStyle}>{name}</Text>
+              <ButtonAsText
+                editTextStyle={nameStyle}
+                editButtonStyle={{ paddingRight: 8 }}
+                onPress={this.goToPublicProfile}
+              >
+                {name}
+              </ButtonAsText>
               <Text style={timeAgoStyle}>{timeAgo}</Text>
             </View>
             <Text style={likesStyle}>{likes > 0 ? likes : null}</Text>
@@ -126,8 +152,7 @@ const styles = {
   },
   timeAgoStyle: {
     color: lightTextGray,
-    paddingLeft: 8,
-    marginBottom: 1.5,
+    marginBottom: 2.5,
   },
   likesStyle: {
     paddingTop: 0.5,
@@ -166,8 +191,8 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { user, activePost, postCommentLikes } = state;
-  return { user, activePost, postCommentLikes };
+  const { user, activePost, postCommentLikes, friendList, navigation } = state;
+  return { user, activePost, postCommentLikes, friendList, navigation };
 }
 
-export default connect(mapStateToProps, { likeComment })(CommentListItem);
+export default connect(mapStateToProps, { likeComment, getFriendStatus })(CommentListItem);

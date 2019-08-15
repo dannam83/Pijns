@@ -52,7 +52,7 @@ const PostListFriends = ({
       </View>
     );
   };
-  
+
   if (pinPressed) {
     return (
       <View style={styles.masterContainerStyle}>

@@ -57,10 +57,11 @@ class PostNotesListScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  let notes = _.map(state.postNotes, (val) => {
+  const { user, postNotes } = state;
+  const notes = _.map(postNotes, (val) => {
     return { ...val };
-  }).reverse();
-  const { user } = state;
+  }).sort((a, b) => a.timestamp - b.timestamp);
+
   return { notes, currentUser: user };
 }
 

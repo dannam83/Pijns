@@ -14,8 +14,10 @@ class CommentList extends Component {
   }
 
   renderRow = (comment) => {
+    const { navigationTab } = this.props;
+
     return (
-      <CommentListItem comment={comment} />
+      <CommentListItem comment={comment} navigationTab={navigationTab} />
     );
   }
 
