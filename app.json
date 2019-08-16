@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "pijns",
+    "name": "Pijns",
     "slug": "pijns",
     "privacy": "public",
     "sdkVersion": "33.0.0",
@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/pijnIcon.png",
     "splash": {
       "backgroundColor": "#03A9F4"
     },
@@ -21,9 +21,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dannam.pijns"
     },
-    "description": "",
+    "description": "A social networking app that let's people know how much you care; the only social networking app that goes beyond shallow.",
     "githubUrl": "https://github.com/dannam83/Pijns"
   }
 }
