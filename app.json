@@ -24,6 +24,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.dannam.pijns"
     },
+    "facebookScheme": "fb309296216371741",
+    "facebookAppId": 309296216371741,
+    "facebookDisplayName": "Pijns",
     "description": "A social networking app that let's people know how much you care; the only social networking app that goes beyond shallow.",
     "githubUrl": "https://github.com/dannam83/Pijns"
   }
