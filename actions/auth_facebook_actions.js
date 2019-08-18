@@ -25,7 +25,8 @@ export const doFbLogin = async dispatch => {
 
 const fbLoginWithPermissions = async () => (
   await Facebook.logInWithReadPermissionsAsync('309296216371741', {
-    permissions: ['public_profile', 'email']
+    permissions: ['public_profile', 'email'],
+    behavior: 'web'
   })
 );
 

@@ -22,7 +22,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.dannam.pijns"
+      "bundleIdentifier": "com.dannam.pijns",
+      "buildNumber": "1.0.1"
     },
     "facebookScheme": "fb309296216371741",
     "facebookAppId": "309296216371741",
