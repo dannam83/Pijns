@@ -25,15 +25,14 @@ export const doFbLogin = async dispatch => {
 
 const fbLoginWithPermissions = async () => (
   await Facebook.logInWithReadPermissionsAsync('309296216371741', {
-    permissions: ['public_profile', 'email', 'user_birthday', 'user_gender'],
-    behavior: 'web'
+    permissions: ['public_profile', 'email']
   })
 );
 
 const fetchFbProfileData = async (token) => (
   await axios.get(
     `https://graph.facebook.com/me?access_token=${
-      token}&fields=id,name,birthday,email,gender,picture.type(large)`
+      token}&fields=id,name,email,picture.type(large)`
   )
 );
 
@@ -64,9 +63,9 @@ const setUserSliceOfState = async (data, dispatch) => {
 };
 
 const saveUserProfile = async (data, picture, uid) => {
-  const { name, birthday, email, gender } = data;
+  const { name, email } = data;
   await firebase.database().ref(`/users/${uid}/profile`)
-    .set({ name, displayName: name, birthday, email, gender, picture }
+    .set({ name, displayName: name, email, picture }
   );
   await firebase.database().ref(`/userSearch/${uid}/`)
     .set({ name, searchName: name.toLowerCase(), picture }
@@ -83,9 +82,9 @@ const saveUserProfile = async (data, picture, uid) => {
 };
 
 const updateUserProfile = async (data, picture, uid) => {
-  const { name, birthday, email, gender } = data;
+  const { name, email } = data;
   await firebase.database().ref(`/users/${uid}/profile`)
-    .update({ name, birthday, email, gender, picture }
+    .update({ name, email, picture }
   );
   await firebase.database().ref(`/userSearch/${uid}/`)
     .update({ name, picture }
