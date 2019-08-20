@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
-import { LOGIN_FAIL, LOGOUT_SUCCESS, LOGOUT_FAIL, USER_FOUND, FETCH_USER_FEED
+import {
+  LOGIN_FAIL, LOGIN_FAIL_CONFIRM, LOGOUT_SUCCESS, LOGOUT_FAIL, USER_FOUND, FETCH_USER_FEED
 } from './types';
 import { doFbLogin } from './auth_facebook_actions';
 
@@ -28,6 +29,10 @@ export const currentUserFound = (user) => async dispatch => {
   } else {
     dispatch({ type: LOGIN_FAIL });
   }
+};
+
+export const loginFailConfirm = () => dispatch => {
+    dispatch({ type: LOGIN_FAIL_CONFIRM });
 };
 
 export const logout = (redirect) => async dispatch => {

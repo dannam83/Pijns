@@ -3,13 +3,13 @@ import * as Facebook from 'expo-facebook';
 import firebase from 'firebase';
 import axios from 'axios';
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, USER_LOGIN } from './types';
+import { LOGIN_SUCCESS, LOGIN_FAIL_FB, USER_LOGIN } from './types';
 
 export const doFbLogin = async dispatch => {
   try {
     let { type, token } = await fbLoginWithPermissions();
     if (type === 'cancel') {
-      return dispatch({ type: LOGIN_FAIL });
+      return dispatch({ type: LOGIN_FAIL_FB });
     }
 
     await firebaseFbLogin(token);
@@ -26,7 +26,7 @@ export const doFbLogin = async dispatch => {
 const fbLoginWithPermissions = async () => (
   await Facebook.logInWithReadPermissionsAsync('309296216371741', {
     permissions: ['public_profile', 'email'],
-    behavior: 'web'
+    behavior: 'browser'
   })
 );
 

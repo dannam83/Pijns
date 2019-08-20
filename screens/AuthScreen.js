@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 import * as actions from '../actions';
-import { Spinner } from '../components/common';
+import { Spinner, Confirm } from '../components/common';
 import { backgroundBlue } from '../assets/colors';
 
 class AuthScreen extends Component {
@@ -18,16 +18,27 @@ class AuthScreen extends Component {
     this.onAuthComplete(nextProps);
   }
 
-  onAuthComplete(props) {
-    this.setState({ isProcessing: false });
+  async onAuthComplete(props) {
+    const { user, token, navigation } = props;
 
-    const redirect = this.props.navigation.navigate;
+    if (!token) {
+      this.setState({ isProcessing: false });
+    } else {
+      if (user.uid) {
+        await Promise.all([
+          props.fetchUserFeed(user.uid),
+          props.fetchPijnLog(user.uid),
+          props.fetchPinboard(user.uid),
+          props.fetchRequests(user.uid),
+          props.fetchNotifications(user.uid),
+          props.saveNavigation(navigation)
+        ]);
+      }
 
-    if (props.token) {
       if (props.isNew) {
-        redirect('Welcome');
+        navigation.navigate('Welcome');
       } else {
-        redirect('Main');
+        navigation.navigate('Main');
       }
     }
   }
@@ -37,12 +48,21 @@ class AuthScreen extends Component {
     this.props.fbLogin();
   }
 
-
   render() {
     const { containerViewStyle, logoTextStyle, logoStyle, buttonStyle } = styles;
+    const { loginFailModalVisible, loginFailConfirm } = this.props;
+    const line1 = 'Oops, something happened while logging in.';
+    const line2 = 'Contact us at pijnsteam@gmail.com if this keeps happening.';
 
     return (
       <View style={containerViewStyle}>
+        <Confirm
+          visible={loginFailModalVisible}
+          acceptText={'Ok'}
+          onAccept={loginFailConfirm}
+        >
+          {line1} {line2}
+        </Confirm>
         <Text style={logoTextStyle}>Pijns</Text>
         <Image
           source={require('../assets/images/pijn.png')}
@@ -92,7 +112,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps({ auth, user }) {
-  return { token: auth.token, isNew: user.isNew };
+  const { token, loginFailModalVisible } = auth;
+
+  return { user, token, loginFailModalVisible, isNew: user.isNew };
 }
 
 export default connect(mapStateToProps, actions)(AuthScreen);

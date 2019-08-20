@@ -3,7 +3,9 @@ import { Text, View, Modal } from 'react-native';
 import { CardSection } from './CardSection';
 import { Button } from './Button';
 
-const Confirm = ({ children, visible, onAccept, onDecline }) => {
+const Confirm = ({
+  children, visible, onAccept, onDecline, acceptText = 'Yes', declineText = 'No'
+}) => {
   const {
     containerStyle, topCardSectionStyle, bottomCardSectionStyle, textStyle
   } = styles;
@@ -20,8 +22,8 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
         </CardSection>
 
         <CardSection style={bottomCardSectionStyle}>
-          <Button onPress={onDecline}>No</Button>
-          <Button onPress={onAccept}>Yes</Button>
+          { onDecline ? <Button onPress={onDecline}>{declineText}</Button> : null }
+          <Button onPress={onAccept}>{acceptText}</Button>
         </CardSection>
       </View>
     </Modal>

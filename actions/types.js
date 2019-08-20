@@ -3,6 +3,8 @@ export const USER_FOUND = 'USER_FOUND';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGIN_FAIL_FB = 'LOGIN_FAIL_FB';
+export const LOGIN_FAIL_CONFIRM = 'LOGIN_FAIL_CONFIRM';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAIL = 'LOGOUT_SUCCESS';
 
