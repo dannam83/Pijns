@@ -113,7 +113,8 @@ const ProfileStack = createStackNavigator({
   Profile_PublicProfile: PublicProfileScreen,
   Profile_Chat: ChatScreen,
   Profile_Comments: CommentsScreen,
-  Profile_Notes: PostNotesListScreen
+  Profile_Notes: PostNotesListScreen,
+  Profile_PostEdit: PostEditScreen,
 });
 
 ProfileStack.navigationOptions = {

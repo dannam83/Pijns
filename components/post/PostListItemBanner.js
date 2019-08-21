@@ -46,7 +46,7 @@ const PostListItemBanner = ({
   const onPressActionSheet = (index) => {
     switch (index) {
       case 0: showDeleteModal(); break;
-      case 1: redirect('MyPosts_PostEdit'); break;
+      case 1: redirect('Profile_PostEdit'); break;
       case 2: break;
       default: console.warn('Invalid input'); break;
     }

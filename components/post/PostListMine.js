@@ -13,10 +13,12 @@ const PostListMine = ({
   deleteModalVisible,
   showDeleteModal,
   hideDeleteModal,
-  postId
+  postId,
+  header,
+  navigationTab
 }) => {
   useEffect(() => { postsFetch(); }, []);
-  
+
   const { writePostView, iconStyle, masterContainerStyle } = styles;
 
   const renderRow = (post) => {
@@ -25,7 +27,7 @@ const PostListMine = ({
         post={post}
         redirect={redirect}
         postEditUpdate={postEditUpdate}
-        navigationTab='MyPosts'
+        navigationTab={navigationTab}
         showDeleteModal={showDeleteModal}
       />
     );
@@ -55,7 +57,7 @@ const PostListMine = ({
       <FlatList
         data={posts}
         renderItem={({ item }) => renderRow(item)}
-        ListHeaderComponent={renderHeader}
+        ListHeaderComponent={header}
         keyExtractor={({ item }, postId) => postId.toString()}
       />
     </View>

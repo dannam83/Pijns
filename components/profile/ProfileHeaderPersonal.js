@@ -41,7 +41,11 @@ const styles = {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    paddingTop: 40
+    paddingTop: 40,
+    backgroundColor: '#ffff',
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD',
+    marginBottom: 5
   },
   imageStyle: {
     borderRadius: 70,
@@ -57,9 +61,7 @@ const styles = {
   buttonsViewStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingBottom: 20,
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
+    paddingBottom: 20
   }
 };
 
