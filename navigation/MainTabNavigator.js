@@ -7,7 +7,6 @@ import FriendPostsScreen from '../screens/FriendPostsScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
 import PersonalProfileScreen from '../screens/PersonalProfileScreen';
-import MyPostsScreen from '../screens/MyPostsScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import PostNotesListScreen from '../screens/PostNotesListScreen';
@@ -43,8 +42,8 @@ FriendPostsStack.navigationOptions = {
   ),
 };
 
-const MyPostsStack = createStackNavigator({
-  MyPosts: MyPostsScreen,
+const PostCreateStack = createStackNavigator({
+  PostCreate: PostCreateScreen,
   MyPosts_PostCreate: PostCreateScreen,
   MyPosts_PostEdit: PostEditScreen,
   MyPosts_Comments: CommentsScreen,
@@ -53,7 +52,7 @@ const MyPostsStack = createStackNavigator({
   MyPosts_Friends: FriendListScreen,
 });
 
-MyPostsStack.navigationOptions = {
+PostCreateStack.navigationOptions = {
   tabBarOptions: {
     showLabel: false,
     activeTintColor: 'rgba(0,125,255,1)',
@@ -63,7 +62,7 @@ MyPostsStack.navigationOptions = {
     return (
       <AntDesign
         focused={focused}
-        name={'user'}
+        name={'pluscircleo'}
         size={25}
         color={tintColor}
       />
@@ -137,7 +136,7 @@ ProfileStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   FriendPostsStack,
-  MyPostsStack,
+  PostCreateStack,
   NotificationsStack,
   ProfileStack,
 });
