@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
-import FriendPostsScreen from '../screens/FriendPostsScreen';
+import PostListFeedScreen from '../screens/PostListFeedScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
 import PersonalProfileScreen from '../screens/PersonalProfileScreen';
@@ -18,7 +18,7 @@ import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
 const FriendPostsStack = createStackNavigator({
-  FriendPosts: FriendPostsScreen,
+  FriendPosts: PostListFeedScreen,
   FriendPosts_SearchFriends: SearchFriendsScreen,
   FriendPosts_PublicProfile: PublicProfileScreen,
   FriendPosts_Comments: CommentsScreen,

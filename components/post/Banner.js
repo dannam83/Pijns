@@ -7,7 +7,7 @@ import { displayTimeAgo } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
 import { disabledGray } from '../../assets/colors';
 
-const PostListItemBanner = ({
+const Banner = ({
   userId,
   author,
   redirect,
@@ -119,9 +119,7 @@ const PostListItemBanner = ({
           />
         </View>
       }
-
     </View>
-
   );
 };
 
@@ -179,4 +177,4 @@ const styles = {
   },
 };
 
-export default PostListItemBanner;
+export default Banner;

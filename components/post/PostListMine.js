@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 
-import { ButtonAsField, Confirm } from '../common';
-import PostListItem from './PostListItem';
+import { Confirm } from '../common';
+import ListItem from './ListItem';
 
 const PostListMine = ({
   posts,
@@ -19,11 +19,9 @@ const PostListMine = ({
 }) => {
   useEffect(() => { postsFetch(); }, []);
 
-  const { writePostView, iconStyle, masterContainerStyle } = styles;
-
   const renderRow = (post) => {
     return (
-      <PostListItem
+      <ListItem
         post={post}
         redirect={redirect}
         postEditUpdate={postEditUpdate}
@@ -33,20 +31,8 @@ const PostListMine = ({
     );
   };
 
-  const renderHeader = () => {
-    return (
-      <View style={writePostView}>
-        <ButtonAsField
-          onPress={() => redirect('MyPosts_PostCreate')}
-          iconName={'form'}
-          iconRestyle={iconStyle}
-        >Write a post</ButtonAsField>
-      </View>
-    );
-  };
-
   return (
-    <View style={masterContainerStyle}>
+    <View style={styles.masterContainerStyle}>
       <Confirm
         visible={deleteModalVisible}
         onDecline={hideDeleteModal}
@@ -64,16 +50,28 @@ const PostListMine = ({
   );
 };
 
+// const renderHeader = () => {
+//   return (
+//     <View style={writePostView}>
+//       <ButtonAsField
+//         onPress={() => redirect('MyPosts_PostCreate')}
+//         iconName={'form'}
+//         iconRestyle={iconStyle}
+//       >Write a post</ButtonAsField>
+//     </View>
+//   );
+// };
+
+// writePostView: {
+//   paddingTop: 10,
+//   paddingBottom: 5,
+//   display: 'flex',
+//   flexDirection: 'row',
+// },
 const styles = {
   masterContainerStyle: {
     flex: 1,
     backgroundColor: '#cef0ff',
-  },
-  writePostView: {
-    paddingTop: 10,
-    paddingBottom: 5,
-    display: 'flex',
-    flexDirection: 'row',
   },
   iconStyle: {
     marginRight: 2

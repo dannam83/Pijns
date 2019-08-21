@@ -15,7 +15,7 @@ import {
 } from '../../actions';
 import { addPijnNotification } from '../../api/notifications';
 
-class PostListItemFooter extends Component {
+class Footer extends Component {
   state = {
     noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
   }
@@ -187,4 +187,4 @@ export default connect(mapStateToProps, {
   fetchPostCommentLikes,
   answerPrayer,
   unanswerPrayer,
-})(PostListItemFooter);
+})(Footer);

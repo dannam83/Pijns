@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
 
 import { ButtonAsField } from '../common';
-import PostListItem from './PostListItem';
+import ListItem from './ListItem';
 
-const PostListFriends = ({
+const PostListFeed = ({
   user, posts, fetchUserFeed, pinPressed, redirect, postActions, navigationTab
 }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -17,7 +17,7 @@ const PostListFriends = ({
 
   const renderRow = (post) => {
     return (
-      <PostListItem
+      <ListItem
         post={post}
         redirect={redirect}
         postActions={postActions}
@@ -28,7 +28,7 @@ const PostListFriends = ({
 
   const renderOnlyPinnedRow = (post) => {
     return (
-      <PostListItem
+      <ListItem
         post={post}
         redirect={redirect}
         pinnedOnly
@@ -104,4 +104,4 @@ const styles = {
   }
 };
 
-export default PostListFriends;
+export default PostListFeed;

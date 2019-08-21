@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import PostListFriends from '../components/post/PostListFriends';
+import PostListFeed from '../components/post/PostListFeed';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
 import {
@@ -16,7 +16,7 @@ import {
   unanswerPrayer
 } from '../actions';
 
-class FriendPostsScreen extends Component {
+class PostListFeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Pijns',
@@ -65,7 +65,7 @@ class FriendPostsScreen extends Component {
     const { pinPressed } = this.state;
 
     return (
-      <PostListFriends
+      <PostListFeed
         redirect={redirect}
         pinPressed={pinPressed}
         posts={posts}
@@ -115,4 +115,4 @@ function mapStateToProps(state) {
   return { posts, user, postActions };
 }
 
-export default connect(mapStateToProps, { fetchUserFeed })(FriendPostsScreen);
+export default connect(mapStateToProps, { fetchUserFeed })(PostListFeedScreen);

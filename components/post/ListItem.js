@@ -2,10 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 
-import PostListItemBanner from './PostListItemBanner';
-import PostListItemFooter from './PostListItemFooter';
+import Banner from './Banner';
+import Footer from './Footer';
 
-const PostListItem = ({
+const ListItem = ({
   post, redirect, pinnedOnly, postEditUpdate, navigationTab, showDeleteModal, onProfile
 }) => {
   if (pinnedOnly && !post.pinned) { return null; }
@@ -16,7 +16,7 @@ const PostListItem = ({
 
   return (
     <Card containerStyle={containerStyle}>
-      <PostListItemBanner
+      <Banner
         author={author}
         redirect={redirect}
         postEditUpdate={postEditUpdate}
@@ -32,7 +32,7 @@ const PostListItem = ({
 
       <Text style={contentStyle}>{content}</Text>
 
-      <PostListItemFooter
+      <Footer
         post={post}
         redirect={redirect}
         pinnedOnly={pinnedOnly}
@@ -56,4 +56,4 @@ const styles = {
   }
 };
 
-export default PostListItem;
+export default ListItem;

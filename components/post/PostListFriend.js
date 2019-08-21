@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 
-import PostListItem from './PostListItem';
+import ListItem from './ListItem';
 
 const PostListFriend = ({
   posts, header, redirect, tab, navigationTab, onProfile
 }) => {
   const renderRow = (post) => {
     return (
-      <PostListItem
+      <ListItem
         post={post}
         redirect={redirect}
         redirectTo='Comments'
