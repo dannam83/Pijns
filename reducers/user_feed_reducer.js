@@ -1,4 +1,4 @@
-import { FETCH_USER_FEED, UPDATE_COMMENT_COUNT } from '../actions/types';
+import { FETCH_USER_FEED, UPDATE_COMMENT_COUNT, POST_APPEND } from '../actions/types';
 
 const INITIAL_STATE = [];
 
@@ -9,6 +9,9 @@ export default (state = INITIAL_STATE, action) => {
     case UPDATE_COMMENT_COUNT:
       const post = state[action.index];
       post.commentCount = post.commentCount ? post.commentCount + 1 : 1;
+      return state;
+    case POST_APPEND:
+      state.unshift(action.payload);
       return state;
     default:
       return state;

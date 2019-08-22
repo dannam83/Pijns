@@ -5,10 +5,11 @@ import {
   POST_EDIT_UPDATE,
   POSTS_FETCH_SUCCESS,
   POST_SAVE_SUCCESS,
+  POST_APPEND,
   POST_DELETE,
   POST_SET_ACTIVE,
   POST_SHOW_DELETE_MODAL,
-  POST_HIDE_DELETE_MODAL
+  POST_HIDE_DELETE_MODAL,
  } from './types';
 import { getCurrentDate } from '../functions/common';
 
@@ -22,8 +23,10 @@ export const postCreateUpdate = ({ prop, value }) => {
 export const postCreateSave = ({ postText, postType, author }) => {
   return (dispatch) => {
     saveToFirebase(author, postText, postType)
-    .then(() => dispatch({ type: POST_CREATE_SAVE })
-    );
+    .then((payload) => {
+      dispatch({ type: POST_CREATE_SAVE });
+      dispatch({ type: POST_APPEND, payload });
+    });
   };
 };
 
@@ -34,13 +37,11 @@ const saveToFirebase = async (author, content, type) => {
   const key = userRef.push().getKey();
   const createdOn = getCurrentDate();
   const timestamp = -Date.now();
+  const post = { author, content, type, createdOn, timestamp, notes: 0, commentCount: 0 };
 
-  await userRef.child(key).set({
-    author, content, type, createdOn, timestamp, notes: 0, commentCount: 0
-  });
-  await postRef.child(key).set({
-    author, content, type, createdOn, timestamp, notes: 0, commentCount: 0
-  });
+  await userRef.child(key).set(post);
+  await postRef.child(key).set(post);
+  return { ...post, postId: key };
 };
 
 export const postEditUpdate = ({ prop, value }) => {

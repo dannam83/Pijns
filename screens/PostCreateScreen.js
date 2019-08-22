@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
-import { postCreateSave } from '../actions';
+import { postCreateSave, fetchUserFeed } from '../actions';
 import { ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 import { disabledGray, headerButtonBlue } from '../assets/colors';
@@ -26,10 +26,11 @@ class PostCreateScreen extends Component {
     });
   }
 
-  onSharePress = () => {
-    const { postText, author } = this.props;
-    this.props.postCreateSave({ postText, postType: 'prayerRequest', author });
-    this.props.navigation.navigate('UserFeed');
+  onSharePress = async () => {
+    const { postText, author, postCreateSave, navigation, fetchUserFeed } = this.props;
+    await postCreateSave({ postText, postType: 'prayerRequest', author });
+    await fetchUserFeed(author.id);
+    navigation.navigate('UserFeed');
   }
 
   render() {
@@ -64,4 +65,5 @@ const mapStateToProps = (state) => {
   return { postType, postText, author };
 };
 
-export default connect(mapStateToProps, { postCreateSave })(PostCreateScreen);
+export default connect(mapStateToProps, {
+  postCreateSave, fetchUserFeed })(PostCreateScreen);
