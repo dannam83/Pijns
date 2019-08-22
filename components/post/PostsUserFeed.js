@@ -48,7 +48,7 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetch
       </View>
     );
   };
-  console.log(posts);
+
   if (pinPressed) {
     return (
       <View style={styles.masterContainerStyle}>
