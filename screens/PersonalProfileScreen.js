@@ -70,13 +70,12 @@ class PersonalProfileScreen extends Component {
 function mapStateToProps(state) {
   const { user, friend, postEdit } = state;
   const { deleteModalVisible, postId } = postEdit;
-  const { sendPijn } = actions;
 
   const posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!state.pijnLog[uid];
     const { navigation } = state;
     return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation
+      ...val, postId: uid, pijnSentToday, user, navigation
     };
   }).reverse();
 

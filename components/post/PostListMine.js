@@ -24,8 +24,8 @@ const PostListMine = ({
       <ListItemMine
         post={post}
         redirect={redirect}
-        postEditUpdate={postEditUpdate}
         navigationTab={navigationTab}
+        postEditUpdate={postEditUpdate}
         showDeleteModal={showDeleteModal}
       />
     );

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import PostListFriend from '../components/post/PostListFriend';
 import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
-import { friendPostsFetch, clearFriend, sendPijn } from '../actions';
+import { friendPostsFetch, clearFriend } from '../actions';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
@@ -60,7 +60,6 @@ class PublicProfileScreen extends Component {
                 picture, name, userId, status, redirect, navigationTab
               )}
               posts={posts}
-              tab='Profile'
               redirect={redirect}
               status={status}
               navigationTab={navigationTab}
@@ -90,7 +89,7 @@ function mapStateToProps(state) {
     const pinned = !!pinboard[uid];
     const { navigation } = state;
     return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation, pinned
+      ...val, postId: uid, pijnSentToday, user, navigation, pinned
     };
   }).reverse();
   return { friend, posts };

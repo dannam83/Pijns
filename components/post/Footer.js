@@ -5,7 +5,7 @@ import { Divider } from 'react-native-elements';
 import { ActionButton } from '../common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
-import { answerPrayer, unanswerPrayer } from '../../actions';
+import { answerPrayer, unanswerPrayer, sendPijn } from '../../actions';
 import { addPijnNotification } from '../../api/notifications';
 
 const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
@@ -39,10 +39,10 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
     });
   };
 
-  const sendPijn = () => {
+  const pijnPress = () => {
     if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
 
-    post.sendPijn({ postId, author, currentDate, user });
+    sendPijn({ postId, author, currentDate, user });
     addPijnNotification(user, postId, post);
   };
 
@@ -59,7 +59,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
       <ActionButton
         imageSource={require('../../assets/images/pijn.png')}
         iconStyle={{ height: 24, width: 26 }}
-        onPress={() => sendPijn()}
+        onPress={() => pijnPress()}
         disabled={pijnSentToday}
       />
     );

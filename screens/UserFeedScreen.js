@@ -5,16 +5,6 @@ import _ from 'lodash';
 import PostsUserFeed from '../components/post/PostsUserFeed';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
-import {
-  sendPijn,
-  fetchUserFeed,
-  postEditUpdate,
-  commentsPopulate,
-  fetchPostCommentLikes,
-  setActivePost,
-  answerPrayer,
-  unanswerPrayer
-} from '../actions';
 
 class UserFeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -60,7 +50,7 @@ class UserFeedScreen extends Component {
   }
 
   render() {
-    const { posts, user, fetchUserFeed, navigation, postActions } = this.props;
+    const { posts, user, navigation } = this.props;
     const redirect = navigation.navigate;
     const { pinPressed } = this.state;
 
@@ -70,8 +60,6 @@ class UserFeedScreen extends Component {
         pinPressed={pinPressed}
         posts={posts}
         user={user}
-        fetchUserFeed={fetchUserFeed}
-        postActions={postActions}
         navigationTab='UserFeed'
       />
     );
@@ -101,18 +89,11 @@ function mapStateToProps(state) {
     const pinned = !!pinboard[post.postId];
     const { navigation } = state;
     return {
-      ...post, sendPijn, pijnSentToday, pinned, user, navigation, index
+      ...post, pijnSentToday, pinned, user, navigation, index
     };
   });
-  const postActions = {
-    postEditUpdate,
-    commentsPopulate,
-    fetchPostCommentLikes,
-    setActivePost,
-    answerPrayer,
-    unanswerPrayer
-  };
-  return { posts, user, postActions };
+
+  return { posts, user };
 }
 
-export default connect(mapStateToProps, { fetchUserFeed })(UserFeedScreen);
+export default connect(mapStateToProps)(UserFeedScreen);

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
 
+import { fetchUserFeed } from '../../actions';
 import { ButtonAsField } from '../common';
 import ListItem from './ListItem';
 
-const PostsUserFeed = ({
-  user, posts, fetchUserFeed, pinPressed, redirect, postActions, navigationTab
-}) => {
+const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshList = async () => {
@@ -20,7 +19,6 @@ const PostsUserFeed = ({
       <ListItem
         post={post}
         redirect={redirect}
-        postActions={postActions}
         navigationTab={navigationTab}
       />
     );
@@ -32,7 +30,6 @@ const PostsUserFeed = ({
         post={post}
         redirect={redirect}
         pinnedOnly
-        postActions={postActions}
         navigationTab={navigationTab}
       />
     );
