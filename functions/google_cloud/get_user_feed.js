@@ -19,6 +19,7 @@ module.exports = (req, res) => {
 
     if (friends) {
       const friendKeys = Object.keys(friends);
+      friendKeys.push(userId);
 
       friendPromises = friendKeys.map((key) => {
         return (
