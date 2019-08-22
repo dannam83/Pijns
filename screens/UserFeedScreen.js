@@ -5,6 +5,8 @@ import _ from 'lodash';
 import PostsUserFeed from '../components/post/PostsUserFeed';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
+import { fetchUserFeed } from '../actions';
+
 
 class UserFeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -50,7 +52,7 @@ class UserFeedScreen extends Component {
   }
 
   render() {
-    const { posts, user, navigation } = this.props;
+    const { posts, user, navigation, fetchUserFeed } = this.props;
     const redirect = navigation.navigate;
     const { pinPressed } = this.state;
 
@@ -61,6 +63,7 @@ class UserFeedScreen extends Component {
         posts={posts}
         user={user}
         navigationTab='UserFeed'
+        fetchUserFeed={fetchUserFeed}
       />
     );
   }
@@ -96,4 +99,4 @@ function mapStateToProps(state) {
   return { posts, user };
 }
 
-export default connect(mapStateToProps)(UserFeedScreen);
+export default connect(mapStateToProps, { fetchUserFeed })(UserFeedScreen);

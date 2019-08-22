@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Divider } from 'react-native-elements';
 
 import { ActionButton } from '../common';
+import { getCurrentDate } from '../../functions/common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
 import { answerPrayer, unanswerPrayer, sendPijn } from '../../actions';
@@ -10,16 +11,27 @@ import { addPijnNotification } from '../../api/notifications';
 
 const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
   const {
-    user, postId, author, navigation, index, answered, pinned, pijnSentToday
+    user, postId, author, navigation, index, pinned, pijnSentToday
   } = post;
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
   const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive } = styles;
+
   const [noteCount, setNoteCount] = useState(0);
   useEffect(() => {
     if (notes && notes !== noteCount) { setNoteCount(notes); }
   }, [notes]);
+
+  const [handsActive, setHandsActive] = useState(false);
+  useEffect(() => {
+    if (handsActive !== worshipHandsActive) { setHandsActive(worshipHandsActive); }
+  }, [worshipHandsActive]);
+
+  const [answered, setAnswered] = useState(post.answered);
+  useEffect(() => {
+    if (answered !== post.answered) { setAnswered(post.answered); }
+  }, [post.answered]);
 
   const goToComments = async () => {
     navigation.navigate(`${navigationTab}_Comments`, {
@@ -47,10 +59,11 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
   };
 
   const handsPress = () => {
-    if (post.answered) {
-      unanswerPrayer({ postId, user });
+    setHandsActive(!handsActive);
+    if (answered) {
+      setAnswered(false); unanswerPrayer({ postId, user });
     } else {
-      answerPrayer({ postId, user });
+      setAnswered(getCurrentDate()); answerPrayer({ postId, user });
     }
   };
 
@@ -81,7 +94,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
       return <ActionButton imageSource={chat} onPress={goToChat} />;
     }
 
-    const whStyle = post.answered ? worshipHandsActive : worshipHandsInactive;
+    const whStyle = answered ? worshipHandsActive : worshipHandsInactive;
     const hands = require('../../assets/images/praise.png');
 
     return <ActionButton imageSource={hands} onPress={handsPress} iconStyle={whStyle} />;

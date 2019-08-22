@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
 
-import { fetchUserFeed } from '../../actions';
 import { ButtonAsField } from '../common';
 import ListItem from './ListItem';
 
-const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab }) => {
+const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetchUserFeed }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshList = async () => {
@@ -49,7 +48,7 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab }) => 
       </View>
     );
   };
-
+  console.log(posts);
   if (pinPressed) {
     return (
       <View style={styles.masterContainerStyle}>
