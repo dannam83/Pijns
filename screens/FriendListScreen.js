@@ -18,8 +18,8 @@ class FriendsScreen extends Component {
     const { navigate, getParam } = this.props.navigation;
     const navigationTab = getParam('navigationTab');
 
-    if (navigationTab === 'FriendsPosts') {
-      navigate('FriendPosts_PublicProfile', { profileUser: friend });
+    if (navigationTab === 'UserFeed') {
+      navigate('UserFeed_PublicProfile', { profileUser: friend });
     } else if (navigationTab === 'MyPosts') {
       navigate('MyPosts_PublicProfile', {
         profileUser: friend, navigationTab });
@@ -56,7 +56,7 @@ function mapStateToProps(state) {
   const friendList = _.map(state.friendList, (val) => {
     return { ...val.user };
   });
-  
+
   return { friendList, currentUser: user };
 }
 

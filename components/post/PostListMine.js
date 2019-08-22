@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 
 import { Confirm } from '../common';
-import ListItem from './ListItem';
+import ListItemMine from './ListItemMine';
 
 const PostListMine = ({
   posts,
@@ -21,7 +21,7 @@ const PostListMine = ({
 
   const renderRow = (post) => {
     return (
-      <ListItem
+      <ListItemMine
         post={post}
         redirect={redirect}
         postEditUpdate={postEditUpdate}

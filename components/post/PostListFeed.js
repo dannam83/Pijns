@@ -44,7 +44,7 @@ const PostListFeed = ({
     return (
       <View style={writePostView}>
         <ButtonAsField
-          onPress={() => redirect('FriendPosts_SearchFriends', { navigationTab })}
+          onPress={() => redirect('UserFeed_SearchFriends', { navigationTab })}
           buttonRestyle={buttonStyle}
           iconName={'search1'}
         >Search for friends

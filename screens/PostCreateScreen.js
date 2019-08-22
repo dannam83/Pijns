@@ -29,7 +29,7 @@ class PostCreateScreen extends Component {
   onSharePress = () => {
     const { postText, author } = this.props;
     this.props.postCreateSave({ postText, postType: 'prayerRequest', author });
-    this.props.navigation.navigate('FriendPosts');
+    this.props.navigation.navigate('UserFeed');
   }
 
   render() {

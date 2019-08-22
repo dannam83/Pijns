@@ -15,7 +15,7 @@ import {
 } from '../../actions';
 import { addPijnNotification } from '../../api/notifications';
 
-class Footer extends Component {
+class FooterMine extends Component {
   state = {
     noteCount: this.props.post.notes ? this.props.post.notes.count : 0,
   }
@@ -52,7 +52,7 @@ class Footer extends Component {
     const { notes } = post;
     const noteCount = notes ? notes.count : 0;
     return (
-      navigationTab === 'FriendPosts' ? this.state.noteCount : noteCount
+      navigationTab === 'UserFeed' ? this.state.noteCount : noteCount
     );
   }
 
@@ -63,7 +63,7 @@ class Footer extends Component {
   sendPijn = ({ postId, author, currentDate, user, post }) => {
     const { navigationTab } = this.props;
 
-    if (navigationTab === 'FriendPosts') {
+    if (navigationTab === 'UserFeed') {
       this.setState({ noteCount: this.state.noteCount + 1 });
     }
 
@@ -187,4 +187,4 @@ export default connect(mapStateToProps, {
   fetchPostCommentLikes,
   answerPrayer,
   unanswerPrayer,
-})(Footer);
+})(FooterMine);

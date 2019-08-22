@@ -7,7 +7,7 @@ import { displayTimeAgo } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
 import { disabledGray } from '../../assets/colors';
 
-const Banner = ({
+const BannerMine = ({
   userId,
   author,
   redirect,
@@ -63,10 +63,10 @@ const Banner = ({
   };
 
   const goToPublicProfile = () => {
-    redirect('FriendPosts_PublicProfile', {
+    redirect('UserFeed_PublicProfile', {
       profileUser: { ...author, uid: author.id },
       status: 'Unfriend',
-      navigationTab: 'FriendPosts'
+      navigationTab: 'UserFeed'
     });
   };
 
@@ -177,4 +177,4 @@ const styles = {
   },
 };
 
-export default Banner;
+export default BannerMine;

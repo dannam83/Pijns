@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
-import PostListFeedScreen from '../screens/PostListFeedScreen';
+import UserFeedScreen from '../screens/UserFeedScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
 import PersonalProfileScreen from '../screens/PersonalProfileScreen';
@@ -17,16 +17,16 @@ import ChatScreen from '../screens/ChatScreen';
 import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
-const FriendPostsStack = createStackNavigator({
-  FriendPosts: PostListFeedScreen,
-  FriendPosts_SearchFriends: SearchFriendsScreen,
-  FriendPosts_PublicProfile: PublicProfileScreen,
-  FriendPosts_Comments: CommentsScreen,
-  FriendPosts_Notes: PostNotesListScreen,
-  FriendPosts_Chat: ChatScreen
+const UserFeedStack = createStackNavigator({
+  UserFeed: UserFeedScreen,
+  UserFeed_SearchFriends: SearchFriendsScreen,
+  UserFeed_PublicProfile: PublicProfileScreen,
+  UserFeed_Comments: CommentsScreen,
+  UserFeed_Notes: PostNotesListScreen,
+  UserFeed_Chat: ChatScreen
 });
 
-FriendPostsStack.navigationOptions = {
+UserFeedStack.navigationOptions = {
   tabBarOptions: {
     showLabel: false,
     activeTintColor: 'rgba(0,125,255,1)',
@@ -135,7 +135,7 @@ ProfileStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  FriendPostsStack,
+  UserFeedStack,
   PostCreateStack,
   NotificationsStack,
   ProfileStack,

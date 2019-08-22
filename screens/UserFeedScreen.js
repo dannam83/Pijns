@@ -16,7 +16,7 @@ import {
   unanswerPrayer
 } from '../actions';
 
-class PostListFeedScreen extends Component {
+class UserFeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Pijns',
@@ -72,7 +72,7 @@ class PostListFeedScreen extends Component {
         user={user}
         fetchUserFeed={fetchUserFeed}
         postActions={postActions}
-        navigationTab='FriendPosts'
+        navigationTab='UserFeed'
       />
     );
   }
@@ -115,4 +115,4 @@ function mapStateToProps(state) {
   return { posts, user, postActions };
 }
 
-export default connect(mapStateToProps, { fetchUserFeed })(PostListFeedScreen);
+export default connect(mapStateToProps, { fetchUserFeed })(UserFeedScreen);

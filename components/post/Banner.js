@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import ActionSheet from 'react-native-actionsheet';
 
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgo } from '../../functions/common';
@@ -11,16 +10,13 @@ const Banner = ({
   userId,
   author,
   redirect,
-  postEditUpdate,
-  postText,
   postId,
   pinned,
   timestamp,
   createdOn,
-  showDeleteModal,
   onProfile
 }) => {
-  const { id, name, picture } = author;
+  const { name, picture } = author;
   const {
     containerStyle,
     thumbnailStyle,
@@ -28,29 +24,10 @@ const Banner = ({
     headerAuthorStyle,
     headerDetailStyle,
     rightIconViewStyle,
-    ellipsisStyle,
     buttonStyle,
     pinStyle,
     pinnedStyle
   } = styles;
-
-  const showActionSheet = async () => {
-    if (userId !== author.id) return;
-    this.ActionSheet.show();
-    await postEditUpdate({ prop: 'postText', value: postText });
-    await postEditUpdate({ prop: 'postId', value: postId });
-  };
-
-  const options = ['Delete', 'Edit', 'Cancel'];
-  const cancelButtonIndex = options.length - 1;
-  const onPressActionSheet = (index) => {
-    switch (index) {
-      case 0: showDeleteModal(); break;
-      case 1: redirect('Profile_PostEdit'); break;
-      case 2: break;
-      default: console.warn('Invalid input'); break;
-    }
-  };
 
   const posted = displayTimeAgo(timestamp, createdOn);
 
@@ -63,10 +40,10 @@ const Banner = ({
   };
 
   const goToPublicProfile = () => {
-    redirect('FriendPosts_PublicProfile', {
+    redirect('UserFeed_PublicProfile', {
       profileUser: { ...author, uid: author.id },
       status: 'Unfriend',
-      navigationTab: 'FriendPosts'
+      navigationTab: 'UserFeed'
     });
   };
 
@@ -81,6 +58,7 @@ const Banner = ({
         onPress={goToPublicProfile}
         disabled={disabled}
       />
+
       <View style={headerContentStyle}>
         <ButtonAsText
           editTextStyle={headerAuthorStyle}
@@ -92,33 +70,15 @@ const Banner = ({
         <Text style={headerDetailStyle}>{posted}</Text>
       </View>
 
-      { id === userId ?
-        <View style={rightIconViewStyle}>
-          <ActionButton
-            iconStyle={ellipsisStyle}
-            buttonStyle={buttonStyle}
-            imageSource={require('../../assets/images/ellipsis.png')}
-            onPress={showActionSheet}
-          />
-          <ActionSheet
-            ref={o => this.ActionSheet = o}
-            options={options}
-            cancelButtonIndex={cancelButtonIndex}
-            destructiveButtonIndex={0}
-            onPress={(index) => { onPressActionSheet(index); }}
-          />
-        </View>
-        :
-        <View style={rightIconViewStyle}>
-          <ActionButtonStill
-            buttonStyle={buttonStyle}
-            iconName={'pushpino'}
-            iconStyle={pinButtonStyle}
-            iconSize={20}
-            onPress={pinPress}
-          />
-        </View>
-      }
+      <View style={rightIconViewStyle}>
+        <ActionButtonStill
+          buttonStyle={buttonStyle}
+          iconName={'pushpino'}
+          iconStyle={pinButtonStyle}
+          iconSize={20}
+          onPress={pinPress}
+        />
+      </View>
     </View>
   );
 };
@@ -156,10 +116,6 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     padding: 5
-  },
-  ellipsisStyle: {
-    height: 15,
-    width: 15,
   },
   buttonStyle: {
     alignItems: 'flex-start'

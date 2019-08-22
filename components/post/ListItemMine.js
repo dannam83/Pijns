@@ -2,10 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 
-import Banner from './Banner';
-import Footer from './Footer';
+import BannerMine from './BannerMine';
+import FooterMine from './FooterMine';
 
-const ListItem = ({
+const ListItemMine = ({
   post, redirect, pinnedOnly, postEditUpdate, navigationTab, showDeleteModal, onProfile
 }) => {
   if (pinnedOnly && !post.pinned) { return null; }
@@ -16,7 +16,7 @@ const ListItem = ({
 
   return (
     <Card containerStyle={containerStyle}>
-      <Banner
+      <BannerMine
         author={author}
         redirect={redirect}
         postEditUpdate={postEditUpdate}
@@ -32,12 +32,11 @@ const ListItem = ({
 
       <Text style={contentStyle}>{content}</Text>
 
-      <Footer
+      <FooterMine
         post={post}
         redirect={redirect}
         pinnedOnly={pinnedOnly}
         navigationTab={navigationTab}
-        notes={post.notes.count}
       />
     </Card>
   );
@@ -57,4 +56,4 @@ const styles = {
   }
 };
 
-export default ListItem;
+export default ListItemMine;
