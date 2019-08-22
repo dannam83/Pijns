@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import BannerMine from './BannerMine';
-import FooterMine from './FooterMine';
+import Footer from './Footer';
 
 const ListItemMine = ({
   post, redirect, pinnedOnly, postEditUpdate, navigationTab, showDeleteModal, onProfile
@@ -32,11 +32,12 @@ const ListItemMine = ({
 
       <Text style={contentStyle}>{content}</Text>
 
-      <FooterMine
+      <Footer
         post={post}
         redirect={redirect}
         pinnedOnly={pinnedOnly}
         navigationTab={navigationTab}
+        notes={post.notes.count}
       />
     </Card>
   );

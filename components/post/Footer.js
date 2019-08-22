@@ -5,21 +5,18 @@ import { Divider } from 'react-native-elements';
 import { ActionButton } from '../common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
+import { answerPrayer, unanswerPrayer } from '../../actions';
 import { addPijnNotification } from '../../api/notifications';
 
-const Footer = ({ redirect, post, navigationTab, pinnedOnly, notes }) => {
+const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
   const {
     user, postId, author, navigation, index, answered, pinned, pijnSentToday
   } = post;
-
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
-
-  const { actionsViewStyle, dividerStyle } = styles;
-
+  const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive } = styles;
   const [noteCount, setNoteCount] = useState(0);
-
   useEffect(() => {
     if (notes && notes !== noteCount) { setNoteCount(notes); }
   }, [notes]);
@@ -42,42 +39,52 @@ const Footer = ({ redirect, post, navigationTab, pinnedOnly, notes }) => {
     });
   };
 
-  const displayNoteCount = () => {
-    return (navigationTab === 'UserFeed' ? noteCount : notes);
-  };
-
-  const displayCommentCount = () => {
-    return post.commentCount || 0;
-  };
-
   const sendPijn = () => {
-    if (navigationTab === 'UserFeed') {
-      setNoteCount(noteCount + 1);
-    }
+    if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
 
     post.sendPijn({ postId, author, currentDate, user });
     addPijnNotification(user, postId, post);
   };
 
-  const postActionButtons = () => {
+  const handsPress = () => {
+    if (post.answered) {
+      unanswerPrayer({ postId, user });
+    } else {
+      answerPrayer({ postId, user });
+    }
+  };
+
+  const pijnButton = () => {
     return (
-      <View style={actionsViewStyle}>
-        <ActionButton
-          imageSource={require('../../assets/images/pijn.png')}
-          iconStyle={{ height: 24, width: 26 }}
-          onPress={() => sendPijn()}
-          disabled={pijnSentToday}
-        />
-        <ActionButton
-          imageSource={require('../../assets/images/comment.png')}
-          onPress={goToComments}
-        />
-        <ActionButton
-          imageSource={require('../../assets/images/message.png')}
-          onPress={goToChat}
-        />
-      </View>
+      <ActionButton
+        imageSource={require('../../assets/images/pijn.png')}
+        iconStyle={{ height: 24, width: 26 }}
+        onPress={() => sendPijn()}
+        disabled={pijnSentToday}
+      />
     );
+  };
+
+  const commentButton = () => {
+    return (
+      <ActionButton
+        imageSource={require('../../assets/images/comment.png')}
+        onPress={goToComments}
+      />
+    );
+  };
+
+  const chatOrHandsButton = () => {
+    if (author.id !== user.uid) {
+      const chat = require('../../assets/images/message.png');
+
+      return <ActionButton imageSource={chat} onPress={goToChat} />;
+    }
+
+    const whStyle = post.answered ? worshipHandsActive : worshipHandsInactive;
+    const hands = require('../../assets/images/praise.png');
+
+    return <ActionButton imageSource={hands} onPress={handsPress} iconStyle={whStyle} />;
   };
 
   if (pinnedOnly && !pinned) {
@@ -87,11 +94,12 @@ const Footer = ({ redirect, post, navigationTab, pinnedOnly, notes }) => {
   return (
     <View>
       <PostCounts
-        noteCount={displayNoteCount()}
-        commentCount={displayCommentCount()}
-        commentsPress={() => goToComments({ user, postId, author, index })}
+        noteCount={navigationTab === 'UserFeed' ? noteCount : notes}
+        commentCount={post.commentCount || 0}
+        commentsPress={goToComments}
         notesPress={goToPostNotes}
       />
+
       {answered ? (
         <View>
           <Divider style={dividerStyle} />
@@ -101,7 +109,12 @@ const Footer = ({ redirect, post, navigationTab, pinnedOnly, notes }) => {
       ) : (
         <Divider style={dividerStyle} />
       )}
-      {postActionButtons()}
+
+      <View style={actionsViewStyle}>
+        {pijnButton()}
+        {commentButton()}
+        {chatOrHandsButton()}
+      </View>
     </View>
   );
 };
@@ -118,7 +131,18 @@ const styles = {
     justifyContent: 'space-between',
     paddingLeft: 60,
     paddingRight: 60
-  }
+  },
+  worshipHandsInactive: {
+    height: 24,
+    width: 27,
+    marginLeft: -1.5,
+  },
+  worshipHandsActive: {
+    height: 24,
+    width: 27,
+    marginLeft: -1.5,
+    tintColor: '#50C35C'
+  },
 };
 
 export default Footer;

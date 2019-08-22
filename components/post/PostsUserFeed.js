@@ -4,7 +4,7 @@ import { View, FlatList } from 'react-native';
 import { ButtonAsField } from '../common';
 import ListItem from './ListItem';
 
-const PostListFeed = ({
+const PostsUserFeed = ({
   user, posts, fetchUserFeed, pinPressed, redirect, postActions, navigationTab
 }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -104,4 +104,4 @@ const styles = {
   }
 };
 
-export default PostListFeed;
+export default PostsUserFeed;

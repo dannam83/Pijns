@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import PostListFeed from '../components/post/PostListFeed';
+import PostsUserFeed from '../components/post/PostsUserFeed';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
 import {
@@ -65,7 +65,7 @@ class UserFeedScreen extends Component {
     const { pinPressed } = this.state;
 
     return (
-      <PostListFeed
+      <PostsUserFeed
         redirect={redirect}
         pinPressed={pinPressed}
         posts={posts}
