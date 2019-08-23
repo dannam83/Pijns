@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
-import { buttonBlue } from '../../assets/colors';
 import { resetNotificationsCount } from '../../api/notifications';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
+import { styles } from './notificationStyles';
 
 const Request = ({ item, navigation, currentUser, friend, actions }) => {
   const goToPublicProfile = (profileUser) => {
@@ -67,47 +65,6 @@ const Request = ({ item, navigation, currentUser, friend, actions }) => {
       </View>
     </View>
   );
-};
-
-const styles = {
-  requestStyle: {
-    flexDirection: 'row',
-    flex: 1
-  },
-  messageStyle: {
-    width: SCREEN_WIDTH - 190,
-    fontSize: 15
-  },
-  nameStyle: {
-    fontWeight: '600'
-  },
-  actionsViewStyle: {
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingBottom: 10
-  },
-  acceptButtonStyle: {
-    width: 75,
-    height: 25,
-    backgroundColor: buttonBlue,
-    borderColor: buttonBlue,
-    display: 'flex',
-    justifyContent: 'center',
-    marginRight: 17
-  },
-  acceptTextStyle: {
-    paddingTop: 0,
-    paddingBottom: 0,
-    color: 'white',
-    fontWeight: '500',
-    fontSize: 14
-  },
-  xStyle: {
-    paddingBottom: 2,
-    fontWeight: '700',
-    fontSize: 14
-  },
 };
 
 export default Request;

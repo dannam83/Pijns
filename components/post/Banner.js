@@ -106,9 +106,9 @@ const styles = {
     color: 'gray'
   },
   thumbnailStyle: {
-    height: 50,
-    width: 50,
-    borderRadius: 25
+    height: 40,
+    width: 40,
+    borderRadius: 20
   },
   rightIconViewStyle: {
     display: 'flex',

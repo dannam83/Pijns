@@ -58,9 +58,14 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
 };
 
 export const sendPrayerRequestNotifications = (user, postId, content, friendList) => {
-  const [sender, timestamp, type] = [user, -Date.now(), 'prayerAnswered'];
-  const notification = { content, postId, timestamp, sender, type };
+  console.log('user', user);
+  console.log('postId', postId);
+  console.log('content', content);
+  console.log('friendList', friendList);
+  if (!friendList) { return; }
 
+  const [sender, timestamp, type] = [user, -Date.now(), 'prayerRequest'];
+  const notification = { content, postId, timestamp, sender, type };
   const userIds = Object.keys(friendList);
   userIds.forEach(userId => {
     addNotification(userId, notification);

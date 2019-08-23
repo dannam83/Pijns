@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 
 import CommentList from '../components/comment/CommentList';
 import Post from '../components/post/Post';
-import { commentsPopulate, fetchPostCommentLikes, fetchActivePost } from '../actions';
 import { backgroundLightBlue } from '../assets/colors';
+import {
+  commentsPopulate, fetchPostCommentLikes, fetchActivePost, detachActivePost
+} from '../actions';
 
 class PostScreen extends Component {
   static navigationOptions = {
@@ -28,9 +30,9 @@ class PostScreen extends Component {
     commentsPopulate(postId);
   }
 
-  // componentWillUnmount() {
-  //   detachActivePost(postId)
-  // }
+  componentWillUnmount() {
+    detachActivePost(this.state.postId);
+  }
 
   render() {
     if (!this.props.post) { return null; }

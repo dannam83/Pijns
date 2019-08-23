@@ -37,19 +37,19 @@ const styles = {
     paddingBottom: 10
   },
   imageStyle: {
-    height: 47,
-    width: 47,
-    borderRadius: 25
+    height: 36,
+    width: 36,
+    borderRadius: 18
   },
   textViewStyle: {
     paddingLeft: 10,
-    height: 47,
+    height: 36,
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   nameTextStyle: {
     fontSize: 16,
-    fontWeight: '400'
+    fontWeight: '500'
   },
   dateTextStyle: {
     fontSize: 14,

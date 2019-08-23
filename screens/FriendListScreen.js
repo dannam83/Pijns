@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { ListItemAsButton, PeopleList } from '../components/common';
+import { ListItemAsButton } from '../components/common';
+import { PeopleList } from '../components/specific';
 import { searchUpdate, getFriendStatus } from '../actions';
 
 class FriendsScreen extends Component {
@@ -53,7 +54,6 @@ class FriendsScreen extends Component {
 
 function mapStateToProps(state) {
   const { user } = state;
-  console.log(state.friendList);
   const friendList = _.map(state.friendList, (val) => {
     return { ...val.user };
   });

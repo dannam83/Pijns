@@ -22,7 +22,7 @@ const ListItemAsButton = ({
     >
       <View style={[viewStyle, viewRestyle]}>
         <Image
-          source={{ uri: imageSource }}
+          source={{ uri: `${imageSource}?type=large` }}
           style={[imageStyle, imageRestyle]}
         />
         <Text
@@ -42,12 +42,12 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 10
+    paddingBottom: 15
   },
   imageStyle: {
-    height: 47,
-    width: 47,
-    borderRadius: 25
+    height: 60,
+    width: 60,
+    borderRadius: 30
   },
   textStyle: {
     paddingLeft: 8,

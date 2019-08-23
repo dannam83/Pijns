@@ -136,7 +136,7 @@ const styles = {
   },
   textViewStyle: {
     flex: 1,
-    paddingLeft: 5,
+    paddingLeft: 3,
     paddingRight: 5
   },
   commentHeaderStyle: {
@@ -169,9 +169,9 @@ const styles = {
     lineHeight: 20,
   },
   thumbnailStyle: {
-    height: 47,
-    width: 47,
-    borderRadius: 25,
+    height: 34,
+    width: 34,
+    borderRadius: 17,
     marginRight: 8,
   },
   buttonStyle: {

@@ -8,6 +8,7 @@ import {
   POST_APPEND,
   POST_DELETE,
   POST_SET_ACTIVE,
+  POST_RESET_ACTIVE,
   POST_SHOW_DELETE_MODAL,
   POST_HIDE_DELETE_MODAL,
  } from './types';
@@ -22,6 +23,7 @@ export const postCreateUpdate = ({ prop, value }) => {
 };
 
 export const postCreateSave = ({ postText, postType, author, user, friendList }) => {
+  console.log('action', friendList);
   return (dispatch) => {
     saveToFirebase(author, postText, postType)
     .then(payload => {
@@ -100,7 +102,7 @@ export const postsFetch = () => {
 export const fetchActivePost = (postId) => {
   return (dispatch) => {
     firebase.database().ref(`/posts/${postId}`)
-      .once('value', snapshot => {
+      .on('value', snapshot => {
         const post = snapshot.val();
         dispatch({
           type: POST_SET_ACTIVE,
@@ -109,6 +111,14 @@ export const fetchActivePost = (postId) => {
       }
     );
   };
+};
+
+export const detachActivePost = (postId) => {
+  firebase.database().ref(`/posts/${postId}`).off();
+
+  return ({
+    type: POST_RESET_ACTIVE
+  });
 };
 
 export const setActivePost = ({ postId, postAuthor }) => {
