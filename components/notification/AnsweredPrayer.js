@@ -9,39 +9,24 @@ import { setActivePost } from '../../actions';
 
 const AnsweredPrayer = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
   const {
-    notificationStyle, messageStyle, nameStyle, contentStyle, xViewStyle, timeStyle
+    notificationStyle, messageStyle, nameStyle, contentStyle, timeViewStyle, timeStyle
   } = styles;
-  const { content, postId, timestamp, sender, type } = item;
+  const { content, postId, timestamp, sender } = item;
   const { name, picture } = sender;
 
-  const messageIntro = () => {
-    if (type === 'pijnNote') {
-      return 'sent you a pijn note! You received prayer for';
-    } else if (type === 'comment') {
-      return 'wrote a comment:';
-    }
-  };
+  const messageIntro = 'has an answered prayer that you prayed for!';
 
   const message = () => {
     return (
       <Text style={{ ...messageStyle, width: screenWidth - 111 }}>
         <Text style={nameStyle}>{name} </Text>
-         {messageIntro()}
+         {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
       </Text>
     );
   };
 
-  const goToPostNotes = () => {
-    resetNotificationsCount(currentUser.uid);
-    const [user, postAuthorId] = [currentUser, currentUser.uid];
-
-    navigation.push(`${navigationTab}_Notes`, {
-      user, postAuthorId, postId, navigationTab
-    });
-  };
-
-  const goToComments = async () => {
+  const goToPost = async () => {
     resetNotificationsCount(currentUser.uid);
     const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
@@ -52,24 +37,16 @@ const AnsweredPrayer = ({ item, navigation, navigationTab, currentUser, screenWi
     });
   };
 
-  const onPress = () => {
-    if (type === 'pijnNote') {
-      return goToPostNotes;
-    } else if (type === 'comment') {
-      return goToComments;
-    }
-  };
-
   return (
     <View style={notificationStyle}>
       <ListItemAsButton
         text={message()}
         imageSource={picture}
-        onPress={onPress()}
+        onPress={goToPost}
         textRestyle={{ ...messageStyle, width: screenWidth - 111 }}
         numberOfLines={2}
       />
-      <View style={xViewStyle}>
+    <View style={timeViewStyle}>
         <Text style={timeStyle}>{displayTimeAgoShort(timestamp)}</Text>
       </View>
     </View>
@@ -90,7 +67,7 @@ const styles = {
   contentStyle: {
     fontStyle: 'italic'
   },
-  xViewStyle: {
+  timeViewStyle: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'flex-end',

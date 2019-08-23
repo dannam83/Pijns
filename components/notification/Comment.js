@@ -5,15 +5,16 @@ import { ListItemAsButton } from '../../components/common';
 import { resetNotificationsCount } from '../../api/notifications';
 import { displayTimeAgoShort } from '../../functions/common';
 import { timeAgoShortGray } from '../../assets/colors';
+import { setActivePost } from '../../actions';
 
-const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
+const Comment = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
   const {
     notificationStyle, messageStyle, nameStyle, contentStyle, timeViewStyle, timeStyle
   } = styles;
   const { content, postId, timestamp, sender } = item;
   const { name, picture } = sender;
 
-  const messageIntro = 'sent you a pijn note! You received prayer for';
+  const messageIntro = 'wrote a comment:';
 
   const message = () => {
     return (
@@ -25,12 +26,14 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
     );
   };
 
-  const goToPostNotes = () => {
+  const goToPost = async () => {
     resetNotificationsCount(currentUser.uid);
-    const [user, postAuthorId] = [currentUser, currentUser.uid];
+    const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
-    navigation.push(`${navigationTab}_Notes`, {
-      user, postAuthorId, postId, navigationTab
+    await setActivePost({ postId, postAuthor: currentUser });
+
+    navigation.push(`${navigationTab}_Post`, {
+      user: currentUser, postAuthorId: userId, postId, redirect, navigationTab
     });
   };
 
@@ -39,7 +42,7 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
       <ListItemAsButton
         text={message()}
         imageSource={picture}
-        onPress={goToPostNotes}
+        onPress={goToPost}
         textRestyle={{ ...messageStyle, width: screenWidth - 111 }}
         numberOfLines={2}
       />
@@ -80,4 +83,4 @@ const styles = {
   },
 };
 
-export default PijnNote;
+export default Comment;

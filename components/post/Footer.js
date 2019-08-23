@@ -7,7 +7,10 @@ import { getCurrentDate } from '../../functions/common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
 import { answerPrayer, unanswerPrayer, sendPijn } from '../../actions';
-import { addPijnNotification } from '../../api/notifications';
+import {
+  addPijnNotification,
+  sendAnsweredPrayerNotifications
+} from '../../api/notifications';
 
 const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
   const {
@@ -64,6 +67,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
       setAnswered(false); unanswerPrayer({ postId, user });
     } else {
       setAnswered(getCurrentDate()); answerPrayer({ postId, user });
+      sendAnsweredPrayerNotifications(user, postId, post);
     }
   };
 

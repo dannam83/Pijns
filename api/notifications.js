@@ -21,6 +21,28 @@ export const addCommentNotification = (user, postId, postAuthorId, comment) => {
   }
 };
 
+export const sendAnsweredPrayerNotifications = (user, postId, post) => {
+  const { content } = post;
+  const [sender, timestamp, type] = [user, -Date.now(), 'answeredPrayer'];
+  const notification = { content, postId, timestamp, sender, type };
+
+  firebase.database().ref(`/postNotes/${postId}`)
+    .on('value', snapshot => {
+      const postNotes = snapshot.val();
+      const keys = Object.keys(postNotes);
+      const sent = {};
+      keys.forEach(key => {
+        const uid = postNotes[key].uid;
+        if (!sent[uid] && uid !== user.uid) {
+          addNotification(uid, notification);
+          incrementCounter(uid);
+          sent[uid] = true;
+        }
+      });
+    }
+  );
+};
+
 export const deleteNotification = (userId, notificationId) => {
   firebase.database().ref(`/notifications/${userId}/${notificationId}`).set(null);
 };
@@ -39,7 +61,6 @@ export const incrementCounter = (postAuthorId) => {
 
   countRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
-
 
 export const resetNotificationsCount = (userId) => {
   const db = firebase.database();

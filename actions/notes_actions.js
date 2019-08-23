@@ -6,7 +6,7 @@ export const fetchPostNotes = ({ postId }) => {
   return (dispatch) => {
     firebase.database().ref(`/postNotes/${postId}`)
       .orderByChild('timestamp')
-      .on('value', snapshot => {
+      .once('value', snapshot => {
         dispatch({ type: FETCH_POST_NOTES, payload: snapshot.val() }
         );
       }
