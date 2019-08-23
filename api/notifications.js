@@ -41,6 +41,8 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
   firebase.database().ref(`/postNotes/${postId}`)
     .on('value', snapshot => {
       const postNotes = snapshot.val();
+      if (!postNotes) { return; }
+
       const keys = Object.keys(postNotes);
       const sent = {};
       keys.forEach(key => {
