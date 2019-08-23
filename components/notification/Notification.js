@@ -4,7 +4,8 @@ import { Dimensions } from 'react-native';
 import PijnNote from './PijnNote';
 import Comment from './Comment';
 import CommentLike from './CommentLike';
-import AnsweredPrayer from './AnsweredPrayer';
+import PrayerAnswered from './PrayerAnswered';
+import PrayerRequest from './PrayerRequest';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -41,9 +42,19 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         screenWidth={SCREEN_WIDTH}
       />
     );
-  } else if (type === 'answeredPrayer') {
+  } else if (type === 'prayerAnswered') {
       return (
-      <AnsweredPrayer
+      <PrayerAnswered
+        item={item}
+        navigation={navigation}
+        navigationTab={navigationTab}
+        currentUser={currentUser}
+        screenWidth={SCREEN_WIDTH}
+      />
+    );
+  } else if (type === 'prayerRequest') {
+      return (
+      <PrayerRequest
         item={item}
         navigation={navigation}
         navigationTab={navigationTab}

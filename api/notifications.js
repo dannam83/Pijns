@@ -33,9 +33,9 @@ export const addCommentLikeNotification = (
   }
 };
 
-export const sendAnsweredPrayerNotifications = (user, postId, post) => {
+export const sendPrayerAnsweredNotifications = (user, postId, post) => {
   const { content } = post;
-  const [sender, timestamp, type] = [user, -Date.now(), 'answeredPrayer'];
+  const [sender, timestamp, type] = [user, -Date.now(), 'prayerAnswered'];
   const notification = { content, postId, timestamp, sender, type };
 
   firebase.database().ref(`/postNotes/${postId}`)
@@ -53,6 +53,17 @@ export const sendAnsweredPrayerNotifications = (user, postId, post) => {
       });
     }
   );
+};
+
+export const sendPrayerRequestNotifications = (user, postId, content, friendList) => {
+  const [sender, timestamp, type] = [user, -Date.now(), 'prayerAnswered'];
+  const notification = { content, postId, timestamp, sender, type };
+
+  const userIds = Object.keys(friendList);
+  userIds.forEach(userId => {
+    addNotification(userId, notification);
+    incrementCounter(userId);
+  });
 };
 
 export const deleteNotification = (userId, notificationId) => {

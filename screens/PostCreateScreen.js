@@ -27,8 +27,10 @@ class PostCreateScreen extends Component {
   }
 
   onSharePress = async () => {
-    const { postText, author, postCreateSave, navigation, fetchUserFeed } = this.props;
-    await postCreateSave({ postText, postType: 'prayerRequest', author });
+    const {
+      user, postText, author, postCreateSave, navigation, fetchUserFeed, friendList
+    } = this.props;
+    await postCreateSave({ postText, postType: 'prayerRequest', author, user, friendList });
     await fetchUserFeed(author.id);
     navigation.navigate('UserFeed');
   }
@@ -59,10 +61,11 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
+  const { friendList, user } = state;
   const { postType, postText } = state.postCreate;
   const { name, picture, uid } = state.user;
   const author = { name, picture, id: uid };
-  return { postType, postText, author };
+  return { user, postType, postText, author, friendList };
 };
 
 export default connect(mapStateToProps, {

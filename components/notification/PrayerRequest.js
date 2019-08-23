@@ -7,14 +7,14 @@ import { displayTimeAgoShort } from '../../functions/common';
 import { timeAgoShortGray } from '../../assets/colors';
 import { setActivePost } from '../../actions';
 
-const AnsweredPrayer = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
+const PrayerRequest = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
   const {
     notificationStyle, messageStyle, nameStyle, contentStyle, timeViewStyle, timeStyle
   } = styles;
   const { content, postId, timestamp, sender } = item;
   const { name, picture } = sender;
 
-  const messageIntro = 'has an answered prayer that you prayed for!';
+  const messageIntro = 'made a new prayer request.';
 
   const message = () => {
     return (
@@ -46,7 +46,7 @@ const AnsweredPrayer = ({ item, navigation, navigationTab, currentUser, screenWi
         textRestyle={{ ...messageStyle, width: screenWidth - 111 }}
         numberOfLines={2}
       />
-    <View style={timeViewStyle}>
+      <View style={timeViewStyle}>
         <Text style={timeStyle}>{displayTimeAgoShort(timestamp)}</Text>
       </View>
     </View>
@@ -83,4 +83,4 @@ const styles = {
   },
 };
 
-export default AnsweredPrayer;
+export default PrayerRequest;

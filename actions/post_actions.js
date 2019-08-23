@@ -12,6 +12,7 @@ import {
   POST_HIDE_DELETE_MODAL,
  } from './types';
 import { getCurrentDate } from '../functions/common';
+import { sendPrayerRequestNotifications } from '../api/notifications';
 
 export const postCreateUpdate = ({ prop, value }) => {
   return {
@@ -20,10 +21,12 @@ export const postCreateUpdate = ({ prop, value }) => {
   };
 };
 
-export const postCreateSave = ({ postText, postType, author }) => {
+export const postCreateSave = ({ postText, postType, author, user, friendList }) => {
   return (dispatch) => {
     saveToFirebase(author, postText, postType)
-    .then((payload) => {
+    .then(payload => {
+      const { postId, content } = payload;
+      sendPrayerRequestNotifications(user, postId, content, friendList);
       dispatch({ type: POST_CREATE_SAVE });
       dispatch({ type: POST_APPEND, payload });
     });

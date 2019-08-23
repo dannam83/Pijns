@@ -53,6 +53,7 @@ class FriendsScreen extends Component {
 
 function mapStateToProps(state) {
   const { user } = state;
+  console.log(state.friendList);
   const friendList = _.map(state.friendList, (val) => {
     return { ...val.user };
   });

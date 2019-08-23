@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import CommentsScreen from './CommentsScreen';
 
@@ -16,13 +16,15 @@ class PostScreen extends Component {
     const author = getParam('author');
 
     return (
-      <CommentsScreen
-        user={user}
-        postAuthorId={postAuthorId}
-        postId={postId}
-        author={author}
-        navigation={this.props.navigation}
-      />
+      <View>
+        <CommentsScreen
+          user={user}
+          postAuthorId={postAuthorId}
+          postId={postId}
+          author={author}
+          navigation={this.props.navigation}
+        />
+      </View>
     );
   }
 }
