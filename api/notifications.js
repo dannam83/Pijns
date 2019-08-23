@@ -21,6 +21,18 @@ export const addCommentNotification = (user, postId, postAuthorId, comment) => {
   }
 };
 
+export const addCommentLikeNotification = (
+  user, postId, commentAuthorId, commentId, comment
+) => {
+  const [sender, content, timestamp, type] = [user, comment, -Date.now(), 'commentLike'];
+
+  if (user.uid !== commentAuthorId) {
+    const notification = { content, postId, timestamp, sender, type, commentId };
+    addNotification(commentAuthorId, notification);
+    incrementCounter(commentAuthorId);
+  }
+};
+
 export const sendAnsweredPrayerNotifications = (user, postId, post) => {
   const { content } = post;
   const [sender, timestamp, type] = [user, -Date.now(), 'answeredPrayer'];

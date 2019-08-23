@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
 import { ActionButton, ButtonAsText } from '../../components/common';
 import { lightTextGray } from '../../assets/colors';
+import { addCommentLikeNotification } from '../../api/notifications';
 
 class CommentListItem extends Component {
   state = {
@@ -17,16 +18,19 @@ class CommentListItem extends Component {
 
   likeComment = () => {
     this.setState({ alreadyLiked: true });
-    const { user, activePost, comment } = this.props;
-    this.props.likeComment({
+    const { user, activePost, comment, likeComment, addCommentLikeNotification } = this.props;
+    const { author, commentId } = comment;
+
+    likeComment({
       userId: user.uid,
       userName: user.name,
-      commentId: comment.commentId,
+      commentId,
       postAuthorId: activePost.author.id,
       postId: activePost.id,
       likesCount: comment.likes
     });
 
+    addCommentLikeNotification(user, activePost.id, author.uid, commentId, comment.comment);
     this.setState({ likes: this.state.likes + 1 });
   };
 
@@ -192,7 +196,9 @@ const styles = {
 
 function mapStateToProps(state) {
   const { user, activePost, postCommentLikes, friendList, navigation } = state;
-  return { user, activePost, postCommentLikes, friendList, navigation };
+  return {
+    user, activePost, postCommentLikes, friendList, navigation, addCommentLikeNotification
+  };
 }
 
 export default connect(mapStateToProps, { likeComment, getFriendStatus })(CommentListItem);
