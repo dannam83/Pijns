@@ -6,10 +6,8 @@ import BannerMine from './BannerMine';
 import Footer from './Footer';
 
 const ListItemMine = ({
-  post, redirect, pinnedOnly, postEditUpdate, navigationTab, showDeleteModal, onProfile
+  post, redirect, postEditUpdate, navigationTab, showDeleteModal, onProfile
 }) => {
-  if (pinnedOnly && !post.pinned) { return null; }
-
   const { user, author, content, timestamp, createdOn, postId, pinned } = post;
   const userId = user.uid;
   const { containerStyle, contentStyle } = styles;
@@ -35,7 +33,6 @@ const ListItemMine = ({
       <Footer
         post={post}
         redirect={redirect}
-        pinnedOnly={pinnedOnly}
         navigationTab={navigationTab}
         notes={post.notes.count}
       />

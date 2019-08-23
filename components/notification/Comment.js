@@ -29,7 +29,6 @@ const Comment = ({ item, navigation, navigationTab, currentUser, screenWidth }) 
   const goToPost = async () => {
     resetNotificationsCount(currentUser.uid);
     const [redirect, userId] = [navigation.navigate, currentUser.uid];
-    console.log(item);
 
     await setActivePost({ postId, postAuthor: currentUser });
 

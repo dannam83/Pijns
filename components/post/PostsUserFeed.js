@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
 
 import { ButtonAsField } from '../common';
+import { backgroundLightBlue } from '../../assets/colors';
 import ListItem from './ListItem';
 
 const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetchUserFeed }) => {
@@ -82,7 +83,7 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetch
 const styles = {
   masterContainerStyle: {
     flex: 1,
-    backgroundColor: '#cef0ff',
+    backgroundColor: backgroundLightBlue,
   },
   writePostView: {
     paddingTop: 10,

@@ -6,27 +6,25 @@ import Banner from './Banner';
 import Footer from './Footer';
 
 const ListItem = ({
-  post, redirect, pinnedOnly, postEditUpdate, navigationTab, showDeleteModal, onProfile
+  post, redirect, pinnedOnly, navigationTab, onProfile, containerRestyle
 }) => {
-  if (pinnedOnly && !post.pinned) { return null; }
+  if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
 
   const { user, author, content, timestamp, createdOn, postId, pinned } = post;
   const userId = user.uid;
   const { containerStyle, contentStyle } = styles;
 
   return (
-    <Card containerStyle={containerStyle}>
+    <Card containerStyle={[containerStyle, containerRestyle]}>
       <Banner
         author={author}
         redirect={redirect}
-        postEditUpdate={postEditUpdate}
         postText={content}
         postId={postId}
         timestamp={timestamp}
         createdOn={createdOn}
         userId={userId}
         pinned={pinned}
-        showDeleteModal={showDeleteModal}
         onProfile={onProfile}
       />
 
