@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import CommentList from '../components/comment/CommentList';
-import ListItem from '../components/post/ListItem';
+import Post from '../components/post/Post';
 import { commentsPopulate, fetchPostCommentLikes, fetchActivePost } from '../actions';
 import { backgroundLightBlue } from '../assets/colors';
 
@@ -32,15 +32,14 @@ class PostScreen extends Component {
     const postAuthorId = getParam('postAuthorId');
     const postId = getParam('postId');
     const navigationTab = getParam('navigationTab');
-    const { outerViewStyle, containerRestyle, commentListViewStyle } = styles;
+    const { outerViewStyle, commentListViewStyle } = styles;
 
     return (
       <View style={outerViewStyle}>
-        <ListItem
+        <Post
           post={this.props.post}
           redirect={navigate}
           navigationTab={navigationTab}
-          containerRestyle={containerRestyle}
         />
         <View style={commentListViewStyle}>
           <CommentList
@@ -59,10 +58,6 @@ const styles = {
   outerViewStyle: {
     flex: 1,
     backgroundColor: backgroundLightBlue
-  },
-  containerRestyle: {
-    marginTop: 0,
-    marginBottom: 2
   },
   commentListViewStyle: {
     flex: 1

@@ -5,7 +5,9 @@ import { Card } from 'react-native-elements';
 import Banner from './Banner';
 import Footer from './Footer';
 
-const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
+const Post = ({
+  post, redirect, pinnedOnly, navigationTab, onProfile
+}) => {
   if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
 
   const { user, author, content, timestamp, createdOn, postId, pinned } = post;
@@ -45,12 +47,12 @@ const styles = {
     marginRight: 0,
     padding: 10,
     backgroundColor: 'white',
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 0,
+    marginBottom: 2
   },
   contentStyle: {
     fontSize: 16
   }
 };
 
-export default ListItem;
+export default Post;
