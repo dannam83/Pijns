@@ -12,26 +12,30 @@ class PostScreen extends Component {
     title: 'Post',
   };
 
+  state = {
+    user: this.props.navigation.getParam('user'),
+    postId: this.props.navigation.getParam('postId'),
+    postAuthorId: this.props.navigation.getParam('postAuthorId'),
+    navigationTab: this.props.navigation.getParam('navigationTab'),
+  }
+
   componentDidMount() {
-    const {
-      navigation, fetchPostCommentLikes, commentsPopulate, fetchActivePost
-    } = this.props;
-    const user = navigation.getParam('user');
-    const postId = navigation.getParam('postId');
+    const { fetchPostCommentLikes, commentsPopulate, fetchActivePost } = this.props;
+    const { user, postId } = this.state;
 
     fetchActivePost(postId);
     fetchPostCommentLikes({ userId: user.uid, postId });
     commentsPopulate(postId);
   }
 
+  // componentWillUnmount() {
+  //   detachActivePost(postId)
+  // }
+
   render() {
     if (!this.props.post) { return null; }
-
-    const { getParam, navigate } = this.props.navigation;
-    const user = getParam('user');
-    const postAuthorId = getParam('postAuthorId');
-    const postId = getParam('postId');
-    const navigationTab = getParam('navigationTab');
+    const { user, postId, postAuthorId, navigationTab } = this.state;
+    const { navigate } = this.props.navigation;
     const { outerViewStyle, commentListViewStyle } = styles;
 
     return (
