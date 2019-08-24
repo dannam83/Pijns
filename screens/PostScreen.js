@@ -18,25 +18,17 @@ class PostScreen extends Component {
   render() {
     if (!this.props.post) { return null; }
     const { outerViewStyle, commentListViewStyle } = styles;
-    const { navigate, getParam } = this.props.navigation;
-    const user = getParam('user');
-    const postId = getParam('postId');
-    const postAuthorId = getParam('postAuthorId');
-    const navigationTab = getParam('navigationTab');
 
     return (
       <View style={outerViewStyle}>
         <Post
           post={this.props.post}
-          redirect={navigate}
+          redirect={this.props.navigation.navigate}
           navigationTab={'Notifications'}
         />
         <View style={commentListViewStyle}>
           <CommentList
-            postAuthorId={postAuthorId}
-            postId={postId}
-            user={user}
-            navigationTab={navigationTab}
+            navigationTab={'Notifications'}
           />
         </View>
       </View>

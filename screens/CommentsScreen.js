@@ -67,9 +67,6 @@ class CommentsScreen extends Component {
         keyboardVerticalOffset={80}
       >
         <CommentList
-          postAuthorId={postAuthorId}
-          postId={postId}
-          user={user}
           navigationTab={navigationTab}
           keepComments={keepComments}
         />
