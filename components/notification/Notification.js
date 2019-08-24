@@ -40,6 +40,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
+        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );
@@ -50,8 +51,8 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
         actions={actions}
+        screenWidth={SCREEN_WIDTH}
       />
     );
   } else if (type === 'prayerRequest') {
@@ -61,6 +62,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
+        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );
@@ -71,6 +73,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
+        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );

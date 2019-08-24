@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import CommentList from '../components/comment/CommentList';
 import Post from '../components/post/Post';
-import { backgroundLightBlue } from '../assets/colors';
 import {
   commentsPopulate,
   fetchPostCommentLikes,
+  resetActivePost
 } from '../actions';
 
 class PostScreen extends Component {
@@ -15,36 +14,32 @@ class PostScreen extends Component {
     title: 'Post',
   };
 
+  componentWillUnmount() {
+    this.props.resetActivePost(this.props.post.postId);
+  }
+
+  header(post, redirect) {
+    return (
+      <Post
+        post={post}
+        redirect={redirect}
+        navigationTab={'Notifications'}
+      />
+    );
+  }
+
   render() {
     if (!this.props.post) { return null; }
-    const { outerViewStyle, commentListViewStyle } = styles;
+    const { post, navigation } = this.props;
 
     return (
-      <View style={outerViewStyle}>
-        <Post
-          post={this.props.post}
-          redirect={this.props.navigation.navigate}
-          navigationTab={'Notifications'}
-        />
-        <View style={commentListViewStyle}>
-          <CommentList
-            navigationTab={'Notifications'}
-          />
-        </View>
-      </View>
+      <CommentList
+        header={() => this.header(post, navigation.navigate)}
+        navigationTab={'Notifications'}
+      />
     );
   }
 }
-
-const styles = {
-  outerViewStyle: {
-    flex: 1,
-    backgroundColor: backgroundLightBlue
-  },
-  commentListViewStyle: {
-    flex: 1
-  }
-};
 
 function mapStateToProps(state) {
   const { user, pijnLog, pinboard, activePost, navigation } = state;
@@ -58,4 +53,6 @@ function mapStateToProps(state) {
   return { post: formattedPost, navigation };
 }
 
-export default connect(mapStateToProps, { commentsPopulate, fetchPostCommentLikes })(PostScreen);
+export default connect(mapStateToProps, {
+  commentsPopulate, fetchPostCommentLikes, resetActivePost
+})(PostScreen);

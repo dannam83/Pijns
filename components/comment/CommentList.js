@@ -22,11 +22,12 @@ class CommentList extends Component {
   }
 
   render() {
-    const { comments } = this.props;
+    const { header, comments } = this.props;
 
     return (
       <View style={styles.masterContainerStyle}>
         <FlatList
+          ListHeaderComponent={header}
           data={comments}
           renderItem={({ item }) => this.renderRow(item)}
           keyExtractor={({ item }, commentId) => commentId.toString()}

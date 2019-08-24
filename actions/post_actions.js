@@ -112,7 +112,7 @@ export const fetchActivePost = (postId) => {
   };
 };
 
-export const detachActivePost = (postId) => {
+export const resetActivePost = (postId) => {
   firebase.database().ref(`/posts/${postId}`).off();
 
   return ({

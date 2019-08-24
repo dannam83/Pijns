@@ -1,24 +1,22 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 
-import { ListItemAsButton } from '../../components/common';
 import { resetNotificationsCount } from '../../api/notifications';
-import { displayTimeAgoShort } from '../../functions/common';
-import { timeAgoShortGray } from '../../assets/colors';
-import { setActivePost } from '../../actions';
+import NotificationRow from './NotificationRow';
 
-const PrayerRequest = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
-  const {
-    notificationStyle, messageStyle, nameStyle, contentStyle, timeViewStyle, timeStyle
-  } = styles;
-  const { content, postId, timestamp, sender } = item;
-  const { name, picture } = sender;
+const Comment = ({
+  item, navigation, navigationTab, currentUser, screenWidth, actions
+}) => {
+  const { fetchActivePost, fetchPostCommentLikes, commentsPopulate } = actions;
+  const { messageStyle, nameStyle, contentStyle } = styles;
+  const { content, postId, sender } = item;
+  const { name } = sender;
 
   const messageIntro = 'made a new prayer request.';
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle }}>
+      <Text style={{ ...messageStyle, width: screenWidth - 120 }}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -27,37 +25,32 @@ const PrayerRequest = ({ item, navigation, navigationTab, currentUser, screenWid
   };
 
   const goToPost = async () => {
-    resetNotificationsCount(currentUser.uid);
     const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
-    await setActivePost({ postId, postAuthor: currentUser });
+    fetchActivePost(postId);
+    fetchPostCommentLikes({ userId, postId });
+    commentsPopulate(postId);
+    resetNotificationsCount(currentUser.uid);
 
-    navigation.push(`${navigationTab}_Post`, {
-      user: currentUser, postAuthorId: userId, postId, redirect, navigationTab
+    navigation.navigate(`${navigationTab}_Post`, {
+      user: currentUser,
+      postAuthorId: userId,
+      postId,
+      redirect,
+      navigationTab
     });
   };
 
   return (
-    <View style={notificationStyle}>
-      <ListItemAsButton
-        text={message()}
-        imageSource={picture}
-        onPress={goToPost}
-        textRestyle={{ ...messageStyle, width: screenWidth - 120 }}
-        numberOfLines={2}
-      />
-      <View style={timeViewStyle}>
-        <Text style={timeStyle}>{displayTimeAgoShort(timestamp)}</Text>
-      </View>
-    </View>
+    <NotificationRow
+      item={item}
+      message={message}
+      onPress={goToPost}
+    />
   );
 };
 
 const styles = {
-  notificationStyle: {
-    flexDirection: 'row',
-    flex: 1,
-  },
   messageStyle: {
     fontSize: 17,
     lineHeight: 22
@@ -67,21 +60,7 @@ const styles = {
   },
   contentStyle: {
     fontStyle: 'italic'
-  },
-  timeViewStyle: {
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingBottom: 10,
-    paddingRight: 5
-  },
-  timeStyle: {
-    paddingBottom: 2,
-    fontWeight: '400',
-    fontSize: 14,
-    color: timeAgoShortGray
-  },
+  }
 };
 
-export default PrayerRequest;
+export default Comment;

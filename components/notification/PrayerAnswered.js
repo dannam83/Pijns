@@ -2,10 +2,12 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { resetNotificationsCount } from '../../api/notifications';
-import { setActivePost } from '../../actions';
 import NotificationRow from './NotificationRow';
 
-const PrayerAnswered = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
+const Comment = ({
+  item, navigation, navigationTab, currentUser, screenWidth, actions
+}) => {
+  const { fetchActivePost, fetchPostCommentLikes, commentsPopulate } = actions;
   const { messageStyle, nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
@@ -23,13 +25,19 @@ const PrayerAnswered = ({ item, navigation, navigationTab, currentUser, screenWi
   };
 
   const goToPost = async () => {
-    resetNotificationsCount(currentUser.uid);
     const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
-    await setActivePost({ postId, postAuthor: currentUser });
+    fetchActivePost(postId);
+    fetchPostCommentLikes({ userId, postId });
+    commentsPopulate(postId);
+    resetNotificationsCount(currentUser.uid);
 
-    navigation.push(`${navigationTab}_Post`, {
-      user: currentUser, postAuthorId: userId, postId, redirect, navigationTab
+    navigation.navigate(`${navigationTab}_Post`, {
+      user: currentUser,
+      postAuthorId: userId,
+      postId,
+      redirect,
+      navigationTab
     });
   };
 
@@ -55,4 +63,4 @@ const styles = {
   }
 };
 
-export default PrayerAnswered;
+export default Comment;

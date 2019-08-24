@@ -1,13 +1,11 @@
 import { POST_SET_ACTIVE, POST_RESET_ACTIVE } from '../actions/types';
 
-const INITIAL_STATE = {};
-
-export default (state = INITIAL_STATE, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case POST_SET_ACTIVE:
-      return action.payload;
+      return action.payload || {};
     case POST_RESET_ACTIVE:
-      return INITIAL_STATE;
+      return {};
     default:
       return state;
   }
