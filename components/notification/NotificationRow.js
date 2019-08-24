@@ -7,7 +7,7 @@ import { timeAgoShortGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const NotificationRow = ({ item, onPress, message }) => {
+const NotificationRow = ({ item, message, onPress }) => {
   const {
     notificationStyle, messageStyle, timeViewStyle, timeStyle
   } = styles;
@@ -20,7 +20,7 @@ const NotificationRow = ({ item, onPress, message }) => {
         text={message()}
         imageSource={picture}
         onPress={onPress}
-        textRestyle={{ ...messageStyle }}
+        textRestyle={messageStyle}
         numberOfLines={2}
       />
       <View style={timeViewStyle}>

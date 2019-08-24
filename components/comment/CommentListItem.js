@@ -136,7 +136,7 @@ const styles = {
   },
   textViewStyle: {
     flex: 1,
-    paddingLeft: 3,
+    paddingLeft: 2,
     paddingRight: 5
   },
   commentHeaderStyle: {
