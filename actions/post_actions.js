@@ -99,10 +99,12 @@ export const postsFetch = () => {
 };
 
 export const fetchActivePost = (postId) => {
+  console.log('pid', postId);
   return (dispatch) => {
     firebase.database().ref(`/posts/${postId}`)
       .on('value', snapshot => {
-        const post = snapshot.val();
+        const post = snapshot.val(); post.postId = postId;
+        console.log('p', post);
         dispatch({
           type: POST_SET_ACTIVE,
           payload: { id: postId, author: post.author, post }

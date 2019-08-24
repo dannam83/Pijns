@@ -28,7 +28,7 @@ const Comment = ({ item, navigation, navigationTab, currentUser, screenWidth }) 
 
     await setActivePost({ postId, postAuthor: currentUser });
 
-    navigation.push(`${navigationTab}_Post`, {
+    navigation.navigate(`${navigationTab}_Post`, {
       user: currentUser, postAuthorId: userId, postId, redirect, navigationTab
     });
   };

@@ -77,9 +77,9 @@ function mapStateToProps(state) {
 
   const pijnSentToday = !!pijnLog[post.postId];
   const pinned = !!pinboard[post.postId];
-  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, };
+  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation };
 
-  return { post: formattedPost };
+  return { post: formattedPost, navigation };
 }
 
 export default connect(mapStateToProps, {
