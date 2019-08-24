@@ -18,7 +18,7 @@ const PrayerRequest = ({ item, navigation, navigationTab, currentUser, screenWid
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 111 }}>
+      <Text style={{ ...messageStyle }}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -43,7 +43,7 @@ const PrayerRequest = ({ item, navigation, navigationTab, currentUser, screenWid
         text={message()}
         imageSource={picture}
         onPress={goToPost}
-        textRestyle={{ ...messageStyle, width: screenWidth - 111 }}
+        textRestyle={{ ...messageStyle, width: screenWidth - 120 }}
         numberOfLines={2}
       />
       <View style={timeViewStyle}>
@@ -59,7 +59,8 @@ const styles = {
     flex: 1,
   },
   messageStyle: {
-    fontSize: 15
+    fontSize: 17,
+    lineHeight: 22
   },
   nameStyle: {
     fontWeight: '600'

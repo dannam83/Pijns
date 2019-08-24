@@ -13,7 +13,7 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 111 }}>
+      <Text style={{ ...messageStyle, width: screenWidth - 120 }}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -41,7 +41,8 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
 
 const styles = {
   messageStyle: {
-    fontSize: 15
+    fontSize: 17,
+    lineHeight: 22
   },
   nameStyle: {
     fontWeight: '600'

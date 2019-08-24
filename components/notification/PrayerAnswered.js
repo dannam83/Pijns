@@ -14,7 +14,7 @@ const PrayerAnswered = ({ item, navigation, navigationTab, currentUser, screenWi
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 111 }}>
+      <Text style={{ ...messageStyle, width: screenWidth - 120 }}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -44,7 +44,8 @@ const PrayerAnswered = ({ item, navigation, navigationTab, currentUser, screenWi
 
 const styles = {
   messageStyle: {
-    fontSize: 15
+    fontSize: 17,
+    lineHeight: 22
   },
   nameStyle: {
     fontWeight: '600'

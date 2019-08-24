@@ -42,12 +42,13 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 15
+    paddingBottom: 16,
+    paddingTop: 1
   },
   imageStyle: {
-    height: 60,
-    width: 60,
-    borderRadius: 30
+    height: 64,
+    width: 64,
+    borderRadius: 32
   },
   textStyle: {
     paddingLeft: 8,

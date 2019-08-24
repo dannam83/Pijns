@@ -21,7 +21,7 @@ const NotificationRow = ({ item, message, onPress }) => {
         imageSource={picture}
         onPress={onPress}
         textRestyle={messageStyle}
-        numberOfLines={2}
+        numberOfLines={3}
       />
       <View style={timeViewStyle}>
         <Text style={timeStyle}>{displayTimeAgoShort(timestamp)}</Text>
@@ -36,8 +36,8 @@ const styles = {
     flex: 1,
   },
   messageStyle: {
-    fontSize: 15,
-    width: SCREEN_WIDTH - 111
+    fontSize: 16,
+    width: SCREEN_WIDTH - 120
   },
   timeViewStyle: {
     flexDirection: 'row',
