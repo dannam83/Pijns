@@ -24,6 +24,7 @@ const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
         userId={userId}
         pinned={pinned}
         onProfile={onProfile}
+        navigationTab={navigationTab}
       />
 
       <Text style={contentStyle}>{content}</Text>

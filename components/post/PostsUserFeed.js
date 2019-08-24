@@ -29,8 +29,8 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetch
       <ListItem
         post={post}
         redirect={redirect}
-        pinnedOnly
         navigationTab={navigationTab}
+        pinnedOnly
       />
     );
   };

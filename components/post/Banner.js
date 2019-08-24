@@ -14,7 +14,8 @@ const Banner = ({
   pinned,
   timestamp,
   createdOn,
-  onProfile
+  onProfile,
+  navigationTab
 }) => {
   const { name, picture } = author;
   const {
@@ -40,7 +41,11 @@ const Banner = ({
   };
 
   const goToPublicProfile = () => {
-    redirect('UserFeed_PublicProfile', {
+    if (userId === author.id) {
+      redirect('Profile'); return;
+    }
+
+    redirect(`${navigationTab}_PublicProfile`, {
       profileUser: { ...author, uid: author.id },
       status: 'Unfriend',
       navigationTab: 'UserFeed'
