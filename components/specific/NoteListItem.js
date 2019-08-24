@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, Image, TouchableOpacity, View } from 'react-native';
 
-import { displayTimeAgo } from '../../functions/common';
+import { displayTimeAgoShort } from '../../functions/common';
 
 const NoteListItem = ({ note, onPress }) => {
   const { name, picture, timestamp, createdOn } = note;
   const {
     viewStyle, textViewStyle, nameTextStyle, dateTextStyle, imageStyle
   } = styles;
-  const timeAgo = displayTimeAgo(timestamp, createdOn);
+  const timeAgo = displayTimeAgoShort(timestamp, createdOn);
 
   return (
     <TouchableOpacity

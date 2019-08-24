@@ -62,7 +62,6 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { friendList, user } = state;
-  console.log('mpstp', state);
   const { postType, postText } = state.postCreate;
   const { name, picture, uid } = state.user;
   const author = { name, picture, id: uid };

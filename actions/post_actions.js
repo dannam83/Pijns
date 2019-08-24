@@ -23,7 +23,6 @@ export const postCreateUpdate = ({ prop, value }) => {
 };
 
 export const postCreateSave = ({ postText, postType, author, user, friendList }) => {
-  console.log('action', friendList);
   return (dispatch) => {
     saveToFirebase(author, postText, postType)
     .then(payload => {
