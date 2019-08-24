@@ -8,9 +8,7 @@ import { commentsClear, commentLikesClear } from '../../actions';
 
 class CommentList extends Component {
   componentWillUnmount() {
-    const { user, postId } = this.props;
     this.props.commentsClear();
-    this.props.commentLikesClear({ userId: user.uid, postId });
   }
 
   renderRow = (comment) => {

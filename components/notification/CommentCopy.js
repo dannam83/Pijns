@@ -2,11 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { resetNotificationsCount } from '../../api/notifications';
+import { setActivePost } from '../../actions';
 import NotificationRow from './NotificationRow';
 
-const Comment = ({
-  item, navigation, navigationTab, currentUser, screenWidth, fetchActivePost
-}) => {
+const Comment = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
   const { messageStyle, nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
@@ -24,9 +23,10 @@ const Comment = ({
   };
 
   const goToPost = async () => {
-    const [redirect, userId] = [navigation.navigate, currentUser.uid];
-    fetchActivePost(postId);
     resetNotificationsCount(currentUser.uid);
+    const [redirect, userId] = [navigation.navigate, currentUser.uid];
+
+    await setActivePost({ postId, postAuthor: currentUser });
 
     navigation.navigate(`${navigationTab}_Post`, {
       user: currentUser, postAuthorId: userId, postId, redirect, navigationTab

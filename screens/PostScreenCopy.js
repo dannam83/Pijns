@@ -5,20 +5,40 @@ import { connect } from 'react-redux';
 import CommentList from '../components/comment/CommentList';
 import Post from '../components/post/Post';
 import { backgroundLightBlue } from '../assets/colors';
+import {
+  commentsPopulate, fetchPostCommentLikes, fetchActivePost, detachActivePost
+} from '../actions';
 
 class PostScreen extends Component {
   static navigationOptions = {
     title: 'Post',
   };
 
+  state = {
+    user: this.props.navigation.getParam('user'),
+    postId: this.props.navigation.getParam('postId'),
+    postAuthorId: this.props.navigation.getParam('postAuthorId'),
+    navigationTab: this.props.navigation.getParam('navigationTab'),
+  }
+
+  componentDidMount() {
+    const { fetchPostCommentLikes, commentsPopulate, fetchActivePost } = this.props;
+    const { user, postId } = this.state;
+
+    fetchActivePost(postId);
+    fetchPostCommentLikes({ userId: user.uid, postId });
+    commentsPopulate(postId);
+  }
+
+  componentWillUnmount() {
+    detachActivePost(this.state.postId);
+  }
+
   render() {
     if (!this.props.post) { return null; }
+    const { user, postId, postAuthorId, navigationTab } = this.state;
+    const { navigate } = this.props.navigation;
     const { outerViewStyle, commentListViewStyle } = styles;
-    const { navigate, getParam } = this.props.navigation;
-    const user = getParam('user');
-    const postId = getParam('postId');
-    const postAuthorId = getParam('postAuthorId');
-    const navigationTab = getParam('navigationTab');
 
     return (
       <View style={outerViewStyle}>
@@ -62,4 +82,6 @@ function mapStateToProps(state) {
   return { post: formattedPost, navigation };
 }
 
-export default connect(mapStateToProps)(PostScreen);
+export default connect(mapStateToProps, {
+  commentsPopulate, fetchPostCommentLikes, fetchActivePost
+})(PostScreen);
