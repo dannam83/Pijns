@@ -57,6 +57,7 @@ class CommentsScreen extends Component {
     const postId = props.postId || navigation.getParam('postId');
     const index = props.index || navigation.getParam('index');
     const navigationTab = props.index || navigation.getParam('navigationTab');
+    const keepComments = props.keepComments || navigation.getParam('keepComments');
 
     return (
       <KeyboardAvoidingView
@@ -70,6 +71,7 @@ class CommentsScreen extends Component {
           postId={postId}
           user={user}
           navigationTab={navigationTab}
+          keepComments={keepComments}
         />
         <InputGrowing
           user={user}

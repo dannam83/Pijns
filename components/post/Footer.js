@@ -12,7 +12,7 @@ import {
   sendPrayerAnsweredNotifications
 } from '../../api/notifications';
 
-const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
+const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments }) => {
   const {
     user, postId, author, navigation, index, pinned, pijnSentToday
   } = post;
@@ -38,7 +38,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab }) => {
 
   const goToComments = async () => {
     navigation.navigate(`${navigationTab}_Comments`, {
-      user, postAuthorId: author.id, postId, redirect, author, index, navigationTab
+      user, postAuthorId: author.id, postId, redirect, author, index, navigationTab, keepComments
     });
   };
 

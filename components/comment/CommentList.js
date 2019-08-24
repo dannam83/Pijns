@@ -8,7 +8,9 @@ import { commentsClear, commentLikesClear } from '../../actions';
 
 class CommentList extends Component {
   componentWillUnmount() {
-    commentsClear();
+    if (this.props.keepComments) { return; }
+
+    this.props.commentsClear();
   }
 
   renderRow = (comment) => {
