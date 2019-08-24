@@ -27,6 +27,7 @@ const PostListMine = ({
         navigationTab={navigationTab}
         postEditUpdate={postEditUpdate}
         showDeleteModal={showDeleteModal}
+        onProfile
       />
     );
   };
