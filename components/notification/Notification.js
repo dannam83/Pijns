@@ -9,7 +9,7 @@ import PrayerRequest from './PrayerRequest';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const Notification = ({ item, navigation, navigationTab, currentUser, fetchActivePost }) => {
+const Notification = ({ item, navigation, navigationTab, currentUser, actions }) => {
   const { type } = item;
 
   if (type === 'pijnNote') {
@@ -29,8 +29,8 @@ const Notification = ({ item, navigation, navigationTab, currentUser, fetchActiv
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
+        actions={actions}
         screenWidth={SCREEN_WIDTH}
-        fetchActivePost={fetchActivePost}
       />
     );
   } else if (type === 'commentLike') {
@@ -51,7 +51,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser, fetchActiv
         navigationTab={navigationTab}
         currentUser={currentUser}
         screenWidth={SCREEN_WIDTH}
-        fetchActivePost={fetchActivePost}
+        actions={actions}
       />
     );
   } else if (type === 'prayerRequest') {

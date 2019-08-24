@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import CommentList from '../components/comment/CommentList';
 import Post from '../components/post/Post';
 import { backgroundLightBlue } from '../assets/colors';
+import {
+  commentsPopulate,
+  fetchPostCommentLikes,
+} from '../actions';
 
 class PostScreen extends Component {
   static navigationOptions = {
@@ -25,7 +29,7 @@ class PostScreen extends Component {
         <Post
           post={this.props.post}
           redirect={navigate}
-          navigationTab={navigationTab}
+          navigationTab={'Notifications'}
         />
         <View style={commentListViewStyle}>
           <CommentList
@@ -62,4 +66,4 @@ function mapStateToProps(state) {
   return { post: formattedPost, navigation };
 }
 
-export default connect(mapStateToProps)(PostScreen);
+export default connect(mapStateToProps, { commentsPopulate, fetchPostCommentLikes })(PostScreen);

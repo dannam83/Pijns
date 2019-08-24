@@ -5,8 +5,15 @@ import _ from 'lodash';
 
 import Request from '../components/notification/Request';
 import Notification from '../components/notification/Notification';
-import { setFriendStatus, acceptFriend, declineFriend, fetchActivePost } from '../actions';
 import { resetNotificationsCount } from '../api/notifications';
+import {
+  setFriendStatus,
+  acceptFriend,
+  declineFriend,
+  fetchActivePost,
+  fetchPostCommentLikes,
+  commentsPopulate
+} from '../actions';
 
 class NotificationsScreen extends Component {
   static navigationOptions = {
@@ -33,7 +40,8 @@ class NotificationsScreen extends Component {
   }
 
   renderNotification = (item) => {
-    const { navigation, currentUser, fetchActivePost } = this.props;
+    const { navigation, currentUser } = this.props;
+    const { fetchActivePost, fetchPostCommentLikes, commentsPopulate } = this.props;
 
     return (
       <Notification
@@ -42,6 +50,7 @@ class NotificationsScreen extends Component {
         currentUser={currentUser}
         fetchActivePost={fetchActivePost}
         navigationTab={'Notifications'}
+        actions={{ fetchActivePost, fetchPostCommentLikes, commentsPopulate }}
       />
     );
   }
@@ -83,5 +92,7 @@ export default connect(mapStateToProps, {
   setFriendStatus,
   acceptFriend,
   declineFriend,
-  fetchActivePost
+  fetchActivePost,
+  fetchPostCommentLikes,
+  commentsPopulate
 })(NotificationsScreen);

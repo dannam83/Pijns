@@ -25,10 +25,13 @@ class CommentsScreen extends Component {
     const user = props.user || navigation.getParam('user');
     const postId = props.postId || navigation.getParam('postId');
     const author = props.author || navigation.getParam('author');
+    const navigationTab = props.navigationTab || navigation.getParam('navigationTab');
 
-    fetchPostCommentLikes({ userId: user.uid, postId });
-    commentsPopulate(postId);
-    setActivePost({ postId, postAuthor: author });
+    if (navigationTab !== 'Notifications') {
+      fetchPostCommentLikes({ userId: user.uid, postId });
+      commentsPopulate(postId);
+      setActivePost({ postId, postAuthor: author });
+    }
   }
 
   saveComment = ({ user, postAuthorId, postId, index, comment }) => {
