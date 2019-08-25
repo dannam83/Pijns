@@ -75,8 +75,9 @@ const styles = {
   buttonRestyle: {
     borderWidth: 0,
     width: 70,
-    marginLeft: 0,
-    marginRight: 3,
+    marginLeft: -2,
+    marginRight: 0,
+    paddingTop: 3
   },
   textRestyle: {
     fontSize: 17,
