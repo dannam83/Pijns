@@ -22,9 +22,8 @@ class PostCreateScreen extends Component {
           iconName={'left'}
           onPress={navigation.getParam('onBackPress')}
           buttonRestyle={styles.buttonRestyle}
-          textRestyle={styles.textRestyle}
           iconSize={26}
-        >back</Button>
+        />
       )
     };
   }
@@ -74,16 +73,10 @@ const styles = {
   },
   buttonRestyle: {
     borderWidth: 0,
-    width: 70,
-    marginLeft: -2,
+    width: 30,
+    marginLeft: 1,
     marginRight: 0,
-    paddingTop: 3
-  },
-  textRestyle: {
-    fontSize: 17,
-    fontWeight: '400',
-    paddingTop: 0,
-    paddingBottom: 2
+    paddingTop: 3,
   }
 };
 
