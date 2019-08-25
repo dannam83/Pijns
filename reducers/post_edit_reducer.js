@@ -3,7 +3,7 @@ import {
   POST_SAVE_SUCCESS,
   POST_DELETE,
   POST_SHOW_DELETE_MODAL,
-  POST_HIDE_DELETE_MODAL
+  POST_HIDE_DELETE_MODAL,
 } from '../actions/types';
 
 const INITIAL_STATE = {

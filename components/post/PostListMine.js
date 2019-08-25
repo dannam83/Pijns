@@ -51,24 +51,6 @@ const PostListMine = ({
   );
 };
 
-// const renderHeader = () => {
-//   return (
-//     <View style={writePostView}>
-//       <ButtonAsField
-//         onPress={() => redirect('MyPosts_PostCreate')}
-//         iconName={'form'}
-//         iconRestyle={iconStyle}
-//       >Write a post</ButtonAsField>
-//     </View>
-//   );
-// };
-
-// writePostView: {
-//   paddingTop: 10,
-//   paddingBottom: 5,
-//   display: 'flex',
-//   flexDirection: 'row',
-// },
 const styles = {
   masterContainerStyle: {
     flex: 1,

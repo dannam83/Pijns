@@ -11,6 +11,8 @@ import {
   POST_RESET_ACTIVE,
   POST_SHOW_DELETE_MODAL,
   POST_HIDE_DELETE_MODAL,
+  POST_UNAVAILABLE,
+  POST_UNAVAILABLE_CONFIRM
  } from './types';
 import { getCurrentDate } from '../functions/common';
 import { sendPrayerRequestNotifications } from '../api/notifications';
@@ -102,15 +104,24 @@ export const fetchActivePost = (postId) => {
   return (dispatch) => {
     firebase.database().ref(`/posts/${postId}`)
       .on('value', snapshot => {
-        const post = snapshot.val(); post.postId = postId;
-        dispatch({
-          type: POST_SET_ACTIVE,
-          payload: { id: postId, author: post.author, post }
-        });
+        const post = snapshot.val();
+        if (!post) {
+          dispatch({
+            type: POST_UNAVAILABLE
+          });
+        } else {
+          post.postId = postId;
+          dispatch({
+            type: POST_SET_ACTIVE,
+            payload: { id: postId, author: post.author, post }
+          });
+        }
       }
     );
   };
 };
+
+export const confirmPostUnavailable = () => ({ type: POST_UNAVAILABLE_CONFIRM });
 
 export const resetActivePost = (postId) => {
   firebase.database().ref(`/posts/${postId}`).off();
