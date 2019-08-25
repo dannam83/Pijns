@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
 
 import CommentList from '../components/comment/CommentList';
 import Post from '../components/post/Post';
@@ -40,25 +39,24 @@ class PostScreen extends Component {
 
   render() {
     const { post, navigation, postUnavailable } = this.props;
-    if (!this.props.post) {
+
+    if (!post) {
       return (
         <Confirm
           visible={postUnavailable}
           onAccept={this.onAccept}
           acceptText={'Ok'}
         >
-          Sorry! It looks like this post was either hidden or deleted.
+          Sorry! It looks like this post isn't available anymore.
         </Confirm>
       );
     }
 
     return (
-      <View style={{ flex: 1 }}>
-        <CommentList
-          header={() => this.header(post, navigation.navigate)}
-          navigationTab={'Notifications'}
-        />
-      </View>
+      <CommentList
+        header={() => this.header(post, navigation.navigate)}
+        navigationTab={'Notifications'}
+      />
     );
   }
 }
