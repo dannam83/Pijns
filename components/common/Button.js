@@ -10,6 +10,7 @@ const Button = ({
   textRestyle,
   iconName,
   iconRestyle,
+  iconSize
 }) => {
   const { buttonStyle, textStyle, iconStyle } = styles;
 
@@ -20,7 +21,12 @@ const Button = ({
       disabled={disabled}
     >
       { iconName ?
-        <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
+        <AntDesign
+          name={iconName}
+          size={iconSize || 18}
+          style={[iconStyle, iconRestyle]}
+          color={'#007aff'}
+        />
         :
         null
       }

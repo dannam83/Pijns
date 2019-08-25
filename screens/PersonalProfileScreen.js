@@ -29,7 +29,7 @@ class PersonalProfileScreen extends Component {
   }
 
   renderPersonalPosts() {
-    const redirect = this.props.navigation.navigate;
+    const redirect = this.props.navigation.push;
     const {
       posts,
       postEditUpdate,

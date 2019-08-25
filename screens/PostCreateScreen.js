@@ -3,7 +3,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { postCreateSave, fetchUserFeed, fetchFriendList } from '../actions';
-import { ButtonAsText } from '../components/common';
+import { Button, ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 import { disabledGray, headerButtonBlue } from '../assets/colors';
 
@@ -14,8 +14,17 @@ class PostCreateScreen extends Component {
       headerRight: (
         <ButtonAsText
           onPress={navigation.getParam('onSharePress')}
-          editTextStyle={styles.editTextStyle}
+          editTextStyle={styles.rightButtonStyle}
         >Share</ButtonAsText>
+      ),
+      headerLeft: (
+        <Button
+          iconName={'left'}
+          onPress={navigation.getParam('onBackPress')}
+          buttonRestyle={styles.buttonRestyle}
+          textRestyle={styles.textRestyle}
+          iconSize={26}
+        >back</Button>
       )
     };
   }
@@ -23,6 +32,7 @@ class PostCreateScreen extends Component {
   componentDidMount() {
     const { navigation, fetchFriendList, user } = this.props;
     navigation.setParams({ onSharePress: this.onSharePress });
+    navigation.setParams({ onBackPress: this.onBackPress });
     fetchFriendList(user.uid);
   }
 
@@ -33,6 +43,10 @@ class PostCreateScreen extends Component {
     await postCreateSave({ postText, postType: 'prayerRequest', author, user, friendList });
     await fetchUserFeed(author.id);
     navigation.navigate('UserFeed');
+  }
+
+  onBackPress = () => {
+    this.props.navigation.navigate('UserFeed');
   }
 
   render() {
@@ -50,13 +64,25 @@ class PostCreateScreen extends Component {
 }
 
 const styles = {
-  editTextStyle: {
+  rightButtonStyle: {
     fontWeight: 'bold',
     color: headerButtonBlue
   },
   disabledTextStyle: {
     fontWeight: 'bold',
     color: disabledGray
+  },
+  buttonRestyle: {
+    borderWidth: 0,
+    width: 70,
+    marginLeft: 0,
+    marginRight: 3,
+  },
+  textRestyle: {
+    fontSize: 17,
+    fontWeight: '400',
+    paddingTop: 0,
+    paddingBottom: 2
   }
 };
 
