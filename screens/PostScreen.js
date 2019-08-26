@@ -38,7 +38,7 @@ class PostScreen extends Component {
   }
 
   render() {
-    const { post, navigation, postUnavailable } = this.props;
+    const { user, post, navigation, postUnavailable } = this.props;
 
     if (!post) {
       return (
@@ -56,6 +56,8 @@ class PostScreen extends Component {
       <CommentList
         header={() => this.header(post, navigation.navigate)}
         navigationTab={'Notifications'}
+        userId={user.uid}
+        postId={post.postId}
       />
     );
   }
@@ -71,7 +73,7 @@ function mapStateToProps(state) {
   const pinned = !!pinboard[post.postId];
   const formattedPost = { ...post, pijnSentToday, pinned, user, navigation };
 
-  return { post: formattedPost, navigation, postUnavailable };
+  return { post: formattedPost, navigation, postUnavailable, user };
 }
 
 export default connect(mapStateToProps, {

@@ -1,41 +1,67 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
 import CommentListItem from './CommentListItem';
-import { commentsClear, commentLikesClear } from '../../actions';
+import {
+  fetchActivePost,
+  fetchPostCommentLikes,
+  commentsPopulate,
+  commentsClear,
+  commentLikesClear
+} from '../../actions';
 
-class CommentList extends Component {
-  componentWillUnmount() {
-    if (this.props.keepComments) { return; }
+const CommentList = ({ header, keepComments, navigationTab, userId, postId }) => {
+  const dispatch = useDispatch();
 
-    this.props.commentsClear();
-  }
+  const stateComments = useSelector(state => state.comments);
 
-  renderRow = (comment) => {
-    const { navigationTab } = this.props;
+  const [comments, setComments] = useState([]);
 
+  // useEffect(async () => {
+  //   dispatch(fetchActivePost(postId));
+  //   dispatch(fetchPostCommentLikes({ userId, postId }));
+  //   dispatch(commentsPopulate(postId));
+  // });
+
+  useEffect(() => {
+    const commentsArray = _.map(stateComments, val => {
+      return { ...val };
+    });
+
+    if (comments.length === 0 && commentsArray.length > 0) {
+      setComments(commentsArray);
+    }
+  }, [stateComments]);
+
+  // useEffect(() => {
+  //   return function cleanup() {
+  //     dispatch(commentsClear());
+  //     dispatch(commentLikesClear({ userId, postId }));
+  //     console.log('cleanup');
+  //   };
+  // });
+
+  const renderRow = (comment) => {
     return (
       <CommentListItem comment={comment} navigationTab={navigationTab} />
     );
-  }
+  };
 
-  render() {
-    const { header, comments } = this.props;
+  if (comments.length === 0) { return null; }
 
-    return (
-      <View style={styles.masterContainerStyle}>
-        <FlatList
-          ListHeaderComponent={header}
-          data={comments}
-          renderItem={({ item }) => this.renderRow(item)}
-          keyExtractor={({ item }, commentId) => commentId.toString()}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.masterContainerStyle}>
+      <FlatList
+        ListHeaderComponent={header}
+        data={comments}
+        renderItem={({ item }) => renderRow(item)}
+        keyExtractor={({ item }, commentId) => commentId.toString()}
+      />
+    </View>
+  );
+};
 
 const styles = {
   masterContainerStyle: {
@@ -47,13 +73,4 @@ const styles = {
   }
 };
 
-function mapStateToProps(state) {
-  let comments = _.map(state.comments, val => {
-    return { ...val };
-  });
-  return { comments };
-}
-
-export default connect(mapStateToProps, {
-  commentsClear, commentLikesClear
-})(CommentList);
+export default CommentList;
