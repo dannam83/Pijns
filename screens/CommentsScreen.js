@@ -10,7 +10,8 @@ import {
   updateCommentCount,
   commentsPopulate,
   fetchPostCommentLikes,
-  setActivePost
+  setActivePost,
+  commentsClear
 } from '../actions';
 
 
@@ -32,6 +33,12 @@ class CommentsScreen extends Component {
       commentsPopulate(postId);
       setActivePost({ postId, postAuthor: author });
     }
+  }
+
+  componentWillUnmount() {
+    if (this.props.keepComments) { return; }
+
+    this.props.commentsClear();
   }
 
   saveComment = ({ user, postAuthorId, postId, index, comment }) => {
@@ -103,5 +110,6 @@ export default connect(mapStateToProps, {
   updateCommentCount,
   commentsPopulate,
   fetchPostCommentLikes,
-  setActivePost
+  setActivePost,
+  commentsClear
 })(CommentsScreen);
