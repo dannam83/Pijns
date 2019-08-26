@@ -5,9 +5,8 @@ import { resetNotificationsCount } from '../../api/notifications';
 import NotificationRow from './NotificationRow';
 
 const Comment = ({
-  item, navigation, navigationTab, currentUser, screenWidth, actions
+  item, navigation, navigationTab, currentUser, screenWidth
 }) => {
-  const { fetchActivePost, fetchPostCommentLikes, commentsPopulate } = actions;
   const { messageStyle, nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
@@ -26,10 +25,7 @@ const Comment = ({
 
   const goToPost = async () => {
     const [redirect, userId] = [navigation.navigate, currentUser.uid];
-
-    fetchActivePost(postId);
-    fetchPostCommentLikes({ userId, postId });
-    commentsPopulate(postId);
+    
     resetNotificationsCount(currentUser.uid);
 
     navigation.navigate(`${navigationTab}_Post`, {

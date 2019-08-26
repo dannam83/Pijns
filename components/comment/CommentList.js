@@ -1,29 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
 import CommentListItem from './CommentListItem';
-import {
-  fetchActivePost,
-  fetchPostCommentLikes,
-  commentsPopulate,
-  commentsClear,
-  commentLikesClear
-} from '../../actions';
 
-const CommentList = ({ header, keepComments, navigationTab, userId, postId }) => {
-  const dispatch = useDispatch();
-
+const CommentList = ({ header, navigationTab }) => {
   const stateComments = useSelector(state => state.comments);
 
   const [comments, setComments] = useState([]);
-
-  // useEffect(async () => {
-  //   dispatch(fetchActivePost(postId));
-  //   dispatch(fetchPostCommentLikes({ userId, postId }));
-  //   dispatch(commentsPopulate(postId));
-  // });
 
   useEffect(() => {
     const commentsArray = _.map(stateComments, val => {
@@ -34,14 +19,6 @@ const CommentList = ({ header, keepComments, navigationTab, userId, postId }) =>
       setComments(commentsArray);
     }
   }, [stateComments]);
-
-  // useEffect(() => {
-  //   return function cleanup() {
-  //     dispatch(commentsClear());
-  //     dispatch(commentLikesClear({ userId, postId }));
-  //     console.log('cleanup');
-  //   };
-  // });
 
   const renderRow = (comment) => {
     return (

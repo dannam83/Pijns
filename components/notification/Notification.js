@@ -9,7 +9,7 @@ import PrayerRequest from './PrayerRequest';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const Notification = ({ item, navigation, navigationTab, currentUser, actions }) => {
+const Notification = ({ item, navigation, navigationTab, currentUser }) => {
   const { type } = item;
 
   if (type === 'pijnNote') {
@@ -29,7 +29,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );
@@ -40,7 +39,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );
@@ -51,7 +49,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );
@@ -62,7 +59,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );
@@ -73,7 +69,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, actions })
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        actions={actions}
         screenWidth={SCREEN_WIDTH}
       />
     );

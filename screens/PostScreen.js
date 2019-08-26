@@ -8,7 +8,8 @@ import {
   commentsPopulate,
   fetchPostCommentLikes,
   resetActivePost,
-  confirmPostUnavailable
+  confirmPostUnavailable,
+  fetchActivePost
 } from '../actions';
 
 class PostScreen extends Component {
@@ -16,10 +17,21 @@ class PostScreen extends Component {
     title: 'Post',
   };
 
+  state = {
+    postId: this.props.navigation.getParam('postId'),
+    user: this.props.navigation.getParam('user')
+  }
+
+  componentDidMount() {
+    const { postId, user } = this.state;
+
+    this.props.fetchActivePost(postId);
+    this.props.fetchPostCommentLikes({ userId: user.uid, postId });
+    this.props.commentsPopulate(postId);
+  }
+
   componentWillUnmount() {
-    if (this.props.post) {
-      this.props.resetActivePost(this.props.post.postId);
-    }
+    this.props.resetActivePost(this.state.postId);
   }
 
   onAccept = () => {
@@ -77,5 +89,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  commentsPopulate, fetchPostCommentLikes, resetActivePost, confirmPostUnavailable
+  commentsPopulate, fetchPostCommentLikes, resetActivePost, confirmPostUnavailable, fetchActivePost
 })(PostScreen);

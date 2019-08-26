@@ -10,9 +10,6 @@ import {
   setFriendStatus,
   acceptFriend,
   declineFriend,
-  fetchActivePost,
-  fetchPostCommentLikes,
-  commentsPopulate
 } from '../actions';
 
 class NotificationsScreen extends Component {
@@ -41,16 +38,13 @@ class NotificationsScreen extends Component {
 
   renderNotification = (item) => {
     const { navigation, currentUser } = this.props;
-    const { fetchActivePost, fetchPostCommentLikes, commentsPopulate } = this.props;
 
     return (
       <Notification
         item={item}
         navigation={navigation}
         currentUser={currentUser}
-        fetchActivePost={fetchActivePost}
         navigationTab={'Notifications'}
-        actions={{ fetchActivePost, fetchPostCommentLikes, commentsPopulate }}
       />
     );
   }
@@ -92,7 +86,4 @@ export default connect(mapStateToProps, {
   setFriendStatus,
   acceptFriend,
   declineFriend,
-  fetchActivePost,
-  fetchPostCommentLikes,
-  commentsPopulate
 })(NotificationsScreen);
