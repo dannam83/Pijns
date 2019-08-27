@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { sendPushNotification } from './pushNotifications';
 
 export const addPijnNotification = (user, postId, post) => {
   const { author, content } = post;
@@ -8,6 +9,7 @@ export const addPijnNotification = (user, postId, post) => {
     const notification = { content, postId, timestamp, sender, type };
     addNotification(author.id, notification);
     incrementCounter(author.id);
+    sendPushNotification(author.id, 'You just got a new pijn note!');
   }
 };
 
