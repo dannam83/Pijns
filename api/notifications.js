@@ -9,7 +9,7 @@ export const addPijnNotification = (user, postId, post) => {
     const notification = { content, postId, timestamp, sender, type };
     addNotification(author.id, notification);
     incrementCounter(author.id);
-    sendPushNotification(author.id, 'You just got a new pijn note!');
+    sendPushNotification(author.id, `${user.name} sent you a pijn note!`);
   }
 };
 
@@ -20,6 +20,7 @@ export const addCommentNotification = (user, postId, postAuthorId, comment) => {
     const notification = { content, postId, timestamp, sender, type };
     addNotification(postAuthorId, notification);
     incrementCounter(postAuthorId);
+    sendPushNotification(postAuthorId, `${user.name} commented on your post: ${content}`);
   }
 };
 
@@ -32,6 +33,7 @@ export const addCommentLikeNotification = (
     const notification = { content, postId, timestamp, sender, type, commentId };
     addNotification(commentAuthorId, notification);
     incrementCounter(commentAuthorId);
+    sendPushNotification(commentAuthorId, `${user.name} liked your comment: ${content}`);
   }
 };
 
@@ -48,10 +50,11 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
       const keys = Object.keys(postNotes);
       const sent = {};
       keys.forEach(key => {
-        const uid = postNotes[key].uid;
+        const { uid } = postNotes[key];
         if (!sent[uid] && uid !== user.uid) {
           addNotification(uid, notification);
           incrementCounter(uid);
+          sendPushNotification(uid, `${user.name} has an answered prayer that you prayed for!`);
           sent[uid] = true;
         }
       });
@@ -68,6 +71,7 @@ export const sendPrayerRequestNotifications = (user, postId, content, friendList
   userIds.forEach(userId => {
     addNotification(userId, notification);
     incrementCounter(userId);
+    sendPushNotification(userId, `${user.name} shared a new prayer request`);
   });
 };
 
