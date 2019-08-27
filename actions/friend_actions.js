@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 import { incrementCounter } from '../api/notifications';
+import { sendPushNotification } from '../api/pushNotifications';
 
 import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
 
@@ -8,12 +9,14 @@ export const friendRequest = ({ profileUserId, currentUser }) => {
   return () => {
     processRequest({ profileUserId, currentUser, type: 'request' });
     incrementCounter(profileUserId);
+    sendPushNotification(profileUserId, `${currentUser.name} sent you a friend request`);
   };
 };
 
 export const acceptFriend = ({ profileUserId, currentUser, friend }) => {
   return () => {
     processRequest({ profileUserId, currentUser, type: 'accept', friend });
+    sendPushNotification(profileUserId, `${currentUser.name} accepted your friend request!`);
   };
 };
 
