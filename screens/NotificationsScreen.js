@@ -3,7 +3,7 @@ import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import Request from '../components/notification/Request';
+import FriendRequest from '../components/notification/FriendRequest';
 import Notification from '../components/notification/Notification';
 import { resetNotificationsCount } from '../api/notifications';
 import {
@@ -26,7 +26,7 @@ class NotificationsScreen extends Component {
     const { setFriendStatus, acceptFriend, declineFriend } = this.props;
 
     return (
-      <Request
+      <FriendRequest
         item={item}
         navigation={navigation}
         currentUser={currentUser}
@@ -37,9 +37,19 @@ class NotificationsScreen extends Component {
   }
 
   renderNotification = (item) => {
-    const { navigation, currentUser } = this.props;
+    const { navigation, currentUser, friend } = this.props;
+    const { setFriendStatus, acceptFriend, declineFriend } = this.props;
+    const { type } = item;
 
-    return (
+    return (!type || type === 'FriendRequest') ? (
+      <FriendRequest
+        item={item}
+        navigation={navigation}
+        currentUser={currentUser}
+        friend={friend}
+        actions={{ setFriendStatus, acceptFriend, declineFriend }}
+      />
+    ) : (
       <Notification
         item={item}
         navigation={navigation}
@@ -52,11 +62,6 @@ class NotificationsScreen extends Component {
   render() {
     return (
       <View style={{ padding: 10 }}>
-        <FlatList
-          data={this.props.requests}
-          renderItem={({ item }) => this.renderRequest(item)}
-          keyExtractor={({ item }, uid) => uid.toString()}
-        />
         <FlatList
           data={this.props.notifications}
           renderItem={({ item }) => this.renderNotification(item)}
@@ -72,14 +77,15 @@ function mapStateToProps(state) {
     return { ...val };
   });
 
-  const notifications = _.map(state.notifications, (val) => {
+  const pushNotifications = _.map(state.notifications, (val) => {
     return { ...val };
-  });
-  notifications.sort((a, b) => a.timestamp - b.timestamp);
+  }).sort((a, b) => a.timestamp - b.timestamp);
+
+  const notifications = [...requests, ...pushNotifications];
 
   const { user, friend } = state;
 
-  return { currentUser: user, friend, requests, notifications, resetNotificationsCount };
+  return { currentUser: user, friend, notifications, resetNotificationsCount };
 }
 
 export default connect(mapStateToProps, {
