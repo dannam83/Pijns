@@ -1,13 +1,12 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View, Alert } from 'react-native';
-import { AppLoading, Notifications } from 'expo';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as Icon from '@expo/vector-icons';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 
-import registerForPushNotifications from './services/push_notifications';
 import store from './store';
 import AppNavigator from './navigation/AppNavigator';
 
@@ -28,21 +27,6 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
-
-  componentDidMount() {
-    registerForPushNotifications();
-    Notifications.addListener((notification) => {
-      const { data: { text }, origin } = notification;
-
-      if (origin === 'received' && text) {
-        Alert.alert(
-          'New Push Notification',
-          text,
-          [{ text: 'Ok' }]
-        );
-      }
-    });
-  }
 
   _loadResourcesAsync = async () => {
     return Promise.all([

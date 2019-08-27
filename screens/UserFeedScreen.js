@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
+import registerForPushNotifications from '../services/push_notifications';
 import PostsUserFeed from '../components/post/PostsUserFeed';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
@@ -33,6 +34,8 @@ class UserFeedScreen extends Component {
   }
 
   componentDidMount() {
+    registerForPushNotifications(this.props.user.uid);
+
     this.props.navigation.setParams({
       pinToggle: this.pinToggle,
       headerPinStyle: styles.pinStyle
