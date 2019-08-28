@@ -11,6 +11,7 @@ import {
   chatMessageSave,
   chatDetachListener
 } from '../actions';
+import { onChat, offChat } from '../api/chat';
 
 class ChatScreen extends Component {
   static navigationOptions = {
@@ -21,26 +22,30 @@ class ChatScreen extends Component {
     super(props);
     const { navigation } = this.props;
     const user = navigation.getParam('user');
-    const postAuthorId = navigation.getParam('postAuthorId');
-    this.props.fetchChat({ userId: user.uid, friendId: postAuthorId });
-    this.state = { isTyping: false };
+    const friendId = navigation.getParam('postAuthorId');
+    this.props.fetchChat({ userId: user.uid, friendId });
+    this.state = { user, userId: user.uid, friendId, isTyping: false };
+  }
+
+  componentDidMount() {
+    const { userId, friendId } = this.state;
+    onChat(userId, friendId);
   }
 
   componentWillUnmount() {
-    const { navigation } = this.props;
-    const user = navigation.getParam('user');
-    const postAuthorId = navigation.getParam('postAuthorId');
-    this.props.chatDetachListener(user.uid, postAuthorId);
+    const { userId, friendId } = this.state;
+    offChat(userId, friendId);
+    this.props.chatDetachListener(userId, friendId);
   }
 
-  onChange = (text, userId, postAuthorId) => {
-    const isTyping = this.state.isTyping;
-    this.props.chatTypingStart(userId, postAuthorId, text);
+  onChange = (text) => {
+    const { userId, friendId, isTyping } = this.state;
+    this.props.chatTypingStart(userId, friendId, text);
 
     if (!isTyping && text.length > 0) {
       this.setState({ isTyping: true });
     } else if (text.length === 0 && isTyping) {
-      this.props.chatTypingEnd(userId, postAuthorId);
+      this.props.chatTypingEnd(userId, friendId);
       this.setState({ isTyping: false });
     }
   }
@@ -57,9 +62,10 @@ class ChatScreen extends Component {
 
   render() {
     const { chat, navigation } = this.props;
-    const user = navigation.getParam('user');
-    const postAuthorId = navigation.getParam('postAuthorId');
-    const alreadyTyped = chat[user.uid];
+    const { user, userId, friendId } = this.state;
+    // const user = navigation.getParam('user');
+    // const postAuthorId = navigation.getParam('postAuthorId');
+    const alreadyTyped = chat[userId];
 
     return (
       <KeyboardAvoidingView
@@ -69,20 +75,19 @@ class ChatScreen extends Component {
         keyboardVerticalOffset={80}
       >
         <ChatList
-          postAuthorId={postAuthorId}
+          postAuthorId={friendId}
           userId={user.uid}
-          otherTyping={chat[postAuthorId]}
+          otherTyping={chat[friendId]}
           chat={chat.messages}
         />
         <InputGrowing
           user={user}
-          postAuthorId={postAuthorId}
+          postAuthorId={friendId}
           navigation={navigation}
           onSave={this.saveChat}
           placeholder="Say something..."
           value={alreadyTyped}
-          onChange={
-            (text, userId, postAuthId) => this.onChange(text, userId, postAuthId)}
+          onChange={(text) => this.onChange(text)}
         />
       </KeyboardAvoidingView>
     );
