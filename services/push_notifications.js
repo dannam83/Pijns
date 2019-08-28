@@ -3,7 +3,7 @@ import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
 
-import { savePushToken } from '../api/pushNotifications';
+import { savePushToken } from '../api/pushNotifications_api';
 
 export default async (userId) => {
   if (Constants.isDevice) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { resetNotificationsCount } from '../../api/notifications';
+import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
 
 const Chat = ({

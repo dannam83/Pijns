@@ -10,7 +10,7 @@ import { answerPrayer, unanswerPrayer, sendPijn } from '../../actions';
 import {
   addPijnNotification,
   sendPrayerAnsweredNotifications
-} from '../../api/notifications';
+} from '../../api/notifications_api';
 
 const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments }) => {
   const {

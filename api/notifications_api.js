@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { sendPushNotification } from './pushNotifications';
+import { sendPushNotification } from './pushNotifications_api';
 
 export const addPijnNotification = (user, postId, post) => {
   const { author, content } = post;

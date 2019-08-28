@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
-import { incrementCounter } from '../api/notifications';
-import { sendPushNotification } from '../api/pushNotifications';
+import { incrementCounter } from '../api/notifications_api';
+import { sendPushNotification } from '../api/pushNotifications_api';
 
 import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
 

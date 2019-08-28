@@ -15,7 +15,7 @@ import {
   POST_UNAVAILABLE_CONFIRM
  } from './types';
 import { getCurrentDate } from '../functions/common';
-import { sendPrayerRequestNotifications } from '../api/notifications';
+import { sendPrayerRequestNotifications } from '../api/notifications_api';
 
 export const postCreateUpdate = ({ prop, value }) => {
   return {

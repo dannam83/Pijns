@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import ChatList from '../components/chat/ChatList';
+import { fetchChat, chatUnmount } from '../actions';
+import { sendChatNotification } from '../api/notifications_api';
 import {
-  fetchChat,
+  onChat,
+  offChat,
   chatTypingStart,
   chatTypingEnd,
   chatMessageSave,
-  chatDetachListener
-} from '../actions';
-import { onChat, offChat } from '../api/chat';
-import { sendChatNotification } from '../api/notifications';
+} from '../api/chat_api';
 
 class ChatScreen extends Component {
   static navigationOptions = {
@@ -36,17 +36,17 @@ class ChatScreen extends Component {
   componentWillUnmount() {
     const { userId, friendId } = this.state;
     offChat(userId, friendId);
-    this.props.chatDetachListener(userId, friendId);
+    this.props.chatUnmount(userId, friendId);
   }
 
   onChange = (text) => {
     const { userId, friendId, isTyping } = this.state;
-    this.props.chatTypingStart(userId, friendId, text);
+    chatTypingStart(userId, friendId, text);
 
     if (!isTyping && text.length > 0) {
       this.setState({ isTyping: true });
     } else if (text.length === 0 && isTyping) {
-      this.props.chatTypingEnd(userId, friendId);
+      chatTypingEnd(userId, friendId);
       this.setState({ isTyping: false });
     }
   }
@@ -55,8 +55,8 @@ class ChatScreen extends Component {
     const friendOnChat = this.props.chat[`${postAuthorId}_ON`];
 
     try {
-      this.props.chatMessageSave(user, postAuthorId, comment);
-      this.props.chatTypingEnd(user.uid, postAuthorId);
+      chatMessageSave(user, postAuthorId, comment);
+      chatTypingEnd(user.uid, postAuthorId);
       this.setState({ isTyping: false });
       if (!friendOnChat) { sendChatNotification(user, postAuthorId, comment); }
     } catch (err) {
@@ -110,6 +110,4 @@ function mapStateToProps(state) {
   return { chat };
 }
 
-export default connect(mapStateToProps, {
-  fetchChat, chatTypingStart, chatTypingEnd, chatMessageSave, chatDetachListener
-})(ChatScreen);
+export default connect(mapStateToProps, { fetchChat, chatUnmount })(ChatScreen);

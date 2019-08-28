@@ -6,7 +6,7 @@ import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
 import { ActionButton, ButtonAsText } from '../../components/common';
 import { lightTextGray } from '../../assets/colors';
-import { addCommentLikeNotification } from '../../api/notifications';
+import { addCommentLikeNotification } from '../../api/notifications_api';
 
 class CommentListItem extends Component {
   state = {

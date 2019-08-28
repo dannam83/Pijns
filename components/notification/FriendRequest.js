@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
-import { resetNotificationsCount } from '../../api/notifications';
+import { resetNotificationsCount } from '../../api/notifications_api';
 import { buttonBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;

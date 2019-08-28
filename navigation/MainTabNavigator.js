@@ -14,6 +14,7 @@ import CommentsScreen from '../screens/CommentsScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
+import ChatListScreen from '../screens/ChatListScreen';
 import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
@@ -42,14 +43,29 @@ UserFeedStack.navigationOptions = {
   ),
 };
 
+const ChatStack = createStackNavigator({
+  Chat: ChatListScreen,
+  Chat_Chat: ChatScreen
+});
+
+ChatStack.navigationOptions = {
+  tabBarOptions: {
+    showLabel: false,
+    activeTintColor: 'rgba(0,125,255,1)',
+    inactiveTintColor: 'gray'
+  },
+  tabBarIcon: ({ focused, tintColor }) => (
+    <AntDesign
+      focused={focused}
+      name={'message1'}
+      size={25}
+      color={tintColor}
+    />
+  ),
+};
+
 const PostCreateStack = createStackNavigator({
   PostCreate: PostCreateScreen,
-  MyPosts_PostCreate: PostCreateScreen,
-  MyPosts_PostEdit: PostEditScreen,
-  MyPosts_Comments: CommentsScreen,
-  MyPosts_Notes: PostNotesListScreen,
-  MyPosts_PublicProfile: PublicProfileScreen,
-  MyPosts_Friends: FriendListScreen,
 });
 
 PostCreateStack.navigationOptions = {
@@ -136,6 +152,7 @@ ProfileStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   UserFeedStack,
+  ChatStack,
   PostCreateStack,
   NotificationsStack,
   ProfileStack,

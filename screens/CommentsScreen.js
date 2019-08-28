@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
 import CommentList from '../components/comment/CommentList';
-import { addCommentNotification } from '../api/notifications';
+import { addCommentNotification } from '../api/notifications_api';
 import {
   commentCreateSave,
   updateCommentCount,
