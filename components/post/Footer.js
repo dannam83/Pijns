@@ -44,7 +44,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
 
   const goToChat = async () => {
     navigation.navigate(`${navigationTab}_Chat`, {
-      user, postAuthorId: author.id, postId, redirect, index
+      user, postAuthorId: author.id, postId, redirect, index, friend: author
     });
   };
 

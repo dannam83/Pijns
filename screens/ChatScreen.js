@@ -6,6 +6,7 @@ import { InputGrowing } from '../components/common';
 import ChatList from '../components/chat/ChatList';
 import { fetchChat, chatUnmount } from '../actions';
 import { sendChatNotification } from '../api/notifications_api';
+import { updateChatListMessage, setChatListFriendData } from '../api/chat_list_api';
 import {
   onChat,
   offChat,
@@ -24,13 +25,18 @@ class ChatScreen extends Component {
     const { navigation } = this.props;
     const user = navigation.getParam('user');
     const friendId = navigation.getParam('postAuthorId');
+    const friend = navigation.getParam('friend');
+    console.log('friend', friend);
     this.props.fetchChat({ userId: user.uid, friendId });
-    this.state = { user, userId: user.uid, friendId, isTyping: false };
+    this.state = { user, userId: user.uid, friendId, isTyping: false, friend };
   }
 
   componentDidMount() {
     const { userId, friendId } = this.state;
     onChat(userId, friendId);
+    // if (this.props.chat.messages !== 0) {
+    //
+    // }
   }
 
   componentWillUnmount() {
@@ -53,10 +59,14 @@ class ChatScreen extends Component {
 
   saveChat = ({ user, postAuthorId, comment }) => {
     const friendOnChat = this.props.chat[`${postAuthorId}_ON`];
+    // if (this.props.chat.messages === 0) {
+    //   setChatListFriendData()
+    // }
 
     try {
       chatMessageSave(user, postAuthorId, comment);
       chatTypingEnd(user.uid, postAuthorId);
+      updateChatListMessage(user.uid, postAuthorId, comment);
       this.setState({ isTyping: false });
       if (!friendOnChat) { sendChatNotification(user, postAuthorId, comment); }
     } catch (err) {

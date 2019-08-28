@@ -3,23 +3,17 @@ import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import FriendRequest from '../components/notification/FriendRequest';
-import Notification from '../components/notification/Notification';
-import { resetNotificationsCount } from '../api/notifications_api';
-import {
-  setFriendStatus,
-  acceptFriend,
-  declineFriend,
-} from '../actions';
+import { resetMessagesCount } from '../api/chat_api';
+import { fetchChatList, chatListUnmount } from '../actions';
 
 class ChatListScreen extends Component {
   static navigationOptions = {
     title: 'Chats',
   };
 
-  // componentDidMount() {
-  //   this.props.resetNotificationsCount(this.props.currentUser.uid);
-  // }
+  componentDidMount() {
+    this.props.fetchChatList(this.props.user.uid);
+  }
   //
   // renderRequest = (item) => {
   //   const { navigation, currentUser, friend } = this.props;
@@ -84,23 +78,14 @@ class ChatListScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const requests = _.map(state.requests, (val) => {
-    return { ...val };
-  });
+  const { user, chatList } = state;
 
-  const pushNotifications = _.map(state.notifications, (val) => {
-    return { ...val };
-  }).sort((a, b) => a.timestamp - b.timestamp);
+  const chats = _.map(chatList, (val, key) => {
+    return { ...val, chatId: key };
+  }).sort((a, b) => a.lastMessageTimestamp - b.lastMessageTimestamp);
 
-  const notifications = [...requests, ...pushNotifications];
-
-  const { user, friend } = state;
-
-  return { currentUser: user, friend, notifications, resetNotificationsCount };
+  return { chats, user };
 }
 
 export default connect(mapStateToProps, {
-  setFriendStatus,
-  acceptFriend,
-  declineFriend,
-})(ChatListScreen);
+  fetchChatList, chatListUnmount })(ChatListScreen);

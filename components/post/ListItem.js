@@ -30,6 +30,7 @@ const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
       <Text style={contentStyle}>{content}</Text>
 
       <Footer
+        author={author}
         post={post}
         redirect={redirect}
         pinnedOnly={pinnedOnly}

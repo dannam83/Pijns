@@ -11,4 +11,5 @@ export * from './friend_list_actions';
 export * from './user_feed_actions';
 export * from './navigation_actions';
 export * from './chat_actions';
+export * from './chat_list_actions';
 export * from './notification_actions';

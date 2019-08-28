@@ -69,10 +69,10 @@ class ProfileHeaderPublic extends Component {
   }
 
   chatButton() {
-    const { currentUser, userId, navigationTab, redirect } = this.props;
+    const { currentUser, userId, navigationTab, redirect, friend } = this.props;
 
     redirect(`${navigationTab}_Chat`, {
-      user: currentUser, postAuthorId: userId
+      user: currentUser, postAuthorId: userId, friend
     });
   }
 
