@@ -11,14 +11,12 @@ export const offChat = (userId, friendId) => {
 };
 
 const formatChatKey = (userId, friendId) => {
-  let small;
-  let big;
+  let small; let big;
+
   if (userId < friendId) {
-    small = userId;
-    big = friendId;
+    [small, big] = [userId, friendId];
   } else {
-    small = friendId;
-    big = userId;
+    [small, big] = [friendId, userId];
   }
   return (small + big);
 };

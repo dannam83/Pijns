@@ -13,14 +13,14 @@ export const addPijnNotification = (user, postId, post) => {
   }
 };
 
-export const addCommentNotification = (user, postId, postAuthorId, comment) => {
+export const addCommentNotification = (user, postId, friendId, comment) => {
   const [sender, content, timestamp, type] = [user, comment, -Date.now(), 'comment'];
 
-  if (user.uid !== postAuthorId) {
+  if (user.uid !== friendId) {
     const notification = { content, postId, timestamp, sender, type };
-    addNotification(postAuthorId, notification);
-    incrementCounter(postAuthorId);
-    sendPushNotification(postAuthorId, `${user.name} commented on your post: ${content}`);
+    addNotification(friendId, notification);
+    incrementCounter(friendId);
+    sendPushNotification(friendId, `${user.name} commented on your post: ${content}`);
   }
 };
 
@@ -75,21 +75,30 @@ export const sendPrayerRequestNotifications = (user, postId, content, friendList
   });
 };
 
+export const sendChatNotification = (user, friendId, content) => {
+  const [sender, timestamp, type] = [user, -Date.now(), 'chat'];
+  const notification = { content, friendId, sender, timestamp, type };
+
+  addNotification(friendId, notification);
+  incrementCounter(friendId);
+  sendPushNotification(friendId, `${user.name}: ${content}`);
+};
+
 export const deleteNotification = (userId, notificationId) => {
   firebase.database().ref(`/notifications/${userId}/${notificationId}`).set(null);
 };
 
-const addNotification = (postAuthorId, notification) => {
+const addNotification = (friendId, notification) => {
   const db = firebase.database();
-  const notificationsRef = db.ref(`/notifications/${postAuthorId}`);
+  const notificationsRef = db.ref(`/notifications/${friendId}`);
   const key = notificationsRef.push().getKey();
 
   notificationsRef.child(key).set({ ...notification, id: key });
 };
 
-export const incrementCounter = (postAuthorId) => {
+export const incrementCounter = (friendId) => {
   const db = firebase.database();
-  const countRef = db.ref(`/notifications/${postAuthorId}/newNotifications/count`);
+  const countRef = db.ref(`/notifications/${friendId}/newNotifications/count`);
 
   countRef.transaction((currentCount) => (currentCount || 0) + 1);
 };

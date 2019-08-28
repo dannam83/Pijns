@@ -12,6 +12,7 @@ import {
   chatDetachListener
 } from '../actions';
 import { onChat, offChat } from '../api/chat';
+import { sendChatNotification } from '../api/notifications';
 
 class ChatScreen extends Component {
   static navigationOptions = {
@@ -51,10 +52,13 @@ class ChatScreen extends Component {
   }
 
   saveChat = ({ user, postAuthorId, comment }) => {
+    const friendOnChat = this.props.chat[`${postAuthorId}_ON`];
+
     try {
       this.props.chatMessageSave(user, postAuthorId, comment);
       this.props.chatTypingEnd(user.uid, postAuthorId);
       this.setState({ isTyping: false });
+      if (!friendOnChat) { sendChatNotification(user, postAuthorId, comment); }
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
@@ -63,8 +67,6 @@ class ChatScreen extends Component {
   render() {
     const { chat, navigation } = this.props;
     const { user, userId, friendId } = this.state;
-    // const user = navigation.getParam('user');
-    // const postAuthorId = navigation.getParam('postAuthorId');
     const alreadyTyped = chat[userId];
 
     return (

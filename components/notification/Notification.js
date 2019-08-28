@@ -6,6 +6,7 @@ import Comment from './Comment';
 import CommentLike from './CommentLike';
 import PrayerAnswered from './PrayerAnswered';
 import PrayerRequest from './PrayerRequest';
+import Chat from './Chat';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -62,9 +63,9 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         screenWidth={SCREEN_WIDTH}
       />
     );
-  } else if (type === 'message') {
+  } else if (type === 'chat') {
       return (
-      <Comment
+      <Chat
         item={item}
         navigation={navigation}
         navigationTab={navigationTab}
@@ -72,7 +73,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         screenWidth={SCREEN_WIDTH}
       />
     );
-  } else if (type === 'tagged') {
+  } else if (type === 'tag') {
       return (
       <Comment
         item={item}
