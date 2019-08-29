@@ -19,7 +19,9 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
             />
             <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
           </TouchableOpacity>
-        ) : null
+        ) : (
+          <View />
+        )
       }
 
       {
@@ -27,7 +29,9 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
           <TouchableOpacity style={countItemStyle} onPress={commentsPress}>
             <Text style={commentTextStyle}>{commentCount} comments</Text>
           </TouchableOpacity>
-        ) : null
+        ) : (
+          <View />
+        )
       }
     </View>
   );
