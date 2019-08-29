@@ -23,10 +23,10 @@ const Footer = ({
   );
   const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive } = styles;
 
-  // const [noteCount, setNoteCount] = useState(notes);
-  // useEffect(() => {
-  //   if (notes && notes !== noteCount) { setNoteCount(notes); }
-  // }, [notes]);
+  const [noteCount, setNoteCount] = useState(notes || 0);
+  useEffect(() => {
+    if (notes !== noteCount) { setNoteCount(notes || 0); }
+  }, [notes]);
 
   const [handsActive, setHandsActive] = useState(false);
   useEffect(() => {
@@ -57,13 +57,13 @@ const Footer = ({
   };
 
   const pijnPress = () => {
-    // if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
+    if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
 
     sendPijn({ postId, author, currentDate, user });
     addPijnNotification(user, postId, post);
-    if (index >= 0) {
-      updatePijnNoteCount(index);
-    }
+    // if (index >= 0) {
+    //   updatePijnNoteCount(index);
+    // }
   };
 
   const handsPress = () => {
@@ -112,11 +112,11 @@ const Footer = ({
   if (pinnedOnly && !pinned) {
     return null;
   }
-  console.log(post.notes);
+
   return (
     <View>
       <PostCounts
-        noteCount={notes || 0}
+        noteCount={noteCount || 0}
         commentCount={post.commentCount || 0}
         commentsPress={goToComments}
         notesPress={goToPostNotes}
