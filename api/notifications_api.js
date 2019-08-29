@@ -105,5 +105,5 @@ export const incrementCounter = (friendId) => {
 
 export const resetNotificationsCount = (userId) => {
   const db = firebase.database();
-  db.ref(`/notifications/${userId}/newNotifications/count`).set(0);
+  db.ref(`/users/${userId}/notifications`).set(0);
 };

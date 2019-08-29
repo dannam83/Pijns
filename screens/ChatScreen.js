@@ -26,7 +26,6 @@ class ChatScreen extends Component {
     const user = navigation.getParam('user');
     const friendId = navigation.getParam('postAuthorId');
     const friend = navigation.getParam('friend');
-    console.log('friend', friend);
     this.props.fetchChat({ userId: user.uid, friendId });
     this.state = { user, userId: user.uid, friendId, isTyping: false, friend };
   }

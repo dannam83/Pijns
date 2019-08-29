@@ -160,8 +160,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { user, friend } = state;
-  return ({ currentUser: user, friend });
+  return ({ currentUser: state.user });
 }
 
 export default connect(mapStateToProps, {

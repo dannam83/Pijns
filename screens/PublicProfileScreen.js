@@ -23,7 +23,7 @@ class PublicProfileScreen extends Component {
     this.props.clearFriend();
   }
 
-  renderHeader = (picture, name, userId, status, redirect, navigationTab, user) => {
+  renderHeader = (picture, name, userId, status, redirect, navigationTab, friend) => {
     return (
       <ProfileHeaderPublic
         imgSource={{ uri: `${picture}?type=large` }}
@@ -32,7 +32,7 @@ class PublicProfileScreen extends Component {
         status={status}
         redirect={redirect}
         navigationTab={navigationTab}
-        friend={user}
+        friend={friend}
       />
     );
   }
@@ -57,7 +57,7 @@ class PublicProfileScreen extends Component {
           { status === 'Unfriend' ? (
             <PostListFriend
               header={this.renderHeader(
-                picture, name, userId, status, redirect, navigationTab, friend
+                picture, name, userId, status, redirect, navigationTab, user
               )}
               posts={posts}
               redirect={redirect}

@@ -77,11 +77,11 @@ function mapStateToProps(state) {
     return { ...val };
   });
 
-  const pushNotifications = _.map(state.notifications, (val) => {
+  const otherNotifications = _.map(state.notifications, (val) => {
     return { ...val };
   }).sort((a, b) => a.timestamp - b.timestamp);
 
-  const notifications = [...requests, ...pushNotifications];
+  const notifications = [...requests, ...otherNotifications];
 
   const { user, friend } = state;
 
