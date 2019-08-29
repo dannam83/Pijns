@@ -28,8 +28,10 @@ module.exports = (req, res) => {
             const postKeys = Object.keys(posts);
 
             postKeys.forEach((key) => {
-              posts[key]['postId'] = key;
-              friendPostsArray.push(posts[key]);
+              if (!posts[key]['deleted']) {
+                posts[key]['postId'] = key;
+                friendPostsArray.push(posts[key]);
+              }
             });
           })
         )

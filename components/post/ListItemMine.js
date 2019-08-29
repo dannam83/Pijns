@@ -8,9 +8,11 @@ import Footer from './Footer';
 const ListItemMine = ({
   post, redirect, postEditUpdate, navigationTab, showDeleteModal, onProfile
 }) => {
-  const { user, author, content, timestamp, createdOn, postId, pinned } = post;
+  const { user, author, content, timestamp, createdOn, postId, pinned, deleted } = post;
   const userId = user.uid;
   const { containerStyle, contentStyle } = styles;
+
+  if (deleted) { return null; }
 
   return (
     <Card containerStyle={containerStyle}>

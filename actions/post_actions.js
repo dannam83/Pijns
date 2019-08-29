@@ -72,12 +72,12 @@ export const postEditSave = ({ postText, postId }) => {
 
 export const postDelete = ({ postId }) => {
   const { currentUser } = firebase.auth();
-  firebase.database().ref(`/posts/${postId}`).remove();
-  firebase.database().ref(`/postComments/${postId}`).remove();
+  firebase.database().ref(`/posts/${postId}/deleted`).set(true);
+  // firebase.database().ref(`/postComments/${postId}/deleted`).remove();
 
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}`)
-      .remove()
+    firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}/deleted`)
+      .set(true)
       .then(() => {
         dispatch({ type: POST_DELETE });
     });

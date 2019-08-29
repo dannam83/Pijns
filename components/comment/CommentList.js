@@ -11,8 +11,6 @@ const CommentList = ({ header, navigationTab }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    console.log('comments', comments);
-    console.log('state comm', stateComments);
     const commentsArray = _.map(stateComments, val => {
       return { ...val };
     });

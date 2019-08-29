@@ -8,6 +8,8 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
     countItemStyle, loveNoteIconStyle, commentTextStyle, countsViewStyle
   } = styles;
 
+  console.log(noteCount);
+
   return (
     <View style={countsViewStyle}>
       {

@@ -99,8 +99,6 @@ function mapStateToProps(state) {
     };
   });
 
-  console.log('count', state.messagesCount);
-
   return { posts, user };
 }
 

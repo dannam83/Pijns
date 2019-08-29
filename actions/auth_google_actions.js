@@ -19,7 +19,7 @@
 //   });
 //
 //   if (type === 'cancel') {
-//     console.log('cancelled');
+//     console.warn('cancelled');
 //     return dispatch({ type: LOGIN_FAIL });
 //   }
 
