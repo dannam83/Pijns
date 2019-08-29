@@ -12,7 +12,9 @@ import {
   sendPrayerAnsweredNotifications
 } from '../../api/notifications_api';
 
-const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments }) => {
+const Footer = ({
+  post, notes, pinnedOnly, redirect, navigationTab, keepComments, updatePijnNoteCount
+}) => {
   const {
     user, postId, author, navigation, index, pinned, pijnSentToday
   } = post;
@@ -21,10 +23,10 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   );
   const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive } = styles;
 
-  const [noteCount, setNoteCount] = useState(0);
-  useEffect(() => {
-    if (notes && notes !== noteCount) { setNoteCount(notes); }
-  }, [notes]);
+  // const [noteCount, setNoteCount] = useState(notes);
+  // useEffect(() => {
+  //   if (notes && notes !== noteCount) { setNoteCount(notes); }
+  // }, [notes]);
 
   const [handsActive, setHandsActive] = useState(false);
   useEffect(() => {
@@ -55,10 +57,13 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   };
 
   const pijnPress = () => {
-    if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
+    // if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
 
     sendPijn({ postId, author, currentDate, user });
     addPijnNotification(user, postId, post);
+    if (index >= 0) {
+      updatePijnNoteCount(index);
+    }
   };
 
   const handsPress = () => {
@@ -107,11 +112,11 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   if (pinnedOnly && !pinned) {
     return null;
   }
-
+  console.log(post.notes);
   return (
     <View>
       <PostCounts
-        noteCount={navigationTab === 'UserFeed' ? noteCount : notes}
+        noteCount={notes || 0}
         commentCount={post.commentCount || 0}
         commentsPress={goToComments}
         notesPress={goToPostNotes}

@@ -5,7 +5,9 @@ import { ButtonAsField } from '../common';
 import { backgroundLightBlue } from '../../assets/colors';
 import ListItem from './ListItem';
 
-const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetchUserFeed }) => {
+const PostsUserFeed = ({
+  user, posts, pinPressed, redirect, navigationTab, fetchUserFeed, updatePijnNoteCount
+}) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshList = async () => {
@@ -20,6 +22,7 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, navigationTab, fetch
         post={post}
         redirect={redirect}
         navigationTab={navigationTab}
+        updatePijnNoteCount={updatePijnNoteCount}
       />
     );
   };

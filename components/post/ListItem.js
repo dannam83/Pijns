@@ -5,7 +5,9 @@ import { Card } from 'react-native-elements';
 import Banner from './Banner';
 import Footer from './Footer';
 
-const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
+const ListItem = ({
+  post, redirect, pinnedOnly, navigationTab, onProfile, updatePijnNoteCount
+}) => {
   if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
 
   const { user, author, content, timestamp, createdOn, postId, pinned } = post;
@@ -36,6 +38,7 @@ const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
         pinnedOnly={pinnedOnly}
         navigationTab={navigationTab}
         notes={post.notes.count}
+        updatePijnNoteCount={updatePijnNoteCount}
       />
     </Card>
   );

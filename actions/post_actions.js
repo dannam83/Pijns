@@ -31,7 +31,6 @@ export const postCreateSave = ({ postText, postType, author, user, friendList })
       const { postId, content } = payload;
       sendPrayerRequestNotifications(user, postId, content, friendList);
       dispatch({ type: POST_CREATE_SAVE });
-      dispatch({ type: POST_APPEND, payload });
     });
   };
 };
