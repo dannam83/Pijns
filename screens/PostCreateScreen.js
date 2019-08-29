@@ -40,7 +40,7 @@ class PostCreateScreen extends Component {
       user, postText, author, postCreateSave, navigation, fetchUserFeed, friendList
     } = this.props;
     await postCreateSave({ postText, postType: 'prayerRequest', author, user, friendList });
-    await fetchUserFeed(author.id);
+    fetchUserFeed(author.id);
     navigation.navigate('UserFeed');
   }
 
