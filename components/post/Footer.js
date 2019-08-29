@@ -12,9 +12,7 @@ import {
   sendPrayerAnsweredNotifications
 } from '../../api/notifications_api';
 
-const Footer = ({
-  post, notes, pinnedOnly, redirect, navigationTab, keepComments, updatePijnNoteCount
-}) => {
+const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments }) => {
   const {
     user, postId, author, navigation, index, pinned, pijnSentToday
   } = post;
@@ -24,16 +22,15 @@ const Footer = ({
   const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive } = styles;
 
   const [noteCount, setNoteCount] = useState(notes || 0);
+  const [handsActive, setHandsActive] = useState(false);
+  const [answered, setAnswered] = useState(post.answered);
+
   useEffect(() => {
     if (notes !== noteCount) { setNoteCount(notes || 0); }
   }, [notes]);
-
-  const [handsActive, setHandsActive] = useState(false);
   useEffect(() => {
     if (handsActive !== worshipHandsActive) { setHandsActive(worshipHandsActive); }
   }, [worshipHandsActive]);
-
-  const [answered, setAnswered] = useState(post.answered);
   useEffect(() => {
     if (answered !== post.answered) { setAnswered(post.answered); }
   }, [post.answered]);
@@ -61,9 +58,6 @@ const Footer = ({
 
     sendPijn({ postId, author, currentDate, user });
     addPijnNotification(user, postId, post);
-    // if (index >= 0) {
-    //   updatePijnNoteCount(index);
-    // }
   };
 
   const handsPress = () => {
