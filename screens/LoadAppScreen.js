@@ -28,6 +28,8 @@ class LoadAppScreen extends Component {
         this.props.fetchPinboard(currentUid),
         this.props.fetchRequests(currentUid),
         this.props.fetchNotifications(currentUid),
+        this.props.listenToNotificationsCount(currentUid),
+        this.props.listenToMessagesCount(currentUid),
         this.props.saveNavigation(navigation)
       ]);
     }

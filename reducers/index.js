@@ -18,6 +18,8 @@ import userFeed from './user_feed_reducer';
 import navigation from './navigation_reducer';
 import chat from './chat_reducer';
 import notifications from './notifications_reducer';
+import notificationsCount from './notifications_count_reducer';
+import messagesCount from './messages_count_reducer';
 import modals from './modals_reducer';
 
 export default combineReducers({
@@ -39,6 +41,8 @@ export default combineReducers({
   searchResults,
   userFeed,
   chat,
+  messagesCount,
   notifications,
+  notificationsCount,
   modals
 });

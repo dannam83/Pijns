@@ -44,9 +44,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { newNotifications } = state.notifications;
-
-  return ({ notifications: newNotifications ? newNotifications.count : 0 });
+  return ({ notifications: state.notificationsCount });
 }
 
 export default connect(mapStateToProps)(NotificationsIcon);
