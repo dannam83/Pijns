@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
-import { resetNotificationsCount } from '../../api/notifications_api';
+import { resetMessagesCount } from '../../api/chat_api';
 
-class NotificationsIcon extends Component {
+class MessagesIcon extends Component {
   onPress = () => {
     const { navigation, userId } = this.props;
-    resetNotificationsCount(userId);
-    navigation.navigate('Notifications');
+    resetMessagesCount(userId);
+    navigation.navigate('Chat');
   }
 
   render() {
-    const { name, size, focused, color, notifications } = this.props;
+    const { name, size, focused, color, messages } = this.props;
 
     return (
       <View>
         <TouchableWithoutFeedback onPress={this.onPress}>
-          <Ionicons focused={focused} name={name} size={size} color={color} />
+          <AntDesign focused={focused} name={name} size={size} color={color} />
         </TouchableWithoutFeedback>
 
-        {notifications > 0 ?
+        {messages > 0 ?
           <View style={styles.badgeViewStyle}>
             <Text style={styles.badgeStyle}>
-              { notifications < 100 ? notifications : '!!' }
+              { messages < 100 ? messages : '!!' }
             </Text>
           </View>
           :
@@ -41,11 +41,11 @@ const styles = {
     backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 11,
-    marginTop: -4,
+    marginLeft: 16,
+    marginTop: -6,
     width: 20,
     height: 20,
-    borderRadius: 10
+    borderRadius: 10,
   },
   badgeStyle: {
     color: 'white',
@@ -55,8 +55,8 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  const { notificationsCount, navigation, user } = state;
-  return ({ notifications: notificationsCount, navigation, userId: user.uid });
+  const { messagesCount, navigation, user } = state;
+  return ({ messages: messagesCount, navigation, userId: user.uid });
 }
 
-export default connect(mapStateToProps)(NotificationsIcon);
+export default connect(mapStateToProps)(MessagesIcon);

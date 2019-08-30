@@ -49,3 +49,7 @@ export const chatDetachListener = (userId, friendId) => {
   const chatKey = formatChatKey(userId, friendId);
   firebase.database().ref(`/chats/${chatKey}`).off();
 };
+
+export const resetMessagesCount = (userId) => {
+  firebase.database().ref(`/users/${userId}/messages`).set(0);
+};

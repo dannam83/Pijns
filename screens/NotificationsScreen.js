@@ -6,11 +6,7 @@ import _ from 'lodash';
 import FriendRequest from '../components/notification/FriendRequest';
 import Notification from '../components/notification/Notification';
 import { resetNotificationsCount } from '../api/notifications_api';
-import {
-  setFriendStatus,
-  acceptFriend,
-  declineFriend,
-} from '../actions';
+import { setFriendStatus, acceptFriend, declineFriend } from '../actions';
 
 class NotificationsScreen extends Component {
   static navigationOptions = {

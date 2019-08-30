@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import UserFeedScreen from '../screens/UserFeedScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
@@ -17,6 +17,7 @@ import ChatScreen from '../screens/ChatScreen';
 import ChatListScreen from '../screens/ChatListScreen';
 import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
+import MessagesIcon from '../components/navigation/MessagesIcon';
 
 const UserFeedStack = createStackNavigator({
   UserFeed: UserFeedScreen,
@@ -55,7 +56,7 @@ ChatStack.navigationOptions = {
     inactiveTintColor: 'gray'
   },
   tabBarIcon: ({ focused, tintColor }) => (
-    <AntDesign
+    <MessagesIcon
       focused={focused}
       name={'message1'}
       size={25}
