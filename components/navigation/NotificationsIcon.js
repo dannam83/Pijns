@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
+import { resetNotificationsCount } from '../../api/notifications_api';
+
 class NotificationsIcon extends Component {
+  onPress = () => {
+    const { navigation, userId } = this.props;
+    resetNotificationsCount(userId);
+    navigation.navigate('Notifications');
+  }
+
   render() {
     const { name, size, focused, color, notifications } = this.props;
 
@@ -12,13 +20,15 @@ class NotificationsIcon extends Component {
         {notifications > 0 ?
           <View style={styles.badgeViewStyle}>
             <Text style={styles.badgeStyle}>
-              { notifications < 100 ? notifications : '!' }
+              { notifications < 100 ? notifications : '!!' }
             </Text>
           </View>
           :
           null
         }
-        <Ionicons focused={focused} name={name} size={size} color={color} />
+        <TouchableWithoutFeedback onPress={this.onPress}>
+          <Ionicons focused={focused} name={name} size={size} color={color} />
+        </TouchableWithoutFeedback>
       </View>
     );
   }
@@ -44,7 +54,8 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  return ({ notifications: state.notificationsCount });
+  const { notificationsCount, navigation, user } = state;
+  return ({ notifications: notificationsCount, navigation, userId: user.uid });
 }
 
 export default connect(mapStateToProps)(NotificationsIcon);

@@ -17,10 +17,6 @@ class NotificationsScreen extends Component {
     title: 'Notifications',
   };
 
-  componentDidMount() {
-    this.props.resetNotificationsCount(this.props.currentUser.uid);
-  }
-
   renderRequest = (item) => {
     const { navigation, currentUser, friend } = this.props;
     const { setFriendStatus, acceptFriend, declineFriend } = this.props;

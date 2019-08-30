@@ -111,7 +111,7 @@ NotificationsStack.navigationOptions = {
           color={tintColor}
         />
       ) : (
-        <Ionicons
+        <NotificationsIcon
           focused={focused}
           name={'md-notifications-outline'}
           size={29}
