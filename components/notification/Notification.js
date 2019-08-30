@@ -6,7 +6,6 @@ import Comment from './Comment';
 import CommentLike from './CommentLike';
 import PrayerAnswered from './PrayerAnswered';
 import PrayerRequest from './PrayerRequest';
-import Chat from './Chat';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
