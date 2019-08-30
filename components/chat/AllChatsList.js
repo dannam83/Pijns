@@ -1,21 +1,17 @@
 import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 
-import { ListItemAsButton } from '../../components/common';
-// import ChatDay from './ChatDay';
+import AllChatsListItem from './AllChatsListItem';
 
-const AllChatsList = ({ chats }) => {
+const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
   const renderRow = (chat) => {
-    const { friendName, friendPic } = chat;
     return (
-      <View style={styles.chatStyle}>
-        <ListItemAsButton
-          text={friendName}
-          imageSource={friendPic}
-
-          numberOfLines={2}
-        />
-      </View>
+      <AllChatsListItem
+        chat={chat}
+        user={user}
+        navigation={navigation}
+        screenWidth={screenWidth}
+      />
     );
   };
 
@@ -28,30 +24,6 @@ const AllChatsList = ({ chats }) => {
       />
     </View>
   );
-};
-
-const styles = {
-  chatStyle: {
-    flexDirection: 'row',
-  },
-  // messageStyle: {
-  //   fontSize: 16,
-  //   width: SCREEN_WIDTH - 120
-  // },
-  // timeViewStyle: {
-  //   flexDirection: 'row',
-  //   flex: 1,
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'center',
-  //   paddingBottom: 10,
-  //   paddingRight: 5
-  // },
-  // timeStyle: {
-  //   paddingBottom: 2,
-  //   fontWeight: '400',
-  //   fontSize: 14,
-  //   color: timeAgoShortGray
-  // },
 };
 
 export default AllChatsList;

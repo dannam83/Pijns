@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import AllChatsList from '../components/chat/AllChatsList';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class AllChatsScreen extends Component {
   static navigationOptions = {
@@ -62,25 +64,28 @@ class AllChatsScreen extends Component {
   // }
 
   render() {
-    const { chats } = this.props;
+    const { chats, user, navigation } = this.props;
 
     return (
       <AllChatsList
         chats={chats}
+        user={user}
+        navigation={navigation}
+        screenWidth={SCREEN_WIDTH}
       />
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { user, chatList } = state;
+  const { user, chatList, navigation } = state;
 
   const chats = _.map(chatList, (val, key) => {
     return { ...val, chatId: key };
   }).sort((a, b) => a.lastMessageTimestamp - b.lastMessageTimestamp);
   console.log('chats', chats);
 
-  return { chats, user };
+  return { chats, user, navigation };
 }
 
 export default connect(mapStateToProps, {})(AllChatsScreen);
