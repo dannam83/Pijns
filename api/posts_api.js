@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-export const addPijnNotification = (user, postId, post) => {
+export const sendPijnNotification = (user, postId, post) => {
   const { author, content } = post;
   const [sender, timestamp, type] = [user, -Date.now(), 'pijnNote'];
 
@@ -11,7 +11,7 @@ export const addPijnNotification = (user, postId, post) => {
   }
 };
 
-export const addCommentNotification = (user, postId, postAuthorId, comment) => {
+export const sendCommentNotification = (user, postId, postAuthorId, comment) => {
   const [sender, content, timestamp, type] = [user, comment, -Date.now(), 'comment'];
 
   if (user.uid !== postAuthorId) {

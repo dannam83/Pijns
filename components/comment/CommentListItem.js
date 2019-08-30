@@ -6,7 +6,7 @@ import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
 import { ActionButton, ButtonAsText } from '../../components/common';
 import { lightTextGray } from '../../assets/colors';
-import { addCommentLikeNotification } from '../../api/notifications_api';
+import { sendCommentLikeNotification } from '../../api/notifications_api';
 
 class CommentListItem extends Component {
   state = {
@@ -18,7 +18,7 @@ class CommentListItem extends Component {
 
   likeComment = () => {
     this.setState({ alreadyLiked: true });
-    const { user, activePost, comment, likeComment, addCommentLikeNotification } = this.props;
+    const { user, activePost, comment, likeComment, sendCommentLikeNotification } = this.props;
     const { author, commentId } = comment;
 
     likeComment({
@@ -30,7 +30,7 @@ class CommentListItem extends Component {
       likesCount: comment.likes
     });
 
-    addCommentLikeNotification(user, activePost.id, author.uid, commentId, comment.comment);
+    sendCommentLikeNotification(user, activePost.id, author.uid, commentId, comment.comment);
     this.setState({ likes: this.state.likes + 1 });
   };
 
@@ -197,7 +197,7 @@ const styles = {
 function mapStateToProps(state) {
   const { user, activePost, postCommentLikes, friendList, navigation } = state;
   return {
-    user, activePost, postCommentLikes, friendList, navigation, addCommentLikeNotification
+    user, activePost, postCommentLikes, friendList, navigation, sendCommentLikeNotification
   };
 }
 

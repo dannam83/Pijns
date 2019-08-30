@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { sendPushNotification } from './pushNotifications_api';
 
-export const addPijnNotification = (user, postId, post) => {
+export const sendPijnNotification = (user, postId, post) => {
   const { author, content } = post;
   const [sender, timestamp, type] = [user, -Date.now(), 'pijnNote'];
 
@@ -13,7 +13,7 @@ export const addPijnNotification = (user, postId, post) => {
   }
 };
 
-export const addCommentNotification = (user, postId, friendId, comment) => {
+export const sendCommentNotification = (user, postId, friendId, comment) => {
   const [sender, content, timestamp, type] = [user, comment, -Date.now(), 'comment'];
 
   if (user.uid !== friendId) {
@@ -24,7 +24,7 @@ export const addCommentNotification = (user, postId, friendId, comment) => {
   }
 };
 
-export const addCommentLikeNotification = (
+export const sendCommentLikeNotification = (
   user, postId, commentAuthorId, commentId, comment
 ) => {
   const [sender, content, timestamp, type] = [user, comment, -Date.now(), 'commentLike'];
@@ -73,15 +73,6 @@ export const sendPrayerRequestNotifications = (user, postId, content, friendList
     incrementCounter(userId);
     sendPushNotification(userId, `${user.name} shared a new prayer request`);
   });
-};
-
-export const sendChatNotification = (user, friendId, content) => {
-  const [sender, timestamp, type] = [user, -Date.now(), 'chat'];
-  const notification = { content, friendId, sender, timestamp, type };
-
-  sendNotification(friendId, notification);
-  incrementCounter(friendId);
-  sendPushNotification(friendId, `${user.name}: ${content}`);
 };
 
 export const deleteNotification = (userId, notificationId) => {

@@ -8,7 +8,7 @@ import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
 import { answerPrayer, unanswerPrayer, sendPijn } from '../../actions';
 import {
-  addPijnNotification,
+  sendPijnNotification,
   sendPrayerAnsweredNotifications
 } from '../../api/notifications_api';
 
@@ -57,7 +57,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
 
     sendPijn({ postId, author, currentDate, user });
-    addPijnNotification(user, postId, post);
+    sendPijnNotification(user, postId, post);
   };
 
   const handsPress = () => {
