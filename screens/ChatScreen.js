@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { InputGrowing } from '../components/common';
 import ChatList from '../components/chat/ChatList';
 import { fetchChat, chatUnmount } from '../actions';
-import { sendChatNotification } from '../api/notifications_api';
 import { updateChatListMessage, setChatListFriendData } from '../api/chat_list_api';
 import {
   onChat,
@@ -13,6 +12,7 @@ import {
   chatTypingStart,
   chatTypingEnd,
   chatMessageSave,
+  sendMessageNotification
 } from '../api/chat_api';
 
 class ChatScreen extends Component {
@@ -61,7 +61,7 @@ class ChatScreen extends Component {
       chatTypingEnd(user.uid, postAuthorId);
       updateChatListMessage(user.uid, postAuthorId, comment);
       this.setState({ isTyping: false });
-      if (!friendOnChat) { sendChatNotification(user, postAuthorId, comment); }
+      if (!friendOnChat) { sendMessageNotification(user, postAuthorId, comment); }
       // if (this.props.chat.messages < 2) {
       //   setChatListFriendData();
       // }
