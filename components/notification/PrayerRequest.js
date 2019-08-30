@@ -15,7 +15,7 @@ const Comment = ({
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 120 }}>
+      <Text style={{ ...messageStyle, width: screenWidth - 125 }}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -25,7 +25,7 @@ const Comment = ({
 
   const goToPost = async () => {
     const [redirect, userId] = [navigation.navigate, currentUser.uid];
-    
+
     resetNotificationsCount(currentUser.uid);
 
     navigation.navigate(`${navigationTab}_Post`, {

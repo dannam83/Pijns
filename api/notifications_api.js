@@ -7,7 +7,7 @@ export const addPijnNotification = (user, postId, post) => {
 
   if (user.uid !== author.id) {
     const notification = { content, postId, timestamp, sender, type };
-    addNotification(author.id, notification);
+    sendNotification(author.id, notification);
     incrementCounter(author.id);
     sendPushNotification(author.id, `${user.name} sent you a pijn note!`);
   }
@@ -18,7 +18,7 @@ export const addCommentNotification = (user, postId, friendId, comment) => {
 
   if (user.uid !== friendId) {
     const notification = { content, postId, timestamp, sender, type };
-    addNotification(friendId, notification);
+    sendNotification(friendId, notification);
     incrementCounter(friendId);
     sendPushNotification(friendId, `${user.name} commented on your post: ${content}`);
   }
@@ -31,7 +31,7 @@ export const addCommentLikeNotification = (
 
   if (user.uid !== commentAuthorId) {
     const notification = { content, postId, timestamp, sender, type, commentId };
-    addNotification(commentAuthorId, notification);
+    sendNotification(commentAuthorId, notification);
     incrementCounter(commentAuthorId);
     sendPushNotification(commentAuthorId, `${user.name} liked your comment: ${content}`);
   }
@@ -52,7 +52,7 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
       keys.forEach(key => {
         const { uid } = postNotes[key];
         if (!sent[uid] && uid !== user.uid) {
-          addNotification(uid, notification);
+          sendNotification(uid, notification);
           incrementCounter(uid);
           sendPushNotification(uid, `${user.name} has an answered prayer that you prayed for!`);
           sent[uid] = true;
@@ -69,7 +69,7 @@ export const sendPrayerRequestNotifications = (user, postId, content, friendList
   const notification = { content, postId, timestamp, sender, type };
   const userIds = Object.keys(friendList);
   userIds.forEach(userId => {
-    addNotification(userId, notification);
+    sendNotification(userId, notification);
     incrementCounter(userId);
     sendPushNotification(userId, `${user.name} shared a new prayer request`);
   });
@@ -79,7 +79,7 @@ export const sendChatNotification = (user, friendId, content) => {
   const [sender, timestamp, type] = [user, -Date.now(), 'chat'];
   const notification = { content, friendId, sender, timestamp, type };
 
-  addNotification(friendId, notification);
+  sendNotification(friendId, notification);
   incrementCounter(friendId);
   sendPushNotification(friendId, `${user.name}: ${content}`);
 };
@@ -88,7 +88,7 @@ export const deleteNotification = (userId, notificationId) => {
   firebase.database().ref(`/notifications/${userId}/${notificationId}`).set(null);
 };
 
-const addNotification = (friendId, notification) => {
+const sendNotification = (friendId, notification) => {
   const db = firebase.database();
   const notificationsRef = db.ref(`/notifications/${friendId}`);
   const key = notificationsRef.push().getKey();
@@ -98,7 +98,7 @@ const addNotification = (friendId, notification) => {
 
 export const incrementCounter = (friendId) => {
   const db = firebase.database();
-  const countRef = db.ref(`/notifications/${friendId}/newNotifications/count`);
+  const countRef = db.ref(`/users/${friendId}/notifications`);
 
   countRef.transaction((currentCount) => (currentCount || 0) + 1);
 };

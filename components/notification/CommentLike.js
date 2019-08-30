@@ -15,7 +15,7 @@ const CommentLike = ({
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 120 }}>
+      <Text style={{ ...messageStyle, width: screenWidth - 125 }}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>

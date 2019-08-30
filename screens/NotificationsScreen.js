@@ -39,7 +39,9 @@ class NotificationsScreen extends Component {
   renderNotification = (item) => {
     const { navigation, currentUser, friend } = this.props;
     const { setFriendStatus, acceptFriend, declineFriend } = this.props;
-    const { type } = item;
+    const { type, id, uid } = item;
+
+    if (!id && !uid) { return null; }
 
     return (!type || type === 'FriendRequest') ? (
       <FriendRequest
