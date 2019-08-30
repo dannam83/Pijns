@@ -17,7 +17,7 @@ export const setChatListFriendData = (user, friendId, friendName, friendPic) => 
   db.ref(`/chatLists/${friendId}/${chatKey}/friendPic`).set(picture);
 };
 
-export const updateChatListMessage = (userId, friendId, message) => {
+export const updateChatMessage = (userId, friendId, message) => {
   const chatKey = formatChatKey(userId, friendId);
   const timestamp = -Date.now();
   const db = firebase.database();

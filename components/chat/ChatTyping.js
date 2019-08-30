@@ -5,7 +5,7 @@ import { chatTypingGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const ChatListTyping = () => {
+const ChatTyping = () => {
   const { textStyle, container } = styles;
 
   return (
@@ -33,4 +33,4 @@ const styles = {
   },
 };
 
-export default ChatListTyping;
+export default ChatTyping;

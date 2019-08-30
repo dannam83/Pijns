@@ -14,7 +14,7 @@ import CommentsScreen from '../screens/CommentsScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
-import ChatListScreen from '../screens/ChatListScreen';
+import AllChatsScreen from '../screens/AllChatsScreen';
 import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 import MessagesIcon from '../components/navigation/MessagesIcon';
@@ -45,8 +45,8 @@ UserFeedStack.navigationOptions = {
 };
 
 const ChatStack = createStackNavigator({
-  Chat: ChatListScreen,
-  Chat_Chat: ChatScreen
+  Chats: AllChatsScreen,
+  Chats_Chat: ChatScreen
 });
 
 ChatStack.navigationOptions = {

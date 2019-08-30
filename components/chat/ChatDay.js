@@ -1,18 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import ChatListMessage from './ChatListMessage';
+import ChatMessage from './ChatMessage';
 import { lightTextGray } from '../../assets/colors';
 import { getDateFromTimestamp } from '../../functions/common';
 
-const ChatListDay = ({ chatDay, userId }) => {
+const ChatDay = ({ chatDay, userId }) => {
   const { dateTimestamp, messages } = chatDay;
 
   const renderMessages = () => {
     return (
       messages.map(message => {
         return (
-          <ChatListMessage
+          <ChatMessage
             message={message}
             key={message.messageId}
             userId={userId}
@@ -45,4 +45,4 @@ const styles = {
   }
 };
 
-export default ChatListDay;
+export default ChatDay;

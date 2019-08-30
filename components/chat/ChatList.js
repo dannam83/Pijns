@@ -2,8 +2,8 @@ import React from 'react';
 import { View, FlatList } from 'react-native';
 import _ from 'lodash';
 
-import ChatListDay from './ChatListDay';
-import ChatListTyping from './ChatListTyping';
+import ChatDay from './ChatDay';
+import ChatTyping from './ChatTyping';
 
 const ChatList = ({ chat, userId, otherTyping }) => {
   const formatChat = () => {
@@ -19,14 +19,14 @@ const ChatList = ({ chat, userId, otherTyping }) => {
   const showChatTyping = (isTyping) => {
     return (
       <View style={{ height: 25 }}>
-        { isTyping ? <ChatListTyping /> : null }
+        { isTyping ? <ChatTyping /> : null }
       </View>
     );
   };
 
   const renderRow = (chatDay) => {
     return (
-      <ChatListDay chatDay={chatDay} userId={userId} />
+      <ChatDay chatDay={chatDay} userId={userId} />
     );
   };
 

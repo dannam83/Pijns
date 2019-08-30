@@ -9,7 +9,7 @@ class MessagesIcon extends Component {
   onPress = () => {
     const { navigation, userId } = this.props;
     resetMessagesCount(userId);
-    navigation.navigate('Chat');
+    navigation.navigate('Chats');
   }
 
   render() {

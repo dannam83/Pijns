@@ -5,7 +5,7 @@ import { chatBubbleGray, chatBorderGray } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const ChatListMessage = ({ message, userId }) => {
+const ChatMessage = ({ message, userId }) => {
   const renderUserMessage = () => {
     const { userContainer, userMessage, textStyle } = styles;
 
@@ -80,4 +80,4 @@ const styles = {
   },
 };
 
-export default ChatListMessage;
+export default ChatMessage;

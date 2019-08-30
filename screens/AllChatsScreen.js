@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { fetchChatList } from '../actions';
+import AllChatsList from '../components/chat/AllChatsList';
 
-class ChatListScreen extends Component {
+class AllChatsScreen extends Component {
   static navigationOptions = {
     title: 'Chats',
   };
@@ -62,15 +62,12 @@ class ChatListScreen extends Component {
   // }
 
   render() {
-    console.log(this.props.chats);
+    const { chats } = this.props;
+
     return (
-      <View>
-        <Text>TestScreen</Text>
-        <Text>TestScreen</Text>
-        <Text>TestScreen</Text>
-        <Text>TestScreen</Text>
-        <Text>TestScreen</Text>
-      </View>
+      <AllChatsList
+        chats={chats}
+      />
     );
   }
 }
@@ -81,9 +78,9 @@ function mapStateToProps(state) {
   const chats = _.map(chatList, (val, key) => {
     return { ...val, chatId: key };
   }).sort((a, b) => a.lastMessageTimestamp - b.lastMessageTimestamp);
-  // console.log('chats', chats);
+  console.log('chats', chats);
 
   return { chats, user };
 }
 
-export default connect(mapStateToProps, {})(ChatListScreen);
+export default connect(mapStateToProps, {})(AllChatsScreen);
