@@ -6,11 +6,15 @@ export const chatListInitialize = async (userId) => {
   await firebase.database().ref(`/chatLists/${userId}`).set(0);
 };
 
-export const setChatlistFriendData = (userId, friendId, name, pic) => {
-  const chatKey = formatChatKey(userId, friendId);
+export const setChatListFriendData = (user, friendId, friendName, friendPic) => {
+  const { uid, name, picture } = user;
+  const chatKey = formatChatKey(uid, friendId);
   const db = firebase.database();
 
-  db.ref(`/chatLists/${userId}/${chatKey}/friend`).set({ name, pic });
+  db.ref(`/chatLists/${uid}/${chatKey}/friendName`).set(friendName);
+  db.ref(`/chatLists/${uid}/${chatKey}/friendPic`).set(friendPic);
+  db.ref(`/chatLists/${friendId}/${chatKey}/friendName`).set(name);
+  db.ref(`/chatLists/${friendId}/${chatKey}/friendPic`).set(picture);
 };
 
 export const updateChatListMessage = (userId, friendId, message) => {
@@ -21,4 +25,7 @@ export const updateChatListMessage = (userId, friendId, message) => {
   db.ref(`/chatLists/${userId}/${chatKey}/lastMessage`).set(message);
   db.ref(`/chatLists/${userId}/${chatKey}/lastMessageBy`).set(userId);
   db.ref(`/chatLists/${userId}/${chatKey}/lastMessageTimestamp`).set(timestamp);
+  db.ref(`/chatLists/${friendId}/${chatKey}/lastMessage`).set(message);
+  db.ref(`/chatLists/${friendId}/${chatKey}/lastMessageBy`).set(userId);
+  db.ref(`/chatLists/${friendId}/${chatKey}/lastMessageTimestamp`).set(timestamp);
 };

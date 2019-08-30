@@ -3,17 +3,13 @@ import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { resetMessagesCount } from '../api/chat_api';
-import { fetchChatList, chatListUnmount } from '../actions';
+import { fetchChatList } from '../actions';
 
 class ChatListScreen extends Component {
   static navigationOptions = {
     title: 'Chats',
   };
 
-  componentDidMount() {
-    this.props.fetchChatList(this.props.user.uid);
-  }
   //
   // renderRequest = (item) => {
   //   const { navigation, currentUser, friend } = this.props;
@@ -64,7 +60,9 @@ class ChatListScreen extends Component {
   //     </View>
   //   );
   // }
+
   render() {
+    console.log(this.props.chats);
     return (
       <View>
         <Text>TestScreen</Text>
@@ -83,9 +81,9 @@ function mapStateToProps(state) {
   const chats = _.map(chatList, (val, key) => {
     return { ...val, chatId: key };
   }).sort((a, b) => a.lastMessageTimestamp - b.lastMessageTimestamp);
+  // console.log('chats', chats);
 
   return { chats, user };
 }
 
-export default connect(mapStateToProps, {
-  fetchChatList, chatListUnmount })(ChatListScreen);
+export default connect(mapStateToProps, {})(ChatListScreen);

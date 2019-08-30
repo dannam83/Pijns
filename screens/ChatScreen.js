@@ -53,7 +53,8 @@ class ChatScreen extends Component {
     }
   }
 
-  saveChat = ({ user, postAuthorId, comment }) => {
+  saveChat = ({ postAuthorId, comment }) => {
+    const { user, friend: { id, name, picture } } = this.state;
     const friendOnChat = this.props.chat[`${postAuthorId}_ON`];
 
     try {
@@ -62,9 +63,9 @@ class ChatScreen extends Component {
       updateChatListMessage(user.uid, postAuthorId, comment);
       this.setState({ isTyping: false });
       if (!friendOnChat) { sendMessageNotification(user, postAuthorId, comment); }
-      // if (this.props.chat.messages < 2) {
-      //   setChatListFriendData();
-      // }
+      if (this.props.chat.messages < 2) {
+        setChatListFriendData(user, id, name, picture);
+      }
     } catch (err) {
       console.warn('Error saving comment.', err);
     }

@@ -17,6 +17,7 @@ import friendList from './friend_list_reducer';
 import userFeed from './user_feed_reducer';
 import navigation from './navigation_reducer';
 import chat from './chat_reducer';
+import chatList from './chat_list_reducer';
 import notifications from './notifications_reducer';
 import notificationsCount from './notifications_count_reducer';
 import messagesCount from './messages_count_reducer';
@@ -41,6 +42,7 @@ export default combineReducers({
   searchResults,
   userFeed,
   chat,
+  chatList,
   messagesCount,
   notifications,
   notificationsCount,

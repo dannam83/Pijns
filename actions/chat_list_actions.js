@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
-import { FETCH_CHAT_LIST, CHAT_LIST_CLEAR, MESSAGES_COUNT } from './types';
-import { chatListInitialize, chatListDetachListener } from '../api/chat_list_api';
+import { FETCH_CHAT_LIST, MESSAGES_COUNT } from './types';
+import { chatListInitialize } from '../api/chat_list_api';
 
 export const fetchChatList = (userId) => {
   return (dispatch) => {
@@ -18,11 +18,6 @@ export const fetchChatList = (userId) => {
       }
     );
   };
-};
-
-export const chatListUnmount = (userId) => {
-  chatListDetachListener(userId);
-  return ({ type: CHAT_LIST_CLEAR });
 };
 
 export const listenToMessagesCount = userId => {
