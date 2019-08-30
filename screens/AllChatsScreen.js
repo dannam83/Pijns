@@ -83,7 +83,6 @@ function mapStateToProps(state) {
   const chats = _.map(chatList, (val, key) => {
     return { ...val, chatId: key };
   }).sort((a, b) => a.lastMessageTimestamp - b.lastMessageTimestamp);
-  console.log('chats', chats);
 
   return { chats, user, navigation };
 }

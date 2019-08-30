@@ -63,16 +63,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         screenWidth={SCREEN_WIDTH}
       />
     );
-  } else if (type === 'chat') {
-      return (
-      <Chat
-        item={item}
-        navigation={navigation}
-        navigationTab={navigationTab}
-        currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
-      />
-    );
   } else if (type === 'tag') {
       return (
       <Comment

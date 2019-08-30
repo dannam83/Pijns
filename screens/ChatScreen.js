@@ -65,9 +65,9 @@ class ChatScreen extends Component {
       if (!friendOnChat) {
         sendMessageNotification(user, postAuthorId, comment);
       }
-      if (this.props.chat.messages < 2) {
+      // if (this.props.chat.messages < 2) {
         setChatListFriendData(user, id, name, picture);
-      }
+      // }
     } catch (err) {
       console.warn('Error saving comment.', err);
     }

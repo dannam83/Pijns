@@ -5,7 +5,7 @@ import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
 
 const Chat = ({
-  item, navigation, navigationTab, currentUser, screenWidth
+  item, navigation, currentUser, screenWidth
 }) => {
   const { messageStyle, nameStyle, contentStyle } = styles;
   const { content, sender } = item;
@@ -27,7 +27,7 @@ const Chat = ({
     resetNotificationsCount(currentUser.uid);
     const [user, postAuthorId] = [currentUser, sender.uid];
 
-    navigation.navigate(`${navigationTab}_Chat`, {
+    navigation.navigate('Chats_Chat', {
       user, postAuthorId, redirect: navigation.navigate
     });
   };
