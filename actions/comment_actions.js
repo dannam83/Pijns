@@ -23,10 +23,10 @@ import { getCurrentDate } from '../functions/common';
  };
 
  export const likeComment = ({
-   userId, userName, commentId, postAuthorId, postId
+   userId, user, commentId, postAuthorId, postId
  }) => {
    return () => {
-     saveLike({ userId, userName, commentId, postAuthorId, postId });
+     saveLike({ userId, user, commentId, postAuthorId, postId });
    };
  };
 
@@ -85,7 +85,7 @@ import { getCurrentDate } from '../functions/common';
    }
  };
 
- const saveLike = async ({ userId, userName, commentId, postAuthorId, postId }) => {
+ const saveLike = async ({ userId, user, commentId, postAuthorId, postId }) => {
    const db = firebase.database();
    const commentLikesRef = db.ref(
      `/commentLikes/${commentId}/likedBy/${userId}`
@@ -97,7 +97,7 @@ import { getCurrentDate } from '../functions/common';
    const timestamp = -Date.now();
 
    try {
-     await commentLikesRef.update({ name: userName, createdOn, timestamp });
+     await commentLikesRef.update({ ...user, createdOn, timestamp });
      await userPostCommentLikesRef.update({ createdOn, timestamp });
      incrementCommentLikeCount(db, commentId, postAuthorId, postId);
    } catch (err) {

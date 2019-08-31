@@ -23,7 +23,7 @@ class CommentListItem extends Component {
 
     likeComment({
       userId: user.uid,
-      userName: user.name,
+      user,
       commentId,
       postAuthorId: activePost.author.id,
       postId: activePost.id,
