@@ -75,6 +75,11 @@ export const sendPrayerRequestNotifications = (user, postId, content, friendList
   });
 };
 
+export const markAsSeen = (userId, notificationId) => {
+  const db = firebase.database();
+  db.ref(`/notifications/${userId}/${notificationId}/seen`).set(true);
+};
+
 export const deleteNotification = (userId, notificationId) => {
   firebase.database().ref(`/notifications/${userId}/${notificationId}`).set(null);
 };

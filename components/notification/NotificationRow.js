@@ -3,11 +3,12 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton } from '../../components/common';
 import { displayTimeAgoShort } from '../../functions/common';
+import { markAsSeen } from '../../api/notifications_api';
 import { timeAgoShortGray, backgroundNotificationBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const NotificationRow = ({ item, message, onPress }) => {
+const NotificationRow = ({ item, message, onPress, userId }) => {
   const {
     notificationStyle, itemAsButtonStyle, messageStyle, timeViewStyle, timeStyle
   } = styles;
@@ -15,12 +16,17 @@ const NotificationRow = ({ item, message, onPress }) => {
   const { picture } = sender;
   const backgroundColor = seen ? 'white' : backgroundNotificationBlue;
 
+  const press = () => {
+    onPress();
+    markAsSeen(userId, item.id);
+  };
+
   return (
     <View style={{ ...notificationStyle, backgroundColor }}>
       <ListItemAsButton
         text={message()}
         imageSource={picture}
-        onPress={onPress}
+        onPress={press}
         viewRestyle={itemAsButtonStyle}
         textRestyle={messageStyle}
         numberOfLines={3}

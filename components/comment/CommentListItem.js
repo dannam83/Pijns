@@ -131,8 +131,6 @@ const styles = {
     justifyContent: 'space-between',
     padding: 10,
     backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
   },
   textViewStyle: {
     flex: 1,

@@ -10,6 +10,7 @@ const Comment = ({
   const { messageStyle, nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
+  const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
   const messageIntro = 'wrote a comment:';
 
@@ -25,7 +26,6 @@ const Comment = ({
 
   const goToPost = async () => {
     resetNotificationsCount(currentUser.uid);
-    const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
     navigation.navigate(`${navigationTab}_Post`, {
       user: currentUser,
@@ -41,6 +41,7 @@ const Comment = ({
       item={item}
       message={message}
       onPress={goToPost}
+      userId={userId}
     />
   );
 };

@@ -35,6 +35,7 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
       item={item}
       message={message}
       onPress={goToPostNotes}
+      userId={currentUser.uid}
     />
   );
 };

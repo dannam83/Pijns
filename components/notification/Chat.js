@@ -37,6 +37,7 @@ const Chat = ({
       item={item}
       message={message}
       onPress={goToChat}
+      userId={currentUser.uid}
     />
   );
 };

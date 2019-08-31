@@ -10,6 +10,7 @@ const CommentLike = ({
   const { messageStyle, nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
+  const [redirect, userId] = [navigation.navigate, currentUser.uid];
 
   const messageIntro = 'liked your comment:';
 
@@ -24,8 +25,6 @@ const CommentLike = ({
   };
 
   const goToPost = async () => {
-    const [redirect, userId] = [navigation.navigate, currentUser.uid];
-
     resetNotificationsCount(currentUser.uid);
 
     navigation.navigate(`${navigationTab}_Post`, {
@@ -42,6 +41,7 @@ const CommentLike = ({
       item={item}
       message={message}
       onPress={goToPost}
+      userId={userId}
     />
   );
 };
