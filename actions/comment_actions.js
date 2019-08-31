@@ -5,6 +5,8 @@ import {
   COMMENTS_CLEAR,
   COMMENT_LIKES_CLEAR,
   FETCH_POST_COMMENT_LIKES,
+  FETCH_COMMENT_LIKED_BY,
+  COMMENT_LIKED_BY_CLEAR
  } from './types';
 import { getCurrentDate } from '../functions/common';
 
@@ -68,6 +70,21 @@ import { getCurrentDate } from '../functions/common';
      );
    };
  };
+
+ export const fetchCommentLikedBy = (commentId) => {
+   return dispatch => {
+     firebase.database().ref(`/commentLikes/${commentId}/likedBy`)
+      .on('value', snapshot => {
+        dispatch({ type: FETCH_COMMENT_LIKED_BY, payload: snapshot.val() }
+      );
+    });
+  };
+};
+
+ export const commentLikedByClear = commentId => {
+   firebase.database().ref(`/commentLikes/${commentId}/likedBy`).off();
+   return ({ type: COMMENT_LIKED_BY_CLEAR });
+};
 
  const saveToFirebase = async (author, comment, postAuthorId, postId, key) => {
    const db = firebase.database();

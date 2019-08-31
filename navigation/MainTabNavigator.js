@@ -11,6 +11,7 @@ import PostCreateScreen from '../screens/PostCreateScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import PostNotesListScreen from '../screens/PostNotesListScreen';
 import CommentsScreen from '../screens/CommentsScreen';
+import CommentLikesScreen from '../screens/CommentLikesScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
@@ -25,7 +26,8 @@ const UserFeedStack = createStackNavigator({
   UserFeed_PublicProfile: PublicProfileScreen,
   UserFeed_Comments: CommentsScreen,
   UserFeed_Notes: PostNotesListScreen,
-  UserFeed_Chat: ChatScreen
+  UserFeed_Chat: ChatScreen,
+  UserFeed_CommentLikes: CommentLikesScreen,
 });
 
 UserFeedStack.navigationOptions = {
@@ -94,6 +96,7 @@ const NotificationsStack = createStackNavigator({
   Notifications_Notes: PostNotesListScreen,
   Notifications_Post: PostScreen,
   Notifications_Comments: CommentsScreen,
+  Notifications_CommentLikes: CommentLikesScreen,
 });
 
 NotificationsStack.navigationOptions = {
@@ -131,6 +134,7 @@ const ProfileStack = createStackNavigator({
   Profile_Comments: CommentsScreen,
   Profile_Notes: PostNotesListScreen,
   Profile_PostEdit: PostEditScreen,
+  Profile_CommentLikes: CommentLikesScreen,
 });
 
 ProfileStack.navigationOptions = {

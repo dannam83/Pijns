@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
@@ -61,6 +61,12 @@ class CommentListItem extends Component {
     }
   };
 
+  goToCommentLikes = () => {
+    const { navigation, navigationTab, comment: { commentId } } = this.props;
+
+    navigation.navigate(`${navigationTab}_CommentLikes`, { commentId, navigationTab });
+  };
+
   render() {
     const {
       author,
@@ -108,7 +114,9 @@ class CommentListItem extends Component {
               </ButtonAsText>
               <Text style={timeAgoStyle}>{timeAgo}</Text>
             </View>
-            <Text style={likesStyle}>{likes > 0 ? likes : null}</Text>
+            <TouchableOpacity onPress={this.goToCommentLikes}>
+              <Text style={likesStyle}>{likes > 0 ? likes : null}</Text>
+            </TouchableOpacity>
           </View>
           <Text style={commentStyle}>{comment}</Text>
         </View>
@@ -159,7 +167,8 @@ const styles = {
   likesStyle: {
     paddingTop: 0.5,
     fontStyle: 'italic',
-    color: '#808080'
+    color: '#808080',
+    paddingLeft: 20
   },
   commentStyle: {
     color: '#000',
