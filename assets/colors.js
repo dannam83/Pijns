@@ -4,6 +4,7 @@ export const headerButtonBlue = 'rgba(0,125,255,1)';
 export const activeButtonBlue = 'rgba(0,125,255,1)';
 export const buttonBlue = '#007aff';
 export const slideButtonBlue = '#0084DF';
+export const backgroundNotificationBlue = '#ebf7ff';
 // export const darkSlideButtonBlue = '#0C5BB8';
 
 export const chatBubbleGray = '#F2F2F2';

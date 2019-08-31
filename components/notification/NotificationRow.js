@@ -3,7 +3,7 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton } from '../../components/common';
 import { displayTimeAgoShort } from '../../functions/common';
-import { timeAgoShortGray, backgroundLightBlue } from '../../assets/colors';
+import { timeAgoShortGray, backgroundNotificationBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -13,7 +13,7 @@ const NotificationRow = ({ item, message, onPress }) => {
   } = styles;
   const { timestamp, sender, seen } = item;
   const { picture } = sender;
-  const backgroundColor = seen ? 'white' : '#ebf7ff';
+  const backgroundColor = seen ? 'white' : backgroundNotificationBlue;
 
   return (
     <View style={{ ...notificationStyle, backgroundColor }}>

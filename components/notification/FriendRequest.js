@@ -3,7 +3,7 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
 import { resetNotificationsCount } from '../../api/notifications_api';
-import { buttonBlue } from '../../assets/colors';
+import { buttonBlue, backgroundNotificationBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -34,7 +34,8 @@ const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
     xStyle
   } = styles;
 
-  const { name, picture, uid } = item;
+  const { name, picture, uid, seen } = item;
+  const backgroundColor = seen ? 'white' : backgroundNotificationBlue;
 
   const message = () => {
     return (
@@ -46,11 +47,12 @@ const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
   };
 
   return (
-    <View style={requestStyle}>
+    <View style={{ ...requestStyle, backgroundColor }}>
       <ListItemAsButton
         text={message()}
         imageSource={picture}
         onPress={() => goToPublicProfile(item)}
+        viewRestyle={{ paddingBottom: 7 }}
         textRestyle={{ width: SCREEN_WIDTH - 200 }}
         numberOfLines={3}
       />
@@ -72,7 +74,13 @@ const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
 const styles = {
   requestStyle: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 7
+  },
+  itemAsButtonStyle: {
+    paddingBottom: 2
   },
   messageStyle: {
     fontSize: 17,
