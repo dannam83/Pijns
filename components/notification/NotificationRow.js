@@ -3,23 +3,25 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton } from '../../components/common';
 import { displayTimeAgoShort } from '../../functions/common';
-import { timeAgoShortGray } from '../../assets/colors';
+import { timeAgoShortGray, backgroundLightBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const NotificationRow = ({ item, message, onPress }) => {
   const {
-    notificationStyle, messageStyle, timeViewStyle, timeStyle
+    notificationStyle, itemAsButtonStyle, messageStyle, timeViewStyle, timeStyle
   } = styles;
-  const { timestamp, sender } = item;
+  const { timestamp, sender, seen } = item;
   const { picture } = sender;
+  const backgroundColor = seen ? 'white' : '#ebf7ff';
 
   return (
-    <View style={notificationStyle}>
+    <View style={{ ...notificationStyle, backgroundColor }}>
       <ListItemAsButton
         text={message()}
         imageSource={picture}
         onPress={onPress}
+        viewRestyle={itemAsButtonStyle}
         textRestyle={messageStyle}
         numberOfLines={3}
       />
@@ -34,6 +36,12 @@ const styles = {
   notificationStyle: {
     flexDirection: 'row',
     flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 7,
+  },
+  itemAsButtonStyle: {
+    paddingBottom: 7
   },
   messageStyle: {
     fontSize: 16,
@@ -44,11 +52,10 @@ const styles = {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 10,
     paddingRight: 5
   },
   timeStyle: {
-    paddingBottom: 2,
+    paddingBottom: 6.5,
     fontWeight: '400',
     fontSize: 14,
     color: timeAgoShortGray

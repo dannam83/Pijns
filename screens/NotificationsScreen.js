@@ -55,7 +55,7 @@ class NotificationsScreen extends Component {
 
   render() {
     return (
-      <View style={{ padding: 10 }}>
+      <View>
         <FlatList
           data={this.props.notifications}
           renderItem={({ item }) => this.renderNotification(item)}
