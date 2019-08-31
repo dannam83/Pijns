@@ -32,7 +32,6 @@ export const updateChatMessage = (userId, friendId, message) => {
 
 export const incrementUnread = (userId, friendId) => {
   const chatKey = formatChatKey(userId, friendId);
-  console.log(chatKey);
   const db = firebase.database();
   const ref = `/chatLists/${friendId}/${chatKey}/unread`;
 

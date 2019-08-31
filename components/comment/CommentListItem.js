@@ -173,9 +173,8 @@ const styles = {
     marginRight: 8,
   },
   buttonStyle: {
-    height: 47,
+    height: 27,
     width: 22,
-    paddingTop: 0.5,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',

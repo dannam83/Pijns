@@ -39,19 +39,19 @@ class PostScreen extends Component {
     this.props.navigation.goBack();
   }
 
-  header(post, redirect) {
+  header = () => {
+    const { post, navigation: { navigate } } = this.props;
     return (
       <Post
         post={post}
-        redirect={redirect}
+        redirect={navigate}
         navigationTab={'Notifications'}
       />
     );
   }
 
   render() {
-    const { user, post, navigation, postUnavailable } = this.props;
-
+    const { user, post, postUnavailable } = this.props;
     if (!post) {
       return (
         <Confirm
@@ -66,7 +66,7 @@ class PostScreen extends Component {
 
     return (
       <CommentList
-        header={() => this.header(post, navigation.navigate)}
+        header={this.header}
         navigationTab={'Notifications'}
         userId={user.uid}
         postId={post.postId}

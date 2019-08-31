@@ -5,7 +5,6 @@ import {
   POST_EDIT_UPDATE,
   POSTS_FETCH_SUCCESS,
   POST_SAVE_SUCCESS,
-  POST_APPEND,
   POST_DELETE,
   POST_SET_ACTIVE,
   POST_RESET_ACTIVE,
@@ -70,13 +69,13 @@ export const postEditSave = ({ postText, postId }) => {
 };
 
 export const postDelete = ({ postId }) => {
+  const date = Date.now();
   const { currentUser } = firebase.auth();
-  firebase.database().ref(`/posts/${postId}/deleted`).set(true);
-  // firebase.database().ref(`/postComments/${postId}/deleted`).remove();
+  firebase.database().ref(`/posts/${postId}/deleted`).set(date);
 
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/posts/${postId}/deleted`)
-      .set(true)
+      .set(date)
       .then(() => {
         dispatch({ type: POST_DELETE });
     });
@@ -104,7 +103,7 @@ export const fetchActivePost = (postId) => {
     firebase.database().ref(`/posts/${postId}`)
       .on('value', snapshot => {
         const post = snapshot.val();
-        if (!post) {
+        if (!post || post.deleted) {
           dispatch({
             type: POST_UNAVAILABLE
           });

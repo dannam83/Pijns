@@ -26,12 +26,11 @@ const CommentList = ({ header, navigationTab }) => {
     );
   };
 
-  if (comments.length === 0) { return null; }
-
   return (
     <View style={styles.masterContainerStyle}>
       <FlatList
         ListHeaderComponent={header}
+        ListEmptyHeader={header}
         data={comments}
         renderItem={({ item }) => renderRow(item)}
         keyExtractor={({ item }, commentId) => commentId.toString()}
