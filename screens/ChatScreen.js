@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 import { InputGrowing } from '../components/common';
 import ChatList from '../components/chat/ChatList';
 import { fetchChat, chatUnmount } from '../actions';
-import { updateChatMessage, setChatListFriendData } from '../api/chat_list_api';
+import {
+  updateChatMessage,
+  setChatListFriendData,
+  resetUnread,
+  incrementUnread
+} from '../api/chat_list_api';
 import {
   onChat,
   offChat,
@@ -33,6 +38,7 @@ class ChatScreen extends Component {
   componentDidMount() {
     const { userId, friendId } = this.state;
     onChat(userId, friendId);
+    resetUnread(userId, friendId);
   }
 
   componentWillUnmount() {
@@ -65,6 +71,7 @@ class ChatScreen extends Component {
       setChatListFriendData(user, friendId, name, picture);
       if (!friendOnChat) {
         sendMessageNotification(user, postAuthorId, comment);
+        incrementUnread(user.uid, friendId);
       }
     } catch (err) {
       console.warn('Error saving comment.', err);

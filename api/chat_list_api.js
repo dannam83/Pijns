@@ -29,3 +29,19 @@ export const updateChatMessage = (userId, friendId, message) => {
   db.ref(`/chatLists/${friendId}/${chatKey}/lastMessageBy`).set(userId);
   db.ref(`/chatLists/${friendId}/${chatKey}/lastMessageTimestamp`).set(timestamp);
 };
+
+export const incrementUnread = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
+  console.log(chatKey);
+  const db = firebase.database();
+  const ref = `/chatLists/${friendId}/${chatKey}/unread`;
+
+  db.ref(ref).transaction((currentCount) => (currentCount || 0) + 1);
+};
+
+export const resetUnread = (userId, friendId) => {
+  const chatKey = formatChatKey(userId, friendId);
+  const db = firebase.database();
+
+  db.ref(`/chatLists/${userId}/${chatKey}/unread`).set(0);
+};
