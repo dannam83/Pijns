@@ -3,13 +3,17 @@ import { View, Text, Dimensions } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
 import { resetNotificationsCount } from '../../api/notifications_api';
+import { markRequestAsSeen } from '../../api/requests_api';
 import { buttonBlue, backgroundNotificationBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
+  const { name, picture, uid, seen } = item;
+
   const goToPublicProfile = (profileUser) => {
     actions.setFriendStatus({ status: 'See Requests' });
+    markRequestAsSeen(currentUser.uid, uid);
     navigation.navigate('Notifications_PublicProfile', {
       profileUser, navigationTab: 'Notifications' });
   };
@@ -34,7 +38,6 @@ const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
     xStyle
   } = styles;
 
-  const { name, picture, uid, seen } = item;
   const backgroundColor = seen ? 'white' : backgroundNotificationBlue;
 
   const message = () => {
