@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, TouchableOpacity, Image, Text } from 'react-native';
 
-import { ListItemAsButton } from '../../components/common';
-// import ChatDay from './ChatDay';
+import { chatTypingGray } from '../../assets/colors';
+import { displayTimeAgoShort } from '../../functions/common';
 
 const AllChatsListItem = ({ chat, user, navigation, screenWidth }) => {
   const { navigate } = navigation;
-  const { chatId, friendName, friendPic } = chat;
+  const {
+    chatId, friendName, friendPic, lastMessage, lastMessageTimestamp, lastMessageBy
+  } = chat;
+  const {
+    rowStyle, mainViewStyle, imageStyle, nameStyle, timeAgoStyle, messageStyle
+  } = styles;
+  const timeAgo = displayTimeAgoShort(lastMessageTimestamp);
 
   const goToChat = () => {
     const friendId = chatId.replace(user.uid, '');
@@ -17,22 +23,63 @@ const AllChatsListItem = ({ chat, user, navigation, screenWidth }) => {
     });
   };
 
+  const isYou = () => {
+    if (lastMessageBy === user.uid) {
+      return 'You: ';
+    }
+  };
+
   return (
-    <View style={styles.chatStyle}>
-      <ListItemAsButton
-        text={friendName}
-        imageSource={friendPic}
-        onPress={(chat) => goToChat(chat)}
-        numberOfLines={2}
-      />
+    <View style={rowStyle}>
+      <TouchableOpacity onPress={goToChat}>
+        <View style={mainViewStyle}>
+          <Image
+            source={{ uri: `${friendPic}?type=large` }}
+            style={imageStyle}
+          />
+          <View style={{ paddingLeft: 14 }}>
+            <View style={{ flexDirection: 'row', paddingBottom: 1 }}>
+              <Text style={nameStyle}>{friendName} </Text>
+              <Text style={timeAgoStyle}>· {timeAgo}</Text>
+            </View>
+            <Text style={messageStyle} numberOfLines={1}>
+              {isYou()}{lastMessage}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = {
-  chatStyle: {
+  rowStyle: {
     flexDirection: 'row',
+    paddingTop: 1,
+    paddingBottom: 8
   },
+  mainViewStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imageStyle: {
+    height: 64,
+    width: 64,
+    borderRadius: 32
+  },
+  nameStyle: {
+    fontSize: 17
+  },
+  timeAgoStyle: {
+    fontSize: 17,
+    color: chatTypingGray
+  },
+  messageStyle: {
+    fontSize: 17,
+    color: chatTypingGray,
+    paddingTop: 1
+  }
+};
   // messageStyle: {
   //   fontSize: 16,
   //   width: SCREEN_WIDTH - 120
@@ -51,6 +98,6 @@ const styles = {
   //   fontSize: 14,
   //   color: timeAgoShortGray
   // },
-};
+// };
 
 export default AllChatsListItem;
