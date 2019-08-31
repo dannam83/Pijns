@@ -30,7 +30,6 @@ class LoadAppScreen extends Component {
         this.props.fetchNotifications(currentUid),
         this.props.fetchChatList(currentUid),
         this.props.listenToNotificationsCount(currentUid),
-        this.props.listenToMessagesCount(currentUid),
         this.props.saveNavigation(navigation)
       ]);
     }

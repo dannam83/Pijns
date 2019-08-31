@@ -91,7 +91,7 @@ const styles = {
   },
   nameUnreadStyle: {
     fontSize: 17,
-    fontWeight: '500'
+    fontWeight: '600'
   },
   timeAgoStyle: {
     fontSize: 17,
@@ -106,7 +106,7 @@ const styles = {
     fontSize: 17,
     color: 'black',
     paddingTop: 1,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   unreadStyle: {
     fontSize: 17,
@@ -115,24 +115,5 @@ const styles = {
     fontStyle: 'italic'
   },
 };
-  // messageStyle: {
-  //   fontSize: 16,
-  //   width: SCREEN_WIDTH - 120
-  // },
-  // timeViewStyle: {
-  //   flexDirection: 'row',
-  //   flex: 1,
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'center',
-  //   paddingBottom: 10,
-  //   paddingRight: 5
-  // },
-  // timeStyle: {
-  //   paddingBottom: 2,
-  //   fontWeight: '400',
-  //   fontSize: 14,
-  //   color: timeAgoShortGray
-  // },
-// };
 
 export default AllChatsListItem;

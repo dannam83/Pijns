@@ -77,6 +77,7 @@ const styles = {
     height: 25,
     width: 25,
     borderRadius: 12,
+    marginBottom: 0.5
   },
 };
 

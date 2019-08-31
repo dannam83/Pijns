@@ -17,7 +17,7 @@ import {
   chatTypingStart,
   chatTypingEnd,
   chatMessageSave,
-  sendMessageNotification
+  sendMessageNotification,
 } from '../api/chat_api';
 
 class ChatScreen extends Component {
@@ -72,6 +72,7 @@ class ChatScreen extends Component {
       if (!friendOnChat) {
         sendMessageNotification(user, postAuthorId, comment);
         incrementUnread(user.uid, friendId);
+        // incrementMessageCounter(friendId);
       }
     } catch (err) {
       console.warn('Error saving comment.', err);

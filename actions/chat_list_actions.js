@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { FETCH_CHAT_LIST, MESSAGES_COUNT } from './types';
+import { FETCH_CHAT_LIST } from './types';
 import { chatListInitialize } from '../api/chat_list_api';
 
 export const fetchChatList = (userId) => {
@@ -17,14 +17,5 @@ export const fetchChatList = (userId) => {
         }
       }
     );
-  };
-};
-
-export const listenToMessagesCount = userId => {
-  return (dispatch) => {
-    firebase.database().ref(`/users/${userId}/messages`).on(
-      'value', snapshot => {
-        dispatch({ type: MESSAGES_COUNT, payload: snapshot.val() });
-    });
   };
 };

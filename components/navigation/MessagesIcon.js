@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
-
-import { resetMessagesCount } from '../../api/chat_api';
+import { AntDesign } from '@expo/vector-icons';
 
 class MessagesIcon extends Component {
   onPress = () => {
-    const { navigation, userId } = this.props;
-    resetMessagesCount(userId);
+    const { navigation } = this.props;
     navigation.navigate('Chats');
   }
 
