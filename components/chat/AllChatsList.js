@@ -11,6 +11,7 @@ const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
         user={user}
         navigation={navigation}
         screenWidth={screenWidth}
+        unreadCount={chat.unread}
       />
     );
   };

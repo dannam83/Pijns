@@ -15,3 +15,4 @@ export * from './LoginButton';
 export * from './LoginNewAccountButton';
 export * from './Spinner';
 export * from './Confirm';
+export * from './Badge';

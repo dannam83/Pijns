@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 
 import { chatTypingGray } from '../../assets/colors';
 import { displayTimeAgoShort } from '../../functions/common';
 
-const AllChatsListItem = ({ chat, user, navigation, screenWidth }) => {
+const AllChatsListItem = ({ chat, user, navigation, screenWidth, unreadCount }) => {
+  const [unread, setUnread] = useState(unreadCount);
+
+  useEffect(() => { setUnread(unreadCount); }, [unreadCount]);
+
   const { navigate } = navigation;
   const {
     chatId, friendName, friendPic, lastMessage, lastMessageTimestamp, lastMessageBy
   } = chat;
   const {
-    rowStyle, mainViewStyle, imageStyle, nameStyle, timeAgoStyle, messageStyle
+    rowStyle, mainViewStyle, imageStyle, timeAgoStyle, unreadStyle
   } = styles;
   const timeAgo = displayTimeAgoShort(lastMessageTimestamp);
 
@@ -29,8 +33,17 @@ const AllChatsListItem = ({ chat, user, navigation, screenWidth }) => {
     }
   };
 
+  let nameStyle; let messageStyle;
+
+  if (unread > 0) {
+    [nameStyle, messageStyle] = [styles.nameUnreadStyle, styles.messageUnreadStyle];
+  } else {
+    [nameStyle, messageStyle] = [styles.nameReadStyle, styles.messageReadStyle];
+  }
+
+
   return (
-    <View style={rowStyle}>
+    <View style={{ ...rowStyle, width: screenWidth - 150 }}>
       <TouchableOpacity onPress={goToChat}>
         <View style={mainViewStyle}>
           <Image
@@ -45,6 +58,12 @@ const AllChatsListItem = ({ chat, user, navigation, screenWidth }) => {
             <Text style={messageStyle} numberOfLines={1}>
               {isYou()}{lastMessage}
             </Text>
+            {unread > 0 ? (
+                <Text style={unreadStyle}>{unread} new</Text>
+              ) : (
+                null
+              )
+            }
           </View>
         </View>
       </TouchableOpacity>
@@ -60,25 +79,41 @@ const styles = {
   },
   mainViewStyle: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   imageStyle: {
     height: 64,
     width: 64,
     borderRadius: 32
   },
-  nameStyle: {
+  nameReadStyle: {
     fontSize: 17
+  },
+  nameUnreadStyle: {
+    fontSize: 17,
+    fontWeight: '500'
   },
   timeAgoStyle: {
     fontSize: 17,
     color: chatTypingGray
   },
-  messageStyle: {
+  messageReadStyle: {
     fontSize: 17,
     color: chatTypingGray,
     paddingTop: 1
-  }
+  },
+  messageUnreadStyle: {
+    fontSize: 17,
+    color: 'black',
+    paddingTop: 1,
+    fontWeight: '500',
+  },
+  unreadStyle: {
+    fontSize: 17,
+    color: chatTypingGray,
+    paddingTop: 1,
+    fontStyle: 'italic'
+  },
 };
   // messageStyle: {
   //   fontSize: 16,
