@@ -41,25 +41,26 @@ const AllChatsListItem = ({ chat, user, navigation, screenWidth, unreadCount }) 
     [nameStyle, messageStyle] = [styles.nameReadStyle, styles.messageReadStyle];
   }
 
+  const fontSize = screenWidth < 400 ? 15 : 17;
 
   return (
     <View style={{ ...rowStyle, width: screenWidth - 150 }}>
       <TouchableOpacity onPress={goToChat}>
-        <View style={mainViewStyle}>
+        <View style={{ ...mainViewStyle }}>
           <Image
             source={{ uri: `${friendPic}?type=large` }}
             style={imageStyle}
           />
           <View style={{ paddingLeft: 14 }}>
             <View style={{ flexDirection: 'row', paddingBottom: 1 }}>
-              <Text style={nameStyle}>{friendName} </Text>
-              <Text style={timeAgoStyle}>· {timeAgo}</Text>
+              <Text style={{ ...nameStyle, fontSize }}>{friendName} </Text>
+              <Text style={{ ...timeAgoStyle, fontSize }}>· {timeAgo}</Text>
             </View>
-            <Text style={messageStyle} numberOfLines={1}>
+            <Text style={{ ...messageStyle, fontSize }} numberOfLines={1}>
               {isYou()}{lastMessage}
             </Text>
             {unread > 0 ? (
-                <Text style={unreadStyle}>{unread} new</Text>
+                <Text style={{ ...unreadStyle, fontSize }}>{unread} new</Text>
               ) : (
                 null
               )
@@ -87,29 +88,23 @@ const styles = {
     borderRadius: 32
   },
   nameReadStyle: {
-    fontSize: 17
   },
   nameUnreadStyle: {
-    fontSize: 17,
     fontWeight: '600'
   },
   timeAgoStyle: {
-    fontSize: 17,
     color: chatTypingGray
   },
   messageReadStyle: {
-    fontSize: 17,
     color: chatTypingGray,
     paddingTop: 1
   },
   messageUnreadStyle: {
-    fontSize: 17,
     color: 'black',
     paddingTop: 1,
     fontWeight: '600',
   },
   unreadStyle: {
-    fontSize: 17,
     color: chatTypingGray,
     paddingTop: 1,
     fontStyle: 'italic'

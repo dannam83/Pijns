@@ -86,8 +86,8 @@ const styles = {
     paddingBottom: 2
   },
   messageStyle: {
-    fontSize: SCREEN_WIDTH < 400 ? 16 : 17,
-    lineHeight: 20
+    fontSize: SCREEN_WIDTH < 400 ? 15 : 18,
+    lineHeight: SCREEN_WIDTH < 400 ? 18 : 24,
   },
   nameStyle: {
     fontWeight: '600'
