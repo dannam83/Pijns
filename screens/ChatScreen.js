@@ -89,7 +89,7 @@ class ChatScreen extends Component {
         style={styles.keyboardAvoidStyle}
         behavior="padding"
         enabled
-        keyboardVerticalOffset={80}
+        keyboardVerticalOffset={60}
       >
         <ChatList
           postAuthorId={friendId}

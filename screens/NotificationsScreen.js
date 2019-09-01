@@ -67,12 +67,12 @@ const styles = {
   messageLargeStyle: {
     fontSize: 18,
     lineHeight: 24,
-    width: SCREEN_WIDTH - 125
+    width: SCREEN_WIDTH - 127
   },
   messageSmallStyle: {
     fontSize: 15,
     lineHeight: 18,
-    width: SCREEN_WIDTH - 125
+    width: SCREEN_WIDTH - 127
   }
 };
 

@@ -4,6 +4,9 @@ import { View, FlatList } from 'react-native';
 import AllChatsListItem from './AllChatsListItem';
 
 const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
+  const fontSize = screenWidth < 400 ? 16 : 17;
+  const width = screenWidth - 150;
+
   const renderRow = (chat) => {
     return (
       <AllChatsListItem
@@ -11,10 +14,13 @@ const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
         user={user}
         navigation={navigation}
         screenWidth={screenWidth}
+        fontSize={fontSize}
+        width={width}
         unreadCount={chat.unread}
       />
     );
   };
+
 
   return (
     <View style={{ padding: 10 }}>

@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { chatTypingGray } from '../../assets/colors';
 import { displayTimeAgoShort } from '../../functions/common';
 
-const AllChatsListItem = ({ chat, user, navigation, screenWidth, unreadCount }) => {
+const AllChatsListItem = ({ chat, user, navigation, width, fontSize, unreadCount }) => {
   const [unread, setUnread] = useState(unreadCount);
 
   useEffect(() => { setUnread(unreadCount); }, [unreadCount]);
@@ -41,10 +41,8 @@ const AllChatsListItem = ({ chat, user, navigation, screenWidth, unreadCount }) 
     [nameStyle, messageStyle] = [styles.nameReadStyle, styles.messageReadStyle];
   }
 
-  const fontSize = screenWidth < 400 ? 15 : 17;
-
   return (
-    <View style={{ ...rowStyle, width: screenWidth - 150 }}>
+    <View style={{ ...rowStyle, width }}>
       <TouchableOpacity onPress={goToChat}>
         <View style={{ ...mainViewStyle }}>
           <Image
