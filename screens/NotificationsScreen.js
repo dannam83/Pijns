@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -8,30 +8,26 @@ import Notification from '../components/notification/Notification';
 import { resetNotificationsCount } from '../api/notifications_api';
 import { setFriendStatus, acceptFriend, declineFriend } from '../actions';
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
 class NotificationsScreen extends Component {
   static navigationOptions = {
     title: 'Notifications',
   };
 
-  renderRequest = (item) => {
-    const { navigation, currentUser, friend } = this.props;
-    const { setFriendStatus, acceptFriend, declineFriend } = this.props;
-
-    return (
-      <FriendRequest
-        item={item}
-        navigation={navigation}
-        currentUser={currentUser}
-        friend={friend}
-        actions={{ setFriendStatus, acceptFriend, declineFriend }}
-      />
-    );
+  state = {
+    messageStyle: SCREEN_WIDTH < 400 ? (
+      styles.messageSmallStyle
+    ) : (
+      styles.messageLargeStyle
+    )
   }
 
   renderNotification = (item) => {
     const { navigation, currentUser, friend } = this.props;
     const { setFriendStatus, acceptFriend, declineFriend } = this.props;
     const { type, id, uid } = item;
+    const { messageStyle } = this.state;
 
     if (!id && !uid) { return null; }
 
@@ -49,6 +45,7 @@ class NotificationsScreen extends Component {
         navigation={navigation}
         currentUser={currentUser}
         navigationTab={'Notifications'}
+        messageStyle={messageStyle}
       />
     );
   }
@@ -65,6 +62,19 @@ class NotificationsScreen extends Component {
     );
   }
 }
+
+const styles = {
+  messageLargeStyle: {
+    fontSize: 18,
+    lineHeight: 24,
+    width: SCREEN_WIDTH - 125
+  },
+  messageSmallStyle: {
+    fontSize: 15,
+    lineHeight: 18,
+    width: SCREEN_WIDTH - 125
+  }
+};
 
 function mapStateToProps(state) {
   const requests = _.map(state.requests, (val) => {

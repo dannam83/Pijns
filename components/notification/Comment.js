@@ -5,9 +5,9 @@ import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
 
 const Comment = ({
-  item, navigation, navigationTab, currentUser, screenWidth
+  item, navigation, navigationTab, currentUser, messageStyle
 }) => {
-  const { messageStyle, nameStyle, contentStyle } = styles;
+  const { nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
   const [redirect, userId] = [navigation.navigate, currentUser.uid];
@@ -16,7 +16,7 @@ const Comment = ({
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 125 }}>
+      <Text style={messageStyle}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -47,10 +47,6 @@ const Comment = ({
 };
 
 const styles = {
-  messageStyle: {
-    fontSize: 17,
-    lineHeight: 22
-  },
   nameStyle: {
     fontWeight: '600'
   },

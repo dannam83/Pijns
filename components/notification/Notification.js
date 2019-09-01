@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
 
 import PijnNote from './PijnNote';
 import Comment from './Comment';
@@ -7,9 +6,7 @@ import CommentLike from './CommentLike';
 import PrayerAnswered from './PrayerAnswered';
 import PrayerRequest from './PrayerRequest';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const Notification = ({ item, navigation, navigationTab, currentUser }) => {
+const Notification = ({ item, navigation, navigationTab, currentUser, messageStyle }) => {
   const { type } = item;
 
   if (type === 'pijnNote') {
@@ -19,7 +16,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
+        messageStyle={messageStyle}
       />
     );
   } else if (type === 'comment') {
@@ -29,7 +26,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
+        messageStyle={messageStyle}
       />
     );
   } else if (type === 'commentLike') {
@@ -39,7 +36,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
+        messageStyle={messageStyle}
       />
     );
   } else if (type === 'prayerAnswered') {
@@ -49,7 +46,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
+        messageStyle={messageStyle}
       />
     );
   } else if (type === 'prayerRequest') {
@@ -59,7 +56,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
+        messageStyle={messageStyle}
       />
     );
   } else if (type === 'tag') {
@@ -69,7 +66,7 @@ const Notification = ({ item, navigation, navigationTab, currentUser }) => {
         navigation={navigation}
         navigationTab={navigationTab}
         currentUser={currentUser}
-        screenWidth={SCREEN_WIDTH}
+        messageStyle={messageStyle}
       />
     );
   }

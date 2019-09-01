@@ -4,8 +4,8 @@ import { Text } from 'react-native';
 import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
 
-const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth }) => {
-  const { messageStyle, nameStyle, contentStyle } = styles;
+const PijnNote = ({ item, navigation, navigationTab, currentUser, messageStyle }) => {
+  const { nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
 
@@ -13,7 +13,7 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
 
   const message = () => {
     return (
-      <Text style={{ ...messageStyle, width: screenWidth - 125 }}>
+      <Text style={messageStyle}>
         <Text style={nameStyle}>{name} </Text>
          {messageIntro}
         <Text style={contentStyle}> "{content}"</Text>
@@ -41,10 +41,6 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, screenWidth })
 };
 
 const styles = {
-  messageStyle: {
-    fontSize: 17,
-    lineHeight: 22
-  },
   nameStyle: {
     fontWeight: '600'
   },
