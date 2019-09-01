@@ -71,7 +71,7 @@ class CommentsScreen extends Component {
         style={styles.keyboardAvoidStyle}
         behavior="padding"
         enabled
-        keyboardVerticalOffset={80}
+        keyboardVerticalOffset={60}
       >
         <CommentList
           navigationTab={navigationTab}

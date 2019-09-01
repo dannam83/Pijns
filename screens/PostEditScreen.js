@@ -53,7 +53,7 @@ class PostEdit extends Component {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior="padding"
-        keyboardVerticalOffset={80}
+        keyboardVerticalOffset={60}
         enabled
       >
         <PostForm postEditText={this.props.postText} routeName='postEdit' />
