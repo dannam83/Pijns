@@ -31,6 +31,8 @@ class AuthScreen extends Component {
           props.fetchPinboard(user.uid),
           props.fetchRequests(user.uid),
           props.fetchNotifications(user.uid),
+          props.fetchChatList(user.uid),
+          props.listenToNotificationsCount(user.uid),
           props.saveNavigation(navigation)
         ]);
       }
