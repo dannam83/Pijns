@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/pijnIcon.png",
     "splash": {
@@ -23,7 +23,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dannam.pijns",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "facebookScheme": "fb309296216371741",
     "facebookAppId": "309296216371741",
