@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { postCreateUpdate, postEditUpdate } from '../../actions';
+import PostFormHeader from './PostFormHeader';
 
 class PostForm extends Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class PostForm extends Component {
     const onChangeText = this.getOnChangeText();
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
+        <PostFormHeader user={this.props.user} />
         <TextInput
           placeholder="What would you like to share?"
           multiline
@@ -42,9 +44,12 @@ class PostForm extends Component {
 }
 
 const mapStateToProps = state => {
+  const { user, postEdit, postCreate } = state;
+
   return {
-    postEditText: state.postEdit.postText,
-    postCreateText: state.postCreate.postText
+    user,
+    postEditText: postEdit.postText,
+    postCreateText: postCreate.postText
   };
 };
 

@@ -11,9 +11,7 @@ const PeopleListItem = ({ person, onPress }) => {
   const timeAgo = displayTimeAgoShort(timestamp, createdOn);
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-    >
+    <TouchableOpacity onPress={onPress}>
       <View style={viewStyle}>
         <Image
           source={{ uri: picture }}
