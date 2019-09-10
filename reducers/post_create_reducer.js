@@ -6,6 +6,7 @@ import {
 const INITIAL_STATE = {
   postType: '',
   postText: '',
+  visibleTo: 'All Friends',
   author: {}
 };
 

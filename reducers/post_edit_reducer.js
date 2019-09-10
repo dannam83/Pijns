@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   postId: '',
   postType: '',
   postText: '',
+  visibleTo: '',
   deleteModalVisible: false
 };
 

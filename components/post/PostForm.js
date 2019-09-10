@@ -25,7 +25,7 @@ class PostForm extends Component {
 
   getVisibleTo = () => {
     if (this.props.routeName === 'postEdit') {
-      return this.props.postEditVisibleTo || 'All Friends';
+      return this.props.postEditVisibleTo || 'Only Me';
     }
     return this.props.postCreateVisibleTo || 'All Friends';
   }
