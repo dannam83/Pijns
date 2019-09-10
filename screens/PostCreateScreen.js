@@ -37,9 +37,11 @@ class PostCreateScreen extends Component {
 
   onSharePress = async () => {
     const {
-      user, postText, author, postCreateSave, navigation, fetchUserFeed, friendList
+      user, postText, visibleTo, author, postCreateSave, navigation, fetchUserFeed, friendList
     } = this.props;
-    await postCreateSave({ postText, postType: 'prayerRequest', author, user, friendList });
+    await postCreateSave({
+      postText, postType: 'prayerRequest', visibleTo, author, user, friendList
+    });
     fetchUserFeed(author.id);
     navigation.navigate('UserFeed');
   }

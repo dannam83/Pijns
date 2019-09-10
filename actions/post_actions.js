@@ -23,9 +23,9 @@ export const postCreateUpdate = ({ prop, value }) => {
   };
 };
 
-export const postCreateSave = ({ postText, postType, author, user, friendList }) => {
+export const postCreateSave = ({ postText, postType, visibleTo, author, user, friendList }) => {
   return (dispatch) => {
-    saveToFirebase(author, postText, postType)
+    saveToFirebase(author, postText, postType, visibleTo)
     .then(payload => {
       const { postId, content } = payload;
       sendPrayerRequestNotifications(user, postId, content, friendList);
@@ -34,14 +34,16 @@ export const postCreateSave = ({ postText, postType, author, user, friendList })
   };
 };
 
-const saveToFirebase = async (author, content, type) => {
+const saveToFirebase = async (author, content, type, visibleTo) => {
   const db = firebase.database();
   const userRef = db.ref(`/users/${author.id}/posts`);
   const postRef = db.ref('/posts');
   const key = userRef.push().getKey();
   const createdOn = getCurrentDate();
   const timestamp = -Date.now();
-  const post = { author, content, type, createdOn, timestamp, notes: 0, commentCount: 0 };
+  const post = {
+    author, content, type, visibleTo, createdOn, timestamp, notes: 0, commentCount: 0
+  };
 
   await userRef.child(key).set(post);
   await postRef.child(key).set(post);
