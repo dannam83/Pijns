@@ -23,12 +23,19 @@ class PostForm extends Component {
     return this.props.postCreateUpdate;
   }
 
+  getVisibleTo = () => {
+    if (this.props.routeName === 'postEdit') {
+      return this.props.postEditVisibleTo || 'All Friends';
+    }
+    return this.props.postCreateVisibleTo || 'All Friends';
+  }
+
   render() {
     const textValue = this.getTextValue();
     const onChangeText = this.getOnChangeText();
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
-        <PostFormHeader user={this.props.user} />
+        <PostFormHeader user={this.props.user} visibleTo={this.getVisibleTo()} />
         <TextInput
           placeholder="What would you like to share?"
           multiline
@@ -49,7 +56,9 @@ const mapStateToProps = state => {
   return {
     user,
     postEditText: postEdit.postText,
-    postCreateText: postCreate.postText
+    postEditVisibleTo: postEdit.visibleTo,
+    postCreateText: postCreate.postText,
+    postCreateVisibleTo: postCreate.visibleTo
   };
 };
 

@@ -3,7 +3,7 @@ import { Image, View, Text } from 'react-native';
 import { ButtonAsText } from '../common';
 import { buttonBlue } from '../../assets/colors';
 
-const PostFormHeader = ({ user }) => {
+const PostFormHeader = ({ user, visibleTo }) => {
   const { name, picture } = user;
   const {
     containerStyle,
@@ -40,7 +40,7 @@ const PostFormHeader = ({ user }) => {
         </Text>
           <View style={{ flexDirection: 'row' }}>
             <Text style={visibleLabelStyle}>Visible to: </Text>
-            <ButtonAsText editTextStyle={visibleButtonStyle} >Only Me</ButtonAsText>
+            <ButtonAsText editTextStyle={visibleButtonStyle} >{visibleTo}</ButtonAsText>
           </View>
       </View>
     </View>
