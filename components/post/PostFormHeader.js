@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Image, View, Text } from 'react-native';
-import { connect } from 'react-redux';
-import { postCreateUpdate, postEditUpdate } from '../../actions';
+import { ButtonAsText } from '../common';
+import { buttonBlue } from '../../assets/colors';
 
 const PostFormHeader = ({ user }) => {
   const { name, picture } = user;
@@ -10,21 +10,10 @@ const PostFormHeader = ({ user }) => {
     thumbnailStyle,
     headerContentStyle,
     headerAuthorStyle,
-    visibleToStyle,
-    rightIconViewStyle,
-    buttonStyle
+    visibleLabelStyle,
+    visibleButtonStyle,
   } = styles;
-  //
-  // const posted = displayTimeAgo(timestamp, createdOn);
-  //
-  // const pinPress = async () => {
-  //   if (pinned) {
-  //     unpinPost({ postId, userId });
-  //   } else {
-  //     pinPost({ postId, userId });
-  //   }
-  // };
-  //
+
   // const goToPublicProfile = () => {
   //   if (userId === author.id) {
   //     redirect('Profile'); return;
@@ -36,9 +25,6 @@ const PostFormHeader = ({ user }) => {
   //     navigationTab: 'UserFeed'
   //   });
   // };
-
-  // const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
-  // const disabled = !!onProfile;
 
   return (
     <View style={containerStyle}>
@@ -53,24 +39,13 @@ const PostFormHeader = ({ user }) => {
           {name}
         </Text>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={visibleToStyle}>Visible to </Text>
-            <Text style={{ ...visibleToStyle, fontWeight: '700' }}>Only Me</Text>
+            <Text style={visibleLabelStyle}>Visible to: </Text>
+            <ButtonAsText editTextStyle={visibleButtonStyle} >Only Me</ButtonAsText>
           </View>
       </View>
     </View>
   );
 };
-    //
-    //   <View style={rightIconViewStyle}>
-    //     <ActionButtonStill
-    //       buttonStyle={buttonStyle}
-    //       iconName={'pushpino'}
-    //       iconStyle={pinButtonStyle}
-    //       iconSize={20}
-    //       onPress={pinPress}
-    //     />
-    //   </View>
-
 
 const styles = {
   containerStyle: {
@@ -86,30 +61,26 @@ const styles = {
     paddingLeft: 10
   },
   headerAuthorStyle: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: 'bold'
   },
-  visibleToStyle: {
-    fontSize: 14,
+  visibleLabelStyle: {
+    fontSize: 13,
     fontWeight: '100',
     color: 'gray',
     fontStyle: 'italic'
   },
+  visibleButtonStyle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: buttonBlue,
+    fontStyle: 'italic'
+  },
   thumbnailStyle: {
-    height: 40,
-    width: 40,
-    borderRadius: 20
-  },
-  rightIconViewStyle: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    padding: 5
-  },
-  buttonStyle: {
-    alignItems: 'flex-start'
-  },
+    height: 35,
+    width: 35,
+    borderRadius: 17
+  }
 };
 
 export default PostFormHeader;
