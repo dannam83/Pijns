@@ -29,10 +29,10 @@ class PostEdit extends Component {
   }
 
   onSavePress = () => {
-    const { postText, postId } = this.props;
+    const { postText, postId, visibleTo } = this.props;
     const popAction = StackActions.pop({ n: 1 });
 
-    this.props.postEditSave({ postText, postId });
+    this.props.postEditSave({ postText, postId, visibleTo: visibleTo || 'Only Me' });
     this.props.navigation.dispatch(popAction);
   }
 
@@ -74,8 +74,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { postId, postText, postType } = state.postEdit;
-  return { postId, postText, postType };
+  const { postId, postText, postType, visibleTo } = state.postEdit;
+  return { postId, postText, postType, visibleTo };
 };
 
 export default connect(mapStateToProps, {
