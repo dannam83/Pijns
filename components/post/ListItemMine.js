@@ -8,7 +8,7 @@ import Footer from './Footer';
 const ListItemMine = ({
   post, redirect, postEditUpdate, navigationTab, showDeleteModal, onProfile
 }) => {
-  const { user, author, content, timestamp, createdOn, postId, pinned, deleted } = post;
+  const { user, author, content, timestamp, createdOn, postId, visibleTo, pinned, deleted } = post;
   const userId = user.uid;
   const { containerStyle, contentStyle } = styles;
 
@@ -22,6 +22,7 @@ const ListItemMine = ({
         postEditUpdate={postEditUpdate}
         postText={content}
         postId={postId}
+        visibleTo={visibleTo}
         timestamp={timestamp}
         createdOn={createdOn}
         userId={userId}

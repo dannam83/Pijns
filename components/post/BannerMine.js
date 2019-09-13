@@ -14,6 +14,7 @@ const BannerMine = ({
   postEditUpdate,
   postText,
   postId,
+  visibleTo,
   pinned,
   timestamp,
   createdOn,
@@ -39,6 +40,7 @@ const BannerMine = ({
     this.ActionSheet.show();
     await postEditUpdate({ prop: 'postText', value: postText });
     await postEditUpdate({ prop: 'postId', value: postId });
+    await postEditUpdate({ prop: 'visibleTo', value: visibleTo });
   };
 
   const options = ['Delete', 'Edit', 'Cancel'];
