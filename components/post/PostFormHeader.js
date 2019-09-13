@@ -1,5 +1,7 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { ButtonAsText } from '../common';
 import { buttonBlue } from '../../assets/colors';
 
@@ -13,6 +15,14 @@ const PostFormHeader = ({ user, visibleTo }) => {
     visibleLabelStyle,
     visibleButtonStyle,
   } = styles;
+
+  const visibleToModal = useSelector(state => state.modals);
+  const dispatch = useDispatch();
+
+  const editVisibleTo = () => {
+    console.log(visibleToModal);
+    dispatch({ type: 'SHOW_VISIBLE_TO_MODAL' });
+  };
 
   // const goToPublicProfile = () => {
   //   if (userId === author.id) {
@@ -28,19 +38,17 @@ const PostFormHeader = ({ user, visibleTo }) => {
 
   return (
     <View style={containerStyle}>
-      <Image
-        style={thumbnailStyle}
-        source={{ uri: picture }}
-      />
+      <Image style={thumbnailStyle} source={{ uri: picture }} />
       <View style={headerContentStyle}>
-        <Text
-          style={headerAuthorStyle}
-        >
-          {name}
-        </Text>
+        <Text style={headerAuthorStyle}>{name}</Text>
           <View style={{ flexDirection: 'row' }}>
             <Text style={visibleLabelStyle}>Visible to: </Text>
-            <ButtonAsText editTextStyle={visibleButtonStyle} >{visibleTo}</ButtonAsText>
+            <ButtonAsText
+              editTextStyle={visibleButtonStyle}
+              onPress={editVisibleTo}
+            >
+              {visibleTo}
+            </ButtonAsText>
           </View>
       </View>
     </View>

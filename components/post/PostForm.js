@@ -33,9 +33,10 @@ class PostForm extends Component {
   render() {
     const textValue = this.getTextValue();
     const onChangeText = this.getOnChangeText();
+    const visibleTo = this.getVisibleTo();
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
-        <PostFormHeader user={this.props.user} visibleTo={this.getVisibleTo()} />
+        <PostFormHeader user={this.props.user} visibleTo={visibleTo} />
         <TextInput
           placeholder="What would you like to share?"
           multiline
