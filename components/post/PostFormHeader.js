@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, Keyboard } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ButtonAsText } from '../common';
 import { buttonBlue } from '../../assets/colors';
+import PostFormVisibleToModal from './PostFormVisibleToModal';
 
 const PostFormHeader = ({ user, visibleTo }) => {
   const { name, picture } = user;
@@ -16,11 +17,12 @@ const PostFormHeader = ({ user, visibleTo }) => {
     visibleButtonStyle,
   } = styles;
 
-  const visibleToModal = useSelector(state => state.modals);
+  const visibleToModal = useSelector(state => state.modals).visibleTo;
   const dispatch = useDispatch();
 
   const editVisibleTo = () => {
     console.log(visibleToModal);
+    Keyboard.dismiss();
     dispatch({ type: 'SHOW_VISIBLE_TO_MODAL' });
   };
 
@@ -38,6 +40,10 @@ const PostFormHeader = ({ user, visibleTo }) => {
 
   return (
     <View style={containerStyle}>
+      <PostFormVisibleToModal
+        currentStatus={visibleTo}
+        visible={visibleToModal}
+      />
       <Image style={thumbnailStyle} source={{ uri: picture }} />
       <View style={headerContentStyle}>
         <Text style={headerAuthorStyle}>{name}</Text>
