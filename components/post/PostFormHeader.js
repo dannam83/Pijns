@@ -1,10 +1,11 @@
 import React from 'react';
-import { Image, View, Text, Keyboard } from 'react-native';
+import { Image, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ButtonAsText } from '../common';
 import { buttonBlue } from '../../assets/colors';
 import PostFormVisibleToModal from './PostFormVisibleToModal';
+import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
 const PostFormHeader = ({ user, visibleTo }) => {
   const { name, picture } = user;
@@ -21,9 +22,7 @@ const PostFormHeader = ({ user, visibleTo }) => {
   const dispatch = useDispatch();
 
   const editVisibleTo = () => {
-    console.log(visibleToModal);
-    Keyboard.dismiss();
-    dispatch({ type: 'SHOW_VISIBLE_TO_MODAL' });
+    dispatch({ type: SHOW_VISIBLE_TO_MODAL });
   };
 
   // const goToPublicProfile = () => {

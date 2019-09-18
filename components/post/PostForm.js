@@ -33,9 +33,14 @@ class PostForm extends Component {
   render() {
     const textValue = this.getTextValue();
     const onChangeText = this.getOnChangeText();
+    const { user, routeName } = this.props;
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
-        <PostFormHeader user={this.props.user} visibleTo={this.getVisibleTo()} />
+        <PostFormHeader
+          user={user}
+          visibleTo={this.getVisibleTo()}
+          route={routeName}
+        />
         <TextInput
           placeholder="What would you like to share?"
           multiline

@@ -1,13 +1,24 @@
 import React from 'react';
 import { Text, View, Modal } from 'react-native';
-import { CardSection, Button } from '../common';
+import { useDispatch } from 'react-redux';
 
-const PostFormVisibleToModal = ({
-  children, visible, onAccept, onDecline, acceptText = 'Yes', declineText = 'No'
-}) => {
+import { CardSection, Button } from '../common';
+import { HIDE_VISIBLE_TO_MODAL } from '../../actions/types';
+
+const PostFormVisibleToModal = ({ visible, route }) => {
   const {
     containerStyle, topCardSectionStyle, bottomCardSectionStyle, textStyle
   } = styles;
+
+  const dispatch = useDispatch();
+
+  const cancelPress = () => {
+    dispatch({ type: HIDE_VISIBLE_TO_MODAL });
+  };
+
+  const savePress = () => {
+    dispatch({ type: HIDE_VISIBLE_TO_MODAL });
+  };
 
   return (
     <Modal
@@ -21,8 +32,8 @@ const PostFormVisibleToModal = ({
         </CardSection>
 
         <CardSection style={bottomCardSectionStyle}>
-          { onDecline ? <Button onPress={onDecline}>{declineText}</Button> : null }
-          <Button onPress={onAccept}>{acceptText}</Button>
+          <Button onPress={cancelPress}>Cancel</Button>
+          <Button onPress={savePress}>Save</Button>
         </CardSection>
       </View>
     </Modal>

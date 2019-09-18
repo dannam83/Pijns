@@ -21,6 +21,6 @@ export default (state = INITIAL_STATE, action) => {
     case HIDE_VISIBLE_TO_MODAL:
       return { ...state, visibleTo: false };
     default:
-      return state;
+      return INITIAL_STATE;
   }
 };
