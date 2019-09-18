@@ -58,7 +58,7 @@ class PostCreateScreen extends Component {
         keyboardVerticalOffset={60}
         enabled
       >
-        <PostForm {...this.props} />
+        <PostForm {...this.props} routeName={'postCreate'} />
       </KeyboardAvoidingView>
     );
   }

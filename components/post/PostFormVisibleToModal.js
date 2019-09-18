@@ -1,13 +1,20 @@
-import React from 'react';
-import { Text, View, Modal } from 'react-native';
+import React, { useState } from 'react';
+import { View, Modal } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { CheckBox } from 'react-native-elements';
 
 import { CardSection, Button } from '../common';
-import { HIDE_VISIBLE_TO_MODAL } from '../../actions/types';
+import { saveVisibleTo } from '../../api/posts_api';
+import { buttonBlue } from '../../assets/colors';
+import {
+  HIDE_VISIBLE_TO_MODAL, POST_CREATE_UPDATE, POST_EDIT_UPDATE
+} from '../../actions/types';
 
-const PostFormVisibleToModal = ({ visible, route }) => {
+const PostFormVisibleToModal = ({ postId, visible, route, currentVisibleTo }) => {
+  const [visibleTo, setVisibleTo] = useState(currentVisibleTo);
+
   const {
-    containerStyle, topCardSectionStyle, bottomCardSectionStyle, textStyle
+    containerStyle, topCardSectionStyle, bottomCardSectionStyle
   } = styles;
 
   const dispatch = useDispatch();
@@ -17,7 +24,28 @@ const PostFormVisibleToModal = ({ visible, route }) => {
   };
 
   const savePress = () => {
+    const payload = { prop: 'visibleTo', value: visibleTo };
+    if (route === 'postEdit') {
+      saveVisibleTo(postId, visibleTo);
+      dispatch({ type: POST_EDIT_UPDATE, payload });
+    }
+    if (route === 'postCreate') {
+      dispatch({ type: POST_CREATE_UPDATE, payload });
+    }
     dispatch({ type: HIDE_VISIBLE_TO_MODAL });
+  };
+
+  const Choice = ({ value }) => {
+    return (
+      <CheckBox
+        title={value}
+        checked={visibleTo === value}
+        onPress={() => setVisibleTo(value)}
+        uncheckedIcon='circle-o'
+        checkedIcon='dot-circle-o'
+        checkedColor={buttonBlue}
+      />
+    );
   };
 
   return (
@@ -28,7 +56,9 @@ const PostFormVisibleToModal = ({ visible, route }) => {
     >
       <View style={containerStyle}>
         <CardSection style={topCardSectionStyle}>
-          <Text style={textStyle}>modal</Text>
+          <Choice value='Everyone' />
+          <Choice value='All Friends' />
+          <Choice value='Only Me' />
         </CardSection>
 
         <CardSection style={bottomCardSectionStyle}>
@@ -42,18 +72,19 @@ const PostFormVisibleToModal = ({ visible, route }) => {
 
 const styles = {
   topCardSectionStyle: {
-    justifyContent: 'center',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderWidth: 1,
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    flexDirection: 'column',
   },
   bottomCardSectionStyle: {
     justifyContent: 'center',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderWidth: 1,
-    borderTopWidth: 0
+    borderTopWidth: 0,
+    paddingTop: 0
   },
   textStyle: {
     flex: 1,

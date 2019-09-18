@@ -39,3 +39,10 @@ const incrementCounter = (postAuthorId) => {
 
   countRef.transaction((currentCount) => (currentCount || 0) + 1);
 };
+
+export const saveVisibleTo = (postId, visibleTo) => {
+  const { currentUser } = firebase.auth();
+  const db = firebase.database();
+  db.ref(`/posts/${postId}`).update({ visibleTo });
+  db.ref(`/users/${currentUser.uid}/posts/${postId}`).update({ visibleTo });
+};
