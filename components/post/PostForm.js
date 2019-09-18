@@ -33,12 +33,13 @@ class PostForm extends Component {
   render() {
     const textValue = this.getTextValue();
     const onChangeText = this.getOnChangeText();
-    const { user, routeName } = this.props;
+    const { user, postId, routeName } = this.props;
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
         <PostFormHeader
           user={user}
           visibleTo={this.getVisibleTo()}
+          postId={postId}
           route={routeName}
         />
         <TextInput

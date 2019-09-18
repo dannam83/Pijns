@@ -49,6 +49,8 @@ class PostEdit extends Component {
   }
 
   render() {
+    const { postId, postText } = this.props;
+
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -56,7 +58,11 @@ class PostEdit extends Component {
         keyboardVerticalOffset={60}
         enabled
       >
-        <PostForm postEditText={this.props.postText} routeName='postEdit' />
+        <PostForm
+          postId={postId}
+          postEditText={postText}
+          routeName='postEdit'
+        />
       </KeyboardAvoidingView>
     );
   }

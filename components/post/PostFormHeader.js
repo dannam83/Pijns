@@ -7,7 +7,7 @@ import { buttonBlue } from '../../assets/colors';
 import PostFormVisibleToModal from './PostFormVisibleToModal';
 import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
-const PostFormHeader = ({ user, visibleTo, route }) => {
+const PostFormHeader = ({ user, visibleTo, route, postId }) => {
   const { name, picture } = user;
   const {
     containerStyle,
@@ -39,6 +39,7 @@ const PostFormHeader = ({ user, visibleTo, route }) => {
   return (
     <View style={containerStyle}>
       <PostFormVisibleToModal
+        postId={postId}
         currentVisibleTo={visibleTo}
         visible={visibleToModal}
         route={route}
