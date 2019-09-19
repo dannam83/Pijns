@@ -32,7 +32,7 @@ class PostEdit extends Component {
     const { postText, postId, visibleTo } = this.props;
     const popAction = StackActions.pop({ n: 1 });
 
-    this.props.postEditSave({ postText, postId, visibleTo: visibleTo || 'Only Me' });
+    this.props.postEditSave({ postText, postId, visibleTo: visibleTo || 'All Friends' });
     this.props.navigation.dispatch(popAction);
   }
 

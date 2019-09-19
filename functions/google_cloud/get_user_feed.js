@@ -28,11 +28,11 @@ module.exports = (req, res) => {
             const postKeys = Object.keys(posts);
 
             const allowedToSee = post => {
-              if (post['deleted']) { return false; }
-              if (post['visibleTo'] === 'Only Me') { return false; }
-              if (post['visibleTo'] === 'Tagged Friends') {
+              if (post.deleted) { return false; }
+              if (post.visibleTo === 'Only Me') { return false; }
+              if (post.visibleTo === 'Tagged Friends') {
                 const { taggedFriends } = post;
-                if (!taggedFriends || !taggedFriends.userId) { return false }
+                if (!taggedFriends || !taggedFriends[userId]) { return false; }
               }
               return true;
             }

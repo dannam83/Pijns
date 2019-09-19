@@ -52,7 +52,7 @@ const PostFormVisibleToModal = ({ postId, visible, route, currentVisibleTo }) =>
     >
       <View style={containerStyle}>
         <CardSection style={topCardSectionStyle}>
-          <Choice value='Everyone' />
+          <Choice value='Anyone' />
           <Choice value='All Friends' />
           <Choice value='Tagged Friends' />
           <Choice value='Only Me' />

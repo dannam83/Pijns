@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import PostListFriend from '../components/post/PostListFriend';
+import PostListPublic from '../components/post/PostListPublic';
 import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
 import { friendPostsFetch, clearFriend } from '../actions';
 
@@ -50,24 +50,23 @@ class PublicProfileScreen extends Component {
 
     let status = getParam('status');
     if (!status) { status = friend.status; }
-
+    
     return (
       <View style={styles.containerStyle}>
         <View>
-          { status === 'Unfriend' ? (
-            <PostListFriend
+
+            <PostListPublic
               header={this.renderHeader(
                 picture, name, userId, status, redirect, navigationTab, user
               )}
+              userId={userId}
               posts={posts}
               redirect={redirect}
               status={status}
               navigationTab={navigationTab}
               onProfile
             />
-          ) : (
-            this.renderHeader(picture, name, userId, status, redirect, navigationTab, user)
-          )}
+
         </View>
       </View>
     );
