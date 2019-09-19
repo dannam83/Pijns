@@ -14,9 +14,8 @@ const PostFormHeader = ({ user, visibleTo, route, postId }) => {
     thumbnailStyle,
     headerContentStyle,
     headerAuthorStyle,
-    labelStyle,
-    buttonStyle,
-    dotStyle
+    visibleLabelStyle,
+    visibleButtonStyle,
   } = styles;
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
@@ -26,6 +25,17 @@ const PostFormHeader = ({ user, visibleTo, route, postId }) => {
     dispatch({ type: SHOW_VISIBLE_TO_MODAL });
   };
 
+  // const goToPublicProfile = () => {
+  //   if (userId === author.id) {
+  //     redirect('Profile'); return;
+  //   }
+  //
+  //   redirect(`${navigationTab}_PublicProfile`, {
+  //     profileUser: { ...author, uid: author.id },
+  //     status: 'Unfriend',
+  //     navigationTab: 'UserFeed'
+  //   });
+  // };
   return (
     <View style={containerStyle}>
       <PostFormVisibleToModal
@@ -38,19 +48,12 @@ const PostFormHeader = ({ user, visibleTo, route, postId }) => {
       <View style={headerContentStyle}>
         <Text style={headerAuthorStyle}>{name}</Text>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={labelStyle}>Visible to: </Text>
+            <Text style={visibleLabelStyle}>Visible to: </Text>
             <ButtonAsText
-              editTextStyle={buttonStyle}
+              editTextStyle={visibleButtonStyle}
               onPress={editVisibleTo}
             >
               {visibleTo}
-            </ButtonAsText>
-            <Text style={dotStyle}>·</Text>
-            <Text style={labelStyle}>Tags: </Text>
-            <ButtonAsText
-              editTextStyle={buttonStyle}
-            >
-              None
             </ButtonAsText>
           </View>
       </View>
@@ -75,12 +78,13 @@ const styles = {
     fontSize: 15,
     fontWeight: 'bold'
   },
-  labelStyle: {
+  visibleLabelStyle: {
     fontSize: 13,
     fontWeight: '100',
     color: 'gray',
+    fontStyle: 'italic'
   },
-  buttonStyle: {
+  visibleButtonStyle: {
     fontSize: 13,
     fontWeight: '700',
     color: buttonBlue,
@@ -90,12 +94,6 @@ const styles = {
     height: 35,
     width: 35,
     borderRadius: 17
-  },
-  dotStyle: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: 'gray',
-    paddingRight: 10
   }
 };
 
