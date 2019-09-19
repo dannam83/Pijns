@@ -5,9 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ButtonAsText } from '../common';
 import { buttonBlue } from '../../assets/colors';
 import PostFormVisibleToModal from './PostFormVisibleToModal';
-import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
+import PostFormTagsModal from './PostFormTagsModal';
+import {
+  SHOW_VISIBLE_TO_MODAL, SHOW_TAG_FRIENDS_MODAL
+} from '../../actions/types';
 
-const PostFormHeader = ({ user, visibleTo, route, postId }) => {
+const PostFormHeader = ({ user, visibleTo, taggedFriends, route }) => {
   const { name, picture } = user;
   const {
     containerStyle,
@@ -20,18 +23,35 @@ const PostFormHeader = ({ user, visibleTo, route, postId }) => {
   } = styles;
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
+  const tagFriendsModal = useSelector(state => state.modals).tagFriends;
   const dispatch = useDispatch();
 
   const editVisibleTo = () => {
     dispatch({ type: SHOW_VISIBLE_TO_MODAL });
   };
 
+  const editTags = () => {
+    dispatch({ type: SHOW_TAG_FRIENDS_MODAL });
+  };
+
+  const taggedFriendsCount = () => {
+    if (!taggedFriends) { return 'None'; }
+    const friends = Object.keys(taggedFriends);
+    const count = friends.length;
+    if (count < 1) { return 'None'; }
+    return `${count.toString()} Friends`;
+  };
+
   return (
     <View style={containerStyle}>
       <PostFormVisibleToModal
-        postId={postId}
         currentVisibleTo={visibleTo}
         visible={visibleToModal}
+        route={route}
+      />
+      <PostFormTagsModal
+        currentTags={taggedFriends}
+        visible={tagFriendsModal}
         route={route}
       />
       <Image style={thumbnailStyle} source={{ uri: picture }} />
@@ -49,8 +69,9 @@ const PostFormHeader = ({ user, visibleTo, route, postId }) => {
             <Text style={labelStyle}>Tags: </Text>
             <ButtonAsText
               editTextStyle={buttonStyle}
+              onPress={editTags}
             >
-              None
+              {taggedFriendsCount()}
             </ButtonAsText>
           </View>
       </View>

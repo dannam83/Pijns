@@ -30,6 +30,13 @@ class PostForm extends Component {
     return this.props.postCreateVisibleTo || 'All Friends';
   }
 
+  getTaggedFriends = () => {
+    if (this.props.routeName === 'postEdit') {
+      return this.props.postEditTaggedFriends || {};
+    }
+    return this.props.postCreateTaggedFriends || {};
+  }
+
   render() {
     const textValue = this.getTextValue();
     const onChangeText = this.getOnChangeText();
@@ -63,8 +70,10 @@ const mapStateToProps = state => {
     user,
     postEditText: postEdit.postText,
     postEditVisibleTo: postEdit.visibleTo,
+    postEditTaggedFriends: postEdit.taggedFriends,
     postCreateText: postCreate.postText,
-    postCreateVisibleTo: postCreate.visibleTo
+    postCreateVisibleTo: postCreate.visibleTo,
+    postCreateTaggedFriends: postCreate.taggedFriends
   };
 };
 

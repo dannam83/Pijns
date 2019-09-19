@@ -50,23 +50,21 @@ class PublicProfileScreen extends Component {
 
     let status = getParam('status');
     if (!status) { status = friend.status; }
-    
+
     return (
       <View style={styles.containerStyle}>
         <View>
-
-            <PostListPublic
-              header={this.renderHeader(
-                picture, name, userId, status, redirect, navigationTab, user
-              )}
-              userId={userId}
-              posts={posts}
-              redirect={redirect}
-              status={status}
-              navigationTab={navigationTab}
-              onProfile
-            />
-
+          <PostListPublic
+            header={this.renderHeader(
+              picture, name, userId, status, redirect, navigationTab, user
+            )}
+            userId={userId}
+            posts={posts}
+            redirect={redirect}
+            status={status}
+            navigationTab={navigationTab}
+            onProfile
+          />
         </View>
       </View>
     );
