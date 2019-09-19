@@ -19,10 +19,6 @@ const PostFormVisibleToModal = ({ postId, visible, route, currentVisibleTo }) =>
 
   const dispatch = useDispatch();
 
-  const cancelPress = () => {
-    dispatch({ type: HIDE_VISIBLE_TO_MODAL });
-  };
-
   const savePress = () => {
     const payload = { prop: 'visibleTo', value: visibleTo };
     if (route === 'postEdit') {
@@ -58,12 +54,12 @@ const PostFormVisibleToModal = ({ postId, visible, route, currentVisibleTo }) =>
         <CardSection style={topCardSectionStyle}>
           <Choice value='Everyone' />
           <Choice value='All Friends' />
+          <Choice value='Tagged Friends' />
           <Choice value='Only Me' />
         </CardSection>
 
         <CardSection style={bottomCardSectionStyle}>
-          <Button onPress={cancelPress}>Cancel</Button>
-          <Button onPress={savePress}>Save</Button>
+          <Button onPress={savePress}>Done</Button>
         </CardSection>
       </View>
     </Modal>
