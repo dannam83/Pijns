@@ -27,8 +27,18 @@ module.exports = (req, res) => {
             const posts = snapshot.val();
             const postKeys = Object.keys(posts);
 
+            const allowedToSee = post => {
+              if (post['deleted']) { return false; }
+              if (post['visibleTo'] === 'Only Me') { return false; }
+              if (post['visibleTo'] === 'Tagged Friends') {
+                const { taggedFriends } = post;
+                if (!taggedFriends || !taggedFriends.userId) { return false }
+              }
+              return true;
+            }
+
             postKeys.forEach((key) => {
-              if (!posts[key]['deleted']) {
+              if (allowedToSee(posts[key])) {
                 posts[key]['postId'] = key;
                 friendPostsArray.push(posts[key]);
               }
