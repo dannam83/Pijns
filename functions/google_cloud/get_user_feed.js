@@ -29,6 +29,7 @@ module.exports = (req, res) => {
 
             const allowedToSee = post => {
               if (post.deleted) { return false; }
+              if (post.author.id === userId) { return true; }
               if (post.visibleTo === 'Only Me') { return false; }
               if (post.visibleTo === 'Tagged Friends') {
                 const { taggedFriends } = post;
