@@ -5,7 +5,7 @@ import { CheckBox } from 'react-native-elements';
 
 import { buttonBlue } from '../../assets/colors';
 import { CardSection, Button } from '../common';
-import TaggedFriendsList from './TaggedFriendsList';
+import TagFriendsList from './TagFriendsList';
 import {
   HIDE_TAG_FRIENDS_MODAL, POST_CREATE_UPDATE, POST_EDIT_UPDATE
 } from '../../actions/types';
@@ -37,7 +37,7 @@ const PostFormVisibleToModal = ({ visible, route }) => {
     >
     <View style={containerStyle}>
       <CardSection style={topCardSectionStyle}>
-        <Text>hi</Text>
+        <TagFriendsList />
       </CardSection>
 
       <CardSection style={bottomCardSectionStyle}>

@@ -2,8 +2,9 @@ import React from 'react';
 import { Text, Image, TouchableOpacity, View } from 'react-native';
 
 import { displayTimeAgoShort } from '../../functions/common';
+import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
 
-const TaggedFriendsListItem = ({ friend, onPress }) => {
+const TagFriendsListItem = ({ friend, onPress }) => {
   const { name, picture, timestamp, createdOn } = friend;
   const {
     viewStyle, textViewStyle, nameTextStyle, dateTextStyle, imageStyle
@@ -19,7 +20,6 @@ const TaggedFriendsListItem = ({ friend, onPress }) => {
         />
         <View style={textViewStyle}>
           <Text style={nameTextStyle}>{name}</Text>
-          <Text style={dateTextStyle}>{timeAgo}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -32,28 +32,28 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 10
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderBottomWidth: 1,
+    borderColor: buttonFieldBorderGray,
   },
   imageStyle: {
-    height: 36,
-    width: 36,
-    borderRadius: 18
+    height: 32,
+    width: 32,
+    borderRadius: 16
   },
   textViewStyle: {
     paddingLeft: 10,
     height: 36,
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   nameTextStyle: {
     fontSize: 16,
-    fontWeight: '500'
-  },
-  dateTextStyle: {
-    fontSize: 14,
-    fontWeight: '100',
-    color: 'gray',
+    fontWeight: '400'
   },
 };
 
-export default TaggedFriendsListItem;
+export default TagFriendsListItem;

@@ -1,12 +1,90 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { Input, ListItemAsButton } from '../components/common';
-import { searchUpdate, getFriendStatus, fetchFriendList } from '../actions';
+import { Input, ListItemAsButton } from '../../components/common';
+import { searchUpdate, getFriendStatus, fetchFriendList } from '../../actions';
 
-class SearchFriendsScreen extends Component {
+import TagFriendsListItem from './TagFriendsListItem';
+
+const TagFriendsListX = ({ data, keyExtractor, friendList, searchedList }) => {
+  const [allFriends, setAllFriends] = useState({});
+  const [searchFriends, setSearchFriends] = useState({});
+
+  useEffect(() => {
+    const friends = _.map(friendList, (val, userId) => {
+      return { ...val, userId };
+    });
+    setAllFriends(friends);
+  }, []);
+
+  useEffect(() => {
+    const friends = _.map(searchedList, (val, userId) => {
+      return { ...val, userId };
+    });
+    setSearchFriends(friends);
+  }, [searchFriends]);
+
+  const friends = searchFriends[0] ? searchFriends : allFriends;
+
+  const renderHeaderItem = friend => {
+    return (
+      <TagFriendsListItem friend={friend} tagged />
+    );
+  };
+
+  const Header = taggedFriends => {
+    console.log('lists', friendList, searchedList)
+    return (
+      <View>
+        <Text>Header</Text>
+        <FlatList
+          data={taggedFriends}
+          renderItem={renderHeaderItem}
+          keyExtractor={keyExtractor}
+        />
+      </View>
+    );
+  };
+
+  const renderItem = friend => {
+    return (
+      <TagFriendsListItem friend={friend} />
+    );
+  };
+
+  return (
+    <View style={styles.containerStyle}>
+      <FlatList
+        data={friends}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ListHeaderComponent={Header}
+      />
+      <Text>search</Text>
+    </View>
+  );
+};
+
+// const styles = {
+//   containerStyle: {
+//     flex: 1,
+//     padding: 10
+//   }
+// };
+
+// export default TagFriendsList;
+
+// import React, { Component } from 'react';
+// import { View, FlatList } from 'react-native';
+// import { connect } from 'react-redux';
+// import _ from 'lodash';
+//
+// import { Input, ListItemAsButton } from '../components/common';
+// import { searchUpdate, getFriendStatus, fetchFriendList } from '../actions';
+
+class TagFriendsList extends Component {
   static navigationOptions = {
     title: 'Search',
   };
@@ -81,7 +159,7 @@ class SearchFriendsScreen extends Component {
 const styles = {
   masterContainerStyle: {
     flex: 1,
-    padding: 10
+    // padding: 10
   },
   containerStyle: {
     backgroundColor: '#EAEAEA',
@@ -90,6 +168,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log(state);
   let searchResults = _.map(state.searchResults, (val, userId) => {
     return { ...val, userId };
   });
@@ -101,4 +180,4 @@ export default connect(mapStateToProps, {
   searchUpdate,
   getFriendStatus,
   fetchFriendList
-})(SearchFriendsScreen);
+})(TagFriendsList);

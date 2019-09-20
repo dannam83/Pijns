@@ -40,7 +40,7 @@ class PostForm extends Component {
   render() {
     const textValue = this.getTextValue();
     const onChangeText = this.getOnChangeText();
-    const { user, postId, routeName } = this.props;
+    const { user, postId, routeName, navigation: { navigate } } = this.props;
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
         <PostFormHeader
@@ -48,6 +48,7 @@ class PostForm extends Component {
           visibleTo={this.getVisibleTo()}
           postId={postId}
           route={routeName}
+          redirect={navigate}
         />
         <TextInput
           placeholder="What would you like to share?"

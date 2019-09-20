@@ -10,7 +10,7 @@ import {
   SHOW_VISIBLE_TO_MODAL, SHOW_TAG_FRIENDS_MODAL
 } from '../../actions/types';
 
-const PostFormHeader = ({ user, visibleTo, taggedFriends, route }) => {
+const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => {
   const { name, picture } = user;
   const {
     containerStyle,
@@ -31,7 +31,7 @@ const PostFormHeader = ({ user, visibleTo, taggedFriends, route }) => {
   };
 
   const editTags = () => {
-    dispatch({ type: SHOW_TAG_FRIENDS_MODAL });
+    redirect('PostCreate_TagFriends');
   };
 
   const taggedFriendsCount = () => {

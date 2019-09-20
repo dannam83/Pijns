@@ -9,6 +9,7 @@ import SearchFriendsScreen from '../screens/SearchFriendsScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
 import PersonalProfileScreen from '../screens/PersonalProfileScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
+import TagFriendsScreen from '../screens/TagFriendsScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import PostNotesListScreen from '../screens/PostNotesListScreen';
 import CommentsScreen from '../screens/CommentsScreen';
@@ -70,6 +71,7 @@ ChatStack.navigationOptions = {
 
 const PostCreateStack = createStackNavigator({
   PostCreate: PostCreateScreen,
+  PostCreate_TagFriends: TagFriendsScreen
 });
 
 PostCreateStack.navigationOptions = {
