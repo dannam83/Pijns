@@ -90,6 +90,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
+  console.log(state);
   let searchResults = _.map(state.searchResults, (val, userId) => {
     return { ...val, userId };
   });

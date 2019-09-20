@@ -1,45 +1,31 @@
 import React, { useState } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
 
-import { CardSection, Button } from '../common';
 import { buttonBlue } from '../../assets/colors';
+import { CardSection, Button } from '../common';
+import TaggedFriendsList from './TaggedFriendsList';
 import {
-  HIDE_VISIBLE_TO_MODAL, POST_CREATE_UPDATE, POST_EDIT_UPDATE
+  HIDE_TAG_FRIENDS_MODAL, POST_CREATE_UPDATE, POST_EDIT_UPDATE
 } from '../../actions/types';
 
-const PostFormVisibleToModal = ({ visible, route, currentVisibleTo }) => {
-  const [visibleTo, setVisibleTo] = useState(currentVisibleTo);
-
+const PostFormVisibleToModal = ({ visible, route }) => {
   const {
     containerStyle, topCardSectionStyle, bottomCardSectionStyle
   } = styles;
 
   const dispatch = useDispatch();
 
-  const savePress = () => {
-    const payload = { prop: 'visibleTo', value: visibleTo };
-    if (route === 'postEdit') {
-      dispatch({ type: POST_EDIT_UPDATE, payload });
-    }
-    if (route === 'postCreate') {
-      dispatch({ type: POST_CREATE_UPDATE, payload });
-    }
-    dispatch({ type: HIDE_VISIBLE_TO_MODAL });
-  };
-
-  const Choice = ({ value }) => {
-    return (
-      <CheckBox
-        title={value}
-        checked={visibleTo === value}
-        onPress={() => setVisibleTo(value)}
-        uncheckedIcon='circle-o'
-        checkedIcon='dot-circle-o'
-        checkedColor={buttonBlue}
-      />
-    );
+  const donePress = () => {
+    // const payload = { prop: 'visibleTo', value: visibleTo };
+    // if (route === 'postEdit') {
+    //   dispatch({ type: POST_EDIT_UPDATE, payload });
+    // }
+    // if (route === 'postCreate') {
+    //   dispatch({ type: POST_CREATE_UPDATE, payload });
+    // }
+    dispatch({ type: HIDE_TAG_FRIENDS_MODAL });
   };
 
   return (
@@ -49,17 +35,15 @@ const PostFormVisibleToModal = ({ visible, route, currentVisibleTo }) => {
       onRequestClose={() => {}}
       animationType="slide"
     >
-      <View style={containerStyle}>
-        <CardSection style={topCardSectionStyle}>
-          <Choice value='Anyone' />
-          <Choice value='All Friends' />
-          <Choice value='Tagged Friends' />
-        </CardSection>
+    <View style={containerStyle}>
+      <CardSection style={topCardSectionStyle}>
+        <Text>hi</Text>
+      </CardSection>
 
-        <CardSection style={bottomCardSectionStyle}>
-          <Button onPress={savePress}>Done</Button>
-        </CardSection>
-      </View>
+      <CardSection style={bottomCardSectionStyle}>
+        <Button onPress={donePress}>Done</Button>
+      </CardSection>
+    </View>
     </Modal>
   );
 };
@@ -71,6 +55,7 @@ const styles = {
     borderWidth: 1,
     borderBottomWidth: 0,
     flexDirection: 'column',
+    flex: 0.8
   },
   bottomCardSectionStyle: {
     justifyContent: 'center',

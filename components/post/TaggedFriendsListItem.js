@@ -3,8 +3,8 @@ import { Text, Image, TouchableOpacity, View } from 'react-native';
 
 import { displayTimeAgoShort } from '../../functions/common';
 
-const TaggedFriendsListItem = ({ person, onPress }) => {
-  const { name, picture, timestamp, createdOn } = person;
+const TaggedFriendsListItem = ({ friend, onPress }) => {
+  const { name, picture, timestamp, createdOn } = friend;
   const {
     viewStyle, textViewStyle, nameTextStyle, dateTextStyle, imageStyle
   } = styles;

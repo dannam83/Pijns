@@ -18,7 +18,7 @@ const PostFormVisibleToModal = ({ visible, route, currentVisibleTo }) => {
 
   const dispatch = useDispatch();
 
-  const savePress = () => {
+  const donePress = () => {
     const payload = { prop: 'visibleTo', value: visibleTo };
     if (route === 'postEdit') {
       dispatch({ type: POST_EDIT_UPDATE, payload });
@@ -58,7 +58,7 @@ const PostFormVisibleToModal = ({ visible, route, currentVisibleTo }) => {
         </CardSection>
 
         <CardSection style={bottomCardSectionStyle}>
-          <Button onPress={savePress}>Done</Button>
+          <Button onPress={donePress}>Done</Button>
         </CardSection>
       </View>
     </Modal>
