@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, Image, TouchableOpacity, View } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 
 import { displayTimeAgoShort } from '../../functions/common';
 import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
@@ -14,6 +15,15 @@ const TagFriendsListItem = ({ friend, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={viewStyle}>
+        <CheckBox
+          containerStyle={{ borderWidth: 0, backgroundColor: 'white', padding: 0, margin: 0 }}
+          textStyle={{ width: 0, padding: 0, margin: 0 }}
+          checked={true}
+          // onPress={() => setVisibleTo(value)}
+          // uncheckedIcon='circle-o'
+          // checkedIcon='dot-circle-o'
+          // checkedColor={buttonBlue}
+        />
         <Image
           source={{ uri: picture }}
           style={imageStyle}
@@ -40,12 +50,13 @@ const styles = {
     borderColor: buttonFieldBorderGray,
   },
   imageStyle: {
-    height: 32,
-    width: 32,
-    borderRadius: 16
+    height: 28,
+    width: 28,
+    borderRadius: 14,
+    marginLeft: -17
   },
   textViewStyle: {
-    paddingLeft: 10,
+    paddingLeft: 11,
     height: 36,
     display: 'flex',
     justifyContent: 'center',

@@ -8,45 +8,6 @@ import { searchUpdate, getFriendStatus, fetchFriendList } from '../actions';
 
 import TagFriendsListItem from '../components/post/TagFriendsListItem';
 
-// const TagFriendsListX = ({ data, keyExtractor, friendList, searchedList }) => {
-//   const renderHeaderItem = friend => {
-//     return (
-//       <TagFriendsListItem friend={friend} tagged />
-//     );
-//   };
-//
-//   const Header = taggedFriends => {
-//     return (
-//       <View>
-//         <Text>Header</Text>
-//         <FlatList
-//           data={taggedFriends}
-//           renderItem={renderHeaderItem}
-//           keyExtractor={keyExtractor}
-//         />
-//       </View>
-//     );
-//   };
-//
-//   const renderItem = friend => {
-//     return (
-//       <TagFriendsListItem friend={friend} />
-//     );
-//   };
-//
-//   return (
-//     <View style={styles.containerStyle}>
-//       <FlatList
-//         data={friends}
-//         renderItem={renderItem}
-//         keyExtractor={keyExtractor}
-//         ListHeaderComponent={Header}
-//       />
-//       <Text>search</Text>
-//     </View>
-//   );
-// };
-
 class TagFriendsList extends Component {
   static navigationOptions = {
     title: 'Search',
