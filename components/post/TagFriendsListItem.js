@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, Image, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
 import { displayTimeAgoShort } from '../../functions/common';
@@ -10,18 +10,19 @@ const TagFriendsListItem = ({ friend, onPress }) => {
   const {
     viewStyle, textViewStyle, nameTextStyle, dateTextStyle, imageStyle
   } = styles;
-  const timeAgo = displayTimeAgoShort(timestamp, createdOn);
+
+  const [checked, setChecked] = useState(false);
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableWithoutFeedback onPress={() => setChecked(!checked)}>
       <View style={viewStyle}>
         <CheckBox
           containerStyle={{ borderWidth: 0, backgroundColor: 'white', padding: 0, margin: 0 }}
           textStyle={{ width: 0, padding: 0, margin: 0 }}
-          checked={true}
-          // onPress={() => setVisibleTo(value)}
-          // uncheckedIcon='circle-o'
-          // checkedIcon='dot-circle-o'
+          checked={checked}
+          uncheckedIcon='square'
+          checkedIcon='check-square'
+          onPress={() => setChecked(!checked)}
           // checkedColor={buttonBlue}
         />
         <Image
@@ -32,7 +33,7 @@ const TagFriendsListItem = ({ friend, onPress }) => {
           <Text style={nameTextStyle}>{name}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -53,7 +54,7 @@ const styles = {
     height: 28,
     width: 28,
     borderRadius: 14,
-    marginLeft: -17
+    marginLeft: -16
   },
   textViewStyle: {
     paddingLeft: 11,
