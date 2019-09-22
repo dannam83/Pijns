@@ -6,20 +6,16 @@ import { ButtonAsText } from '../common';
 import { buttonBlue } from '../../assets/colors';
 import PostFormVisibleToModal from './PostFormVisibleToModal';
 import PostFormTagsModal from './PostFormTagsModal';
-import {
-  SHOW_VISIBLE_TO_MODAL, SHOW_TAG_FRIENDS_MODAL
-} from '../../actions/types';
+import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
 const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => {
-  const { name, picture } = user;
+  const { picture } = user;
   const {
     containerStyle,
     thumbnailStyle,
     headerContentStyle,
-    headerAuthorStyle,
     labelStyle,
     buttonStyle,
-    dotStyle
   } = styles;
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
@@ -56,24 +52,24 @@ const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => 
       />
       <Image style={thumbnailStyle} source={{ uri: picture }} />
       <View style={headerContentStyle}>
-        <Text style={headerAuthorStyle}>{name}</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={labelStyle}>Visible to: </Text>
-            <ButtonAsText
-              editTextStyle={buttonStyle}
-              onPress={editVisibleTo}
-            >
-              {visibleTo}
-            </ButtonAsText>
-            <Text style={dotStyle}>·</Text>
-            <Text style={labelStyle}>Tags: </Text>
-            <ButtonAsText
-              editTextStyle={buttonStyle}
-              onPress={editTags}
-            >
-              {taggedFriendsCount()}
-            </ButtonAsText>
-          </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={labelStyle}>Visible to: </Text>
+          <ButtonAsText
+            editTextStyle={buttonStyle}
+            onPress={editVisibleTo}
+          >
+            {visibleTo}
+          </ButtonAsText>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={labelStyle}>Tags: </Text>
+          <ButtonAsText
+            editTextStyle={buttonStyle}
+            onPress={editTags}
+          >
+            {taggedFriendsCount()}
+          </ButtonAsText>
+        </View>
       </View>
     </View>
   );
@@ -97,12 +93,12 @@ const styles = {
     fontWeight: 'bold'
   },
   labelStyle: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '100',
     color: 'gray',
   },
   buttonStyle: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '700',
     color: buttonBlue,
     fontStyle: 'italic'

@@ -1,4 +1,4 @@
-import { SEARCH_UPDATE } from '../actions/types';
+import { SEARCH_UPDATE } from '../../actions/types';
 
 const INITIAL_STATE = {};
 

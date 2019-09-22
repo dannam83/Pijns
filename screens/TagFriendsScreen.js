@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -8,44 +8,44 @@ import { searchUpdate, getFriendStatus, fetchFriendList } from '../actions';
 
 import TagFriendsListItem from '../components/post/TagFriendsListItem';
 
-const TagFriendsListX = ({ data, keyExtractor, friendList, searchedList }) => {
-  const renderHeaderItem = friend => {
-    return (
-      <TagFriendsListItem friend={friend} tagged />
-    );
-  };
-
-  const Header = taggedFriends => {
-    return (
-      <View>
-        <Text>Header</Text>
-        <FlatList
-          data={taggedFriends}
-          renderItem={renderHeaderItem}
-          keyExtractor={keyExtractor}
-        />
-      </View>
-    );
-  };
-
-  const renderItem = friend => {
-    return (
-      <TagFriendsListItem friend={friend} />
-    );
-  };
-
-  return (
-    <View style={styles.containerStyle}>
-      <FlatList
-        data={friends}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        ListHeaderComponent={Header}
-      />
-      <Text>search</Text>
-    </View>
-  );
-};
+// const TagFriendsListX = ({ data, keyExtractor, friendList, searchedList }) => {
+//   const renderHeaderItem = friend => {
+//     return (
+//       <TagFriendsListItem friend={friend} tagged />
+//     );
+//   };
+//
+//   const Header = taggedFriends => {
+//     return (
+//       <View>
+//         <Text>Header</Text>
+//         <FlatList
+//           data={taggedFriends}
+//           renderItem={renderHeaderItem}
+//           keyExtractor={keyExtractor}
+//         />
+//       </View>
+//     );
+//   };
+//
+//   const renderItem = friend => {
+//     return (
+//       <TagFriendsListItem friend={friend} />
+//     );
+//   };
+//
+//   return (
+//     <View style={styles.containerStyle}>
+//       <FlatList
+//         data={friends}
+//         renderItem={renderItem}
+//         keyExtractor={keyExtractor}
+//         ListHeaderComponent={Header}
+//       />
+//       <Text>search</Text>
+//     </View>
+//   );
+// };
 
 class TagFriendsList extends Component {
   static navigationOptions = {
@@ -57,8 +57,10 @@ class TagFriendsList extends Component {
     props.fetchFriendList(props.currentUser.uid);
   }
 
+  state = { searchInput: '' };
+
   onChangeText = (value) => {
-    this.props.searchUpdate({ value });
+    this.setState({ searchInput: value.toLowerCase() });
   }
 
   goToPublicProfile = (profileUser) => {
@@ -91,26 +93,35 @@ class TagFriendsList extends Component {
     );
   }
 
-  renderRow = (friend) => {
-    if (friend.userId === this.props.currentUser.uid) {
+  renderRow = (item) => {
+    if (item.userId === this.props.currentUser.uid) {
       return null;
     }
 
-    const data = friend.name ? friend : friend.user;
+    const friend = item.name ? item : item.user;
 
     return (
       <TagFriendsListItem
-        friend={data}
+        friend={friend}
         onPress={() => this.goToPublicProfile(friend)}
       />
     );
   }
 
+  nameMatch(friend) {
+    const data = friend.name ? friend : friend.user;
+    const { searchInput } = this.state;
+    const nameSubstring = data.name.slice(0, searchInput.length).toLowerCase();
+    return nameSubstring === searchInput;
+  }
+
   render() {
     const { masterContainerStyle, inputViewStyle, inputStyle } = styles;
-    const { searchResults, friendList } = this.props;
-    const data = searchResults[0] ? searchResults : friendList;
+    const { friendList } = this.props;
 
+    let data = _.filter(friendList, (friend) => {
+      return this.nameMatch(friend);
+    });
 
     return (
       <View style={masterContainerStyle}>
@@ -152,15 +163,11 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
-  let searchResults = _.map(state.searchResults, (val, userId) => {
-    return { ...val, userId };
-  });
-  let friendList = _.map(state.friendList, (val, userId) => {
-    return { ...val, userId };
-  });
-  const { user } = state;
-  return { searchResults, currentUser: user, friendList };
+  // let friendList = _.map(state.friendList, (val, userId) => {
+  //   return { ...val, userId };
+  // });
+  const { user, friendList } = state;
+  return { currentUser: user, friendList };
 }
 
 export default connect(mapStateToProps, {

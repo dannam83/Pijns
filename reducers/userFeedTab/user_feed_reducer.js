@@ -1,6 +1,6 @@
 import {
   FETCH_USER_FEED, UPDATE_COMMENT_COUNT, UPDATE_PIJN_NOTE_COUNT, POST_APPEND
-} from '../actions/types';
+} from '../../actions/types';
 
 const INITIAL_STATE = [];
 
@@ -14,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
       return state;
     case UPDATE_PIJN_NOTE_COUNT:
       const post2 = state[action.index];
-      state[action.index].notes = post2.notes.count ? post2.notes.count + 1 : 1;
+      post2.notes = post2.notes.count ? post2.notes.count + 1 : 1;
       return state;
     case POST_APPEND:
       state.unshift(action.payload);
