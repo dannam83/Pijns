@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -18,7 +18,7 @@ class TagFriendsList extends Component {
     props.fetchFriendList(props.currentUser.uid);
   }
 
-  state = { searchInput: '' };
+  state = { searchInput: '', taggedFriends: [] };
 
   onChangeText = (value) => {
     this.setState({ searchInput: value.toLowerCase() });
@@ -39,36 +39,6 @@ class TagFriendsList extends Component {
     }
   };
 
-  renderHeader = () => {
-    const { inputStyle } = styles;
-
-    return (
-      <Input
-        iconName='search1'
-        placeholder={'Search'}
-        containerRestyle={inputStyle}
-        onChangeText={value => this.onChangeText(value)}
-        autoCapitalize={'none'}
-        autoFocus
-      />
-    );
-  }
-
-  renderRow = (item) => {
-    if (item.userId === this.props.currentUser.uid) {
-      return null;
-    }
-
-    const friend = item.name ? item : item.user;
-
-    return (
-      <TagFriendsListItem
-        friend={friend}
-        onPress={() => this.goToPublicProfile(friend)}
-      />
-    );
-  }
-
   nameMatch(friend) {
     const data = friend.name ? friend : friend.user;
     const { searchInput } = this.state;
@@ -76,13 +46,60 @@ class TagFriendsList extends Component {
     return nameSubstring === searchInput;
   }
 
-  render() {
-    const { masterContainerStyle, inputViewStyle, inputStyle } = styles;
-    const { friendList } = this.props;
+  taggedFriends() {
+    const { postEditTaggedFriends, postCreateTaggedFriends, navigation } = this.props;
+    const route = navigation.getParam('route');
 
-    let data = _.filter(friendList, (friend) => {
+    const taggedFriends = route === 'postEdit'
+      ? postEditTaggedFriends : postCreateTaggedFriends;
+
+    return (
+      <FlatList
+        data={taggedFriends}
+        renderItem={({ item }) => this.renderRow(item)}
+        keyExtractor={({ item }, userId) => userId.toString()}
+      />
+    );
+  }
+
+  searchFriends() {
+    const { friendsLabelStyle } = styles;
+
+    let searchFriends = _.filter(this.props.friendList, (friend) => {
       return this.nameMatch(friend);
     });
+
+    return (
+      <FlatList
+        data={searchFriends}
+        renderItem={({ item }) => this.renderRow(item)}
+        keyExtractor={({ item }, userId) => userId.toString()}
+        ListHeaderComponent={<Text style={friendsLabelStyle}>Friends</Text>}
+      />
+    );
+  }
+
+  renderRow = (item) => {
+    const { currentUser, navigation } = this.props;
+    if (item.userId === currentUser.uid) { return null; }
+
+    const friend = item.name ? item : item.user;
+    const update = navigation.getParam('update');
+    const route = navigation.getParam('route');
+
+    return (
+      <TagFriendsListItem
+        friend={friend}
+        onPress={() => this.goToPublicProfile(friend)}
+        update={update}
+        route={route}
+        checked={item.tagged}
+      />
+    );
+  }
+
+  render() {
+    const { masterContainerStyle, inputViewStyle, inputStyle } = styles;
 
     return (
       <View style={masterContainerStyle}>
@@ -96,11 +113,8 @@ class TagFriendsList extends Component {
             autoFocus
           />
         </View>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => this.renderRow(item)}
-          keyExtractor={({ item }, userId) => userId.toString()}
-        />
+        {this.taggedFriends()}
+        {this.searchFriends()}
       </View>
     );
   }
@@ -121,14 +135,29 @@ const styles = {
     borderRadius: 25,
     // height: 16
   },
+  friendsLabelStyle: {
+    fontSize: 16,
+    fontWeight: '600',
+    paddingLeft: 17,
+    paddingTop: 5,
+    paddingBottom: 5
+  }
 };
 
 function mapStateToProps(state) {
-  // let friendList = _.map(state.friendList, (val, userId) => {
-  //   return { ...val, userId };
-  // });
-  const { user, friendList } = state;
-  return { currentUser: user, friendList };
+  const { user, friendList, postEdit, postCreate } = state;
+  const editFriends = _.map(postEdit.taggedFriends, (friend) => {
+    return { ...friend };
+  });
+  const createFriends = _.map(postCreate.taggedFriends, (friend) => {
+    return { ...friend };
+  });
+  return {
+    currentUser: user,
+    friendList,
+    postEditTaggedFriends: editFriends,
+    postCreateTaggedFriends: createFriends
+  };
 }
 
 export default connect(mapStateToProps, {

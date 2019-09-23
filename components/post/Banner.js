@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgo } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
-import { disabledGray } from '../../assets/colors';
+import { disabledGray, darkGray } from '../../assets/colors';
 
 const Banner = ({
   userId,
@@ -108,7 +108,7 @@ const styles = {
   headerDetailStyle: {
     fontSize: 14,
     fontWeight: '100',
-    color: 'gray'
+    color: darkGray
   },
   thumbnailStyle: {
     height: 40,

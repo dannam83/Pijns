@@ -3,12 +3,14 @@ import { Image, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ButtonAsText } from '../common';
-import { buttonBlue } from '../../assets/colors';
+import { buttonBlue, darkGray } from '../../assets/colors';
 import PostFormVisibleToModal from './PostFormVisibleToModal';
-import PostFormTagsModal from './PostFormTagsModal';
+// import PostFormTagsModal from './PostFormTagsModal';
 import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
-const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => {
+const PostFormHeader = ({
+  user, visibleTo, taggedFriends, route, redirect, update
+}) => {
   const { picture } = user;
   const {
     containerStyle,
@@ -19,7 +21,7 @@ const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => 
   } = styles;
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
-  const tagFriendsModal = useSelector(state => state.modals).tagFriends;
+  // const tagFriendsModal = useSelector(state => state.modals).tagFriends;
   const dispatch = useDispatch();
 
   const editVisibleTo = () => {
@@ -27,10 +29,10 @@ const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => 
   };
 
   const editTags = () => {
-    redirect('PostCreate_TagFriends');
+    redirect('PostCreate_TagFriends', { update, route });
   };
 
-  const taggedFriendsCount = () => {
+  const tagFriends = () => {
     if (!taggedFriends) { return 'None'; }
     const friends = Object.keys(taggedFriends);
     const count = friends.length;
@@ -43,11 +45,6 @@ const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => 
       <PostFormVisibleToModal
         currentVisibleTo={visibleTo}
         visible={visibleToModal}
-        route={route}
-      />
-      <PostFormTagsModal
-        currentTags={taggedFriends}
-        visible={tagFriendsModal}
         route={route}
       />
       <Image style={thumbnailStyle} source={{ uri: picture }} />
@@ -67,13 +64,18 @@ const PostFormHeader = ({ user, visibleTo, taggedFriends, route, redirect }) => 
             editTextStyle={buttonStyle}
             onPress={editTags}
           >
-            {taggedFriendsCount()}
+            {tagFriends()}
           </ButtonAsText>
         </View>
       </View>
     </View>
   );
 };
+// <PostFormTagsModal
+//   currentTags={taggedFriends}
+//   visible={tagFriendsModal}
+//   route={route}
+//   />
 
 const styles = {
   containerStyle: {
@@ -95,7 +97,7 @@ const styles = {
   labelStyle: {
     fontSize: 14,
     fontWeight: '100',
-    color: 'gray',
+    color: darkGray,
   },
   buttonStyle: {
     fontSize: 14,

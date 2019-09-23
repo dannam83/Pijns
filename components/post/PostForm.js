@@ -16,13 +16,6 @@ class PostForm extends Component {
     return this.props.postCreateText;
   }
 
-  getOnChangeText() {
-    if (this.props.routeName === 'postEdit') {
-      return this.props.postEditUpdate;
-    }
-    return this.props.postCreateUpdate;
-  }
-
   getVisibleTo = () => {
     if (this.props.routeName === 'postEdit') {
       return this.props.postEditVisibleTo || 'All Friends';
@@ -37,9 +30,17 @@ class PostForm extends Component {
     return this.props.postCreateTaggedFriends || {};
   }
 
+  update = () => {
+    if (this.props.routeName === 'postEdit') {
+      return this.props.postEditUpdate;
+    }
+    return this.props.postCreateUpdate;
+  }
+
   render() {
     const textValue = this.getTextValue();
-    const onChangeText = this.getOnChangeText();
+    const taggedFriends = this.getTaggedFriends();
+    const update = this.update();
     const { user, postId, routeName, navigation: { navigate } } = this.props;
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
@@ -49,6 +50,8 @@ class PostForm extends Component {
           postId={postId}
           route={routeName}
           redirect={navigate}
+          taggedFriends={taggedFriends}
+          update={update}
         />
         <TextInput
           placeholder="What would you like to share?"
@@ -56,7 +59,7 @@ class PostForm extends Component {
           autofocus
           ref={(input) => { this.textInput = input; }}
           value={textValue}
-          onChangeText={value => onChangeText({ prop: 'postText', value })}
+          onChangeText={value => update({ prop: 'postText', value })}
           style={{ flex: 1 }}
         />
       </View>

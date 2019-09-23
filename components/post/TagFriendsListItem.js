@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
 import { Text, Image, TouchableWithoutFeedback, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
 
-import { displayTimeAgoShort } from '../../functions/common';
-import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
+// import { displayTimeAgoShort } from '../../functions/common';
+import { buttonFieldBorderGray } from '../../assets/colors';
 
-const TagFriendsListItem = ({ friend, onPress }) => {
-  const { name, picture, timestamp, createdOn } = friend;
+const TagFriendsListItem = ({ friend, update, route, checked }) => {
+  const { name, picture } = friend;
   const {
-    viewStyle, textViewStyle, nameTextStyle, dateTextStyle, imageStyle
+    viewStyle, textViewStyle, nameTextStyle, imageStyle
   } = styles;
 
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
+  const taggedFriends = route === 'postEdit'
+   ? useSelector(state => state.postEdit).taggedFriends
+   : useSelector(state => state.postCreate).taggedFriends;
+
+  const onPress = () => {
+    // setChecked(!checked);
+    taggedFriends[friend.uid] = friend;
+    const { tagged } = taggedFriends[friend.uid];
+    taggedFriends[friend.uid].tagged = !tagged;
+    update({ prop: 'taggedFriends', value: taggedFriends });
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={() => setChecked(!checked)}>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={viewStyle}>
         <CheckBox
           containerStyle={{ borderWidth: 0, backgroundColor: 'white', padding: 0, margin: 0 }}
@@ -22,7 +34,7 @@ const TagFriendsListItem = ({ friend, onPress }) => {
           checked={checked}
           uncheckedIcon='square'
           checkedIcon='check-square'
-          onPress={() => setChecked(!checked)}
+          onPress={onPress}
           // checkedColor={buttonBlue}
         />
         <Image

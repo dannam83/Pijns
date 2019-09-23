@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   postType: '',
   postText: '',
   visibleTo: 'All Friends',
-  author: {}
+  author: {},
+  taggedFriends: {}
 };
 
 export default (state = INITIAL_STATE, action) => {

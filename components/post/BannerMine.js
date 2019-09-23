@@ -5,7 +5,7 @@ import ActionSheet from 'react-native-actionsheet';
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgo } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
-import { disabledGray } from '../../assets/colors';
+import { disabledGray, darkGray } from '../../assets/colors';
 
 const BannerMine = ({
   userId,
@@ -145,7 +145,7 @@ const styles = {
   headerDetailStyle: {
     fontSize: 14,
     fontWeight: '100',
-    color: 'gray'
+    color: darkGray
   },
   thumbnailStyle: {
     height: 40,

@@ -11,7 +11,8 @@ const INITIAL_STATE = {
   postType: '',
   postText: '',
   visibleTo: '',
-  deleteModalVisible: false
+  deleteModalVisible: false,
+  taggedFriends: {}
 };
 
 export default (state = INITIAL_STATE, action) => {

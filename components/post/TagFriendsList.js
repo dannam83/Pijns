@@ -8,64 +8,63 @@ import { searchUpdate, getFriendStatus, fetchFriendList } from '../../actions';
 
 import TagFriendsListItem from './TagFriendsListItem';
 
-const TagFriendsListX = ({ data, keyExtractor, friendList, searchedList }) => {
-  const [allFriends, setAllFriends] = useState({});
-  const [searchFriends, setSearchFriends] = useState({});
-
-  useEffect(() => {
-    const friends = _.map(friendList, (val, userId) => {
-      return { ...val, userId };
-    });
-    setAllFriends(friends);
-  }, []);
-
-  useEffect(() => {
-    const friends = _.map(searchedList, (val, userId) => {
-      return { ...val, userId };
-    });
-    setSearchFriends(friends);
-  }, [searchFriends]);
-
-  const friends = searchFriends[0] ? searchFriends : allFriends;
-
-  const renderHeaderItem = friend => {
-    return (
-      <TagFriendsListItem friend={friend} tagged />
-    );
-  };
-
-  const Header = taggedFriends => {
-    console.log('lists', friendList, searchedList)
-    return (
-      <View>
-        <Text>Header</Text>
-        <FlatList
-          data={taggedFriends}
-          renderItem={renderHeaderItem}
-          keyExtractor={keyExtractor}
-        />
-      </View>
-    );
-  };
-
-  const renderItem = friend => {
-    return (
-      <TagFriendsListItem friend={friend} />
-    );
-  };
-
-  return (
-    <View style={styles.containerStyle}>
-      <FlatList
-        data={friends}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        ListHeaderComponent={Header}
-      />
-      <Text>search</Text>
-    </View>
-  );
-};
+// const TagFriendsListX = ({ data, keyExtractor, friendList, searchedList }) => {
+//   const [allFriends, setAllFriends] = useState({});
+//   const [searchFriends, setSearchFriends] = useState({});
+//
+//   useEffect(() => {
+//     const friends = _.map(friendList, (val, userId) => {
+//       return { ...val, userId };
+//     });
+//     setAllFriends(friends);
+//   }, []);
+//
+//   useEffect(() => {
+//     const friends = _.map(searchedList, (val, userId) => {
+//       return { ...val, userId };
+//     });
+//     setSearchFriends(friends);
+//   }, [searchFriends]);
+//
+//   const friends = searchFriends[0] ? searchFriends : allFriends;
+//
+//   const renderHeaderItem = friend => {
+//     return (
+//       <TagFriendsListItem friend={friend} tagged />
+//     );
+//   };
+//
+//   const Header = taggedFriends => {
+//     return (
+//       <View>
+//         <Text>Header</Text>
+//         <FlatList
+//           data={taggedFriends}
+//           renderItem={renderHeaderItem}
+//           keyExtractor={keyExtractor}
+//         />
+//       </View>
+//     );
+//   };
+//
+//   const renderItem = friend => {
+//     return (
+//       <TagFriendsListItem friend={friend} />
+//     );
+//   };
+//
+//   return (
+//     <View style={styles.containerStyle}>
+//       <FlatList
+//         data={friends}
+//         renderItem={renderItem}
+//         keyExtractor={keyExtractor}
+//         ListHeaderComponent={Header}
+//       />
+//       <Text>search</Text>
+//     </View>
+//   );
+// };
 
 // const styles = {
 //   containerStyle: {
@@ -97,21 +96,6 @@ class TagFriendsList extends Component {
   onChangeText = (value) => {
     this.props.searchUpdate({ value });
   }
-
-  goToPublicProfile = (profileUser) => {
-    const currentUserId = this.props.currentUser.uid;
-    const profileUserId = profileUser.userId;
-    const { navigate, getParam } = this.props.navigation;
-    const navigationTab = getParam('navigationTab');
-    if (this.props.friendList && this.props.friendList[profileUserId]) {
-      navigate('UserFeed_PublicProfile', {
-        profileUser, status: 'Unfriend', navigationTab
-      });
-    } else {
-      this.props.getFriendStatus({ profileUserId, currentUserId });
-      navigate('UserFeed_PublicProfile', { profileUser, navigationTab });
-    }
-  };
 
   renderHeader = () => {
     const { containerStyle } = styles;
@@ -159,7 +143,6 @@ class TagFriendsList extends Component {
 const styles = {
   masterContainerStyle: {
     flex: 1,
-    // padding: 10
   },
   containerStyle: {
     backgroundColor: '#EAEAEA',
@@ -168,7 +151,6 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   let searchResults = _.map(state.searchResults, (val, userId) => {
     return { ...val, userId };
   });

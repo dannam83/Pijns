@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-import { darkTextGray, buttonFieldBorderGray } from '../../assets/colors';
+import { darkGray, buttonFieldBorderGray } from '../../assets/colors';
 
 const ButtonAsField = ({
   onPress, disabled, children, buttonRestyle, textRestyle, iconName, iconRestyle
@@ -27,7 +27,7 @@ const ButtonAsField = ({
 const styles = {
   textStyle: {
     alignSelf: 'flex-start',
-    color: darkTextGray,
+    color: darkGray,
     fontSize: 16,
     paddingTop: 10,
     paddingBottom: 10
@@ -44,7 +44,7 @@ const styles = {
   },
   iconStyle: {
     alignSelf: 'center',
-    color: darkTextGray,
+    color: darkGray,
     paddingLeft: 15,
     paddingRight: 8
   }
