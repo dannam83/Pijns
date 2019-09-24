@@ -6,7 +6,7 @@ import { CheckBox } from 'react-native-elements';
 // import { displayTimeAgoShort } from '../../functions/common';
 import { buttonFieldBorderGray } from '../../assets/colors';
 
-const TagFriendsListItem = ({ friend, update, route, checked }) => {
+const TagFriendsListItem = ({ friend, update, route, checked, tags }) => {
   const { name, picture } = friend;
   const {
     viewStyle, textViewStyle, nameTextStyle, imageStyle
@@ -18,7 +18,10 @@ const TagFriendsListItem = ({ friend, update, route, checked }) => {
    : useSelector(state => state.postCreate).taggedFriends;
 
   const onPress = () => {
-    // setChecked(!checked);
+    tags[friend.uid] = friend;
+    const tag = !tags[friend.uid].tagged;
+    tags[friend.uid].tagged = !tag;
+
     taggedFriends[friend.uid] = friend;
     const { tagged } = taggedFriends[friend.uid];
     taggedFriends[friend.uid].tagged = !tagged;
@@ -35,7 +38,6 @@ const TagFriendsListItem = ({ friend, update, route, checked }) => {
           uncheckedIcon='square'
           checkedIcon='check-square'
           onPress={onPress}
-          // checkedColor={buttonBlue}
         />
         <Image
           source={{ uri: picture }}

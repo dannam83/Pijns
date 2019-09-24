@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { Input, ListItemAsButton } from '../components/common';
+import { Input } from '../components/common';
 import { searchUpdate, getFriendStatus, fetchFriendList } from '../actions';
 
 import TagFriendsListItem from '../components/post/TagFriendsListItem';
@@ -15,29 +15,20 @@ class TagFriendsList extends Component {
 
   constructor(props) {
     super(props);
-    props.fetchFriendList(props.currentUser.uid);
-  }
+    const { fetchFriendList, navigation: { getParam } } = props;
+    const tags = getParam('taggedFriends');
+    
+    fetchFriendList(props.currentUser.uid);
 
-  state = { searchInput: '', taggedFriends: [] };
+    this.state = {
+      searchInput: '',
+      taggedFriends: tags || {}
+    };
+  }
 
   onChangeText = (value) => {
     this.setState({ searchInput: value.toLowerCase() });
   }
-
-  goToPublicProfile = (profileUser) => {
-    const currentUserId = this.props.currentUser.uid;
-    const profileUserId = profileUser.userId;
-    const { navigate, getParam } = this.props.navigation;
-    const navigationTab = getParam('navigationTab');
-    if (this.props.friendList && this.props.friendList[profileUserId]) {
-      navigate('UserFeed_PublicProfile', {
-        profileUser, status: 'Unfriend', navigationTab
-      });
-    } else {
-      this.props.getFriendStatus({ profileUserId, currentUserId });
-      navigate('UserFeed_PublicProfile', { profileUser, navigationTab });
-    }
-  };
 
   nameMatch(friend) {
     const data = friend.name ? friend : friend.user;
@@ -47,6 +38,7 @@ class TagFriendsList extends Component {
   }
 
   taggedFriends() {
+    const { friendsLabelStyle } = styles;
     const { postEditTaggedFriends, postCreateTaggedFriends, navigation } = this.props;
     const route = navigation.getParam('route');
 
@@ -54,17 +46,24 @@ class TagFriendsList extends Component {
       ? postEditTaggedFriends : postCreateTaggedFriends;
 
     return (
-      <FlatList
-        data={taggedFriends}
-        renderItem={({ item }) => this.renderRow(item)}
-        keyExtractor={({ item }, userId) => userId.toString()}
-      />
+      <View>
+        { this.state.searchInput === ''
+          ? (
+            <FlatList
+              data={taggedFriends}
+              renderItem={({ item }) => this.renderRow(item)}
+              keyExtractor={({ item }, userId) => userId.toString()}
+              keyboardShouldPersistTaps={'handled'}
+            />
+          )
+          : null
+        }
+        <Text style={friendsLabelStyle}>Friends</Text>
+      </View>
     );
   }
 
-  searchFriends() {
-    const { friendsLabelStyle } = styles;
-
+  tagFriends() {
     let searchFriends = _.filter(this.props.friendList, (friend) => {
       return this.nameMatch(friend);
     });
@@ -74,7 +73,9 @@ class TagFriendsList extends Component {
         data={searchFriends}
         renderItem={({ item }) => this.renderRow(item)}
         keyExtractor={({ item }, userId) => userId.toString()}
-        ListHeaderComponent={<Text style={friendsLabelStyle}>Friends</Text>}
+        keyboardShouldPersistTaps={'handled'}
+        onScroll={Keyboard.dismiss}
+        ListHeaderComponent={this.taggedFriends()}
       />
     );
   }
@@ -83,9 +84,13 @@ class TagFriendsList extends Component {
     const { currentUser, navigation } = this.props;
     if (item.userId === currentUser.uid) { return null; }
 
+    const { taggedFriends } = this.state;
     const friend = item.name ? item : item.user;
     const update = navigation.getParam('update');
     const route = navigation.getParam('route');
+
+    const inList = taggedFriends[friend.uid];
+    const checked = inList && inList.tagged;
 
     return (
       <TagFriendsListItem
@@ -93,7 +98,8 @@ class TagFriendsList extends Component {
         onPress={() => this.goToPublicProfile(friend)}
         update={update}
         route={route}
-        checked={item.tagged}
+        checked={checked}
+        tags={this.state.taggedFriends}
       />
     );
   }
@@ -113,8 +119,7 @@ class TagFriendsList extends Component {
             autoFocus
           />
         </View>
-        {this.taggedFriends()}
-        {this.searchFriends()}
+        {this.tagFriends()}
       </View>
     );
   }
@@ -122,7 +127,7 @@ class TagFriendsList extends Component {
 
 const styles = {
   masterContainerStyle: {
-    // flex: 1,
+    flex: 1,
   },
   inputViewStyle: {
     paddingTop: 10,
@@ -139,7 +144,7 @@ const styles = {
     fontSize: 16,
     fontWeight: '600',
     paddingLeft: 17,
-    paddingTop: 5,
+    paddingTop: 15,
     paddingBottom: 5
   }
 };

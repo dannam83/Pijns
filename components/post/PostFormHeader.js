@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 
 import { ButtonAsText } from '../common';
 import { buttonBlue, darkGray } from '../../assets/colors';
@@ -29,15 +30,17 @@ const PostFormHeader = ({
   };
 
   const editTags = () => {
-    redirect('PostCreate_TagFriends', { update, route });
+    redirect('PostCreate_TagFriends', { update, route, taggedFriends });
   };
 
   const tagFriends = () => {
     if (!taggedFriends) { return 'None'; }
-    const friends = Object.keys(taggedFriends);
-    const count = friends.length;
+    let isTagged = _.filter(taggedFriends, (friend) => {
+      return friend.tagged;
+    });
+    const count = _.size(isTagged);
     if (count < 1) { return 'None'; }
-    return `${count.toString()} Friends`;
+    return `${count.toString()} ${count > 1 ? 'Friends' : 'Friend'}`;
   };
 
   return (
@@ -59,7 +62,7 @@ const PostFormHeader = ({
           </ButtonAsText>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={labelStyle}>Tags: </Text>
+          <Text style={labelStyle}>Tagged: </Text>
           <ButtonAsText
             editTextStyle={buttonStyle}
             onPress={editTags}
