@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import { postCreateSave, fetchUserFeed, fetchFriendList } from '../actions';
 import { Button, ButtonAsText } from '../components/common';
@@ -39,8 +40,10 @@ class PostCreateScreen extends Component {
     const {
       user, postText, visibleTo, author, postCreateSave, navigation, fetchUserFeed, friendList
     } = this.props;
+    const taggedFriends = this.getTagsToSave();
+
     await postCreateSave({
-      postText, postType: 'prayerRequest', visibleTo, author, user, friendList
+      postText, postType: 'prayerRequest', visibleTo, author, user, friendList, taggedFriends
     });
     fetchUserFeed(author.id);
     navigation.navigate('UserFeed');
@@ -48,6 +51,18 @@ class PostCreateScreen extends Component {
 
   onBackPress = () => {
     this.props.navigation.navigate('UserFeed');
+  }
+
+  getTagsToSave = () => {
+    const { taggedFriends } = this.props;
+    const tagsToSave = {};
+
+    _.forEach(taggedFriends, (friend) => {
+      const { name, picture, uid, tagged } = friend;
+      if (tagged) { tagsToSave[uid] = { name, picture, uid }; }
+    });
+
+    return tagsToSave;
   }
 
   render() {
@@ -84,10 +99,10 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { friendList, user } = state;
-  const { postType, postText, visibleTo } = state.postCreate;
+  const { postType, postText, visibleTo, taggedFriends } = state.postCreate;
   const { name, picture, uid } = state.user;
   const author = { name, picture, id: uid };
-  return { user, postType, postText, visibleTo, author, friendList };
+  return { user, postType, postText, visibleTo, taggedFriends, author, friendList };
 };
 
 export default connect(mapStateToProps, {

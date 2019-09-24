@@ -49,7 +49,7 @@ class PostEdit extends Component {
   }
 
   render() {
-    const { postId, postText } = this.props;
+    const { postId, postText, navigation } = this.props;
 
     return (
       <KeyboardAvoidingView
@@ -62,6 +62,7 @@ class PostEdit extends Component {
           postId={postId}
           postEditText={postText}
           routeName='postEdit'
+          navigation={navigation}
         />
       </KeyboardAvoidingView>
     );
