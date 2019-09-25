@@ -47,7 +47,7 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
   firebase.database().ref(`/postNotes/${postId}`)
     .on('value', snapshot => {
       const postNotes = snapshot.val();
-      
+
       if (!postNotes && visibleTo !== 'Tagged Friends') { return; }
 
       const sendTo = visibleTo === 'Tagged Friends'
@@ -83,12 +83,15 @@ export const sendPrayerRequestNotifications = ({
   const notification = { content, postId, timestamp, sender, type };
 
   const sendTo = visibleTo === 'Tagged Friends' ? taggedFriends : friendList;
+  const message = visibleTo === 'Tagged Friends'
+    ? 'tagged you in a new prayer request!'
+    : 'shared a new prayer request.';
 
   const userIds = Object.keys(sendTo);
   userIds.forEach(userId => {
     sendNotification(userId, notification);
     incrementCounter(userId);
-    sendPushNotification(userId, `${user.name} shared a new prayer request`);
+    sendPushNotification(userId, `${user.name} ${message}`);
   });
 };
 
