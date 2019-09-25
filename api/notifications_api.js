@@ -62,12 +62,17 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
   );
 };
 
-export const sendPrayerRequestNotifications = (user, postId, content, friendList) => {
-  if (!friendList) { return; }
+export const sendPrayerRequestNotifications = ({
+  user, postId, content, friendList, visibleTo, taggedFriends
+}) => {
+  if (!friendList || visibleTo === 'Only Me') { return; }
 
   const [sender, timestamp, type] = [user, -Date.now(), 'prayerRequest'];
   const notification = { content, postId, timestamp, sender, type };
-  const userIds = Object.keys(friendList);
+
+  const sendTo = visibleTo === 'Tagged Friends' ? taggedFriends : friendList;
+
+  const userIds = Object.keys(sendTo);
   userIds.forEach(userId => {
     sendNotification(userId, notification);
     incrementCounter(userId);

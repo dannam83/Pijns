@@ -31,7 +31,9 @@ export const postCreateSave = ({ postText, postType, visibleTo, author, user,
     saveToFirebase(post)
     .then(payload => {
       const { postId, content } = payload;
-      sendPrayerRequestNotifications(user, postId, content, friendList);
+      sendPrayerRequestNotifications({
+        user, postId, content, friendList, visibleTo, taggedFriends
+      });
       dispatch({ type: POST_CREATE_SAVE });
     });
   };
