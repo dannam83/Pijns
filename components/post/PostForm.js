@@ -42,6 +42,7 @@ class PostForm extends Component {
     const taggedFriends = this.getTaggedFriends();
     const update = this.update();
     const { user, postId, routeName, navigation: { navigate } } = this.props;
+    console.log('tf', taggedFriends)
     return (
       <View style={{ backgroundColor: 'white', padding: 10, flex: 1 }}>
         <PostFormHeader
@@ -68,6 +69,7 @@ class PostForm extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   const { user, postEdit, postCreate } = state;
 
   return {

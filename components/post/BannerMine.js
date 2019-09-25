@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
+import _ from 'lodash';
 
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgo } from '../../functions/common';
@@ -15,6 +16,7 @@ const BannerMine = ({
   postText,
   postId,
   visibleTo,
+  taggedFriends,
   pinned,
   timestamp,
   createdOn,
@@ -38,9 +40,13 @@ const BannerMine = ({
   const showActionSheet = async () => {
     if (userId !== author.id) return;
     this.ActionSheet.show();
+    if (taggedFriends) {
+      _.each(taggedFriends, friend => { friend.tagged = true; })
+    }
     await postEditUpdate({ prop: 'postText', value: postText });
     await postEditUpdate({ prop: 'postId', value: postId });
     await postEditUpdate({ prop: 'visibleTo', value: visibleTo });
+    await postEditUpdate({ prop: 'taggedFriends', value: taggedFriends });
   };
 
   const options = ['Delete', 'Edit', 'Cancel'];
