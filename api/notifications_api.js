@@ -38,23 +38,35 @@ export const sendCommentLikeNotification = (
 };
 
 export const sendPrayerAnsweredNotifications = (user, postId, post) => {
-  const { content } = post;
+  const { content, visibleTo, taggedFriends } = post;
+  if (visibleTo === 'Only Me') { return; }
+
   const [sender, timestamp, type] = [user, -Date.now(), 'prayerAnswered'];
   const notification = { content, postId, timestamp, sender, type };
 
   firebase.database().ref(`/postNotes/${postId}`)
     .on('value', snapshot => {
       const postNotes = snapshot.val();
-      if (!postNotes) { return; }
+      
+      if (!postNotes && visibleTo !== 'Tagged Friends') { return; }
 
-      const keys = Object.keys(postNotes);
+      const sendTo = visibleTo === 'Tagged Friends'
+        ? taggedFriends : postNotes;
+
+      const keys = Object.keys(sendTo);
+
+      const message = visibleTo === 'Tagged Friends'
+        ? "has an answered prayer request that you're tagged in!"
+        : 'has an answered prayer that you prayed for!';
+
       const sent = {};
+
       keys.forEach(key => {
-        const { uid } = postNotes[key];
+        const { uid } = sendTo[key];
         if (!sent[uid] && uid !== user.uid) {
           sendNotification(uid, notification);
           incrementCounter(uid);
-          sendPushNotification(uid, `${user.name} has an answered prayer that you prayed for!`);
+          sendPushNotification(uid, `${user.name} ${message}`);
           sent[uid] = true;
         }
       });

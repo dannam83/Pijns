@@ -12,10 +12,10 @@ const PostListPublic = ({
   };
 
   const friendCanSee = (post) => {
-    if (post.deleted) { return false; }
-    if (post.visibleTo === 'Only Me') { return false; }
-    if (post.visibleTo === 'Tagged Friends') {
-      const { taggedFriends } = post;
+    const { deleted, visibleTo, taggedFriends } = post;
+    if (deleted) { return false; }
+    if (visibleTo === 'Only Me') { return false; }
+    if (visibleTo === 'Tagged Friends') {
       if (!taggedFriends || !taggedFriends[userId]) { return false; }
     }
     return true;
@@ -23,7 +23,7 @@ const PostListPublic = ({
 
   const renderRow = (post) => {
     const canSee = status && status === 'Unfriend' ? friendCanSee : anyoneCanSee;
-    
+
     if (canSee(post)) {
       return (
         <ListItem
