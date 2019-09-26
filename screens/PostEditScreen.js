@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { KeyboardAvoidingView } from 'react-native';
 import { StackActions } from 'react-navigation';
+import _ from 'lodash';
 
 import PostForm from '../components/post/PostForm';
 import { postEditUpdate, postEditSave, postDelete } from '../actions';
@@ -29,8 +30,9 @@ class PostEdit extends Component {
   }
 
   onSavePress = () => {
-    const { postText, postId, visibleTo, taggedFriends } = this.props;
+    const { postText, postId, visibleTo } = this.props;
     const popAction = StackActions.pop({ n: 1 });
+    const taggedFriends = this.getTagsToSave(this.props.taggedFriends);
 
     this.props.postEditSave({
       postText, postId, visibleTo: visibleTo || 'All Friends', taggedFriends
@@ -44,6 +46,18 @@ class PostEdit extends Component {
 
   onDecline() {
     this.setState({ showModal: false });
+  }
+
+  getTagsToSave = () => {
+    const { taggedFriends } = this.props;
+    const tagsToSave = {};
+
+    _.forEach(taggedFriends, (friend) => {
+      const { name, picture, uid, tagged } = friend;
+      if (tagged) { tagsToSave[uid] = { name, picture, uid }; }
+    });
+
+    return tagsToSave;
   }
 
   showConfirmModal() {
