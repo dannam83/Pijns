@@ -3,7 +3,9 @@ import { KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { postCreateSave, fetchUserFeed, fetchFriendList } from '../actions';
+import {
+  postCreateSave, postCreateUpdate, fetchUserFeed, fetchFriendList
+} from '../actions';
 import { Button, ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 import { disabledGray, headerButtonBlue } from '../assets/colors';
@@ -98,12 +100,13 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { friendList, user } = state;
-  const { postType, postText, visibleTo, taggedFriends } = state.postCreate;
+  const { user, postCreate, friendList } = state;
+  const { postType, postText, visibleTo, taggedFriends } = postCreate;
   const { name, picture, uid } = state.user;
   const author = { name, picture, id: uid };
   return { user, postType, postText, visibleTo, taggedFriends, author, friendList };
 };
 
 export default connect(mapStateToProps, {
-  postCreateSave, fetchUserFeed, fetchFriendList })(PostCreateScreen);
+  postCreateSave, fetchUserFeed, fetchFriendList, postUpdate: postCreateUpdate
+})(PostCreateScreen);

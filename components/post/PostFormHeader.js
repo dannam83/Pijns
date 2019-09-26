@@ -21,11 +21,15 @@ const PostFormHeader = ({
     buttonStyle,
   } = styles;
 
-  const [tagged, setTagged] = useState({});
+  const [tagsCount, setTagsCount] = useState(0);
 
   useEffect(() => {
-    setTagged(taggedFriends);
-  }, [taggedFriends]);
+    if (!taggedFriends) { return; }
+    const allTagged = _.filter(taggedFriends, (friend) => {
+      return friend.tagged;
+    });
+    setTagsCount(tagsCount + _.size(allTagged));
+  }, []);
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
   // const tagFriendsModal = useSelector(state => state.modals).tagFriends;
@@ -38,18 +42,18 @@ const PostFormHeader = ({
   const goToEditTags = () => {
     const namespace = route === 'postEdit' ? 'Profile' : 'PostCreate';
     redirect(`${namespace}_TagFriends`, {
-      update, route, taggedFriends: tagged, setTagged
+      update, route, taggedFriends, tagsCount, setTagsCount
     });
   };
 
   const tagFriends = () => {
-    if (!tagged) { return 'None'; }
-    let isTagged = _.filter(tagged, (friend) => {
-      return friend.tagged;
-    });
-    const count = _.size(isTagged);
-    if (count < 1) { return 'None'; }
-    return `${count.toString()} ${count > 1 ? 'Friends' : 'Friend'}`;
+    // if (tagsCount < 1) { return 'None'; }
+    // let isTagged = _.filter(tagged, (friend) => {
+    //   return friend.tagged;
+    // });
+    // const count = _.size(isTagged);
+    if (tagsCount < 1) { return 'None'; }
+    return `${tagsCount.toString()} ${tagsCount > 1 ? 'Friends' : 'Friend'}`;
   };
 
   return (

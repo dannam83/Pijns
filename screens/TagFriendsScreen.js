@@ -88,7 +88,8 @@ class TagFriendsList extends Component {
     const friend = item.name ? item : item.user;
     const update = navigation.getParam('update');
     const route = navigation.getParam('route');
-    const setTagged = navigation.getParam('setTagged');
+    const tagsCount = navigation.getParam('tagsCount');
+    const setTagsCount = navigation.getParam('setTagsCount');
 
     const inList = taggedFriends[friend.uid];
     const checked = inList && inList.tagged;
@@ -101,7 +102,8 @@ class TagFriendsList extends Component {
         route={route}
         checked={checked}
         tags={this.state.taggedFriends}
-        setTagged={setTagged}
+        tagsCount={tagsCount}
+        setTagsCount={setTagsCount}
       />
     );
   }
