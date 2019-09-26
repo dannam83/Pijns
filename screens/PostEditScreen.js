@@ -90,7 +90,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { postId, postText, postType, visibleTo, taggedFriends } = state.postEdit;
+  const taggedFriends = state.postEdit.taggedFriends || {};
+  const { postId, postText, postType, visibleTo } = state.postEdit;
   return { postId, postText, postType, visibleTo, taggedFriends };
 };
 

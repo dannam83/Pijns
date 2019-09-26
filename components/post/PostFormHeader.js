@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
@@ -21,7 +21,11 @@ const PostFormHeader = ({
     buttonStyle,
   } = styles;
 
-  const [tagged, setTagged] = useState(taggedFriends);
+  const [tagged, setTagged] = useState({});
+
+  useEffect(() => {
+    setTagged(taggedFriends);
+  }, [taggedFriends]);
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
   // const tagFriendsModal = useSelector(state => state.modals).tagFriends;
@@ -31,7 +35,7 @@ const PostFormHeader = ({
     dispatch({ type: SHOW_VISIBLE_TO_MODAL });
   };
 
-  const editTags = () => {
+  const goToEditTags = () => {
     const namespace = route === 'postEdit' ? 'Profile' : 'PostCreate';
     redirect(`${namespace}_TagFriends`, {
       update, route, taggedFriends: tagged, setTagged
@@ -47,7 +51,7 @@ const PostFormHeader = ({
     if (count < 1) { return 'None'; }
     return `${count.toString()} ${count > 1 ? 'Friends' : 'Friend'}`;
   };
-  
+
   return (
     <View style={containerStyle}>
       <PostFormVisibleToModal
@@ -70,7 +74,7 @@ const PostFormHeader = ({
           <Text style={labelStyle}>Tagged: </Text>
           <ButtonAsText
             editTextStyle={buttonStyle}
-            onPress={editTags}
+            onPress={goToEditTags}
           >
             {tagFriends()}
           </ButtonAsText>

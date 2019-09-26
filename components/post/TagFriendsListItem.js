@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
+import _ from 'lodash';
 
 // import { displayTimeAgoShort } from '../../functions/common';
 import { buttonFieldBorderGray } from '../../assets/colors';
@@ -11,21 +12,22 @@ const TagFriendsListItem = ({ friend, update, route, checked, tags, setTagged })
   const {
     viewStyle, textViewStyle, nameTextStyle, imageStyle
   } = styles;
+  // const [currentTags, setCurrentTags] = useState(tags);
 
   // const [checked, setChecked] = useState(false);
   const taggedFriends = route === 'postEdit'
-   ? useSelector(state => state.postEdit).taggedFriends
-   : useSelector(state => state.postCreate).taggedFriends;
+   ? useSelector(state => state.postEdit).taggedFriends || {}
+   : useSelector(state => state.postCreate).taggedFriends || {};
 
   const onPress = () => {
-    tags[friend.uid] = friend;
-    const tag = !tags[friend.uid].tagged;
-    tags[friend.uid].tagged = !tag;
+    const { uid } = friend;
+    const isTagged = taggedFriends[uid] && taggedFriends[uid].tagged;
+    _.set(tags, [friend.uid], friend);
+    _.set(tags, [friend.uid, 'tagged'], !isTagged);
     setTagged(tags);
 
-    taggedFriends[friend.uid] = friend;
-    const { tagged } = taggedFriends[friend.uid];
-    taggedFriends[friend.uid].tagged = !tagged;
+    _.set(taggedFriends, [friend.uid], friend);
+    _.set(taggedFriends, [friend.uid, 'tagged'], !isTagged);
     update({ prop: 'taggedFriends', value: taggedFriends });
   };
 
