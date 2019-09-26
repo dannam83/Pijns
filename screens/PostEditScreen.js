@@ -29,10 +29,12 @@ class PostEdit extends Component {
   }
 
   onSavePress = () => {
-    const { postText, postId, visibleTo } = this.props;
+    const { postText, postId, visibleTo, taggedFriends } = this.props;
     const popAction = StackActions.pop({ n: 1 });
 
-    this.props.postEditSave({ postText, postId, visibleTo: visibleTo || 'All Friends' });
+    this.props.postEditSave({
+      postText, postId, visibleTo: visibleTo || 'All Friends', taggedFriends
+    });
     this.props.navigation.dispatch(popAction);
   }
 
@@ -49,8 +51,6 @@ class PostEdit extends Component {
   }
 
   render() {
-    const { postId, postText, navigation } = this.props;
-
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -58,12 +58,7 @@ class PostEdit extends Component {
         keyboardVerticalOffset={60}
         enabled
       >
-        <PostForm
-          postId={postId}
-          postEditText={postText}
-          routeName='postEdit'
-          navigation={navigation}
-        />
+        <PostForm {...this.props} routeName='postEdit' />
       </KeyboardAvoidingView>
     );
   }
@@ -81,10 +76,10 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { postId, postText, postType, visibleTo } = state.postEdit;
-  return { postId, postText, postType, visibleTo };
+  const { postId, postText, postType, visibleTo, taggedFriends } = state.postEdit;
+  return { postId, postText, postType, visibleTo, taggedFriends };
 };
 
 export default connect(mapStateToProps, {
-  postEditUpdate, postEditSave, postDelete
+  postEditSave, postDelete
 })(PostEdit);

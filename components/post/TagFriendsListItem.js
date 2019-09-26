@@ -6,7 +6,7 @@ import { CheckBox } from 'react-native-elements';
 // import { displayTimeAgoShort } from '../../functions/common';
 import { buttonFieldBorderGray } from '../../assets/colors';
 
-const TagFriendsListItem = ({ friend, update, route, checked, tags }) => {
+const TagFriendsListItem = ({ friend, update, route, checked, tags, setTagged }) => {
   const { name, picture } = friend;
   const {
     viewStyle, textViewStyle, nameTextStyle, imageStyle
@@ -21,6 +21,7 @@ const TagFriendsListItem = ({ friend, update, route, checked, tags }) => {
     tags[friend.uid] = friend;
     const tag = !tags[friend.uid].tagged;
     tags[friend.uid].tagged = !tag;
+    setTagged(tags);
 
     taggedFriends[friend.uid] = friend;
     const { tagged } = taggedFriends[friend.uid];

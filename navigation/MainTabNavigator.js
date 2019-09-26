@@ -138,6 +138,7 @@ const ProfileStack = createStackNavigator({
   Profile_Notes: PostNotesListScreen,
   Profile_PostEdit: PostEditScreen,
   Profile_CommentLikes: CommentLikesScreen,
+  Profile_TagFriends: TagFriendsScreen
 });
 
 ProfileStack.navigationOptions = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
@@ -10,7 +10,7 @@ import PostFormVisibleToModal from './PostFormVisibleToModal';
 import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
 const PostFormHeader = ({
-  user, visibleTo, taggedFriends, route, redirect, update
+  user, visibleTo, taggedFriends = {}, route, redirect, update
 }) => {
   const { picture } = user;
   const {
@@ -21,6 +21,8 @@ const PostFormHeader = ({
     buttonStyle,
   } = styles;
 
+  const [tagged, setTagged] = useState(taggedFriends);
+
   const visibleToModal = useSelector(state => state.modals).visibleTo;
   // const tagFriendsModal = useSelector(state => state.modals).tagFriends;
   const dispatch = useDispatch();
@@ -30,19 +32,22 @@ const PostFormHeader = ({
   };
 
   const editTags = () => {
-    redirect('PostCreate_TagFriends', { update, route, taggedFriends });
+    const namespace = route === 'postEdit' ? 'Profile' : 'PostCreate';
+    redirect(`${namespace}_TagFriends`, {
+      update, route, taggedFriends: tagged, setTagged
+    });
   };
 
   const tagFriends = () => {
-    if (!taggedFriends) { return 'None'; }
-    let isTagged = _.filter(taggedFriends, (friend) => {
+    if (!tagged) { return 'None'; }
+    let isTagged = _.filter(tagged, (friend) => {
       return friend.tagged;
     });
     const count = _.size(isTagged);
     if (count < 1) { return 'None'; }
     return `${count.toString()} ${count > 1 ? 'Friends' : 'Friend'}`;
   };
-
+  
   return (
     <View style={containerStyle}>
       <PostFormVisibleToModal
