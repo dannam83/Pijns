@@ -16,13 +16,13 @@ class TagFriendsList extends Component {
   constructor(props) {
     super(props);
     const { fetchFriendList, navigation: { getParam } } = props;
-    const tags = getParam('taggedFriends');
+    const taggedFriendsParam = getParam('taggedFriends');
 
     fetchFriendList(props.currentUser.uid);
 
     this.state = {
       searchInput: '',
-      taggedFriends: { ...tags } || {}
+      taggedFriends: { ...taggedFriendsParam } || {}
     };
   }
 
@@ -80,6 +80,13 @@ class TagFriendsList extends Component {
     );
   }
 
+  getTagCount = route => {
+    if (route === 'postEdit') {
+      return this.props.postEditTagCount;
+    }
+    return this.props.postCreateTagCount;
+  }
+
   renderRow = (item) => {
     const { currentUser, navigation } = this.props;
     if (item.userId === currentUser.uid) { return null; }
@@ -88,22 +95,18 @@ class TagFriendsList extends Component {
     const friend = item.name ? item : item.user;
     const update = navigation.getParam('update');
     const route = navigation.getParam('route');
-    const tagsCount = navigation.getParam('tagsCount');
-    const setTagsCount = navigation.getParam('setTagsCount');
 
     const inList = taggedFriends[friend.uid];
     const checked = inList && inList.tagged;
+    const tagCount = this.getTagCount(route);
 
     return (
       <TagFriendsListItem
         friend={friend}
-        onPress={() => this.goToPublicProfile(friend)}
         update={update}
         route={route}
         checked={checked}
         tags={this.state.taggedFriends}
-        tagsCount={tagsCount}
-        setTagsCount={setTagsCount}
       />
     );
   }
@@ -165,7 +168,9 @@ function mapStateToProps(state) {
     currentUser: user,
     friendList,
     postEditTaggedFriends: editFriends,
-    postCreateTaggedFriends: createFriends
+    postEditTagCount: postEdit.tagCount || 0,
+    postCreateTaggedFriends: createFriends,
+    postCreateTagCount: postCreate.tagCount || 0
   };
 }
 

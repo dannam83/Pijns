@@ -10,7 +10,7 @@ import PostFormVisibleToModal from './PostFormVisibleToModal';
 import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
 const PostFormHeader = ({
-  user, visibleTo, taggedFriends = {}, route, redirect, update
+  user, visibleTo, taggedFriends = {}, tagCount, route, redirect, update
 }) => {
   const { picture } = user;
   const {
@@ -21,15 +21,18 @@ const PostFormHeader = ({
     buttonStyle,
   } = styles;
 
-  const [tagsCount, setTagsCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!taggedFriends) { return; }
-    const allTagged = _.filter(taggedFriends, (friend) => {
+    if (tagCount) { setCount(tagCount); return; }
+
+    const isTagged = _.filter(taggedFriends, (friend) => {
       return friend.tagged;
     });
-    setTagsCount(tagsCount + _.size(allTagged));
-  }, []);
+
+    setCount(_.size(isTagged));
+  }, [tagCount]);
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
   // const tagFriendsModal = useSelector(state => state.modals).tagFriends;
@@ -41,9 +44,7 @@ const PostFormHeader = ({
 
   const goToEditTags = () => {
     const namespace = route === 'postEdit' ? 'Profile' : 'PostCreate';
-    redirect(`${namespace}_TagFriends`, {
-      update, route, taggedFriends, tagsCount, setTagsCount
-    });
+    redirect(`${namespace}_TagFriends`, { update, route, taggedFriends });
   };
 
   const tagFriends = () => {
@@ -52,8 +53,8 @@ const PostFormHeader = ({
     //   return friend.tagged;
     // });
     // const count = _.size(isTagged);
-    if (tagsCount < 1) { return 'None'; }
-    return `${tagsCount.toString()} ${tagsCount > 1 ? 'Friends' : 'Friend'}`;
+    if (count < 1) { return 'None'; }
+    return `${count.toString()} ${count > 1 ? 'Friends' : 'Friend'}`;
   };
 
   return (

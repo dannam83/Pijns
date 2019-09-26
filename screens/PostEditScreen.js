@@ -92,8 +92,7 @@ const styles = {
 const mapStateToProps = state => {
   const { user, postEdit } = state;
   const taggedFriends = postEdit.taggedFriends || {};
-  const { postId, postText, postType, visibleTo } = postEdit;
-  return { user, postId, postText, postType, visibleTo, taggedFriends };
+  return { ...postEdit, user, taggedFriends };
 };
 
 export default connect(mapStateToProps, {

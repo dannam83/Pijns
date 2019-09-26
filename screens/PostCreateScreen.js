@@ -101,10 +101,9 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { user, postCreate, friendList } = state;
-  const { postType, postText, visibleTo, taggedFriends } = postCreate;
   const { name, picture, uid } = state.user;
   const author = { name, picture, id: uid };
-  return { user, postType, postText, visibleTo, taggedFriends, author, friendList };
+  return { ...postCreate, user, author, friendList };
 };
 
 export default connect(mapStateToProps, {

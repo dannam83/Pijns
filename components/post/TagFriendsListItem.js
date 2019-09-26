@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
@@ -7,18 +7,15 @@ import _ from 'lodash';
 // import { displayTimeAgoShort } from '../../functions/common';
 import { buttonFieldBorderGray } from '../../assets/colors';
 
-const TagFriendsListItem = ({ friend, update, route, checked, tags, tagsCount, setTagsCount }) => {
+const TagFriendsListItem = ({ friend, update, route, checked, tags }) => {
   const { name, picture } = friend;
   const {
     viewStyle, textViewStyle, nameTextStyle, imageStyle
   } = styles;
-  // const [currentTags, setCurrentTags] = useState(tags);
 
-  // const [checked, setChecked] = useState(false);
-  // const taggedFriends = route === 'postEdit'
-  //  ? useSelector(state => state.postEdit).taggedFriends || {}
-  //  : useSelector(state => state.postCreate).taggedFriends || {};
-  const [count, setCount] = useState(tagsCount);
+  const tagCount = route === 'postEdit'
+   ? useSelector(state => state.postEdit.tagCount) || 0
+   : useSelector(state => state.postCreate.tagCount) || 0;
 
   const onPress = () => {
     const { uid } = friend;
@@ -26,18 +23,12 @@ const TagFriendsListItem = ({ friend, update, route, checked, tags, tagsCount, s
     _.set(tags, [friend.uid], friend);
     _.set(tags, [friend.uid, 'tagged'], !isTagged);
 
-    console.log('start', count, isTagged);
     if (!isTagged) {
-      setCount(count + 1);
+      update({ prop: 'tagCount', value: tagCount + 1 });
     } else {
-      setCount(count - 1);
+      update({ prop: 'tagCount', value: tagCount - 1 });
     }
-    console.log('after', count);
 
-    setTagsCount(count);
-
-    // _.set(taggedFriends, [friend.uid], friend);
-    // _.set(taggedFriends, [friend.uid, 'tagged'], !isTagged);
     update({ prop: 'taggedFriends', value: tags });
   };
 
