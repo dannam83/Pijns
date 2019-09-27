@@ -61,15 +61,25 @@ export const postEditUpdate = ({ prop, value }) => {
   };
 };
 
-export const postEditSave = ({ postText, postId, visibleTo, taggedFriends }) => {
-  const { currentUser } = firebase.auth();
+export const postEditSave = ({
+  postText, postId, visibleTo, taggedFriends, friendList, user
+}) => {
   const db = firebase.database();
   db.ref(`/posts/${postId}`).update({ content: postText, visibleTo, taggedFriends });
 
   return (dispatch) => {
-    db.ref(`/users/${currentUser.uid}/posts/${postId}`)
+    db.ref(`/users/${user.uid}/posts/${postId}`)
       .update({ content: postText, visibleTo, taggedFriends })
       .then(() => {
+        sendPrayerRequestNotifications({
+          user,
+          content: postText,
+          postId,
+          friendList,
+          visibleTo,
+          taggedFriends,
+          isUpdate: true
+        });
         dispatch({ type: POST_SAVE_SUCCESS });
       });
   };

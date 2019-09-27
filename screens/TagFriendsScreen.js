@@ -30,6 +30,13 @@ class TagFriendsList extends Component {
     this.setState({ searchInput: value.toLowerCase() });
   }
 
+  getTagCount = route => {
+    if (route === 'postEdit') {
+      return this.props.postEditTagCount;
+    }
+    return this.props.postCreateTagCount;
+  }
+
   nameMatch(friend) {
     const data = friend.name ? friend : friend.user;
     const { searchInput } = this.state;
@@ -80,13 +87,6 @@ class TagFriendsList extends Component {
     );
   }
 
-  getTagCount = route => {
-    if (route === 'postEdit') {
-      return this.props.postEditTagCount;
-    }
-    return this.props.postCreateTagCount;
-  }
-
   renderRow = (item) => {
     const { currentUser, navigation } = this.props;
     if (item.userId === currentUser.uid) { return null; }
@@ -98,7 +98,6 @@ class TagFriendsList extends Component {
 
     const inList = taggedFriends[friend.uid];
     const checked = inList && inList.tagged;
-    const tagCount = this.getTagCount(route);
 
     return (
       <TagFriendsListItem
@@ -145,7 +144,6 @@ const styles = {
   inputStyle: {
     backgroundColor: '#EAEAEA',
     borderRadius: 25,
-    // height: 16
   },
   friendsLabelStyle: {
     fontSize: 16,

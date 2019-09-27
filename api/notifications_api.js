@@ -75,7 +75,7 @@ export const sendPrayerAnsweredNotifications = (user, postId, post) => {
 };
 
 export const sendPrayerRequestNotifications = ({
-  user, postId, content, friendList, visibleTo, taggedFriends
+  user, postId, content, friendList, visibleTo, taggedFriends, isUpdate
 }) => {
   if (!friendList || visibleTo === 'Only Me') { return; }
 
@@ -83,9 +83,15 @@ export const sendPrayerRequestNotifications = ({
   const notification = { content, postId, timestamp, sender, type };
 
   const sendTo = visibleTo === 'Tagged Friends' ? taggedFriends : friendList;
-  const message = visibleTo === 'Tagged Friends'
-    ? 'tagged you in a new prayer request!'
-    : 'shared a new prayer request.';
+
+  let message;
+  if (visibleTo === 'Tagged Friends') {
+    if (!isUpdate) { message = 'tagged you in a new prayer request!'; }
+    if (isUpdate) { message = "updated a prayer request that you're tagged in!"; }
+  } else {
+    if (!isUpdate) { message = 'shared a new prayer request.'; }
+    if (isUpdate) { message = 'updated a prayer request.'; }
+  }
 
   const userIds = Object.keys(sendTo);
   userIds.forEach(userId => {

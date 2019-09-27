@@ -5,7 +5,7 @@ import { StackActions } from 'react-navigation';
 import _ from 'lodash';
 
 import PostForm from '../components/post/PostForm';
-import { postEditUpdate, postEditSave, postDelete } from '../actions';
+import { postEditUpdate, postEditSave, postDelete, fetchFriendList } from '../actions';
 import { ButtonAsText } from '../components/common';
 
 class PostEdit extends Component {
@@ -24,18 +24,20 @@ class PostEdit extends Component {
   state = { showModal: false }
 
   componentDidMount() {
-    this.props.navigation.setParams({
+    const { navigation, fetchFriendList, user } = this.props;
+    navigation.setParams({
       onSavePress: this.onSavePress,
     });
+    fetchFriendList(user.uid);
   }
 
   onSavePress = () => {
-    const { postText, postId, visibleTo } = this.props;
+    const { postText, postId, visibleTo, friendList, user } = this.props;
     const popAction = StackActions.pop({ n: 1 });
     const taggedFriends = this.getTagsToSave(this.props.taggedFriends);
 
     this.props.postEditSave({
-      postText, postId, visibleTo: visibleTo || 'All Friends', taggedFriends
+      postText, postId, visibleTo: visibleTo || 'All Friends', taggedFriends, friendList, user
     });
     this.props.navigation.dispatch(popAction);
   }
@@ -90,11 +92,11 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { user, postEdit } = state;
+  const { user, postEdit, friendList } = state;
   const taggedFriends = postEdit.taggedFriends || {};
-  return { ...postEdit, user, taggedFriends };
+  return { ...postEdit, user, taggedFriends, friendList };
 };
 
 export default connect(mapStateToProps, {
-  postEditSave, postUpdate: postEditUpdate, postDelete
+  postEditSave, postUpdate: postEditUpdate, postDelete, fetchFriendList
 })(PostEdit);

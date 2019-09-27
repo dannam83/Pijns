@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { ButtonAsText } from '../common';
 import { buttonBlue, darkGray } from '../../assets/colors';
 import PostFormVisibleToModal from './PostFormVisibleToModal';
-// import PostFormTagsModal from './PostFormTagsModal';
 import { SHOW_VISIBLE_TO_MODAL } from '../../actions/types';
 
 const PostFormHeader = ({
@@ -35,7 +34,6 @@ const PostFormHeader = ({
   }, [tagCount]);
 
   const visibleToModal = useSelector(state => state.modals).visibleTo;
-  // const tagFriendsModal = useSelector(state => state.modals).tagFriends;
   const dispatch = useDispatch();
 
   const editVisibleTo = () => {
@@ -48,11 +46,6 @@ const PostFormHeader = ({
   };
 
   const tagFriends = () => {
-    // if (tagsCount < 1) { return 'None'; }
-    // let isTagged = _.filter(tagged, (friend) => {
-    //   return friend.tagged;
-    // });
-    // const count = _.size(isTagged);
     if (count < 1) { return 'None'; }
     return `${count.toString()} ${count > 1 ? 'Friends' : 'Friend'}`;
   };
@@ -88,11 +81,6 @@ const PostFormHeader = ({
     </View>
   );
 };
-// <PostFormTagsModal
-//   currentTags={taggedFriends}
-//   visible={tagFriendsModal}
-//   route={route}
-//   />
 
 const styles = {
   containerStyle: {

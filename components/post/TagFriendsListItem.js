@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
 import _ from 'lodash';
 
-// import { displayTimeAgoShort } from '../../functions/common';
 import { buttonFieldBorderGray } from '../../assets/colors';
 
 const TagFriendsListItem = ({ friend, update, route, checked, tags }) => {
