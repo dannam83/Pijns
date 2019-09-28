@@ -7,7 +7,7 @@ import { darkGray, buttonFieldBorderGray } from '../../assets/colors';
 const ButtonAsField = ({
   onPress, disabled, children, buttonRestyle, textRestyle, iconName, iconRestyle
 }) => {
-  const { buttonStyle, textStyle, iconStyle } = styles;
+  const { buttonStyle, textStyle, iconViewStyle, iconStyle } = styles;
 
   return (
     <TouchableWithoutFeedback
@@ -15,7 +15,13 @@ const ButtonAsField = ({
       disabled={disabled}
     >
       <View style={[buttonStyle, buttonRestyle]}>
-        <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
+        { iconName ? (
+          <View style={iconViewStyle}>
+            <AntDesign name={iconName} size={18} style={[iconStyle, iconRestyle]} />
+          </View>
+        ) : (
+          null
+        )}
         <Text style={[textStyle, textRestyle]}>
           {children}
         </Text>
@@ -42,11 +48,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row'
   },
+  iconViewStyle: {
+    width: 42,
+    justifyContent: 'center'
+  },
   iconStyle: {
     alignSelf: 'center',
     color: darkGray,
     paddingLeft: 15,
-    paddingRight: 8
+    paddingRight: 8,
   }
 });
 
