@@ -4,7 +4,7 @@ import ActionSheet from 'react-native-actionsheet';
 import _ from 'lodash';
 
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
-import { displayTimeAgo } from '../../functions/common';
+import { displayTimeAgoShort } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
 import { disabledGray, darkGray } from '../../assets/colors';
 
@@ -28,7 +28,8 @@ const BannerMine = ({
     containerStyle,
     thumbnailStyle,
     headerContentStyle,
-    headerAuthorStyle,
+    headerAuthorButtonStyle,
+    headerAuthorTextStyle,
     headerDetailStyle,
     rightIconViewStyle,
     ellipsisStyle,
@@ -60,7 +61,7 @@ const BannerMine = ({
     }
   };
 
-  const posted = displayTimeAgo(timestamp, createdOn);
+  const posted = displayTimeAgoShort(timestamp, createdOn);
 
   const pinPress = async () => {
     if (pinned) {
@@ -91,13 +92,14 @@ const BannerMine = ({
       />
       <View style={headerContentStyle}>
         <ButtonAsText
-          editTextStyle={headerAuthorStyle}
+          editButtonStyle={headerAuthorButtonStyle}
+          editTextStyle={headerAuthorTextStyle}
           onPress={goToPublicProfile}
           disabled={disabled}
         >
           {name}
         </ButtonAsText>
-        <Text style={headerDetailStyle}>{posted}</Text>
+        <Text style={headerDetailStyle}>{posted} · {visibleTo}</Text>
       </View>
 
       { id === userId ?
@@ -144,7 +146,10 @@ const styles = {
     justifyContent: 'space-around',
     paddingLeft: 10
   },
-  headerAuthorStyle: {
+  headerAuthorButtonStyle: {
+    alignSelf: 'flex-start'
+  },
+  headerAuthorTextStyle: {
     fontSize: 17,
     fontWeight: 'bold'
   },

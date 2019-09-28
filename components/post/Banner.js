@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
-import { displayTimeAgo } from '../../functions/common';
+import { displayTimeAgoShort } from '../../functions/common';
 import { pinPost, unpinPost } from '../../actions';
 import { disabledGray, darkGray } from '../../assets/colors';
 
@@ -11,6 +11,7 @@ const Banner = ({
   author,
   redirect,
   postId,
+  visibleTo,
   pinned,
   timestamp,
   createdOn,
@@ -22,7 +23,8 @@ const Banner = ({
     containerStyle,
     thumbnailStyle,
     headerContentStyle,
-    headerAuthorStyle,
+    headerAuthorButtonStyle,
+    headerAuthorTextStyle,
     headerDetailStyle,
     rightIconViewStyle,
     buttonStyle,
@@ -30,7 +32,7 @@ const Banner = ({
     pinnedStyle
   } = styles;
 
-  const posted = displayTimeAgo(timestamp, createdOn);
+  const posted = displayTimeAgoShort(timestamp, createdOn);
 
   const pinPress = async () => {
     if (pinned) {
@@ -66,13 +68,14 @@ const Banner = ({
 
       <View style={headerContentStyle}>
         <ButtonAsText
-          editTextStyle={headerAuthorStyle}
+          editButtonStyle={headerAuthorButtonStyle}
+          editTextStyle={headerAuthorTextStyle}
           onPress={goToPublicProfile}
           disabled={disabled}
         >
           {name}
         </ButtonAsText>
-        <Text style={headerDetailStyle}>{posted}</Text>
+        <Text style={headerDetailStyle}>{posted} · {visibleTo}</Text>
       </View>
 
       <View style={rightIconViewStyle}>
@@ -101,7 +104,10 @@ const styles = {
     justifyContent: 'space-around',
     paddingLeft: 10
   },
-  headerAuthorStyle: {
+  headerAuthorButtonStyle: {
+    alignSelf: 'flex-start'
+  },
+  headerAuthorTextStyle: {
     fontSize: 17,
     fontWeight: 'bold'
   },

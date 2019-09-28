@@ -10,8 +10,12 @@ const ListItem = ({
 }) => {
   if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
 
-  const { user, author, content, timestamp, createdOn, postId, pinned } = post;
+  const {
+    user, author, content, timestamp, createdOn, postId, pinned, visibleTo
+  } = post;
+
   const userId = user.uid;
+
   const { containerStyle, contentStyle } = styles;
 
   return (
@@ -21,6 +25,7 @@ const ListItem = ({
         redirect={redirect}
         postText={content}
         postId={postId}
+        visibleTo={visibleTo}
         timestamp={timestamp}
         createdOn={createdOn}
         userId={userId}
