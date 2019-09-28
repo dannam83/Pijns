@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
 import { ListItemAsButton } from '../../components/common';
 import { displayTimeAgoShort } from '../../functions/common';
@@ -38,7 +38,7 @@ const NotificationRow = ({ item, message, onPress, userId }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   notificationStyle: {
     flexDirection: 'row',
     flex: 1,
@@ -66,6 +66,6 @@ const styles = {
     fontSize: 14,
     color: timeAgoShortGray
   },
-};
+});
 
 export default NotificationRow;

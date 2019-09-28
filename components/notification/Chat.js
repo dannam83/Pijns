@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
@@ -42,7 +42,7 @@ const Chat = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   messageStyle: {
     fontSize: 17,
     lineHeight: 22
@@ -53,6 +53,6 @@ const styles = {
   contentStyle: {
     fontStyle: 'italic'
   }
-};
+});
 
 export default Chat;

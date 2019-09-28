@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { StackActions } from 'react-navigation';
 import _ from 'lodash';
 
@@ -80,7 +80,7 @@ class PostEdit extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   editTextStyle: {
     fontWeight: 'bold',
     color: 'rgba(0,125,255,1)'
@@ -89,7 +89,7 @@ const styles = {
     fontWeight: 'bold',
     color: '#D3D3D3'
   }
-};
+});
 
 const mapStateToProps = state => {
   const { user, postEdit, friendList } = state;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const ButtonAsText = ({
   onPress, children, disabled, editTextStyle, editButtonStyle
@@ -19,7 +19,7 @@ const ButtonAsText = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   textStyle: {
     display: 'flex',
     flexDirection: 'column',
@@ -35,6 +35,6 @@ const styles = {
     alignItems: 'center',
     paddingRight: 10
   }
-};
+});
 
 export { ButtonAsText };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -35,7 +35,7 @@ class NotificationsIcon extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   badgeViewStyle: {
     position: 'absolute',
     backgroundColor: 'red',
@@ -52,7 +52,7 @@ const styles = {
     fontSize: 12,
     fontWeight: 'bold'
   }
-};
+});
 
 function mapStateToProps(state) {
   const { notificationsCount, navigation, user } = state;

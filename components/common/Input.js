@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const Input = ({
@@ -32,7 +32,7 @@ const Input = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     flexDirection: 'row',
     flex: 1,
@@ -50,6 +50,6 @@ const styles = {
   iconStyle: {
     paddingLeft: 15,
   }
-};
+});
 
 export { Input };

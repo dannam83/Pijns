@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
 import { chatTypingGray } from '../../assets/colors';
 
@@ -15,7 +15,7 @@ const ChatTyping = () => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     paddingLeft: 15,
@@ -31,6 +31,6 @@ const styles = {
     width: 20,
     tintColor: chatTypingGray
   },
-};
+});
 
 export default ChatTyping;

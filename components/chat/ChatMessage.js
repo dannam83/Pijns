@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
 
 import { chatBubbleGray, chatBorderGray } from '../../assets/colors';
 
@@ -38,7 +38,7 @@ const ChatMessage = ({ message, userId }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   userContainer: {
     width: SCREEN_WIDTH,
     flexDirection: 'row',
@@ -79,6 +79,6 @@ const styles = {
     borderRadius: 12,
     marginBottom: 0.5
   },
-};
+});
 
 export default ChatMessage;

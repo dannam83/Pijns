@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 
 import { ActionButton } from './ActionButton';
@@ -75,7 +75,7 @@ const CardBanner = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     paddingBottom: 10,
     backgroundColor: '#fff',
@@ -116,6 +116,6 @@ const styles = {
   buttonStyle: {
     alignItems: 'flex-start'
   }
-};
+});
 
 export { CardBanner };

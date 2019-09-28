@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
 
@@ -65,7 +65,7 @@ const PostFormVisibleToModal = ({ visible, route, currentVisibleTo }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   topCardSectionStyle: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -94,6 +94,6 @@ const styles = {
     justifyContent: 'center',
     padding: 25
   }
-};
+});
 
 export default PostFormVisibleToModal;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Dimensions } from 'react-native';
+import { View, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -63,7 +63,7 @@ class NotificationsScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   messageLargeStyle: {
     fontSize: 18,
     lineHeight: 24,
@@ -74,7 +74,7 @@ const styles = {
     lineHeight: 18,
     width: SCREEN_WIDTH - 127
   }
-};
+});
 
 function mapStateToProps(state) {
   const requests = _.map(state.requests, (val) => {

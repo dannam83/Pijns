@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, TouchableOpacity, View } from 'react-native';
+import { Text, Image, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 const ListItemAsButton = ({
   imageSource,
@@ -36,7 +36,7 @@ const ListItemAsButton = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
     display: 'flex',
     flex: 1,
@@ -54,6 +54,6 @@ const styles = {
     paddingLeft: 8,
     fontSize: 16
   }
-};
+});
 
 export { ListItemAsButton };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
 import CommentListItem from './CommentListItem';
@@ -39,7 +39,7 @@ const CommentList = ({ header, navigationTab }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   masterContainerStyle: {
     flex: 1,
     backgroundColor: '#cef0ff',
@@ -47,6 +47,6 @@ const styles = {
   writeCommentView: {
     paddingTop: 13
   }
-};
+});
 
 export default CommentList;

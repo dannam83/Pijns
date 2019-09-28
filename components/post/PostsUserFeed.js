@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 
 import { ButtonAsField } from '../common';
 import { backgroundLightBlue } from '../../assets/colors';
@@ -83,7 +83,7 @@ const PostsUserFeed = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   masterContainerStyle: {
     flex: 1,
     backgroundColor: backgroundLightBlue,
@@ -102,6 +102,6 @@ const styles = {
   buttonStyle: {
     borderRadius: 25,
   }
-};
+});
 
 export default PostsUserFeed;

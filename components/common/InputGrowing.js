@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
@@ -66,7 +66,7 @@ const InputGrowing = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerViewStyle: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -114,6 +114,6 @@ const styles = {
     fontSize: 16,
     fontWeight: '600'
   }
-};
+});
 
 export { InputGrowing };

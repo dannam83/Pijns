@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
@@ -132,7 +132,7 @@ class CommentListItem extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -198,7 +198,7 @@ const styles = {
     width: 17,
     tintColor: '#FF0000'
   },
-};
+});
 
 function mapStateToProps(state) {
   const { user, activePost, postCommentLikes, friendList, navigation } = state;

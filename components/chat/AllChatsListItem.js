@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Image, Text } from 'react-native';
+import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 
 import { chatTypingGray } from '../../assets/colors';
 import { displayTimeAgoShort } from '../../functions/common';
@@ -70,7 +70,7 @@ const AllChatsListItem = ({ chat, user, navigation, width, fontSize, unreadCount
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   rowStyle: {
     flexDirection: 'row',
     paddingTop: 1,
@@ -107,6 +107,6 @@ const styles = {
     paddingTop: 1,
     fontStyle: 'italic'
   },
-};
+});
 
 export default AllChatsListItem;

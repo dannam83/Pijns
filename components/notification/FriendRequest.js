@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
 import { ListItemAsButton, Button, ButtonAsText } from '../../components/common';
 import { resetNotificationsCount } from '../../api/notifications_api';
@@ -74,7 +74,7 @@ const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   requestStyle: {
     flexDirection: 'row',
     flex: 1,
@@ -119,6 +119,6 @@ const styles = {
     fontWeight: '700',
     fontSize: 14
   },
-};
+});
 
 export default FriendRequest;

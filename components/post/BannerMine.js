@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import _ from 'lodash';
 
@@ -133,7 +133,7 @@ const BannerMine = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     paddingBottom: 10,
     backgroundColor: '#fff',
@@ -188,6 +188,6 @@ const styles = {
       { scaleX: -1 }
     ]
   },
-};
+});
 
 export default BannerMine;

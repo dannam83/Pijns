@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const LoginNewAccountButton = ({ onPress, children }) => {
   const { buttonStyle, textStyle } = styles;
@@ -13,7 +13,7 @@ const LoginNewAccountButton = ({ onPress, children }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   textStyle: {
     alignSelf: 'center',
     color: '#007aff',
@@ -31,6 +31,6 @@ const styles = {
     marginLeft: 5,
     marginRight: 5
   }
-};
+});
 
 export { LoginNewAccountButton };

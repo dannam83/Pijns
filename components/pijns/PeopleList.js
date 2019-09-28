@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 
 const PeopleList = ({ data, renderItem, keyExtractor, Header }) => {
   return (
@@ -14,11 +14,11 @@ const PeopleList = ({ data, renderItem, keyExtractor, Header }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
     padding: 10
   }
-};
+});
 
 export { PeopleList };

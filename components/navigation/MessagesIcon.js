@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -32,7 +32,7 @@ class MessagesIcon extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   badgeViewStyle: {
     position: 'absolute',
     backgroundColor: 'red',
@@ -49,7 +49,7 @@ const styles = {
     fontSize: 12,
     fontWeight: 'bold'
   }
-};
+});
 
 function mapStateToProps(state) {
   const { messagesCount, navigation, user } = state;

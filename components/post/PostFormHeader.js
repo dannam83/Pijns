@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
 
@@ -82,7 +82,7 @@ const PostFormHeader = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     paddingBottom: 10,
     backgroundColor: '#fff',
@@ -121,6 +121,6 @@ const styles = {
     color: 'gray',
     paddingRight: 10
   }
-};
+});
 
 export default PostFormHeader;

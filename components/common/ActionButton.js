@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, TouchableOpacity } from 'react-native';
+import { Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const ActionButton = ({
   imageSource, text, onPress, disabled, iconStyle, buttonStyle
@@ -29,7 +29,7 @@ const ActionButton = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   actionButtonStyle: {
     display: 'flex',
     flexDirection: 'row',
@@ -46,6 +46,6 @@ const styles = {
   },
   actionTextStyle: {
   }
-};
+});
 
 export { ActionButton };

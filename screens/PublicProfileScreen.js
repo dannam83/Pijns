@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -71,13 +71,13 @@ class PublicProfileScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
   }
-};
+});
 
 function mapStateToProps(state) {
   const { friend, user, pijnLog, pinboard } = state;

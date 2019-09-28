@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, TouchableOpacity, View } from 'react-native';
+import { Text, Image, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import { displayTimeAgoShort } from '../../functions/common';
 
@@ -28,7 +28,7 @@ const NoteListItem = ({ note, onPress }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
     display: 'flex',
     flex: 1,
@@ -56,6 +56,6 @@ const styles = {
     fontWeight: '100',
     color: 'gray',
   },
-};
+});
 
 export { NoteListItem };

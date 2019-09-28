@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -78,7 +78,7 @@ class SearchFriendsScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   masterContainerStyle: {
     flex: 1,
     padding: 10
@@ -87,7 +87,7 @@ const styles = {
     backgroundColor: '#EAEAEA',
     borderRadius: 25
   },
-};
+});
 
 function mapStateToProps(state) {
   let searchResults = _.map(state.userFeedTab.searchResults, (val, userId) => {

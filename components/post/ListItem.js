@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 
 import Banner from './Banner';
@@ -49,7 +49,7 @@ const ListItem = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     marginLeft: 0,
     marginRight: 0,
@@ -61,6 +61,6 @@ const styles = {
   contentStyle: {
     fontSize: 16
   }
-};
+});
 
 export default ListItem;

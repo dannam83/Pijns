@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 
 import { Confirm } from '../common';
 import ListItemMine from './ListItemMine';
@@ -51,7 +51,7 @@ const PostListMine = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   masterContainerStyle: {
     flex: 1,
     backgroundColor: '#cef0ff',
@@ -59,6 +59,6 @@ const styles = {
   iconStyle: {
     marginRight: 2
   }
-};
+});
 
 export default PostListMine;

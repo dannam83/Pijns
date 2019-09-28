@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, Image, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
 import _ from 'lodash';
@@ -54,7 +54,7 @@ const TagFriendsListItem = ({ friend, update, route, checked, tags }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
     display: 'flex',
     flex: 1,
@@ -83,6 +83,6 @@ const styles = {
     fontSize: 16,
     fontWeight: '400'
   },
-};
+});
 
 export default TagFriendsListItem;

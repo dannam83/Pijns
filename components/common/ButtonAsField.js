@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { darkGray, buttonFieldBorderGray } from '../../assets/colors';
@@ -24,7 +24,7 @@ const ButtonAsField = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   textStyle: {
     alignSelf: 'flex-start',
     color: darkGray,
@@ -48,6 +48,6 @@ const styles = {
     paddingLeft: 15,
     paddingRight: 8
   }
-};
+});
 
 export { ButtonAsField };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Badge = ({ badgeViewRestyle, badgeRestyle, countDisplay, count }) => {
   const { badgeViewStyle, badgeStyle } = styles;
@@ -15,7 +15,7 @@ const Badge = ({ badgeViewRestyle, badgeRestyle, countDisplay, count }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   badgeViewStyle: {
     position: 'absolute',
     backgroundColor: 'red',
@@ -27,6 +27,6 @@ const styles = {
     fontSize: 12,
     fontWeight: 'bold'
   }
-};
+});
 
 export { Badge };

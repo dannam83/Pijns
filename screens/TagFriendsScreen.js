@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Keyboard } from 'react-native';
+import { View, Text, FlatList, Keyboard, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -131,7 +131,7 @@ class TagFriendsList extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   masterContainerStyle: {
     flex: 1,
   },
@@ -152,7 +152,7 @@ const styles = {
     paddingTop: 15,
     paddingBottom: 5
   }
-};
+});
 
 function mapStateToProps(state) {
   const { user, friendList, postEdit, postCreate } = state;

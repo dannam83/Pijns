@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
@@ -91,14 +91,14 @@ class CommentsScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   keyboardAvoidStyle: {
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-end',
     paddingBottom: 10
   }
-};
+});
 
 function mapStateToProps(state) {
   const { commentTyped } = state;

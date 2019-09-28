@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -73,7 +74,7 @@ class UserFeedScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   pinStyle: {
     marginRight: 11,
     transform: [
@@ -87,7 +88,7 @@ const styles = {
       { scaleX: -1 }
     ]
   },
-};
+});
 
 function mapStateToProps(state) {
   const { user, userFeedTab: { userFeed }, pijnLog, pinboard } = state;

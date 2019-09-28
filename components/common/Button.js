@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const Button = ({
@@ -37,7 +37,7 @@ const Button = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     width: 120,
     alignSelf: 'center',
@@ -61,6 +61,6 @@ const styles = {
   iconStyle: {
     alignSelf: 'center',
   }
-};
+});
 
 export { Button };

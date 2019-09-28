@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
 
 import { ActionButton } from '../common';
@@ -135,7 +135,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   dividerStyle: {
     backgroundColor: '#D3D3D3',
     marginTop: 10,
@@ -159,6 +159,6 @@ const styles = {
     marginLeft: -1.5,
     tintColor: '#50C35C'
   },
-};
+});
 
 export default Footer;

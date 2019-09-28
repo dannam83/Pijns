@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgoShort } from '../../functions/common';
@@ -91,7 +91,7 @@ const Banner = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     paddingBottom: 10,
     backgroundColor: '#fff',
@@ -142,6 +142,6 @@ const styles = {
       { scaleX: -1 }
     ]
   },
-};
+});
 
 export default Banner;

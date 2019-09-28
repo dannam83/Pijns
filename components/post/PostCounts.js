@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { lightTextGray } from '../../assets/colors';
 
@@ -37,7 +37,7 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   countsViewStyle: {
     display: 'flex',
     flexDirection: 'row',
@@ -58,6 +58,6 @@ const styles = {
     color: lightTextGray,
     fontStyle: 'italic'
   },
-};
+});
 
 export default PostCounts;

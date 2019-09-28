@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
@@ -46,13 +46,13 @@ const Comment = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   nameStyle: {
     fontWeight: '600'
   },
   contentStyle: {
     fontStyle: 'italic'
   }
-};
+});
 
 export default Comment;

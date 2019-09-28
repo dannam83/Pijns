@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import ChatMessage from './ChatMessage';
 import { lightTextGray } from '../../assets/colors';
@@ -33,7 +33,7 @@ const ChatDay = ({ chatDay, userId }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     alignItems: 'center'
   },
@@ -43,6 +43,6 @@ const styles = {
     color: lightTextGray,
     fontStyle: 'italic',
   }
-};
+});
 
 export default ChatDay;

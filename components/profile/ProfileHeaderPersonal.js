@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 import { Button } from '../../components/common';
 
@@ -36,7 +36,7 @@ const ProfileHeaderPersonal = (props) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     display: 'flex',
     flex: 1,
@@ -63,6 +63,6 @@ const styles = {
     justifyContent: 'center',
     paddingBottom: 20
   }
-};
+});
 
 export default ProfileHeaderPersonal;

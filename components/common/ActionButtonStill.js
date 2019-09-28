@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const ActionButtonStill = ({
@@ -24,7 +24,7 @@ const ActionButtonStill = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   actionButtonStyle: {
     display: 'flex',
     flexDirection: 'row',
@@ -35,6 +35,6 @@ const styles = {
   },
   actionTextStyle: {
   }
-};
+});
 
 export { ActionButtonStill };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button } from '../../components/common';
@@ -115,7 +115,7 @@ class ProfileHeaderPublic extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     display: 'flex',
     flex: 1,
@@ -157,7 +157,7 @@ const styles = {
   buttonTextWhite: {
     color: 'white'
   }
-};
+});
 
 function mapStateToProps(state) {
   return ({ currentUser: state.user });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -81,7 +81,7 @@ class PostCreateScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   rightButtonStyle: {
     fontWeight: 'bold',
     color: headerButtonBlue
@@ -97,7 +97,7 @@ const styles = {
     marginRight: 0,
     paddingTop: 3,
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { user, postCreate, friendList } = state;

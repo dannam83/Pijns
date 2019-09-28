@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, StyleSheet } from 'react-native';
 
 const LoginInput = ({
   value,
@@ -24,7 +24,7 @@ const LoginInput = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   inputStyle: {
     color: '#ffffff',
     paddingRight: 5,
@@ -39,6 +39,6 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center'
   }
-};
+});
 
 export { LoginInput };

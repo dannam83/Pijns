@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import { greenBanner, lightTextGray } from '../../assets/colors';
 
@@ -20,7 +20,7 @@ const PostPrayerAnswered = ({ date }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     alignItems: 'center',
     position: 'relative',
@@ -44,6 +44,6 @@ const styles = {
     color: 'white',
     fontWeight: '700'
   }
-};
+});
 
 export default PostPrayerAnswered;

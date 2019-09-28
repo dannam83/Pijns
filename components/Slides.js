@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Dimensions, Image } from 'react-native';
+import { View, Text, ScrollView, Dimensions, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import { slideButtonBlue, chatTypingGray } from '../assets/colors';
 
@@ -69,7 +69,7 @@ class Slides extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   slide: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -100,6 +100,6 @@ const styles = {
     marginRight: 3,
     tintColor: 'white',
   }
-};
+});
 
 export default Slides;
