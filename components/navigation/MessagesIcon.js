@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 class MessagesIcon extends Component {
   onPress = () => {
     const { navigation } = this.props;
-    navigation.navigate('Chats');
+    navigation.navigate('ChatStack');
   }
 
   render() {

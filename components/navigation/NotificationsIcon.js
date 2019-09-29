@@ -9,7 +9,7 @@ class NotificationsIcon extends Component {
   onPress = () => {
     const { navigation, userId } = this.props;
     resetNotificationsCount(userId);
-    navigation.navigate('Notifications');
+    navigation.navigate('NotificationsStack');
   }
 
   render() {

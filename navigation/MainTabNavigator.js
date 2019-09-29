@@ -30,7 +30,6 @@ const UserFeedStack = createStackNavigator({
   UserFeed_Notes: PostNotesListScreen,
   UserFeed_CommentLikes: CommentLikesScreen,
 });
-// UserFeed_Chat: ChatScreen,
 
 UserFeedStack.navigationOptions = {
   tabBarOptions: {
