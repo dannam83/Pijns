@@ -73,11 +73,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 5
+    paddingTop: 7,
+    paddingBottom: 4
   },
   textInputViewStyle: {
     flex: 1,
-    marginBottom: 10,
+    // marginBottom: 5,
     paddingTop: 8,
     paddingBottom: 8,
     paddingLeft: 15,
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 25,
-    marginBottom: 10,
+    // marginBottom: 5,
     marginLeft: 8,
     borderWidth: 1,
     display: 'flex',

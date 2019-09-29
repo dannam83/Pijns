@@ -18,7 +18,7 @@ const ChatList = ({ chat, userId, otherTyping }) => {
 
   const showChatTyping = (isTyping) => {
     return (
-      <View style={{ height: 25 }}>
+      <View style={{ height: 20 }}>
         { isTyping ? <ChatTyping /> : null }
       </View>
     );

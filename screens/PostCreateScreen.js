@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -69,14 +69,9 @@ class PostCreateScreen extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior="padding"
-        keyboardVerticalOffset={60}
-        enabled
-      >
+      <View style={{ flex: 1 }}>
         <PostForm {...this.props} routeName={'postCreate'} />
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }

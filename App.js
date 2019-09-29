@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
@@ -71,10 +71,15 @@ export default class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior="padding"
+          enabled
+          keyboardVerticalOffset={-2}
+        >
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
-        </View>
+        </KeyboardAvoidingView>
       </Provider>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { StackActions } from 'react-navigation';
 import _ from 'lodash';
 
@@ -68,14 +68,9 @@ class PostEdit extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior="padding"
-        keyboardVerticalOffset={60}
-        enabled
-      >
+      <View style={{ flex: 1 }}>
         <PostForm {...this.props} routeName='postEdit' />
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }

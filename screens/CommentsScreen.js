@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
@@ -67,12 +67,7 @@ class CommentsScreen extends Component {
     const keepComments = props.keepComments || navigation.getParam('keepComments');
 
     return (
-      <KeyboardAvoidingView
-        style={styles.keyboardAvoidStyle}
-        behavior="padding"
-        enabled
-        keyboardVerticalOffset={60}
-      >
+      <View style={styles.containerStyle}>
         <CommentList
           navigationTab={navigationTab}
           keepComments={keepComments}
@@ -86,17 +81,17 @@ class CommentsScreen extends Component {
           onSave={this.saveComment}
           placeholder="Add a comment..."
         />
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  keyboardAvoidStyle: {
+  containerStyle: {
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-end',
-    paddingBottom: 10
+    paddingBottom: 5
   }
 });
 

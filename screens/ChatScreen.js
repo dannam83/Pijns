@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { InputGrowing } from '../components/common';
@@ -72,7 +72,6 @@ class ChatScreen extends Component {
       if (!friendOnChat) {
         sendMessageNotification(user, postAuthorId, comment);
         incrementUnread(user.uid, friendId);
-        // incrementMessageCounter(friendId);
       }
     } catch (err) {
       console.warn('Error saving comment.', err);
@@ -85,12 +84,7 @@ class ChatScreen extends Component {
     const alreadyTyped = chat[userId];
 
     return (
-      <KeyboardAvoidingView
-        style={styles.keyboardAvoidStyle}
-        behavior="padding"
-        enabled
-        keyboardVerticalOffset={60}
-      >
+      <View style={styles.containerStyle}>
         <ChatList
           postAuthorId={friendId}
           userId={user.uid}
@@ -106,17 +100,17 @@ class ChatScreen extends Component {
           value={alreadyTyped}
           onChange={(text) => this.onChange(text)}
         />
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  keyboardAvoidStyle: {
+  containerStyle: {
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-end',
-    paddingBottom: 10
+    paddingBottom: 5,
   }
 });
 
