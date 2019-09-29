@@ -99,7 +99,7 @@ const BannerMine = ({
         >
           {name}
         </ButtonAsText>
-        <Text style={headerDetailStyle}>{posted} · {visibleTo}</Text>
+        <Text style={headerDetailStyle}>{posted} · {visibleTo || 'All Friends'}</Text>
       </View>
 
       { id === userId ?

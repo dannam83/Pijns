@@ -75,7 +75,7 @@ const Banner = ({
         >
           {name}
         </ButtonAsText>
-        <Text style={headerDetailStyle}>{posted} · {visibleTo}</Text>
+        <Text style={headerDetailStyle}>{posted} · {visibleTo || 'All Friends'}</Text>
       </View>
 
       <View style={rightIconViewStyle}>
