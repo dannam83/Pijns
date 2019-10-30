@@ -8,6 +8,8 @@ const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
   const width = screenWidth - 150;
 
   const renderRow = (chat) => {
+    if (!chat.lastMessage) { return null; }
+    
     return (
       <AllChatsListItem
         chat={chat}
