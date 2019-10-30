@@ -6,13 +6,13 @@
     "sdkVersion": "33.0.0",
     "platforms": [
       "ios",
-      "android"
+      "android",
     ],
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/pijnIcon.png",
     "splash": {
-      "backgroundColor": "#03A9F4"
+      "backgroundColor": "#03A9F4",
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,12 +23,17 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dannam.pijns",
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.0.5",
+    },
+    "android": {
+      "package": "com.dannam.pijns",
+      "versionCode": 3,
+      "permissions": [],
     },
     "facebookScheme": "fb309296216371741",
     "facebookAppId": "309296216371741",
     "facebookDisplayName": "Pijns",
     "description": "A social networking app that let's people know how much you care; the only social networking app that goes beyond shallow.",
-    "githubUrl": "https://github.com/dannam83/Pijns"
+    "githubUrl": "https://github.com/dannam83/Pijns",
   }
 }

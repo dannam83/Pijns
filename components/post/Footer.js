@@ -36,19 +36,19 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   }, [post.answered]);
 
   const goToComments = async () => {
-    navigation.navigate(`${navigationTab}_Comments`, {
+    navigation.navigate('CommentsScreen', {
       user, postAuthorId: author.id, postId, redirect, author, index, navigationTab, keepComments
     });
   };
 
   const goToChat = async () => {
-    navigation.navigate('Chats_Chat', {
+    navigation.navigate('ChatScreen', {
       user, postAuthorId: author.id, postId, redirect, index, friend: author
     });
   };
 
   const goToPostNotes = async () => {
-    navigation.navigate(`${navigationTab}_Notes`, {
+    navigation.navigate('PostNotesListScreen', {
       user, postAuthorId: author.id, postId, index, navigationTab
     });
   };

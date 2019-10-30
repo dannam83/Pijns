@@ -71,7 +71,7 @@ class ProfileHeaderPublic extends Component {
   chatButton() {
     const { currentUser, redirect, friend } = this.props;
     const { uid } = friend;
-    redirect('Chats_Chat', {
+    redirect('ChatScreen', {
       user: currentUser, postAuthorId: uid, friendId: uid, friend
     });
   }

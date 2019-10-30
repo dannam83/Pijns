@@ -52,19 +52,19 @@ class CommentListItem extends Component {
     if (currentUserId === profileUserId) {
       navigate('Profile');
     } else if (this.props.friendList && this.props.friendList[profileUserId]) {
-      navigate(`${navigationTab}_PublicProfile`, {
+      navigate('PublicProfileScreen', {
         profileUser, status: 'Unfriend', navigationTab
       });
     } else {
       this.props.getFriendStatus({ profileUserId, currentUserId });
-      navigate(`${navigationTab}_PublicProfile`, { profileUser, navigationTab });
+      navigate('PublicProfileScreen', { profileUser, navigationTab });
     }
   };
 
   goToCommentLikes = () => {
     const { navigation, navigationTab, comment: { commentId } } = this.props;
 
-    navigation.navigate(`${navigationTab}_CommentLikes`, { commentId, navigationTab });
+    navigation.navigate('CommentLikesScreen', { commentId, navigationTab });
   };
 
   render() {

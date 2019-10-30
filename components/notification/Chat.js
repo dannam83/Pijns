@@ -27,7 +27,7 @@ const Chat = ({
     resetNotificationsCount(currentUser.uid);
     const [user, postAuthorId] = [currentUser, sender.uid];
 
-    navigation.navigate('Chats_Chat', {
+    navigation.navigate('ChatScreen', {
       user, postAuthorId, redirect: navigation.navigate
     });
   };

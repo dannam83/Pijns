@@ -27,7 +27,7 @@ const Comment = ({
   const goToPost = async () => {
     resetNotificationsCount(currentUser.uid);
 
-    navigation.navigate(`${navigationTab}_Post`, {
+    navigation.navigate('PostScreen', {
       user: currentUser,
       postAuthorId: userId,
       postId,

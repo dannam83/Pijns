@@ -25,7 +25,7 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, messageStyle }
     resetNotificationsCount(currentUser.uid);
     const [user, postAuthorId] = [currentUser, currentUser.uid];
 
-    navigation.push(`${navigationTab}_Notes`, {
+    navigation.push('PostNotesListScreen', {
       user, postAuthorId, postId, navigationTab
     });
   };

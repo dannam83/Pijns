@@ -30,7 +30,7 @@ class PostNotesListScreen extends Component {
     this.props.getFriendStatus({ profileUserId, currentUserId: uid });
 
     if (profileUserId !== uid) {
-      push(`${navigationTab}_PublicProfile`, { profileUser: note, navigationTab });
+      push('PublicProfileScreen', { profileUser: note, navigationTab });
     } else {
       navigate('Profile');
     }

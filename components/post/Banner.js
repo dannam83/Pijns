@@ -47,7 +47,7 @@ const Banner = ({
       redirect('Profile'); return;
     }
 
-    redirect(`${navigationTab}_PublicProfile`, {
+    redirect('PublicProfileScreen', {
       profileUser: { ...author, uid: author.id },
       status: 'Unfriend',
       navigationTab: 'UserFeed'

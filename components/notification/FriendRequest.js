@@ -14,7 +14,7 @@ const FriendRequest = ({ item, navigation, currentUser, friend, actions }) => {
   const goToPublicProfile = (profileUser) => {
     actions.setFriendStatus({ status: 'See Requests' });
     markRequestAsSeen(currentUser.uid, uid);
-    navigation.navigate('Notifications_PublicProfile', {
+    navigation.navigate('PublicProfileScreen', {
       profileUser, navigationTab: 'Notifications' });
   };
 
