@@ -11,6 +11,7 @@ import TaggedFriendsScreen from '../screens/TaggedFriendsScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import CommentLikesScreen from '../screens/CommentLikesScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
+import AllChatsScreen from '../screens/AllChatsScreen';
 import ChatScreen from '../screens/ChatScreen';
 
 export default createAppContainer(createSwitchNavigator(
@@ -40,6 +41,9 @@ export default createAppContainer(createSwitchNavigator(
       },
       PublicProfileScreen: {
         screen: PublicProfileScreen,
+      },
+      AllChatsScreen: {
+        screen: AllChatsScreen,
       },
       ChatScreen: {
         screen: ChatScreen,
