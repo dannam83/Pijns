@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import registerForPushNotifications from '../services/push_notifications';
 import PostsUserFeed from '../components/post/PostsUserFeed';
+import MessagesIcon from '../components/navigation/MessagesIcon';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
 import { fetchUserFeed, updatePijnNoteCount } from '../actions';
@@ -20,12 +21,18 @@ class UserFeedScreen extends Component {
         fontSize: 20,
       },
       headerRight: (
-        <ActionButtonStill
-          onPress={navigation.getParam('pinToggle')}
-          iconName={'pushpino'}
-          iconSize={22}
-          iconStyle={navigation.getParam('headerPinStyle')}
-        />
+        <View style={styles.headerRightStyle}>
+          <ActionButtonStill
+            onPress={navigation.getParam('pinToggle')}
+            iconName={'pushpino'}
+            iconSize={22}
+            iconStyle={navigation.getParam('headerPinStyle')}
+          />
+          <MessagesIcon
+            name={'send'}
+            size={27}
+          />
+        </View>
       )
     };
   };
@@ -87,6 +94,12 @@ const styles = StyleSheet.create({
     transform: [
       { scaleX: -1 }
     ]
+  },
+  headerRightStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 10,
+    height: 20,
   },
 });
 

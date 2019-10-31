@@ -40,7 +40,7 @@ UserFeedStack.navigationOptions = {
   tabBarIcon: ({ focused, tintColor }) => (
     <AntDesign
       focused={focused}
-      name={'team'}
+      name={'home'}
       size={28}
       color={tintColor}
     />
@@ -61,8 +61,8 @@ ChatStack.navigationOptions = {
   tabBarIcon: ({ focused, tintColor }) => (
     <MessagesIcon
       focused={focused}
-      name={'message1'}
-      size={25}
+      name={'send'}
+      size={27}
       color={tintColor}
     />
   ),
@@ -150,7 +150,7 @@ ProfileStack.navigationOptions = {
     return (
       <AntDesign
         focused={focused}
-        name={'profile'}
+        name={'user'}
         size={25}
         color={tintColor}
       />

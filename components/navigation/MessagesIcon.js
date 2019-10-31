@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 class MessagesIcon extends Component {
   onPress = () => {
@@ -15,7 +15,7 @@ class MessagesIcon extends Component {
     return (
       <View>
         <TouchableWithoutFeedback onPress={this.onPress}>
-          <AntDesign focused={focused} name={name} size={size} color={color} />
+          <MaterialIcons focused={focused} name={name} size={size} color={color} />
         </TouchableWithoutFeedback>
 
         {messages > 0 ?
