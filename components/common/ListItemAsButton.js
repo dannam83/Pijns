@@ -46,9 +46,9 @@ const styles = StyleSheet.create({
     paddingTop: 1
   },
   imageStyle: {
-    height: 64,
-    width: 64,
-    borderRadius: 32
+    height: 50,
+    width: 50,
+    borderRadius: 25
   },
   textStyle: {
     paddingLeft: 8,

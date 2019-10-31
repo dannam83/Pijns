@@ -7,6 +7,7 @@ import AuthScreen from '../screens/AuthScreen';
 import MainTabNavigator from './MainTabNavigator';
 import PostScreen from '../screens/PostScreen';
 import PostNotesListScreen from '../screens/PostNotesListScreen';
+import TaggedFriendsScreen from '../screens/TaggedFriendsScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import CommentLikesScreen from '../screens/CommentLikesScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
@@ -22,11 +23,14 @@ export default createAppContainer(createSwitchNavigator(
         screen: MainTabNavigator,
         navigationOptions: { header: null },
       },
+      PostScreen: {
+        screen: PostScreen,
+      },
       PostNotesListScreen: {
         screen: PostNotesListScreen,
       },
-      PostScreen: {
-        screen: PostScreen,
+      TaggedFriendsScreen: {
+        screen: TaggedFriendsScreen,
       },
       CommentsScreen: {
         screen: CommentsScreen,

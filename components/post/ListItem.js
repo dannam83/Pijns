@@ -11,7 +11,8 @@ const ListItem = ({
   if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
 
   const {
-    user, author, content, timestamp, createdOn, postId, pinned, visibleTo
+    user, author, content, timestamp, createdOn,
+    postId, pinned, visibleTo, taggedFriends,
   } = post;
 
   const userId = user.uid;
@@ -32,6 +33,7 @@ const ListItem = ({
         pinned={pinned}
         onProfile={onProfile}
         navigationTab={navigationTab}
+        taggedFriends={taggedFriends}
       />
 
       <Text style={contentStyle}>{content}</Text>

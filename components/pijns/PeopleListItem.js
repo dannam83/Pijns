@@ -19,7 +19,10 @@ const PeopleListItem = ({ person, onPress }) => {
         />
         <View style={textViewStyle}>
           <Text style={nameTextStyle}>{name}</Text>
-          <Text style={dateTextStyle}>{timeAgo}</Text>
+          {
+            timeAgo ? <Text style={dateTextStyle}>{timeAgo}</Text> : null
+          }
+
         </View>
       </View>
     </TouchableOpacity>

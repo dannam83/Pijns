@@ -22,7 +22,7 @@ const AllChatsListItem = ({ chat, user, navigation, width, fontSize, unreadCount
     const friendId = chatId.replace(user.uid, '');
     const friend = { id: friendId, name: friendName, picture: friendPic };
 
-    navigation.navigate('Chats_Chat', {
+    navigation.navigate('ChatScreen', {
       user, postAuthorId: friendId, redirect: navigate, friend
     });
   };

@@ -9,7 +9,7 @@ const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
 
   const renderRow = (chat) => {
     if (!chat.lastMessage) { return null; }
-    
+
     return (
       <AllChatsListItem
         chat={chat}
@@ -22,7 +22,6 @@ const AllChatsList = ({ chats, user, navigation, screenWidth }) => {
       />
     );
   };
-
 
   return (
     <View style={{ padding: 10 }}>

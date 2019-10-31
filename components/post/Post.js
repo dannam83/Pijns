@@ -6,7 +6,9 @@ import Banner from './Banner';
 import Footer from './Footer';
 
 const Post = ({ post, redirect, navigationTab, onProfile }) => {
-  const { user, author, content, timestamp, createdOn, postId, pinned } = post;
+  const {
+    user, author, content, timestamp, createdOn, postId, pinned, taggedFriends,
+  } = post;
   const userId = user.uid;
   const { containerStyle, contentStyle } = styles;
 
@@ -22,6 +24,7 @@ const Post = ({ post, redirect, navigationTab, onProfile }) => {
         userId={userId}
         pinned={pinned}
         onProfile={onProfile}
+        taggedFriends={taggedFriends}
       />
 
       <Text style={contentStyle}>{content}</Text>

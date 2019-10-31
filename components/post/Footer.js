@@ -92,7 +92,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
 
   const chatOrHandsButton = () => {
     if (author.id !== user.uid) {
-      const chat = require('../../assets/images/message.png');
+      const chat = require('../../assets/images/directMessage.png');
 
       return <ActionButton imageSource={chat} onPress={goToChat} />;
     }

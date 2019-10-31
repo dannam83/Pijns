@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import { ActionButton, ActionButtonStill, ButtonAsText } from '../common';
 import { displayTimeAgoShort } from '../../functions/common';
@@ -16,7 +16,7 @@ const Banner = ({
   timestamp,
   createdOn,
   onProfile,
-  navigationTab
+  taggedFriends = {},
 }) => {
   const { name, picture } = author;
   const {
@@ -57,6 +57,22 @@ const Banner = ({
   const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
   const disabled = !!onProfile;
 
+  const Visibility = () => {
+    if (visibleTo !== 'Tagged Friends') {
+      return (
+        <Text style={headerDetailStyle}>{posted} · {visibleTo || 'All Friends'}</Text>
+      );
+    }
+
+    const onPress = () => redirect('TaggedFriendsScreen', { taggedFriends });
+
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <Text style={headerDetailStyle}>{posted} · Tagged Friends</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={containerStyle}>
       <ActionButton
@@ -75,7 +91,7 @@ const Banner = ({
         >
           {name}
         </ButtonAsText>
-        <Text style={headerDetailStyle}>{posted} · {visibleTo || 'All Friends'}</Text>
+        <Visibility />
       </View>
 
       <View style={rightIconViewStyle}>
