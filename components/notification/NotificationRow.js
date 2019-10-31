@@ -10,7 +10,8 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const NotificationRow = ({ item, message, onPress, userId }) => {
   const {
-    notificationStyle, itemAsButtonStyle, messageStyle, timeViewStyle, timeStyle
+    notificationStyle, itemAsButtonStyle, messageStyle,
+    timeViewStyle, timeStyle, imageStyle,
   } = styles;
   const { timestamp, sender, seen } = item;
   const { picture } = sender;
@@ -29,6 +30,7 @@ const NotificationRow = ({ item, message, onPress, userId }) => {
         onPress={press}
         viewRestyle={itemAsButtonStyle}
         textRestyle={messageStyle}
+        imageRestyle={imageStyle}
         numberOfLines={3}
       />
       <View style={timeViewStyle}>
@@ -65,6 +67,11 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 14,
     color: timeAgoShortGray
+  },
+  imageStyle: {
+    height: 64,
+    width: 64,
+    borderRadius: 32,
   },
 });
 

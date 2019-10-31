@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import _ from 'lodash';
 
@@ -79,6 +79,22 @@ const BannerMine = ({
     });
   };
 
+  const Visibility = () => {
+    if (visibleTo !== 'Tagged Friends') {
+      return (
+        <Text style={headerDetailStyle}>{posted} · {visibleTo || 'All Friends'}</Text>
+      );
+    }
+
+    const onPress = () => redirect('TaggedFriendsScreen', { taggedFriends });
+
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <Text style={headerDetailStyle}>{posted} · Tagged Friends</Text>
+      </TouchableOpacity>
+    );
+  };
+
   const pinButtonStyle = pinned ? pinnedStyle : pinStyle;
   const disabled = !!onProfile;
 
@@ -99,7 +115,7 @@ const BannerMine = ({
         >
           {name}
         </ButtonAsText>
-        <Text style={headerDetailStyle}>{posted} · {visibleTo || 'All Friends'}</Text>
+        <Visibility />
       </View>
 
       { id === userId ?
