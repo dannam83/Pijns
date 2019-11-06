@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   contentStyle: {
-    fontSize: 16
+    fontSize: 14
   }
 });
 

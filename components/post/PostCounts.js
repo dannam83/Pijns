@@ -5,7 +5,8 @@ import { lightTextGray } from '../../assets/colors';
 
 const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
   const {
-    countItemStyle, loveNoteIconStyle, commentTextStyle, countsViewStyle
+    loveNoteTextStyle, loveNoteIconStyle, commentTextStyle,
+    countsViewStyle, countItemStyle
   } = styles;
 
   return (
@@ -17,7 +18,9 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
               source={require('../../assets/images/love-note.png')}
               style={loveNoteIconStyle}
             />
-            <Text>{noteCount} {noteCount === 1 ? 'note' : 'notes'}</Text>
+            <Text style={loveNoteTextStyle}>
+              {noteCount} {noteCount === 1 ? 'note' : 'notes'}
+            </Text>
           </TouchableOpacity>
         ) : (
           <View />
@@ -49,14 +52,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  loveNoteTextStyle: {
+    fontSize: 13
+  },
   loveNoteIconStyle: {
-    width: 23,
-    height: 23,
+    width: 22,
+    height: 22,
     marginRight: 5
   },
   commentTextStyle: {
     color: lightTextGray,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    fontSize: 13
   },
 });
 

@@ -124,18 +124,18 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start'
   },
   headerAuthorTextStyle: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   headerDetailStyle: {
-    fontSize: 14,
-    fontWeight: '100',
+    fontSize: 13,
+    fontWeight: '400',
     color: darkGray
   },
   thumbnailStyle: {
-    height: 40,
-    width: 40,
-    borderRadius: 20
+    height: 36,
+    width: 36,
+    borderRadius: 18
   },
   rightIconViewStyle: {
     display: 'flex',
