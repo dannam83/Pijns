@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { MaterialIcons } from '@expo/vector-icons';
 import { ActionButton } from '../common';
-
 
 class MessagesIcon extends Component {
   onPress = () => {
@@ -12,7 +10,7 @@ class MessagesIcon extends Component {
   }
 
   render() {
-    const { name, size, focused, color, messages } = this.props;
+    const { messages } = this.props;
     const chat = require('../../assets/images/directMessage.png');
 
     return (
@@ -36,23 +34,6 @@ class MessagesIcon extends Component {
     );
   }
 }
-
-// const chatOrHandsButton = () => {
-//   if (author.id !== user.uid) {
-//     const chat = require('../../assets/images/directMessage.png');
-//
-//     return <ActionButton imageSource={chat} onPress={goToChat} />;
-//   }
-//
-//   const whStyle = answered ? worshipHandsActive : worshipHandsInactive;
-//   const hands = require('../../assets/images/praise.png');
-//
-//   return <ActionButton imageSource={hands} onPress={handsPress} iconStyle={whStyle} />;
-// };
-//
-// if (pinnedOnly && !pinned) {
-//   return null;
-// }
 
 const styles = StyleSheet.create({
   badgeViewStyle: {

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import {
   postCreateSave, postCreateUpdate, fetchUserFeed, fetchFriendList
 } from '../actions';
-import { Button, ButtonAsText } from '../components/common';
+import { ButtonAsText } from '../components/common';
 import PostForm from '../components/post/PostForm';
 import { disabledGray, headerButtonBlue } from '../assets/colors';
 
@@ -20,14 +20,6 @@ class PostCreateScreen extends Component {
           editTextStyle={styles.rightButtonStyle}
         >Share</ButtonAsText>
       ),
-      headerLeft: (
-        <Button
-          iconName={'left'}
-          onPress={navigation.getParam('onBackPress')}
-          buttonRestyle={styles.buttonRestyle}
-          iconSize={26}
-        />
-      )
     };
   }
 

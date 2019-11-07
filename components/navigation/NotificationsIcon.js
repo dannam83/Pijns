@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -17,9 +17,9 @@ class NotificationsIcon extends Component {
 
     return (
       <View>
-        <TouchableWithoutFeedback onPress={this.onPress}>
+        <TouchableOpacity onPress={this.onPress}>
           <Ionicons focused={focused} name={name} size={size} color={color} />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
         {notifications > 0 ?
           <View style={styles.badgeViewStyle}>

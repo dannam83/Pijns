@@ -13,6 +13,8 @@ import CommentLikesScreen from '../screens/CommentLikesScreen';
 import PublicProfileScreen from '../screens/PublicProfileScreen';
 import AllChatsScreen from '../screens/AllChatsScreen';
 import ChatScreen from '../screens/ChatScreen';
+import PostCreateScreen from '../screens/PostCreateScreen';
+import TagFriendsScreen from '../screens/TagFriendsScreen';
 
 export default createAppContainer(createSwitchNavigator(
   {
@@ -47,6 +49,12 @@ export default createAppContainer(createSwitchNavigator(
       },
       ChatScreen: {
         screen: ChatScreen,
+      },
+      PostCreateScreen: {
+        screen: PostCreateScreen,
+      },
+      PostCreate_TagFriends: {
+        screen: TagFriendsScreen
       },
     }) },
   },

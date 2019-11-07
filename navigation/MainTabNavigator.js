@@ -70,10 +70,9 @@ ChatStack.navigationOptions = {
 
 const PostCreateStack = createStackNavigator({
   PostCreate: PostCreateScreen,
-  PostCreate_TagFriends: TagFriendsScreen
 });
 
-PostCreateStack.navigationOptions = {
+PostCreateStack.navigationOptions = ({ navigation }) => ({
   tabBarOptions: {
     showLabel: false,
     activeTintColor: 'rgba(0,125,255,1)',
@@ -89,7 +88,8 @@ PostCreateStack.navigationOptions = {
       />
     );
   },
-};
+  tabBarOnPress: () => navigation.navigate('PostCreateScreen'),
+});
 
 const NotificationsStack = createStackNavigator({
   Notifications: NotificationsScreen,
