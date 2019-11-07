@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
+import { AntDesign, Feather } from '@expo/vector-icons';
 
 import { ActionButton } from '../common';
 import { getCurrentDate } from '../../functions/common';
@@ -70,7 +71,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     }
   };
 
-  const pijnButton = () => {
+  const PijnButton = () => {
     return (
       <ActionButton
         imageSource={require('../../assets/images/pijn.png')}
@@ -81,16 +82,31 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     );
   };
 
-  const commentButton = () => {
+  const StarButton = () => {
     return (
-      <ActionButton
-        imageSource={require('../../assets/images/comment.png')}
-        onPress={goToComments}
-      />
+      <TouchableOpacity style={{ paddingTop: 3 }}>
+        <AntDesign
+          name={'staro'}
+          size={23}
+          color={'#434343'}
+        />
+      </TouchableOpacity>
     );
   };
 
-  const chatOrHandsButton = () => {
+  const CommentButton = () => {
+    return (
+      <TouchableOpacity style={{ paddingTop: 4 }} onPress={goToComments}>
+        <AntDesign
+          name={'message1'}
+          size={21}
+          color={'#454545'}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const ChatOrHandsButton = () => {
     if (author.id !== user.uid) {
       const chat = require('../../assets/images/directMessage.png');
 
@@ -127,9 +143,10 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
       )}
 
       <View style={actionsViewStyle}>
-        {pijnButton()}
-        {commentButton()}
-        {chatOrHandsButton()}
+        <PijnButton />
+        <StarButton />
+        <CommentButton />
+        <ChatOrHandsButton />
       </View>
     </View>
   );

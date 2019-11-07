@@ -33,7 +33,6 @@ export default class App extends React.Component {
       Asset.loadAsync([
         require('./assets/images/love-note.png'),
         require('./assets/images/pijn.png'),
-        require('./assets/images/comment.png'),
         require('./assets/images/message.png'),
         require('./assets/images/praise.png'),
         require('./assets/images/ellipsis.png'),

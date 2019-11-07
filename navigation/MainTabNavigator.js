@@ -59,9 +59,9 @@ ChatStack.navigationOptions = {
     inactiveTintColor: 'gray'
   },
   tabBarIcon: ({ focused, tintColor }) => (
-    <MessagesIcon
+    <AntDesign
       focused={focused}
-      name={'send'}
+      name={'staro'}
       size={27}
       color={tintColor}
     />
