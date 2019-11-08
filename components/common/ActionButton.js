@@ -36,12 +36,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   iconDefaultStyle: {
-    height: 25,
-    width: 25,
+    height: 21,
+    width: 21,
   },
   disabledIconStyle: {
-    height: 25,
-    width: 25,
+    height: 21,
+    width: 21,
     tintColor: '#D3D3D3'
   },
   actionTextStyle: {

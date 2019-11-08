@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { AntDesign, Feather } from '@expo/vector-icons';
 
@@ -20,7 +20,9 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
-  const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive } = styles;
+  const { actionsViewStyle, dividerStyle, worshipHandsActive,
+    worshipHandsInactive, likesStyle, likesCountStyle,
+  } = styles;
 
   const [noteCount, setNoteCount] = useState(notes || 0);
   const [handsActive, setHandsActive] = useState(false);
@@ -75,7 +77,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     return (
       <ActionButton
         imageSource={require('../../assets/images/pijn.png')}
-        iconStyle={{ height: 24, width: 26 }}
+        iconStyle={{ height: 20, width: 22 }}
         onPress={() => pijnPress()}
         disabled={pijnSentToday}
       />
@@ -87,7 +89,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
       <TouchableOpacity style={{ paddingTop: 3 }}>
         <AntDesign
           name={'staro'}
-          size={23}
+          size={19}
           color={'#434343'}
         />
       </TouchableOpacity>
@@ -99,7 +101,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
       <TouchableOpacity style={{ paddingTop: 4 }} onPress={goToComments}>
         <AntDesign
           name={'message1'}
-          size={21}
+          size={17}
           color={'#454545'}
         />
       </TouchableOpacity>
@@ -122,6 +124,30 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   if (pinnedOnly && !pinned) {
     return null;
   }
+
+  const LikeButton = () => {
+    // return (
+    //   <TouchableOpacity style={{ paddingTop: 4 }} onPress={goToComments}>
+    //     <AntDesign
+    //       name={'hearto'}
+    //       size={18}
+    //       color={'#454545'}
+    //     />
+    //   </TouchableOpacity>
+    // );
+
+    return (
+      <View style={likesStyle}>
+        <TouchableOpacity style={{ paddingTop: 4 }} onPress={goToComments}>
+          <AntDesign
+            name={'heart'}
+            size={18}
+            color={'red'}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <View>
@@ -147,6 +173,10 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
         <StarButton />
         <CommentButton />
         <ChatOrHandsButton />
+        <LikeButton />
+        <TouchableOpacity>
+          <Text style={likesCountStyle}>33</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -162,19 +192,31 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 60,
-    paddingRight: 60
+    paddingLeft: 30,
+    paddingRight: 30
   },
   worshipHandsInactive: {
-    height: 24,
-    width: 27,
+    height: 21,
+    width: 24,
     marginLeft: -1.5,
   },
   worshipHandsActive: {
-    height: 24,
-    width: 27,
+    height: 21,
+    width: 24,
     marginLeft: -1.5,
     tintColor: '#50C35C'
+  },
+  likesStyle: {
+    flexDirection: 'row',
+    width: 22,
+    alignItems: 'center',
+  },
+  likesCountStyle: {
+    fontStyle: 'italic',
+    color: '#808080',
+    paddingLeft: 4,
+    paddingTop: 2,
+    fontSize: 12,
   },
 });
 

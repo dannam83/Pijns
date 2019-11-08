@@ -99,7 +99,7 @@ const Banner = ({
           buttonStyle={buttonStyle}
           iconName={'pushpino'}
           iconStyle={pinButtonStyle}
-          iconSize={20}
+          iconSize={19}
           onPress={pinPress}
         />
       </View>
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   buttonStyle: {
-    alignItems: 'flex-start'
+    marginTop: -12,
   },
   pinStyle: {
     transform: [

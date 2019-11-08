@@ -20,7 +20,6 @@ import ChatScreen from '../screens/ChatScreen';
 import AllChatsScreen from '../screens/AllChatsScreen';
 import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
-import MessagesIcon from '../components/navigation/MessagesIcon';
 
 const UserFeedStack = createStackNavigator({
   UserFeed: UserFeedScreen,
