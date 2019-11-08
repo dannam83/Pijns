@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import { ActionButton } from '../common';
 import { getCurrentDate } from '../../functions/common';
@@ -21,7 +21,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
   const { actionsViewStyle, dividerStyle, worshipHandsActive,
-    worshipHandsInactive, likesStyle, likesCountStyle,
+    worshipHandsInactive, likesStyle,
   } = styles;
 
   const [noteCount, setNoteCount] = useState(notes || 0);
@@ -162,7 +162,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
         <View>
           <Divider style={dividerStyle} />
           <PostPrayerAnswered date={answered} />
-          <Divider style={dividerStyle} />
+          <Divider style={[dividerStyle, { marginTop: 10 }]} />
         </View>
       ) : (
         <Divider style={dividerStyle} />
@@ -171,12 +171,9 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
       <View style={actionsViewStyle}>
         <PijnButton />
         <StarButton />
-        <CommentButton />
         <ChatOrHandsButton />
+        <CommentButton />
         <LikeButton />
-        <TouchableOpacity>
-          <Text style={likesCountStyle}>33</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -185,15 +182,15 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
 const styles = StyleSheet.create({
   dividerStyle: {
     backgroundColor: '#D3D3D3',
-    marginTop: 10,
+    marginTop: 3,
     marginBottom: 10
   },
   actionsViewStyle: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 30,
-    paddingRight: 30
+    paddingLeft: 35,
+    paddingRight: 35
   },
   worshipHandsInactive: {
     height: 21,
@@ -210,13 +207,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 22,
     alignItems: 'center',
-  },
-  likesCountStyle: {
-    fontStyle: 'italic',
-    color: '#808080',
-    paddingLeft: 4,
-    paddingTop: 2,
-    fontSize: 12,
   },
 });
 

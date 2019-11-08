@@ -19,23 +19,37 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
               style={loveNoteIconStyle}
             />
             <Text style={loveNoteTextStyle}>
-              {noteCount} {noteCount === 1 ? 'note' : 'notes'}
+              {noteCount} {noteCount === 1 ? 'Note' : 'Notes'}
             </Text>
           </TouchableOpacity>
         ) : (
           <View />
         )
       }
-
-      {
-        commentCount > 0 ? (
-          <TouchableOpacity style={countItemStyle} onPress={commentsPress}>
-            <Text style={commentTextStyle}>{commentCount} comments</Text>
-          </TouchableOpacity>
-        ) : (
-          <View />
-        )
-      }
+      <View style={{ flexDirection: 'row' }}>
+        {
+          commentCount > 0 ? (
+            <TouchableOpacity style={countItemStyle} onPress={commentsPress}>
+              <Text style={commentTextStyle}>
+                {commentCount} {commentCount === 1 ? 'Comment' : 'Comments'}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )
+        }
+        {
+          commentCount > 0 ? (
+            <TouchableOpacity style={[countItemStyle, { marginLeft: 10 }]} onPress={commentsPress}>
+              <Text style={commentTextStyle}>
+                3 Likes
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )
+        }
+      </View>
     </View>
   );
 };
@@ -45,7 +59,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10
+    marginTop: 10,
   },
   countItemStyle: {
     display: 'flex',
@@ -53,17 +67,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loveNoteTextStyle: {
-    fontSize: 13
+    fontSize: 13,
   },
   loveNoteIconStyle: {
-    width: 22,
-    height: 22,
+    width: 17,
+    height: 17,
     marginRight: 5
   },
   commentTextStyle: {
     color: lightTextGray,
-    fontStyle: 'italic',
-    fontSize: 13
+    fontSize: 13,
+    fontWeight: '500',
   },
 });
 

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   dateStyle: {
     color: lightTextGray,
-    fontWeight: '500',
+    fontWeight: '600',
     fontSize: 13,
     marginTop: 3,
   },
