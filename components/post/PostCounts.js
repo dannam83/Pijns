@@ -3,7 +3,9 @@ import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { lightTextGray } from '../../assets/colors';
 
-const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
+const PostCounts = ({
+  noteCount, notesPress, commentCount, commentsPress, likeCount,
+}) => {
   const {
     loveNoteTextStyle, loveNoteIconStyle, commentTextStyle,
     countsViewStyle, countItemStyle
@@ -39,10 +41,10 @@ const PostCounts = ({ noteCount, notesPress, commentCount, commentsPress }) => {
           )
         }
         {
-          commentCount > 0 ? (
+          likeCount > 0 ? (
             <TouchableOpacity style={[countItemStyle, { marginLeft: 10 }]} onPress={commentsPress}>
               <Text style={commentTextStyle}>
-                3 Likes
+                {likeCount} {likeCount === 1 ? 'Like' : 'Likes'}
               </Text>
             </TouchableOpacity>
           ) : (

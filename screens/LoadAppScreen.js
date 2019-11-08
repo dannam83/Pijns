@@ -26,6 +26,7 @@ class LoadAppScreen extends Component {
         this.props.fetchUserFeed(currentUid),
         this.props.fetchPijnLog(currentUid),
         this.props.fetchPinboard(currentUid),
+        this.props.fetchPostLikes(currentUid),
         this.props.fetchRequests(currentUid),
         this.props.fetchNotifications(currentUid),
         this.props.fetchChatList(currentUid),

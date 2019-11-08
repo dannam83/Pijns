@@ -11,6 +11,7 @@ import postCommentLikes from './post_comment_likes_reducer';
 import pijnLog from './pijn_log_reducer';
 import pinboard from './pinboard_reducer';
 import postNotes from './post_notes_reducer';
+import postLikes from './post_likes_reducer';
 // import searchResults from './search_reducer';
 import requests from './requests_reducer';
 import friend from './friend_reducer';
@@ -40,6 +41,7 @@ export default combineReducers({
   postCreate,
   postEdit,
   postNotes,
+  postLikes,
   posts,
   requests,
   // searchResults,

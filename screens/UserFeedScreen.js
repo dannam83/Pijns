@@ -105,13 +105,14 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { user, userFeedTab: { userFeed }, pijnLog, pinboard } = state;
+  const { user, userFeedTab: { userFeed }, pijnLog, pinboard, postLikes } = state;
   let posts = _.map(userFeed, (post, index) => {
     const pijnSentToday = !!pijnLog[post.postId];
     const pinned = !!pinboard[post.postId];
+    const liked = !!postLikes[post.postId];
     const { navigation } = state;
     return {
-      ...post, pijnSentToday, pinned, user, navigation, index
+      ...post, pijnSentToday, pinned, liked, user, navigation, index
     };
   });
 

@@ -46,3 +46,27 @@ export const saveVisibleTo = (postId, visibleTo) => {
   db.ref(`/posts/${postId}`).update({ visibleTo });
   db.ref(`/users/${currentUser.uid}/posts/${postId}`).update({ visibleTo });
 };
+
+export const likePost = ({ user, postId }) => {
+  const db = firebase.database();
+  db.ref(`/userPostLikes/${user.uid}/${postId}`).set(Date.now());
+  db.ref(`/postLikes/${postId}/${user.uid}`).set(user);
+  db.ref(`/posts/${postId}/likes`).transaction(
+    (currentCount) => (currentCount || 0) + 1
+  );
+  db.ref(`/users/${user.uid}/posts/${postId}/likes`).transaction(
+    (currentCount) => (currentCount || 0) + 1
+  );
+};
+
+export const unlikePost = ({ user, postId }) => {
+  const db = firebase.database();
+  db.ref(`/userPostLikes/${user.uid}/${postId}`).set(null);
+  db.ref(`/postLikes/${postId}/${user.uid}`).set(null);
+  db.ref(`/posts/${postId}/likes`).transaction(
+    (currentCount) => currentCount - 1
+  );
+  db.ref(`/users/${user.uid}/posts/${postId}/likes`).transaction(
+    (currentCount) => currentCount - 1
+  );
+};

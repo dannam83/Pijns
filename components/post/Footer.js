@@ -12,16 +12,17 @@ import {
   sendPijnNotification,
   sendPrayerAnsweredNotifications
 } from '../../api/notifications_api';
+import { likePost, unlikePost } from '../../api/posts_api';
 
 const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments }) => {
   const {
-    user, postId, author, navigation, index, pinned, pijnSentToday
+    user, postId, author, navigation, index, pinned,
+    pijnSentToday, liked, commentCount, likes
   } = post;
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
-  const { actionsViewStyle, dividerStyle, worshipHandsActive,
-    worshipHandsInactive, likesStyle,
+  const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive
   } = styles;
 
   const [noteCount, setNoteCount] = useState(notes || 0);
@@ -70,6 +71,14 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     } else {
       setAnswered(getCurrentDate()); answerPrayer({ postId, user });
       sendPrayerAnsweredNotifications(user, postId, post);
+    }
+  };
+
+  const likePress = () => {
+    if (liked) {
+      unlikePost({ user, postId });
+    } else {
+      likePost({ user, postId });
     }
   };
 
@@ -126,26 +135,24 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   }
 
   const LikeButton = () => {
-    // return (
-    //   <TouchableOpacity style={{ paddingTop: 4 }} onPress={goToComments}>
-    //     <AntDesign
-    //       name={'hearto'}
-    //       size={18}
-    //       color={'#454545'}
-    //     />
-    //   </TouchableOpacity>
-    // );
-
     return (
-      <View style={likesStyle}>
-        <TouchableOpacity style={{ paddingTop: 4 }} onPress={goToComments}>
+      !liked ? (
+        <TouchableOpacity style={{ paddingTop: 4 }} onPress={likePress}>
+          <AntDesign
+            name={'hearto'}
+            size={18}
+            color={'#454545'}
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity style={{ paddingTop: 4 }} onPress={likePress}>
           <AntDesign
             name={'heart'}
             size={18}
             color={'red'}
           />
         </TouchableOpacity>
-      </View>
+      )
     );
   };
 
@@ -153,7 +160,8 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
     <View>
       <PostCounts
         noteCount={noteCount || 0}
-        commentCount={post.commentCount || 0}
+        commentCount={commentCount || 0}
+        likeCount={likes || 0}
         commentsPress={goToComments}
         notesPress={goToPostNotes}
       />
@@ -202,11 +210,6 @@ const styles = StyleSheet.create({
     width: 24,
     marginLeft: -1.5,
     tintColor: '#50C35C'
-  },
-  likesStyle: {
-    flexDirection: 'row',
-    width: 22,
-    alignItems: 'center',
   },
 });
 
