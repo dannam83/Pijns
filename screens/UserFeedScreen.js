@@ -97,9 +97,7 @@ const styles = StyleSheet.create({
   },
   headerRightStyle: {
     flexDirection: 'row',
-    // alignItems: 'center',
     paddingRight: 13,
-    // height: 15,
     paddingBottom: 8,
   },
 });

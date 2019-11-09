@@ -26,6 +26,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   } = styles;
 
   const [noteCount, setNoteCount] = useState(notes || 0);
+  const [likeCount, setLikeCount] = useState(likes || 0);
   const [handsActive, setHandsActive] = useState(false);
   const [answered, setAnswered] = useState(post.answered);
 
@@ -76,8 +77,10 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
 
   const likePress = () => {
     if (liked) {
+      setLikeCount(likeCount - 1);
       unlikePost({ user, postId });
     } else {
+      setLikeCount(likeCount + 1);
       likePost({ user, postId });
     }
   };
@@ -159,9 +162,9 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   return (
     <View>
       <PostCounts
-        noteCount={noteCount || 0}
+        noteCount={noteCount}
         commentCount={commentCount || 0}
-        likeCount={likes || 0}
+        likeCount={likeCount}
         commentsPress={goToComments}
         notesPress={goToPostNotes}
       />
