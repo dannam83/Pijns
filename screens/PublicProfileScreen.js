@@ -80,13 +80,14 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { friend, user, pijnLog, pinboard } = state;
+  const { friend, user, pijnLog, pinboard, postLikes } = state;
   let posts = _.map(state.friend.posts, (val, uid) => {
     const pijnSentToday = !!pijnLog[uid];
     const pinned = !!pinboard[uid];
+    const liked = !!postLikes[uid];
     const { navigation } = state;
     return {
-      ...val, postId: uid, pijnSentToday, user, navigation, pinned
+      ...val, postId: uid, pijnSentToday, user, navigation, pinned, liked
     };
   }).reverse();
   return { friend, posts };

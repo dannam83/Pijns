@@ -42,13 +42,14 @@ class MyPostsScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, postEdit } = state;
+  const { user, postEdit, pijnLog, postLikes } = state;
   const { deleteModalVisible, postId } = postEdit;
   let posts = _.map(state.posts, (val, uid) => {
-    const pijnSentToday = !!state.pijnLog[uid];
+    const pijnSentToday = !!pijnLog[uid];
+    const liked = !!postLikes[uid];
     const { navigation } = state;
     return {
-      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation
+      ...val, postId: uid, sendPijn, pijnSentToday, user, navigation, liked
     };
   }).reverse();
   return { posts, deleteModalVisible, postId };
