@@ -7,7 +7,9 @@ const INITIAL_STATE = [];
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_USER_FEED:
-      return action.payload && action.payload.length > 0 ? action.payload : state;
+      if (!action.payload) { return state; }
+      const { friendPostsArray } = action.payload;
+      return friendPostsArray && friendPostsArray.length > 0 ? friendPostsArray : state;
     case UPDATE_COMMENT_COUNT:
       const post1 = state[action.index];
       post1.commentCount = post1.commentCount ? post1.commentCount + 1 : 1;
