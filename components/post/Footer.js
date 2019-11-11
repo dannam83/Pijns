@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 
 import { ActionButton } from '../common';
 import { getCurrentDate } from '../../functions/common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
-import { answerPrayer, unanswerPrayer, sendPijn } from '../../actions';
+import { answerPrayer, unanswerPrayer, sendPijn, updateUserFeed } from '../../actions';
 import {
   sendPijnNotification,
   sendPrayerAnsweredNotifications
@@ -16,7 +17,7 @@ import { likePost, unlikePost } from '../../api/posts_api';
 
 const Footer = ({
   post, notes, pinnedOnly, redirect, navigationTab,
-  keepComments, likes
+  keepComments, likes, userFeedIndex
 }) => {
   const {
     user, postId, author, navigation, index, pinned,
@@ -50,6 +51,14 @@ const Footer = ({
     setPostLiked(post.liked);
   }, [post.liked]);
 
+  const dispatch = useDispatch();
+
+  const updateFeed = (field, value) => {
+    if (userFeedIndex || userFeedIndex === 0) {
+      dispatch(updateUserFeed(userFeedIndex, field, value));
+    }
+  };
+
   const goToComments = async () => {
     navigation.navigate('CommentsScreen', {
       user, postAuthorId: author.id, postId, redirect, author, index, navigationTab, keepComments
@@ -73,28 +82,6 @@ const Footer = ({
 
     sendPijn({ postId, author, currentDate, user });
     sendPijnNotification(user, postId, post);
-  };
-
-  const handsPress = () => {
-    setHandsActive(!handsActive);
-    if (answered) {
-      setAnswered(false); unanswerPrayer({ postId, user });
-    } else {
-      setAnswered(getCurrentDate()); answerPrayer({ postId, user });
-      sendPrayerAnsweredNotifications(user, postId, post);
-    }
-  };
-
-  const likePress = () => {
-    if (postLiked) {
-      setLikeCount(likeCount - 1);
-      setPostLiked(!postLiked);
-      unlikePost({ user, postId, authorId: post.author.id });
-    } else {
-      setLikeCount(likeCount + 1);
-      setPostLiked(!postLiked);
-      likePost({ user, postId, authorId: post.author.id });
-    }
   };
 
   const PijnButton = () => {
@@ -132,6 +119,16 @@ const Footer = ({
     );
   };
 
+  const handsPress = () => {
+    setHandsActive(!handsActive);
+    if (answered) {
+      setAnswered(false); unanswerPrayer({ postId, user });
+    } else {
+      setAnswered(getCurrentDate()); answerPrayer({ postId, user });
+      sendPrayerAnsweredNotifications(user, postId, post);
+    }
+  };
+
   const ChatOrHandsButton = () => {
     if (author.id !== user.uid) {
       const chat = require('../../assets/images/directMessage.png');
@@ -148,6 +145,20 @@ const Footer = ({
   if (pinnedOnly && !pinned) {
     return null;
   }
+
+  const likePress = () => {
+    setPostLiked(!postLiked);
+    let newCount;
+    if (postLiked) {
+      newCount = likeCount - 1;
+      unlikePost({ user, postId, authorId: post.author.id });
+    } else {
+      newCount = likeCount + 1;
+      likePost({ user, postId, authorId: post.author.id });
+    }
+    setLikeCount(newCount);
+    updateFeed('likes', newCount);
+  };
 
   const LikeButton = () => {
     return (

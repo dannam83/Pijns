@@ -6,7 +6,7 @@ import BannerMine from './BannerMine';
 import Footer from './Footer';
 
 const ListItemMine = ({
-  post, redirect, postEditUpdate, navigationTab, showDeleteModal, onProfile
+  post, redirect, postEditUpdate, navigationTab, showDeleteModal, onProfile, userFeedIndex
 }) => {
   const {
     user, author, content, timestamp, createdOn, postId,
@@ -43,6 +43,7 @@ const ListItemMine = ({
         navigationTab={navigationTab}
         notes={post.notes.count}
         likes={post.likes}
+        userFeedIndex={userFeedIndex}
       />
     </Card>
   );

@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 import {
-  FETCH_USER_FEED, UPDATE_COMMENT_COUNT, UPDATE_PIJN_NOTE_COUNT
+  FETCH_USER_FEED, UPDATE_COMMENT_COUNT, UPDATE_PIJN_NOTE_COUNT, UPDATE_USER_FEED
 } from './types';
 
 const ROOT_URL = 'https://us-central1-pijns-dc1c1.cloudfunctions.net';
@@ -39,5 +39,14 @@ export const updatePijnNoteCount = (index) => {
   return {
     type: UPDATE_PIJN_NOTE_COUNT,
     index
+  };
+};
+
+export const updateUserFeed = (index, field, value) => {
+  return {
+    type: UPDATE_USER_FEED,
+    index,
+    field,
+    value,
   };
 };

@@ -15,7 +15,8 @@ const PostListMine = ({
   hideDeleteModal,
   postId,
   header,
-  navigationTab
+  navigationTab,
+  userFeedMap,
 }) => {
   useEffect(() => { postsFetch(); }, []);
 
@@ -28,6 +29,7 @@ const PostListMine = ({
         postEditUpdate={postEditUpdate}
         showDeleteModal={showDeleteModal}
         onProfile
+        userFeedIndex={userFeedMap[post.postId]}
       />
     );
   };

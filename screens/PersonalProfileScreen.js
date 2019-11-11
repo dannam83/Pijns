@@ -38,7 +38,8 @@ class PersonalProfileScreen extends Component {
       deleteModalVisible,
       showDeleteModal,
       hideDeleteModal,
-      postId
+      postId,
+      userFeedMap,
     } = this.props;
 
     return (
@@ -54,6 +55,7 @@ class PersonalProfileScreen extends Component {
         postId={postId}
         header={this.header()}
         navigationTab={'Profile'}
+        userFeedMap={userFeedMap}
       />
     );
   }
@@ -68,8 +70,11 @@ class PersonalProfileScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, friend, postEdit, pijnLog, postLikes } = state;
-  const { deleteModalVisible, postId } = postEdit;
+  const {
+    user, friend, pijnLog, postLikes,
+    userFeedTab: { userFeedMap },
+    postEdit: { deleteModalVisible, postId }
+  } = state;
 
   const posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!pijnLog[uid];
@@ -80,7 +85,9 @@ function mapStateToProps(state) {
     };
   }).reverse();
 
-  return ({ currentUser: user, friend, posts, deleteModalVisible, postId });
+  return ({
+    currentUser: user, friend, posts, deleteModalVisible, postId, userFeedMap,
+  });
 }
 
 export default connect(mapStateToProps, actions)(PersonalProfileScreen);
