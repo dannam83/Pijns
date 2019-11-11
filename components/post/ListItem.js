@@ -39,12 +39,13 @@ const ListItem = ({
       <Text style={contentStyle}>{content}</Text>
 
       <Footer
-        author={author}
         post={post}
         redirect={redirect}
-        pinnedOnly={pinnedOnly}
         navigationTab={navigationTab}
         notes={post.notes.count}
+        likes={post.likes}
+        author={author}
+        pinnedOnly={pinnedOnly}
         updatePijnNoteCount={updatePijnNoteCount}
       />
     </Card>

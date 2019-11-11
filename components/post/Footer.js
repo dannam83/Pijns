@@ -14,10 +14,13 @@ import {
 } from '../../api/notifications_api';
 import { likePost, unlikePost } from '../../api/posts_api';
 
-const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments }) => {
+const Footer = ({
+  post, notes, pinnedOnly, redirect, navigationTab,
+  keepComments, likes
+}) => {
   const {
     user, postId, author, navigation, index, pinned,
-    pijnSentToday, liked, commentCount, likes
+    pijnSentToday, commentCount
   } = post;
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
@@ -27,6 +30,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
 
   const [noteCount, setNoteCount] = useState(notes || 0);
   const [likeCount, setLikeCount] = useState(likes || 0);
+  const [postLiked, setPostLiked] = useState(post.liked);
   const [handsActive, setHandsActive] = useState(false);
   const [answered, setAnswered] = useState(post.answered);
 
@@ -39,6 +43,12 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   useEffect(() => {
     if (answered !== post.answered) { setAnswered(post.answered); }
   }, [post.answered]);
+  useEffect(() => {
+    setLikeCount(likes);
+  }, [likes]);
+  useEffect(() => {
+    setPostLiked(post.liked);
+  }, [post.liked]);
 
   const goToComments = async () => {
     navigation.navigate('CommentsScreen', {
@@ -76,12 +86,14 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
   };
 
   const likePress = () => {
-    if (liked) {
+    if (postLiked) {
       setLikeCount(likeCount - 1);
-      unlikePost({ user, postId });
+      setPostLiked(!postLiked);
+      unlikePost({ user, postId, authorId: post.author.id });
     } else {
       setLikeCount(likeCount + 1);
-      likePost({ user, postId });
+      setPostLiked(!postLiked);
+      likePost({ user, postId, authorId: post.author.id });
     }
   };
 
@@ -139,7 +151,7 @@ const Footer = ({ post, notes, pinnedOnly, redirect, navigationTab, keepComments
 
   const LikeButton = () => {
     return (
-      !liked ? (
+      !postLiked ? (
         <TouchableOpacity style={{ paddingTop: 4 }} onPress={likePress}>
           <AntDesign
             name={'hearto'}

@@ -42,6 +42,7 @@ const ListItemMine = ({
         redirect={redirect}
         navigationTab={navigationTab}
         notes={post.notes.count}
+        likes={post.likes}
       />
     </Card>
   );

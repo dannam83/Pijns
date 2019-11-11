@@ -76,14 +76,15 @@ class PostScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, pijnLog, pinboard, activePost, navigation, modals } = state;
+  const { user, pijnLog, pinboard, activePost, navigation, modals, postLikes } = state;
   const { post } = activePost;
   const { postUnavailable } = modals;
   if (!post) { return { postUnavailable }; }
 
   const pijnSentToday = !!pijnLog[post.postId];
   const pinned = !!pinboard[post.postId];
-  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation };
+  const liked = !!postLikes[post.postId];
+  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked };
 
   return { post: formattedPost, navigation, postUnavailable, user };
 }

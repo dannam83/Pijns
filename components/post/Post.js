@@ -34,6 +34,7 @@ const Post = ({ post, redirect, navigationTab, onProfile }) => {
         redirect={redirect}
         navigationTab={navigationTab}
         notes={post.notes.count}
+        likes={post.likes}
         keepComments
       />
     </Card>
