@@ -5,7 +5,7 @@ import { Card } from 'react-native-elements';
 import Banner from './Banner';
 import Footer from './Footer';
 
-const Post = ({ post, redirect, navigationTab, onProfile }) => {
+const Post = ({ post, redirect, navigationTab, onProfile, userFeedIndex }) => {
   const {
     user, author, content, timestamp, createdOn, postId, pinned, taggedFriends,
   } = post;
@@ -36,6 +36,7 @@ const Post = ({ post, redirect, navigationTab, onProfile }) => {
         notes={post.notes.count}
         likes={post.likes}
         keepComments
+        userFeedIndex={userFeedIndex}
       />
     </Card>
   );

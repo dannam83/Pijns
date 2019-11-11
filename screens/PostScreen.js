@@ -40,12 +40,13 @@ class PostScreen extends Component {
   }
 
   header = () => {
-    const { post, navigation: { navigate } } = this.props;
+    const { post, userFeedIndex, navigation: { navigate } } = this.props;
     return (
       <Post
         post={post}
         redirect={navigate}
         navigationTab={'Notifications'}
+        userFeedIndex={userFeedIndex}
       />
     );
   }
@@ -76,17 +77,22 @@ class PostScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, pijnLog, pinboard, activePost, navigation, modals, postLikes } = state;
-  const { post } = activePost;
-  const { postUnavailable } = modals;
+  const {
+    user, pijnLog, pinboard, navigation, postLikes,
+    activePost: { post },
+    modals: { postUnavailable },
+    userFeedTab: { userFeedMap },
+  } = state;
+
   if (!post) { return { postUnavailable }; }
 
+  const userFeedIndex = userFeedMap[post.postId];
   const pijnSentToday = !!pijnLog[post.postId];
   const pinned = !!pinboard[post.postId];
   const liked = !!postLikes[post.postId];
   const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked };
 
-  return { post: formattedPost, navigation, postUnavailable, user };
+  return { post: formattedPost, navigation, postUnavailable, user, userFeedIndex };
 }
 
 export default connect(mapStateToProps, {
