@@ -30,6 +30,7 @@ const Footer = ({
   } = styles;
 
   const [noteCount, setNoteCount] = useState(notes || 0);
+  const [pijnSent, setPijnSent] = useState(pijnSentToday);
   const [likeCount, setLikeCount] = useState(likes || 0);
   const [postLiked, setPostLiked] = useState(post.liked);
   const [handsActive, setHandsActive] = useState(false);
@@ -44,12 +45,9 @@ const Footer = ({
   useEffect(() => {
     if (answered !== post.answered) { setAnswered(post.answered); }
   }, [post.answered]);
-  useEffect(() => {
-    setLikeCount(likes);
-  }, [likes]);
-  useEffect(() => {
-    setPostLiked(post.liked);
-  }, [post.liked]);
+  useEffect(() => { setPijnSent(pijnSentToday); }, [pijnSentToday]);
+  useEffect(() => { setLikeCount(likes); }, [likes]);
+  useEffect(() => { setPostLiked(post.liked); }, [post.liked]);
 
   const dispatch = useDispatch();
 
@@ -83,6 +81,8 @@ const Footer = ({
       updateFeed('notes', noteCount + 1);
     }
 
+    setPijnSent(!pijnSent);
+    setNoteCount(noteCount + 1);
     sendPijn({ postId, author, currentDate, user });
     sendPijnNotification(user, postId, post);
   };
@@ -93,7 +93,7 @@ const Footer = ({
         imageSource={require('../../assets/images/pijn.png')}
         iconStyle={{ height: 20, width: 22 }}
         onPress={() => pijnPress()}
-        disabled={pijnSentToday}
+        disabled={pijnSent}
       />
     );
   };
