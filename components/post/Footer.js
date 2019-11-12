@@ -79,6 +79,9 @@ const Footer = ({
 
   const pijnPress = () => {
     if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
+    if (userFeedIndex || userFeedIndex === 0) {
+      updateFeed('notes', noteCount + 1);
+    }
 
     sendPijn({ postId, author, currentDate, user });
     sendPijnNotification(user, postId, post);

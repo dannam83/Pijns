@@ -23,8 +23,11 @@ export default (state = INITIAL_STATE, action) => {
       return state;
     case UPDATE_USER_FEED:
       const newState = { ...state };
-      newState[action.index][action.field] = action.value;
-      console.log('new', newState)
+      if (action.field === 'notes') {
+        newState[action.index].notes.count = action.value;
+      } else {
+        newState[action.index][action.field] = action.value;
+      }
       return newState;
     default:
       return state;
