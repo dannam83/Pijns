@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 
 import { ActionButton } from '../common';
-import { getCurrentDate } from '../../functions/common';
+// import { getCurrentDate } from '../../functions/common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
 import { answerPrayer, unanswerPrayer, sendPijn, updateUserFeed } from '../../actions';
@@ -16,14 +16,6 @@ import {
 import { likePost, unlikePost } from '../../api/posts_api';
 
 class Footer extends Component {
-  // state = {
-  //   noteCount: this.props.notes || 0,
-  //   pijnSent: this.props.post.pijnSentToday,
-  //   likeCount: this.props.likes || 0,
-  //   postLiked: this.props.post.liked,
-  //   answered: this.props.post.answered,
-  // }
-
   shouldComponentUpdate(nextProps) {
     const { notes, likes, post: { pijnSentToday, liked, answered } } = nextProps;
     const {
@@ -40,41 +32,20 @@ class Footer extends Component {
   render() {
   const {
     post, notes = 0, pinnedOnly, redirect, navigationTab,
-    keepComments, likes = 0, userFeedIndex
+    keepComments, likes = 0, userFeedIndex, updateUserFeed,
+    sendPijn, answerPrayer, unanswerPrayer,
   } = this.props;
   const {
     user, postId, author, navigation, index, pinned,
     pijnSentToday, commentCount = 0, answered, liked
   } = post;
-  console.log(Date.now(), postId, likes)
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
   const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive
   } = styles;
 
-  // const [noteCount, setNoteCount] = useState(notes || 0);
-  // useEffect(() => { setNoteCount(notes || 0); }, [notes]);
-  //
-  // const [pijnSent, setPijnSent] = useState(pijnSentToday);
-  // useEffect(() => { setPijnSent(pijnSentToday); }, [pijnSentToday]);
-  //
-  // const [likeCount, setLikeCount] = useState(likes || 0);
-  // useEffect(() => { setLikeCount(likes); }, [likes]);
-  //
-  // const [postLiked, setPostLiked] = useState(post.liked);
-  // useEffect(() => { setPostLiked(post.liked); }, [post.liked]);
-  //
-  // const [handsActive, setHandsActive] = useState(false);
-  // useEffect(() => { setHandsActive(worshipHandsActive); }, [worshipHandsActive]);
-  //
-  // const [answered, setAnswered] = useState(post.answered);
-  // useEffect(() => { setAnswered(post.answered); }, [post.answered]);
-  //
-  // const dispatch = useDispatch();
-
   const updateFeed = (field, value) => {
-    console.log('update', userFeedIndex, field, value)
     if (userFeedIndex || userFeedIndex === 0) {
       updateUserFeed(userFeedIndex, field, value);
     }
@@ -99,17 +70,10 @@ class Footer extends Component {
   };
 
   const pijnPress = () => {
-    // const { noteCount, pijnSent } = this.state;
-    // if (navigationTab === 'UserFeed') { this.setState({ noteCount: noteCount + 1 }); }
     if (userFeedIndex || userFeedIndex === 0) {
       updateFeed('notes', notes + 1);
     }
 
-    // this.setState({
-    //   noteCount: noteCount + 1,
-    //   pijnSent: !pijnSent,
-    // });
-    // setNoteCount(noteCount + 1);
     sendPijn({ postId, author, currentDate, user });
     sendPijnNotification(user, postId, post);
   };
@@ -150,13 +114,10 @@ class Footer extends Component {
   };
 
   const handsPress = () => {
-    // const { answered } = this.state;
-    const { answerPrayer, unanswerPrayer } = this.props;
-    // setHandsActive(!handsActive);
     if (answered) {
-      this.setState({ answered: false }); unanswerPrayer({ postId, user });
+      unanswerPrayer({ postId, user });
     } else {
-      this.setState({ answerd: getCurrentDate() }); answerPrayer({ postId, user });
+      answerPrayer({ postId, user });
       sendPrayerAnsweredNotifications(user, postId, post);
     }
   };
@@ -179,7 +140,6 @@ class Footer extends Component {
   }
 
   const likePress = () => {
-    // const { postLiked, likeCount } = this.state;
     let newCount;
     if (liked) {
       newCount = likes - 1;
@@ -188,8 +148,7 @@ class Footer extends Component {
       newCount = likes + 1;
       likePost({ user, postId, authorId: post.author.id });
     }
-    // this.setState({ postLiked: !liked, likeCount: newCount });
-    console.log('func', liked, newCount)
+
     updateFeed('likes', newCount);
   };
 
@@ -273,7 +232,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default Footer;
 export default connect(null, {
   answerPrayer, unanswerPrayer, sendPijn, updateUserFeed
 })(Footer);

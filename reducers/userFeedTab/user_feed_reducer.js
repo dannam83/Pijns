@@ -5,6 +5,7 @@ import {
 const INITIAL_STATE = [];
 
 export default (state = INITIAL_STATE, action) => {
+  console.log('reducer', action)
   switch (action.type) {
     case FETCH_USER_FEED:
       if (!action.payload) { return state; }
@@ -22,6 +23,7 @@ export default (state = INITIAL_STATE, action) => {
       state.unshift(action.payload);
       return state;
     case UPDATE_USER_FEED:
+      console.log('update feed', action)
       if (action.field === 'notes') {
         state[action.index].notes.count = action.value;
       } else {

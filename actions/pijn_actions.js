@@ -8,6 +8,7 @@ export const sendPijn = ({ postId, author, currentDate, user }) => {
   incrementAuthorPostPijnCount(db, author.id, postId);
   incrementPostsPijnCount(db, postId);
   firebaseRecordPijn({ db, currentDate, postId, user });
+  return { type: 'DUMMY' };
 };
 
 export const fetchPijnLog = (currentUid) => {
