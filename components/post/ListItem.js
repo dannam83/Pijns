@@ -9,9 +9,6 @@ const ListItem = ({
   post, redirect, pinnedOnly, navigationTab, onProfile, updatePijnNoteCount
 }) => {
   if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
-  if (post.postId === '-LtN1duOC9pCsQOeqtRZ') {
-    console.log('item', post.likes)
-  }
 
   const {
     user, author, content, timestamp, createdOn,
