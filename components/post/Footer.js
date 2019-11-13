@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 
 import { ActionButton } from '../common';
@@ -15,45 +15,68 @@ import {
 } from '../../api/notifications_api';
 import { likePost, unlikePost } from '../../api/posts_api';
 
-const Footer = ({
-  post, notes, pinnedOnly, redirect, navigationTab,
-  keepComments, likes, userFeedIndex
-}) => {
+class Footer extends Component {
+  // state = {
+  //   noteCount: this.props.notes || 0,
+  //   pijnSent: this.props.post.pijnSentToday,
+  //   likeCount: this.props.likes || 0,
+  //   postLiked: this.props.post.liked,
+  //   answered: this.props.post.answered,
+  // }
+
+  shouldComponentUpdate(nextProps) {
+    const { notes, likes, post: { pijnSentToday, liked, answered } } = nextProps;
+    const {
+      notes: prevNotes,
+      likes: prevLikes,
+      post: { pijnSentToday: prevPijnSentToday, liked: prevLiked, answered: prevAnswered },
+    } = this.props;
+    return (
+      notes !== prevNotes || likes !== prevLikes || liked !== prevLiked ||
+      pijnSentToday !== prevPijnSentToday || answered !== prevAnswered
+    );
+  }
+
+  render() {
+  const {
+    post, notes = 0, pinnedOnly, redirect, navigationTab,
+    keepComments, likes = 0, userFeedIndex
+  } = this.props;
   const {
     user, postId, author, navigation, index, pinned,
-    pijnSentToday, commentCount
+    pijnSentToday, commentCount = 0, answered, liked
   } = post;
+  console.log(Date.now(), postId, likes)
   const currentDate = new Date(
     new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
   );
   const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive
   } = styles;
 
-  const [noteCount, setNoteCount] = useState(notes || 0);
-  const [pijnSent, setPijnSent] = useState(pijnSentToday);
-  const [likeCount, setLikeCount] = useState(likes || 0);
-  const [postLiked, setPostLiked] = useState(post.liked);
-  const [handsActive, setHandsActive] = useState(false);
-  const [answered, setAnswered] = useState(post.answered);
-
-  useEffect(() => {
-    if (notes !== noteCount) { setNoteCount(notes || 0); }
-  }, [notes]);
-  useEffect(() => {
-    if (handsActive !== worshipHandsActive) { setHandsActive(worshipHandsActive); }
-  }, [worshipHandsActive]);
-  useEffect(() => {
-    if (answered !== post.answered) { setAnswered(post.answered); }
-  }, [post.answered]);
-  useEffect(() => { setPijnSent(pijnSentToday); }, [pijnSentToday]);
-  useEffect(() => { setLikeCount(likes); }, [likes]);
-  useEffect(() => { setPostLiked(post.liked); }, [post.liked]);
-
-  const dispatch = useDispatch();
+  // const [noteCount, setNoteCount] = useState(notes || 0);
+  // useEffect(() => { setNoteCount(notes || 0); }, [notes]);
+  //
+  // const [pijnSent, setPijnSent] = useState(pijnSentToday);
+  // useEffect(() => { setPijnSent(pijnSentToday); }, [pijnSentToday]);
+  //
+  // const [likeCount, setLikeCount] = useState(likes || 0);
+  // useEffect(() => { setLikeCount(likes); }, [likes]);
+  //
+  // const [postLiked, setPostLiked] = useState(post.liked);
+  // useEffect(() => { setPostLiked(post.liked); }, [post.liked]);
+  //
+  // const [handsActive, setHandsActive] = useState(false);
+  // useEffect(() => { setHandsActive(worshipHandsActive); }, [worshipHandsActive]);
+  //
+  // const [answered, setAnswered] = useState(post.answered);
+  // useEffect(() => { setAnswered(post.answered); }, [post.answered]);
+  //
+  // const dispatch = useDispatch();
 
   const updateFeed = (field, value) => {
+    console.log('update', userFeedIndex, field, value)
     if (userFeedIndex || userFeedIndex === 0) {
-      dispatch(updateUserFeed(userFeedIndex, field, value));
+      updateUserFeed(userFeedIndex, field, value);
     }
   };
 
@@ -76,13 +99,17 @@ const Footer = ({
   };
 
   const pijnPress = () => {
-    if (navigationTab === 'UserFeed') { setNoteCount(noteCount + 1); }
+    // const { noteCount, pijnSent } = this.state;
+    // if (navigationTab === 'UserFeed') { this.setState({ noteCount: noteCount + 1 }); }
     if (userFeedIndex || userFeedIndex === 0) {
-      updateFeed('notes', noteCount + 1);
+      updateFeed('notes', notes + 1);
     }
 
-    setPijnSent(!pijnSent);
-    setNoteCount(noteCount + 1);
+    // this.setState({
+    //   noteCount: noteCount + 1,
+    //   pijnSent: !pijnSent,
+    // });
+    // setNoteCount(noteCount + 1);
     sendPijn({ postId, author, currentDate, user });
     sendPijnNotification(user, postId, post);
   };
@@ -93,7 +120,7 @@ const Footer = ({
         imageSource={require('../../assets/images/pijn.png')}
         iconStyle={{ height: 20, width: 22 }}
         onPress={() => pijnPress()}
-        disabled={pijnSent}
+        disabled={pijnSentToday}
       />
     );
   };
@@ -123,11 +150,13 @@ const Footer = ({
   };
 
   const handsPress = () => {
-    setHandsActive(!handsActive);
+    // const { answered } = this.state;
+    const { answerPrayer, unanswerPrayer } = this.props;
+    // setHandsActive(!handsActive);
     if (answered) {
-      setAnswered(false); unanswerPrayer({ postId, user });
+      this.setState({ answered: false }); unanswerPrayer({ postId, user });
     } else {
-      setAnswered(getCurrentDate()); answerPrayer({ postId, user });
+      this.setState({ answerd: getCurrentDate() }); answerPrayer({ postId, user });
       sendPrayerAnsweredNotifications(user, postId, post);
     }
   };
@@ -150,22 +179,23 @@ const Footer = ({
   }
 
   const likePress = () => {
-    setPostLiked(!postLiked);
+    // const { postLiked, likeCount } = this.state;
     let newCount;
-    if (postLiked) {
-      newCount = likeCount - 1;
+    if (liked) {
+      newCount = likes - 1;
       unlikePost({ user, postId, authorId: post.author.id });
     } else {
-      newCount = likeCount + 1;
+      newCount = likes + 1;
       likePost({ user, postId, authorId: post.author.id });
     }
-    setLikeCount(newCount);
+    // this.setState({ postLiked: !liked, likeCount: newCount });
+    console.log('func', liked, newCount)
     updateFeed('likes', newCount);
   };
 
   const LikeButton = () => {
     return (
-      !postLiked ? (
+      !liked ? (
         <TouchableOpacity style={{ paddingTop: 4 }} onPress={likePress}>
           <AntDesign
             name={'hearto'}
@@ -188,9 +218,9 @@ const Footer = ({
   return (
     <View>
       <PostCounts
-        noteCount={noteCount}
-        commentCount={commentCount || 0}
-        likeCount={likeCount}
+        noteCount={notes}
+        commentCount={commentCount}
+        likeCount={likes}
         commentsPress={goToComments}
         notesPress={goToPostNotes}
       />
@@ -214,7 +244,8 @@ const Footer = ({
       </View>
     </View>
   );
-};
+  }
+}
 
 const styles = StyleSheet.create({
   dividerStyle: {
@@ -242,4 +273,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Footer;
+// export default Footer;
+export default connect(null, {
+  answerPrayer, unanswerPrayer, sendPijn, updateUserFeed
+})(Footer);

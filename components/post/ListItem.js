@@ -47,6 +47,7 @@ const ListItem = ({
         author={author}
         pinnedOnly={pinnedOnly}
         updatePijnNoteCount={updatePijnNoteCount}
+        userFeedIndex={post.index}
       />
     </Card>
   );
