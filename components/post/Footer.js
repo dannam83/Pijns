@@ -19,6 +19,7 @@ class Footer extends Component {
     const { notes: prevNotes, likes: prevLikes, post: {
       pijnSentToday: prevPijnSentToday, liked: prevLiked, answered: prevAnswered
     } } = this.props;
+
     return (
       notes !== prevNotes || likes !== prevLikes || liked !== prevLiked ||
       pijnSentToday !== prevPijnSentToday || answered !== prevAnswered
@@ -138,15 +139,13 @@ class Footer extends Component {
 
     const LikeButton = () => {
       const likePress = () => {
-        let newCount;
         if (liked) {
-          newCount = likes - 1;
           unlikePost({ user, postId, authorId: author.id });
+          updateFeed('likes', likes - 1);
         } else {
-          newCount = likes + 1;
           likePost({ user, postId, authorId: author.id });
+          updateFeed('likes', likes + 1);
         }
-        updateFeed('likes', newCount);
       };
 
       return (

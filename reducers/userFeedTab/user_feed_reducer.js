@@ -22,12 +22,13 @@ export default (state = INITIAL_STATE, action) => {
       state.unshift(action.payload);
       return state;
     case UPDATE_USER_FEED:
+      const newState = { ...state };
       if (action.field === 'notes') {
-        state[action.index].notes.count = action.value;
+        newState[action.index].notes.count = action.value;
       } else {
-        state[action.index][action.field] = action.value;
+        newState[action.index][action.field] = action.value;
       }
-      return state;
+      return newState;
     default:
       return state;
   }
