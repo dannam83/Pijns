@@ -7,13 +7,12 @@ import CommentList from '../components/comment/CommentList';
 import { sendCommentNotification } from '../api/notifications_api';
 import {
   commentCreateSave,
-  updateCommentCount,
   commentsPopulate,
   fetchPostCommentLikes,
   setActivePost,
-  commentsClear
+  commentsClear,
+  updateUserFeed,
 } from '../actions';
-
 
 class CommentsScreen extends Component {
   static navigationOptions = {
@@ -41,16 +40,20 @@ class CommentsScreen extends Component {
     this.props.commentsClear();
   }
 
-  saveComment = ({ user, postAuthorId, postId, index, comment }) => {
+  saveComment = ({ user, postAuthorId, postId, comment }) => {
     const {
-      commentCreateSave, updateCommentCount, sendCommentNotification
+      commentCreateSave,
+      updateUserFeed,
+      sendCommentNotification,
+      commentCount,
+      userFeedMap,
     } = this.props;
+
+    const userFeedIndex = userFeedMap[postId];
 
     try {
       commentCreateSave({ user, comment, postAuthorId, postId });
-      if (index >= 0) {
-        updateCommentCount(index);
-      }
+      updateUserFeed(userFeedIndex, 'commentCount', commentCount + 1);
       sendCommentNotification(user, postId, postAuthorId, comment);
     } catch (err) {
       console.warn('Error saving comment.', err);
@@ -96,15 +99,16 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { commentTyped } = state;
-  return { commentTyped, sendCommentNotification };
+  const { commentTyped, comments, userFeedTab: { userFeedMap } } = state;
+  const commentCount = comments ? Object.keys(comments).length : 0;
+  return { commentTyped, sendCommentNotification, commentCount, userFeedMap };
 }
 
 export default connect(mapStateToProps, {
   commentCreateSave,
-  updateCommentCount,
   commentsPopulate,
   fetchPostCommentLikes,
   setActivePost,
-  commentsClear
+  commentsClear,
+  updateUserFeed,
 })(CommentsScreen);

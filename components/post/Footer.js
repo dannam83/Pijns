@@ -15,14 +15,19 @@ import {
 
 class Footer extends Component {
   shouldComponentUpdate(nextProps) {
-    const { notes, likes, post: { pijnSentToday, liked, answered } } = nextProps;
+    const { notes, likes,
+      post: { pijnSentToday, liked, answered, commentCount } } = nextProps;
     const { notes: prevNotes, likes: prevLikes, post: {
-      pijnSentToday: prevPijnSentToday, liked: prevLiked, answered: prevAnswered
+      pijnSentToday: prevPijnSentToday,
+      liked: prevLiked,
+      answered: prevAnswered,
+      commentCount: prevCommentCount,
     } } = this.props;
 
     return (
-      notes !== prevNotes || likes !== prevLikes || liked !== prevLiked ||
-      pijnSentToday !== prevPijnSentToday || answered !== prevAnswered
+      notes !== prevNotes || likes !== prevLikes ||
+      liked !== prevLiked || pijnSentToday !== prevPijnSentToday ||
+      answered !== prevAnswered || commentCount !== prevCommentCount
     );
   }
 
@@ -48,12 +53,6 @@ class Footer extends Component {
     const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive
     } = styles;
 
-    const updateFeed = (field, value) => {
-      if (userFeedIndex || userFeedIndex === 0) {
-        updateUserFeed(userFeedIndex, field, value);
-      }
-    };
-
     const goToComments = () => {
       navigation.navigate('CommentsScreen', {
         user, postAuthorId: author.id, postId, redirect, author, index, navigationTab, keepComments
@@ -74,10 +73,7 @@ class Footer extends Component {
 
     const PijnButton = () => {
       const pijnPress = () => {
-        if (userFeedIndex || userFeedIndex === 0) {
-          updateFeed('notes', notes + 1);
-        }
-
+        updateUserFeed(userFeedIndex, 'notes', notes + 1);
         sendPijn({ postId, author, currentDate, user });
         sendPijnNotification(user, postId, post);
       };
@@ -141,10 +137,10 @@ class Footer extends Component {
       const likePress = () => {
         if (liked) {
           unlikePost({ user, postId, authorId: author.id });
-          updateFeed('likes', likes - 1);
+          updateUserFeed(userFeedIndex, 'likes', likes - 1);
         } else {
           likePost({ user, postId, authorId: author.id });
-          updateFeed('likes', likes + 1);
+          updateUserFeed(userFeedIndex, 'likes', likes + 1);
         }
       };
 

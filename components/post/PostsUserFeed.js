@@ -6,7 +6,7 @@ import { backgroundLightBlue } from '../../assets/colors';
 import ListItem from './ListItem';
 
 const PostsUserFeed = ({
-  user, posts, pinPressed, redirect, navigationTab, fetchUserFeed, updatePijnNoteCount
+  user, posts, pinPressed, redirect, navigationTab, fetchUserFeed
 }) => {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -22,7 +22,6 @@ const PostsUserFeed = ({
         post={post}
         redirect={redirect}
         navigationTab={navigationTab}
-        updatePijnNoteCount={updatePijnNoteCount}
       />
     );
   };

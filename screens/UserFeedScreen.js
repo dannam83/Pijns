@@ -8,8 +8,7 @@ import PostsUserFeed from '../components/post/PostsUserFeed';
 import MessagesIcon from '../components/navigation/MessagesIcon';
 import { ActionButtonStill } from '../components/common';
 import { disabledGray } from '../assets/colors';
-import { fetchUserFeed, updatePijnNoteCount } from '../actions';
-
+import { fetchUserFeed } from '../actions';
 
 class UserFeedScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -63,7 +62,7 @@ class UserFeedScreen extends Component {
   }
 
   render() {
-    const { posts, user, navigation, fetchUserFeed, updatePijnNoteCount } = this.props;
+    const { posts, user, navigation, fetchUserFeed } = this.props;
     const redirect = navigation.navigate;
     const { pinPressed } = this.state;
 
@@ -75,7 +74,6 @@ class UserFeedScreen extends Component {
         user={user}
         navigationTab='UserFeed'
         fetchUserFeed={fetchUserFeed}
-        updatePijnNoteCount={updatePijnNoteCount}
       />
     );
   }
@@ -119,6 +117,4 @@ function mapStateToProps(state) {
   return { posts, user };
 }
 
-export default connect(mapStateToProps, {
-  fetchUserFeed, updatePijnNoteCount
-})(UserFeedScreen);
+export default connect(mapStateToProps, { fetchUserFeed })(UserFeedScreen);
