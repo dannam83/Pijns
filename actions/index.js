@@ -14,3 +14,4 @@ export * from './navigation_actions';
 export * from './chat_actions';
 export * from './chat_list_actions';
 export * from './notification_actions';
+export * from './active_post_actions';

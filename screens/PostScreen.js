@@ -47,6 +47,8 @@ class PostScreen extends Component {
         redirect={navigate}
         navigationTab={'Notifications'}
         userFeedIndex={userFeedIndex}
+        likes={post.likes}
+        notes={post.notes.count}
       />
     );
   }

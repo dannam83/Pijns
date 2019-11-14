@@ -23,7 +23,6 @@ class Footer extends Component {
       answered: prevAnswered,
       commentCount: prevCommentCount,
     } } = this.props;
-
     return (
       notes !== prevNotes || likes !== prevLikes ||
       liked !== prevLiked || pijnSentToday !== prevPijnSentToday ||
