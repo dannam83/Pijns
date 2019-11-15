@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import CommentList from '../components/comment/CommentList';
@@ -12,14 +12,16 @@ import {
   fetchActivePost
 } from '../actions';
 
-class PostScreen extends Component {
+class PostScreen extends PureComponent {
   static navigationOptions = {
     title: 'Post',
   };
 
-  state = {
-    postId: this.props.navigation.getParam('postId'),
-    user: this.props.navigation.getParam('user')
+  constructor(props) {
+    super(props);
+    const postId = this.props.navigation.getParam('postId') || this.props.postId;
+    const user = this.props.navigation.getParam('user') || this.props.user;
+    this.state = { postId, user };
   }
 
   componentDidMount() {
@@ -55,6 +57,7 @@ class PostScreen extends Component {
 
   render() {
     const { user, post, postUnavailable } = this.props;
+
     if (!post) {
       return (
         <Confirm
@@ -85,7 +88,6 @@ function mapStateToProps(state) {
     modals: { postUnavailable },
     userFeedTab: { userFeedMap },
   } = state;
-
   if (!post) { return { postUnavailable }; }
 
   const userFeedIndex = userFeedMap[post.postId];
@@ -94,7 +96,9 @@ function mapStateToProps(state) {
   const liked = !!postLikes[post.postId];
   const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked };
 
-  return { post: formattedPost, navigation, postUnavailable, user, userFeedIndex };
+  return {
+    post: formattedPost, navigation, postUnavailable, user, userFeedIndex, postId: post.id
+  };
 }
 
 export default connect(mapStateToProps, {

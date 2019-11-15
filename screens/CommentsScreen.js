@@ -9,7 +9,7 @@ import {
   commentCreateSave,
   commentsPopulate,
   fetchPostCommentLikes,
-  setActivePost,
+  fetchActivePost,
   commentsClear,
   updateUserFeed,
 } from '../actions';
@@ -21,16 +21,15 @@ class CommentsScreen extends Component {
 
   componentDidMount() {
     const { props } = this;
-    const { navigation, fetchPostCommentLikes, commentsPopulate, setActivePost } = props;
+    const { navigation, fetchPostCommentLikes, commentsPopulate, fetchActivePost } = props;
     const user = props.user || navigation.getParam('user');
     const postId = props.postId || navigation.getParam('postId');
-    const author = props.author || navigation.getParam('author');
     const navigationTab = props.navigationTab || navigation.getParam('navigationTab');
 
     if (navigationTab !== 'Notifications') {
       fetchPostCommentLikes({ userId: user.uid, postId });
       commentsPopulate(postId);
-      setActivePost({ postId, postAuthor: author });
+      fetchActivePost(postId);
     }
   }
 
@@ -108,7 +107,7 @@ export default connect(mapStateToProps, {
   commentCreateSave,
   commentsPopulate,
   fetchPostCommentLikes,
-  setActivePost,
+  fetchActivePost,
   commentsClear,
   updateUserFeed,
 })(CommentsScreen);
