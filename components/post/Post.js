@@ -36,7 +36,6 @@ class Post extends PureComponent {
           redirect={navigation.navigate}
           notes={post.notes.count}
           likes={post.likes}
-          keepComments
           userFeedIndex={userFeedIndex}
         />
       </Card>

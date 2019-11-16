@@ -12,6 +12,7 @@ import {
   fetchActivePost,
   commentsClear,
   updateUserFeed,
+  resetActivePost,
 } from '../actions';
 
 class CommentsScreen extends Component {
@@ -19,12 +20,19 @@ class CommentsScreen extends Component {
     title: 'Comments',
   };
 
+  constructor(props) {
+    super(props);
+    const { user, postId, navigationTab, navigation } = this.props;
+    this.user = user || navigation.getParam('user');
+    this.postId = postId || navigation.getParam('postId');
+    this.navigationTab = navigationTab || navigation.getParam('navigationTab');
+  }
+
   componentDidMount = async () => {
-    const { props } = this;
-    const { navigation, fetchPostCommentLikes, commentsPopulate, fetchActivePost } = props;
-    const user = props.user || navigation.getParam('user');
-    const postId = props.postId || navigation.getParam('postId');
-    const navigationTab = props.navigationTab || navigation.getParam('navigationTab');
+    const {
+      user, postId, navigationTab,
+      props: { fetchPostCommentLikes, commentsPopulate, fetchActivePost },
+    } = this;
 
     if (navigationTab !== 'Notifications') {
       await fetchPostCommentLikes({ userId: user.uid, postId });
@@ -33,15 +41,9 @@ class CommentsScreen extends Component {
     }
   }
 
-  shouldComponentUpdate() {
-    console.log('should update', this.props.navigation.getParam('postId'));
-    return true;
-  }
-
   componentWillUnmount() {
-    if (this.props.keepComments) { return; }
-
     this.props.commentsClear();
+    this.props.resetActivePost(this.postId);
   }
 
   saveComment = ({ user, postAuthorId, postId, comment }) => {
@@ -66,18 +68,14 @@ class CommentsScreen extends Component {
 
   render() {
     const [props, navigation] = [this.props, this.props.navigation];
-    const user = props.user || navigation.getParam('user');
     const postAuthorId = props.postAuthorId || navigation.getParam('postAuthorId');
-    const postId = props.postId || navigation.getParam('postId');
     const index = props.index || navigation.getParam('index');
-    const navigationTab = props.index || navigation.getParam('navigationTab');
-    const keepComments = props.keepComments || navigation.getParam('keepComments');
+    const { user, postId, navigationTab, saveComment } = this;
 
     return (
       <View style={styles.containerStyle}>
         <CommentList
           navigationTab={navigationTab}
-          keepComments={keepComments}
           postId={postId}
         />
         <InputGrowing
@@ -86,7 +84,7 @@ class CommentsScreen extends Component {
           postId={postId}
           navigation={navigation}
           index={index}
-          onSave={this.saveComment}
+          onSave={saveComment}
           placeholder="Add a comment..."
         />
       </View>
@@ -116,4 +114,5 @@ export default connect(mapStateToProps, {
   fetchActivePost,
   commentsClear,
   updateUserFeed,
+  resetActivePost,
 })(CommentsScreen);

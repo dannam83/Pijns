@@ -12,14 +12,13 @@ const CommentList = ({ header, navigationTab, postId }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    const commentsArray = _.map(stateComments, val => {
-      return { ...val };
-    });
-
     if (postId === stateCommentsPostId) {
+      const commentsArray = _.map(stateComments, val => {
+        return { ...val };
+      });
       setComments(commentsArray);
     }
-  }, [stateComments]);
+  }, [stateComments, stateCommentsPostId]);
 
   const renderRow = (comment) => {
     return (

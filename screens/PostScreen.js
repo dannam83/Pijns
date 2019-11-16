@@ -58,7 +58,7 @@ class PostScreen extends PureComponent {
   render() {
     const { user, post, postUnavailable } = this.props;
 
-    if (!post || postUnavailable) {
+    if (!post) {
       return (
         <Confirm
           visible={postUnavailable}

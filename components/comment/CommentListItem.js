@@ -70,7 +70,6 @@ class CommentListItem extends Component {
   };
 
   render() {
-    console.log(this.props.comment)
     const {
       author,
       comment,
