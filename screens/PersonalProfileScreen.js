@@ -54,7 +54,6 @@ class PersonalProfileScreen extends Component {
         hideDeleteModal={hideDeleteModal}
         postId={postId}
         header={this.header()}
-        navigationTab={'Profile'}
         userFeedMap={userFeedMap}
       />
     );

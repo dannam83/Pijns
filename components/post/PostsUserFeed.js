@@ -5,9 +5,7 @@ import { ButtonAsField } from '../common';
 import { backgroundLightBlue } from '../../assets/colors';
 import ListItem from './ListItem';
 
-const PostsUserFeed = ({
-  user, posts, pinPressed, redirect, navigationTab, fetchUserFeed
-}) => {
+const PostsUserFeed = ({ user, posts, pinPressed, redirect, fetchUserFeed }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshList = async () => {
@@ -21,7 +19,7 @@ const PostsUserFeed = ({
       <ListItem
         post={post}
         redirect={redirect}
-        navigationTab={navigationTab}
+        pinFilter
       />
     );
   };
@@ -31,7 +29,7 @@ const PostsUserFeed = ({
       <ListItem
         post={post}
         redirect={redirect}
-        navigationTab={navigationTab}
+        pinFilter
         pinnedOnly
       />
     );
@@ -43,7 +41,7 @@ const PostsUserFeed = ({
     return (
       <View style={writePostView}>
         <ButtonAsField
-          onPress={() => redirect('UserFeed_SearchFriends', { navigationTab })}
+          onPress={() => redirect('UserFeed_SearchFriends')}
           buttonRestyle={buttonStyle}
           iconName={'search1'}
         >Search for friends

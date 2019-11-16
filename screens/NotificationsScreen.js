@@ -44,7 +44,6 @@ class NotificationsScreen extends Component {
         item={item}
         navigation={navigation}
         currentUser={currentUser}
-        navigationTab={'Notifications'}
         messageStyle={messageStyle}
       />
     );

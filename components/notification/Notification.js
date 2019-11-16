@@ -6,7 +6,7 @@ import CommentLike from './CommentLike';
 import PrayerAnswered from './PrayerAnswered';
 import PrayerRequest from './PrayerRequest';
 
-const Notification = ({ item, navigation, navigationTab, currentUser, messageStyle }) => {
+const Notification = ({ item, navigation, currentUser, messageStyle }) => {
   const { type } = item;
 
   if (type === 'pijnNote') {
@@ -14,7 +14,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, messageSty
       <PijnNote
         item={item}
         navigation={navigation}
-        navigationTab={navigationTab}
         currentUser={currentUser}
         messageStyle={messageStyle}
       />
@@ -24,7 +23,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, messageSty
       <Comment
         item={item}
         navigation={navigation}
-        navigationTab={navigationTab}
         currentUser={currentUser}
         messageStyle={messageStyle}
       />
@@ -34,7 +32,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, messageSty
       <CommentLike
         item={item}
         navigation={navigation}
-        navigationTab={navigationTab}
         currentUser={currentUser}
         messageStyle={messageStyle}
       />
@@ -44,7 +41,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, messageSty
       <PrayerAnswered
         item={item}
         navigation={navigation}
-        navigationTab={navigationTab}
         currentUser={currentUser}
         messageStyle={messageStyle}
       />
@@ -54,7 +50,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, messageSty
       <PrayerRequest
         item={item}
         navigation={navigation}
-        navigationTab={navigationTab}
         currentUser={currentUser}
         messageStyle={messageStyle}
       />
@@ -64,7 +59,6 @@ const Notification = ({ item, navigation, navigationTab, currentUser, messageSty
       <Comment
         item={item}
         navigation={navigation}
-        navigationTab={navigationTab}
         currentUser={currentUser}
         messageStyle={messageStyle}
       />

@@ -23,7 +23,7 @@ class PublicProfileScreen extends Component {
     this.props.clearFriend();
   }
 
-  renderHeader = (picture, name, userId, status, redirect, navigationTab, friend) => {
+  renderHeader = (picture, name, userId, status, redirect, friend) => {
     return (
       <ProfileHeaderPublic
         imgSource={{ uri: `${picture}?type=large` }}
@@ -31,7 +31,6 @@ class PublicProfileScreen extends Component {
         userId={userId}
         status={status}
         redirect={redirect}
-        navigationTab={navigationTab}
         friend={friend}
       />
     );
@@ -43,7 +42,6 @@ class PublicProfileScreen extends Component {
     const redirect = navigate;
 
     const user = getParam('profileUser');
-    const navigationTab = getParam('navigationTab');
     const { name, picture } = user;
     // param comes in as user.userId from search and as user.uid from friends
     const userId = !user.uid ? user.userId : user.uid;
@@ -56,13 +54,12 @@ class PublicProfileScreen extends Component {
         <View>
           <PostListPublic
             header={this.renderHeader(
-              picture, name, userId, status, redirect, navigationTab, user
+              picture, name, userId, status, redirect, user
             )}
             userId={userId}
             posts={posts}
             redirect={redirect}
             status={status}
-            navigationTab={navigationTab}
             onProfile
           />
         </View>

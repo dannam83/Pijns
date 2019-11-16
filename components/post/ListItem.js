@@ -5,8 +5,8 @@ import { Card } from 'react-native-elements';
 import Banner from './Banner';
 import Footer from './Footer';
 
-const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
-  if (pinnedOnly && !post.pinned && navigationTab === 'UserFeed') { return null; }
+const ListItem = ({ post, redirect, pinnedOnly, pinFilter, onProfile }) => {
+  if (pinnedOnly && !post.pinned && pinFilter) { return null; }
 
   const {
     user, author, content, timestamp, createdOn,
@@ -30,7 +30,6 @@ const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
         userId={userId}
         pinned={pinned}
         onProfile={onProfile}
-        navigationTab={navigationTab}
         taggedFriends={taggedFriends}
       />
 
@@ -39,7 +38,6 @@ const ListItem = ({ post, redirect, pinnedOnly, navigationTab, onProfile }) => {
       <Footer
         post={post}
         redirect={redirect}
-        navigationTab={navigationTab}
         notes={post.notes.count}
         likes={post.likes}
         author={author}

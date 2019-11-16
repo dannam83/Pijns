@@ -4,7 +4,7 @@ import { Text, StyleSheet } from 'react-native';
 import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
 
-const PijnNote = ({ item, navigation, navigationTab, currentUser, messageStyle }) => {
+const PijnNote = ({ item, navigation, currentUser, messageStyle }) => {
   const { nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
@@ -25,9 +25,7 @@ const PijnNote = ({ item, navigation, navigationTab, currentUser, messageStyle }
     resetNotificationsCount(currentUser.uid);
     const [user, postAuthorId] = [currentUser, currentUser.uid];
 
-    navigation.push('PostNotesListScreen', {
-      user, postAuthorId, postId, navigationTab
-    });
+    navigation.push('PostNotesListScreen', { user, postAuthorId, postId });
   };
 
   return (

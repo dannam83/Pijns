@@ -6,28 +6,19 @@ import { AntDesign } from '@expo/vector-icons';
 
 import UserFeedScreen from '../screens/UserFeedScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
-import PublicProfileScreen from '../screens/PublicProfileScreen';
 import PersonalProfileScreen from '../screens/PersonalProfileScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
 import TagFriendsScreen from '../screens/TagFriendsScreen';
 import PostEditScreen from '../screens/PostEditScreen';
-import PostNotesListScreen from '../screens/PostNotesListScreen';
-import CommentsScreen from '../screens/CommentsScreen';
-import CommentLikesScreen from '../screens/CommentLikesScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ChatScreen from '../screens/ChatScreen';
 import AllChatsScreen from '../screens/AllChatsScreen';
-import PostScreen from '../screens/PostScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
 const UserFeedStack = createStackNavigator({
   UserFeed: UserFeedScreen,
   UserFeed_SearchFriends: SearchFriendsScreen,
-  UserFeed_PublicProfile: PublicProfileScreen,
-  UserFeed_Comments: CommentsScreen,
-  UserFeed_Notes: PostNotesListScreen,
-  UserFeed_CommentLikes: CommentLikesScreen,
 });
 
 UserFeedStack.navigationOptions = {
@@ -92,12 +83,6 @@ PostCreateStack.navigationOptions = ({ navigation }) => ({
 
 const NotificationsStack = createStackNavigator({
   Notifications: NotificationsScreen,
-  Notifications_PublicProfile: PublicProfileScreen,
-  Notifications_Chat: ChatScreen,
-  Notifications_Notes: PostNotesListScreen,
-  Notifications_Post: PostScreen,
-  Notifications_Comments: CommentsScreen,
-  Notifications_CommentLikes: CommentLikesScreen,
 });
 
 NotificationsStack.navigationOptions = {
@@ -130,12 +115,7 @@ NotificationsStack.navigationOptions = {
 const ProfileStack = createStackNavigator({
   Profile: PersonalProfileScreen,
   Profile_FriendList: FriendListScreen,
-  Profile_PublicProfile: PublicProfileScreen,
-  Profile_Chat: ChatScreen,
-  Profile_Comments: CommentsScreen,
-  Profile_Notes: PostNotesListScreen,
   Profile_PostEdit: PostEditScreen,
-  Profile_CommentLikes: CommentLikesScreen,
   Profile_TagFriends: TagFriendsScreen
 });
 

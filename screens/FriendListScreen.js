@@ -16,19 +16,8 @@ class FriendsScreen extends Component {
   }
 
   goToPublicProfile = (friend) => {
-    const { navigate, getParam } = this.props.navigation;
-    const navigationTab = getParam('navigationTab');
-
-    if (navigationTab === 'UserFeed') {
-      navigate('UserFeed_PublicProfile', { profileUser: friend });
-    } else if (navigationTab === 'MyPosts') {
-      navigate('MyPosts_PublicProfile', {
-        profileUser: friend, navigationTab });
-    } else if (navigationTab === 'Profile') {
-      navigate('Profile_PublicProfile', {
-        profileUser: friend, status: 'Unfriend', navigationTab
-      });
-    }
+    const { navigate } = this.props.navigation;
+    navigate('PublicProfileScreen', { profileUser: friend, status: 'Unfriend' });
   };
 
   renderRow = (item) => {

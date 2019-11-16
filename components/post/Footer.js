@@ -37,8 +37,8 @@ class Footer extends Component {
     }
 
     const {
-      post, notes = 0, likes = 0, redirect, navigation,
-      navigationTab, userFeedIndex,
+      post, notes = 0, likes = 0,
+      redirect, navigation, userFeedIndex,
       updateUserFeed, sendPijn, answerPrayer, unanswerPrayer,
       post: {
         user, postId, author, index,
@@ -55,7 +55,7 @@ class Footer extends Component {
 
     const goToPostNotes = () => {
       navigation.navigate('PostNotesListScreen', {
-        user, postAuthorId: author.id, postId, index, navigationTab
+        user, postAuthorId: author.id, postId, index
       });
     };
 
@@ -67,13 +67,13 @@ class Footer extends Component {
 
     const goToComments = () => {
       navigation.push('CommentsScreen', {
-        user, postAuthorId: author.id, postId, redirect, author, index, navigationTab
+        user, postAuthorId: author.id, postId, redirect, author, index
       });
     };
 
     const goToLikes = () => {
       navigation.navigate('LikesScreen', {
-        user, postAuthorId: author.id, postId, redirect, author, index, navigationTab,
+        user, postAuthorId: author.id, postId, redirect, author, index,
       });
     };
 

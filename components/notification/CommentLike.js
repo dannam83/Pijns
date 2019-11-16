@@ -4,9 +4,7 @@ import { Text, StyleSheet } from 'react-native';
 import { resetNotificationsCount } from '../../api/notifications_api';
 import NotificationRow from './NotificationRow';
 
-const CommentLike = ({
-  item, navigation, navigationTab, currentUser, messageStyle
-}) => {
+const CommentLike = ({ item, navigation, currentUser, messageStyle }) => {
   const { nameStyle, contentStyle } = styles;
   const { content, postId, sender } = item;
   const { name } = sender;
@@ -32,7 +30,6 @@ const CommentLike = ({
       postAuthorId: userId,
       postId,
       redirect,
-      navigationTab
     });
   };
 

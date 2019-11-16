@@ -56,7 +56,6 @@ class PostScreen extends Component {
       <Post
         post={post}
         navigation={navigation}
-        navigationTab={'Notifications'}
         userFeedIndex={userFeedIndex}
         likes={post.likes}
         notes={post.notes.count}

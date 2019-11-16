@@ -14,13 +14,12 @@ class TaggedFriendsScreen extends Component {
   goToProfile = (note) => {
     const profileUserId = note.uid;
     const { uid } = this.props.currentUser;
-    const { getParam, navigate, push } = this.props.navigation;
-    const navigationTab = getParam('navigationTab');
+    const { navigate, push } = this.props.navigation;
 
     this.props.getFriendStatus({ profileUserId, currentUserId: uid });
 
     if (profileUserId !== uid) {
-      push('PublicProfileScreen', { profileUser: note, navigationTab });
+      push('PublicProfileScreen', { profileUser: note });
     } else {
       navigate('Profile');
     }

@@ -25,13 +25,12 @@ class CommentLikesScreen extends Component {
   goToProfile = (person) => {
     const profileUserId = person.uid;
     const { uid } = this.props.currentUser;
-    const { getParam, navigate, push } = this.props.navigation;
-    const navigationTab = getParam('navigationTab');
+    const { navigate, push } = this.props.navigation;
 
     this.props.getFriendStatus({ profileUserId, currentUserId: uid });
 
     if (profileUserId !== uid) {
-      push('PublicProfileScreen', { profileUser: person, navigationTab });
+      push('PublicProfileScreen', { profileUser: person });
     } else {
       navigate('Profile');
     }

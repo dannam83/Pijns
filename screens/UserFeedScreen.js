@@ -72,7 +72,6 @@ class UserFeedScreen extends Component {
         pinPressed={pinPressed}
         posts={posts}
         user={user}
-        navigationTab='UserFeed'
         fetchUserFeed={fetchUserFeed}
       />
     );

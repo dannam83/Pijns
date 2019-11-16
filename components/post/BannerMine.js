@@ -75,7 +75,6 @@ const BannerMine = ({
     redirect('UserFeed_PublicProfile', {
       profileUser: { ...author, uid: author.id },
       status: 'Unfriend',
-      navigationTab: 'UserFeed'
     });
   };
 

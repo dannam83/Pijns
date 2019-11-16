@@ -22,23 +22,20 @@ class CommentsScreen extends Component {
 
   constructor(props) {
     super(props);
-    const { user, postId, navigationTab, navigation } = this.props;
+    const { user, postId, navigation } = this.props;
     this.user = user || navigation.getParam('user');
     this.postId = postId || navigation.getParam('postId');
-    this.navigationTab = navigationTab || navigation.getParam('navigationTab');
   }
 
   componentDidMount = async () => {
     const {
-      user, postId, navigationTab,
+      user, postId,
       props: { fetchPostCommentLikes, commentsPopulate, fetchActivePost },
     } = this;
 
-    if (navigationTab !== 'Notifications') {
-      await fetchPostCommentLikes({ userId: user.uid, postId });
-      await commentsPopulate(postId);
-      await fetchActivePost(postId);
-    }
+    await fetchPostCommentLikes({ userId: user.uid, postId });
+    await commentsPopulate(postId);
+    await fetchActivePost(postId);
   }
 
   componentWillUnmount() {
@@ -70,12 +67,11 @@ class CommentsScreen extends Component {
     const [props, navigation] = [this.props, this.props.navigation];
     const postAuthorId = props.postAuthorId || navigation.getParam('postAuthorId');
     const index = props.index || navigation.getParam('index');
-    const { user, postId, navigationTab, saveComment } = this;
+    const { user, postId, saveComment } = this;
 
     return (
       <View style={styles.containerStyle}>
         <CommentList
-          navigationTab={navigationTab}
           postId={postId}
         />
         <InputGrowing

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import CommentListItem from './CommentListItem';
 
-const CommentList = ({ header, navigationTab, postId }) => {
+const CommentList = ({ header, postId }) => {
   const stateComments = useSelector(state => state.comments);
   const stateCommentsPostId = useSelector(state => state.commentsPostId);
 
@@ -22,7 +22,7 @@ const CommentList = ({ header, navigationTab, postId }) => {
 
   const renderRow = (comment) => {
     return (
-      <CommentListItem comment={comment} navigationTab={navigationTab} />
+      <CommentListItem comment={comment} />
     );
   };
 

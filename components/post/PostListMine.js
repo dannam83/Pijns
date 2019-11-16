@@ -15,7 +15,6 @@ const PostListMine = ({
   hideDeleteModal,
   postId,
   header,
-  navigationTab,
   userFeedMap,
 }) => {
   useEffect(() => { postsFetch(); }, []);
@@ -25,7 +24,6 @@ const PostListMine = ({
       <ListItemMine
         post={post}
         redirect={redirect}
-        navigationTab={navigationTab}
         postEditUpdate={postEditUpdate}
         showDeleteModal={showDeleteModal}
         onProfile
