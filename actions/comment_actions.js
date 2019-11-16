@@ -36,7 +36,7 @@ import { getCurrentDate } from '../functions/common';
    return (dispatch) => {
      firebase.database().ref(`/postComments/${postId}`)
        .on('value', snapshot => {
-         dispatch({ type: COMMENTS_POPULATE, payload: snapshot.val() }
+         dispatch({ type: COMMENTS_POPULATE, payload: snapshot.val(), postId }
          );
        }
      );

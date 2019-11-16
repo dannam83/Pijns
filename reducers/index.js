@@ -6,6 +6,7 @@ import postCreate from './post_create_reducer';
 import posts from './posts_reducer';
 import activePost from './active_post_reducer';
 import comments from './comments_reducer';
+import commentsPostId from './comments_post_id_reducer';
 import commentLikedBy from './comment_liked_by_reducer';
 import postCommentLikes from './post_comment_likes_reducer';
 import pijnLog from './pijn_log_reducer';
@@ -31,6 +32,7 @@ export default combineReducers({
   user,
   activePost,
   comments,
+  commentsPostId,
   commentLikedBy,
   friend,
   friendList,

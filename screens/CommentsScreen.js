@@ -19,7 +19,7 @@ class CommentsScreen extends Component {
     title: 'Comments',
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const { props } = this;
     const { navigation, fetchPostCommentLikes, commentsPopulate, fetchActivePost } = props;
     const user = props.user || navigation.getParam('user');
@@ -27,10 +27,15 @@ class CommentsScreen extends Component {
     const navigationTab = props.navigationTab || navigation.getParam('navigationTab');
 
     if (navigationTab !== 'Notifications') {
-      fetchPostCommentLikes({ userId: user.uid, postId });
-      commentsPopulate(postId);
-      fetchActivePost(postId);
+      await fetchPostCommentLikes({ userId: user.uid, postId });
+      await commentsPopulate(postId);
+      await fetchActivePost(postId);
     }
+  }
+
+  shouldComponentUpdate() {
+    console.log('should update', this.props.navigation.getParam('postId'));
+    return true;
   }
 
   componentWillUnmount() {
@@ -73,6 +78,7 @@ class CommentsScreen extends Component {
         <CommentList
           navigationTab={navigationTab}
           keepComments={keepComments}
+          postId={postId}
         />
         <InputGrowing
           user={user}

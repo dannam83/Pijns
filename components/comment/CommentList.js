@@ -5,8 +5,9 @@ import _ from 'lodash';
 
 import CommentListItem from './CommentListItem';
 
-const CommentList = ({ header, navigationTab }) => {
+const CommentList = ({ header, navigationTab, postId }) => {
   const stateComments = useSelector(state => state.comments);
+  const stateCommentsPostId = useSelector(state => state.commentsPostId);
 
   const [comments, setComments] = useState([]);
 
@@ -15,7 +16,7 @@ const CommentList = ({ header, navigationTab }) => {
       return { ...val };
     });
 
-    if (comments.length < commentsArray.length) {
+    if (postId === stateCommentsPostId) {
       setComments(commentsArray);
     }
   }, [stateComments]);

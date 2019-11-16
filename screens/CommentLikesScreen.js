@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { PeopleListItem } from '../components/pijns';
+import { PeopleListItem } from '../components/peopleList';
 import { PeopleList } from '../components/specific';
 import { getFriendStatus, fetchCommentLikedBy, commentLikedByClear } from '../actions';
 

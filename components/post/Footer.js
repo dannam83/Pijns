@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation';
 
 import { ActionButton } from '../common';
 import PostCounts from './PostCounts';
@@ -36,11 +37,11 @@ class Footer extends Component {
     }
 
     const {
-      post, notes = 0, likes = 0, redirect,
+      post, notes = 0, likes = 0, redirect, navigation,
       navigationTab, keepComments, userFeedIndex,
       updateUserFeed, sendPijn, answerPrayer, unanswerPrayer,
       post: {
-        user, postId, author, navigation, index,
+        user, postId, author, index,
         pijnSentToday, commentCount = 0, answered, liked
       }
     } = this.props;
@@ -52,9 +53,9 @@ class Footer extends Component {
     const { actionsViewStyle, dividerStyle, worshipHandsActive, worshipHandsInactive
     } = styles;
 
-    const goToComments = () => {
-      navigation.navigate('CommentsScreen', {
-        user, postAuthorId: author.id, postId, redirect, author, index, navigationTab, keepComments
+    const goToPostNotes = () => {
+      navigation.navigate('PostNotesListScreen', {
+        user, postAuthorId: author.id, postId, index, navigationTab
       });
     };
 
@@ -64,9 +65,15 @@ class Footer extends Component {
       });
     };
 
-    const goToPostNotes = () => {
-      navigation.navigate('PostNotesListScreen', {
-        user, postAuthorId: author.id, postId, index, navigationTab
+    const goToComments = () => {
+      navigation.push('CommentsScreen', {
+        user, postAuthorId: author.id, postId, redirect, author, index, navigationTab, keepComments
+      });
+    };
+
+    const goToLikes = () => {
+      navigation.navigate('LikesScreen', {
+        user, postAuthorId: author.id, postId, redirect, author, index, navigationTab,
       });
     };
 
@@ -168,10 +175,11 @@ class Footer extends Component {
       <View>
         <PostCounts
           noteCount={notes}
-          commentCount={commentCount}
-          likeCount={likes}
-          commentsPress={goToComments}
           notesPress={goToPostNotes}
+          commentCount={commentCount}
+          commentsPress={goToComments}
+          likeCount={likes}
+          likesPress={goToLikes}
         />
 
         {answered ? (
@@ -222,6 +230,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, {
+export default withNavigation(connect(null, {
   answerPrayer, unanswerPrayer, sendPijn, updateUserFeed
-})(Footer);
+})(Footer));

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import { likeComment, getFriendStatus } from '../../actions';
 import { displayTimeAgo } from '../../functions/common';
@@ -43,11 +44,12 @@ class CommentListItem extends Component {
   }
 
   goToPublicProfile = () => {
-    const currentUserId = this.props.user.uid;
-    const profileUserId = this.props.comment.author.uid;
-    const profileUser = this.props.comment.author;
-    const { navigate } = this.props.navigation;
-    const { navigationTab } = this.props;
+    const {
+      user: { uid: currentUserId },
+      comment: { author: profileUser, author: { uid: profileUserId } },
+      navigation: { navigate },
+      navigationTab,
+    } = this.props;
 
     if (currentUserId === profileUserId) {
       navigate('Profile');
@@ -68,6 +70,7 @@ class CommentListItem extends Component {
   };
 
   render() {
+    console.log(this.props.comment)
     const {
       author,
       comment,
@@ -201,10 +204,12 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { user, activePost, postCommentLikes, friendList, navigation } = state;
+  const { user, activePost, postCommentLikes, friendList } = state;
   return {
-    user, activePost, postCommentLikes, friendList, navigation, sendCommentLikeNotification
+    user, activePost, postCommentLikes, friendList, sendCommentLikeNotification
   };
 }
 
-export default connect(mapStateToProps, { likeComment, getFriendStatus })(CommentListItem);
+export default withNavigation(
+  connect(mapStateToProps, { likeComment, getFriendStatus })(CommentListItem)
+);
