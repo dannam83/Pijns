@@ -84,7 +84,6 @@ class PostScreen extends Component {
     return (
       <CommentList
         header={this.header}
-        navigationTab={'Notifications'}
         userId={this.user.uid}
         postId={this.postId}
       />
