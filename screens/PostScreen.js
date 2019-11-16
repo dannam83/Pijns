@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CommentList from '../components/comment/CommentList';
@@ -12,28 +12,36 @@ import {
   fetchActivePost
 } from '../actions';
 
-class PostScreen extends PureComponent {
+class PostScreen extends Component {
   static navigationOptions = {
     title: 'Post',
   };
 
   constructor(props) {
     super(props);
-    const postId = this.props.navigation.getParam('postId') || this.props.postId;
-    const user = this.props.navigation.getParam('user') || this.props.user;
-    this.state = { postId, user };
+    const { navigation, postId, user } = this.props;
+    this.postId = navigation.getParam('postId') || postId;
+    this.user = navigation.getParam('user') || user;
+    this.post = null;
   }
 
   componentDidMount() {
-    const { postId, user } = this.state;
+    const { postId, user } = this;
 
     this.props.fetchActivePost(postId);
     this.props.fetchPostCommentLikes({ userId: user.uid, postId });
     this.props.commentsPopulate(postId);
   }
 
+  shouldComponentUpdate() {
+    if (this.props.postId || this.props.navigation.getParam('postId')) {
+      return true;
+    }
+    return false;
+  }
+
   componentWillUnmount() {
-    this.props.resetActivePost(this.state.postId);
+    this.props.resetActivePost(this.postId);
   }
 
   onAccept = () => {
@@ -42,11 +50,12 @@ class PostScreen extends PureComponent {
   }
 
   header = () => {
-    const { post, userFeedIndex, navigation: { navigate } } = this.props;
+    const { userFeedIndex, navigation } = this.props;
+    const { post } = this;
     return (
       <Post
         post={post}
-        redirect={navigate}
+        navigation={navigation}
         navigationTab={'Notifications'}
         userFeedIndex={userFeedIndex}
         likes={post.likes}
@@ -56,7 +65,7 @@ class PostScreen extends PureComponent {
   }
 
   render() {
-    const { user, post, postUnavailable } = this.props;
+    const { post, postUnavailable } = this.props;
 
     if (!post) {
       return (
@@ -70,12 +79,14 @@ class PostScreen extends PureComponent {
       );
     }
 
+    if (!this.post) { this.post = post; }
+
     return (
       <CommentList
         header={this.header}
         navigationTab={'Notifications'}
-        userId={user.uid}
-        postId={post.postId}
+        userId={this.user.uid}
+        postId={this.postId}
       />
     );
   }
