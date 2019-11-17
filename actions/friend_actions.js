@@ -39,7 +39,8 @@ export const getFriendStatus = ({ profileUserId, currentUserId }) => {
     .on('value', snapshot => {
       dispatch({
         type: FRIEND_STATUS,
-        payload: snapshot.val()
+        payload: snapshot.val(),
+        friendId: profileUserId,
       });
     });
   };
@@ -49,8 +50,11 @@ export const friendPostsFetch = (userId) => {
   return (dispatch) => {
     firebase.database().ref(`/users/${userId}/posts`)
       .on('value', snapshot => {
-        dispatch({ type: FRIEND_POSTS_FETCH_SUCCESS, payload: snapshot.val() }
-        );
+        dispatch({
+          type: FRIEND_POSTS_FETCH_SUCCESS,
+          payload: snapshot.val(),
+          friendId: userId,
+        });
       }
     );
   };

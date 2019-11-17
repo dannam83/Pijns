@@ -47,16 +47,16 @@ class CommentListItem extends Component {
     const {
       user: { uid: currentUserId },
       comment: { author: profileUser, author: { uid: profileUserId } },
-      navigation: { navigate },
+      navigation: { push, navigate },
     } = this.props;
 
     if (currentUserId === profileUserId) {
       navigate('Profile');
     } else if (this.props.friendList && this.props.friendList[profileUserId]) {
-      navigate('PublicProfileScreen', { profileUser, status: 'Unfriend' });
+      push('PublicProfileScreen', { profileUser, status: 'Unfriend' });
     } else {
       this.props.getFriendStatus({ profileUserId, currentUserId });
-      navigate('PublicProfileScreen', { profileUser });
+      push('PublicProfileScreen', { profileUser });
     }
   };
 

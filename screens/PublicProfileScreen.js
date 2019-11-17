@@ -14,9 +14,20 @@ class PublicProfileScreen extends Component {
 
   constructor(props) {
     super(props);
-    const user = props.navigation.getParam('profileUser');
-    const userId = !user.uid ? user.userId : user.uid;
-    props.friendPostsFetch(userId);
+    const profileUser = props.navigation.getParam('profileUser');
+
+    // param comes in as user.userId from search and as user.uid from friends
+    const profileId = !profileUser.uid ? profileUser.profileUserId : profileUser.uid;
+
+    this.profileUser = profileUser;
+    this.profileId = profileId;
+    this.friendStatus = 'waiting';
+    props.friendPostsFetch(profileId);
+  }
+
+  shouldComponentUpdate(newProps) {
+    const { friendId } = newProps.friend;
+    return this.profileId === friendId;
   }
 
   componentWillUnmount() {
@@ -37,26 +48,27 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    const { navigation, friend, posts } = this.props;
-    const { navigate, getParam } = navigation;
+    const { navigation, posts, friend } = this.props;
+    const { navigate } = navigation;
     const redirect = navigate;
 
-    const user = getParam('profileUser');
-    const { name, picture } = user;
-    // param comes in as user.userId from search and as user.uid from friends
-    const userId = !user.uid ? user.userId : user.uid;
-
-    let status = getParam('status');
+    let status = navigation.getParam('status');
     if (!status) { status = friend.status; }
+    if (this.friendStatus === 'waiting') { this.friendStatus = status; }
+
+    const {
+      profileId, profileUser, friendStatus,
+      profileUser: { name, picture }
+    } = this;
 
     return (
       <View style={styles.containerStyle}>
         <View>
           <PostListPublic
             header={this.renderHeader(
-              picture, name, userId, status, redirect, user
+              picture, name, profileId, status, redirect, profileUser
             )}
-            userId={userId}
+            userId={profileId}
             posts={posts}
             redirect={redirect}
             status={status}
