@@ -69,7 +69,7 @@ class PublicProfileScreen extends Component {
               picture, name, profileId, status, redirect, profileUser
             )}
             userId={profileId}
-            posts={posts}
+            posts={this.profileId !== friend.friendId ? null : posts}
             redirect={redirect}
             status={status}
             onProfile
