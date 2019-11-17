@@ -8,6 +8,7 @@ import {
   POST_DELETE,
   POST_SHOW_DELETE_MODAL,
   POST_HIDE_DELETE_MODAL,
+  UPDATE_USER_FEED,
  } from './types';
 import { getCurrentDate } from '../functions/common';
 import { sendPrayerRequestNotifications } from '../api/notifications_api';
@@ -111,7 +112,7 @@ export const postsFetch = () => {
   };
 };
 
-export const answerPrayer = ({ postId, user }) => {
+export const answerPrayer = ({ postId, user, userFeedIndex }) => {
     const db = firebase.database();
     const answeredOn = getCurrentDate();
 
@@ -121,11 +122,14 @@ export const answerPrayer = ({ postId, user }) => {
       .update({ answered: answeredOn });
 
     return {
-      type: 'PRAYER_ANSWERED'
+      type: UPDATE_USER_FEED,
+      index: userFeedIndex,
+      field: 'answered',
+      value: answeredOn,
     };
 };
 
-export const unanswerPrayer = ({ postId, user }) => {
+export const unanswerPrayer = ({ postId, user, userFeedIndex }) => {
     const db = firebase.database();
     db.ref(`/users/${user.uid}/posts/${postId}`)
       .update({ answered: false });
@@ -133,6 +137,9 @@ export const unanswerPrayer = ({ postId, user }) => {
       .update({ answered: false });
 
     return {
-      type: 'PRAYER_UNANSWERED'
+      type: UPDATE_USER_FEED,
+      index: userFeedIndex,
+      field: 'answered',
+      value: false,
     };
 };

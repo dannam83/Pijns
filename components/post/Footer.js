@@ -129,9 +129,9 @@ class Footer extends Component {
 
       const handsPress = () => {
         if (answered) {
-          unanswerPrayer({ postId, user });
+          unanswerPrayer({ postId, user, userFeedIndex });
         } else {
-          answerPrayer({ postId, user });
+          answerPrayer({ postId, user, userFeedIndex });
           sendPrayerAnsweredNotifications(user, postId, post);
         }
       };

@@ -112,7 +112,6 @@ function mapStateToProps(state) {
       ...post, pijnSentToday, pinned, liked, user, navigation, index
     };
   });
-
   return { posts, user };
 }
 
