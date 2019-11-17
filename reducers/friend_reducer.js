@@ -2,7 +2,7 @@ import {
   FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR
 } from '../actions/types';
 
-const INITIAL_STATE = { status: null, posts: {}, friendId: '' };
+const INITIAL_STATE = { status: 'pending', posts: {}, friendId: '' };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {

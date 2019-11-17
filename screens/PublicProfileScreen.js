@@ -21,7 +21,7 @@ class PublicProfileScreen extends Component {
 
     this.profileUser = profileUser;
     this.profileId = profileId;
-    this.friendStatus = 'waiting';
+    this.friendStatus = null;
     props.friendPostsFetch(profileId);
   }
 
@@ -54,24 +54,25 @@ class PublicProfileScreen extends Component {
 
     let status = navigation.getParam('status');
     if (!status) { status = friend.status; }
-    if (this.friendStatus === 'waiting') { this.friendStatus = status; }
+    if (status !== 'pending') { this.friendStatus = status; }
 
     const {
       profileId, profileUser, friendStatus,
       profileUser: { name, picture }
     } = this;
 
+
     return (
       <View style={styles.containerStyle}>
         <View>
           <PostListPublic
             header={this.renderHeader(
-              picture, name, profileId, status, redirect, profileUser
+              picture, name, profileId, friendStatus, redirect, profileUser
             )}
             userId={profileId}
             posts={this.profileId !== friend.friendId ? null : posts}
             redirect={redirect}
-            status={status}
+            status={friendStatus}
             onProfile
           />
         </View>
