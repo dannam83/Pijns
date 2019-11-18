@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { formatChatKey, getCurrentTime, getTimestampDate } from '../functions/common';
-import { sendPushNotification } from './pushNotifications_api';
+import { sendPushNotification } from './push_notifications_api';
 
 export const onChat = (userId, friendId) => {
   const chatKey = formatChatKey(userId, friendId);
