@@ -49,8 +49,10 @@ export const saveVisibleTo = (postId, visibleTo) => {
 
 export const likePost = ({ user, postId, authorId }) => {
   const db = firebase.database();
+  const createdOn = new Date().toString();
+  const timestamp = -Date.now();
   db.ref(`/userPostLikes/${user.uid}/${postId}`).set(Date.now());
-  db.ref(`/postLikes/${postId}/${user.uid}`).set(user);
+  db.ref(`/postLikes/${postId}/${user.uid}`).set({ ...user, createdOn, timestamp });
   db.ref(`/posts/${postId}/likes`).transaction(
     (currentCount) => (currentCount || 0) + 1
   );

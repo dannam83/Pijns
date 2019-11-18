@@ -4,22 +4,23 @@ import _ from 'lodash';
 
 import { PeopleListItem } from '../components/peopleList';
 import { PeopleList } from '../components/specific';
-import { getFriendStatus, fetchCommentLikedBy, commentLikedByClear } from '../actions';
+import { getFriendStatus, fetchPostLikedBy, clearPostLikedBy } from '../actions';
 
-class CommentLikesScreen extends Component {
+class PostLikesScreen extends Component {
   static navigationOptions = {
-    title: 'Comment Likes',
+    title: 'Post Likes',
   };
 
   constructor(props) {
     super(props);
-    const commentId = this.props.navigation.getParam('commentId');
-    this.props.fetchCommentLikedBy(commentId);
+    const postId = this.props.navigation.getParam('postId');
+    this.props.fetchPostLikedBy({ postId });
+    this.postId = postId;
   }
 
   componentWillUnmount() {
-    const commentId = this.props.navigation.getParam('commentId');
-    this.props.commentLikedByClear(commentId);
+    const { postId } = this;
+    this.props.clearPostLikedBy({ postId });
   }
 
   goToProfile = (person) => {
@@ -57,9 +58,9 @@ class CommentLikesScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  const { user, commentLikedBy } = state;
-  const likes = _.map(commentLikedBy, (val) => {
-    return { ...val };
+  const { user, postLikedBy } = state;
+  const likes = _.map(postLikedBy, (person) => {
+    return { ...person };
   }).sort((a, b) => a.timestamp - b.timestamp);
 
   return { likes, currentUser: user };
@@ -67,6 +68,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   getFriendStatus,
-  fetchCommentLikedBy,
-  commentLikedByClear
-})(CommentLikesScreen);
+  fetchPostLikedBy,
+  clearPostLikedBy,
+})(PostLikesScreen);

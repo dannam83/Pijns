@@ -9,6 +9,8 @@ import {
   POST_SHOW_DELETE_MODAL,
   POST_HIDE_DELETE_MODAL,
   UPDATE_USER_FEED,
+  POST_FETCH_LIKED_BY,
+  POST_CLEAR_LIKED_BY,
  } from './types';
 import { getCurrentDate } from '../functions/common';
 import { sendPrayerRequestNotifications } from '../api/notifications_api';
@@ -142,4 +144,19 @@ export const unanswerPrayer = ({ postId, user, userFeedIndex }) => {
       field: 'answered',
       value: false,
     };
+};
+
+export const fetchPostLikedBy = ({ postId }) => {
+  return dispatch => {
+    firebase.database().ref(`/postLikes/${postId}`)
+     .on('value', snapshot => {
+       dispatch({ type: POST_FETCH_LIKED_BY, payload: snapshot.val() }
+     );
+   });
+ };
+};
+
+export const clearPostLikedBy = ({ postId }) => {
+  firebase.database().ref(`/postLikes/${postId}/likedBy`).off();
+  return ({ type: POST_CLEAR_LIKED_BY });
 };
