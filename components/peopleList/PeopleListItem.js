@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, Image, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import { displayTimeAgoShort } from '../../functions/common';
 
 const PeopleListItem = ({ person, onPress }) => {
   const { name, picture, timestamp, createdOn } = person;
+
+  const [onItemPress] = useState(() => onPress);
+  const [displayName] = useState(name);
+  const [displayPicture] = useState(picture);
+  const [timeAgo] = useState(displayTimeAgoShort(timestamp, createdOn));
+
   const {
     viewStyle, textViewStyle, nameTextStyle, dateTextStyle, imageStyle
   } = styles;
-  const timeAgo = displayTimeAgoShort(timestamp, createdOn);
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onItemPress}>
       <View style={viewStyle}>
         <Image
-          source={{ uri: picture }}
+          source={{ uri: displayPicture }}
           style={imageStyle}
         />
         <View style={textViewStyle}>
-          <Text style={nameTextStyle}>{name}</Text>
+          <Text style={nameTextStyle}>{displayName}</Text>
           {
             timeAgo ? <Text style={dateTextStyle}>{timeAgo}</Text> : null
           }
