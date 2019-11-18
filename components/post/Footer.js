@@ -10,6 +10,7 @@ import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
 import { answerPrayer, unanswerPrayer, sendPijn, updateUserFeed } from '../../actions';
 import { likePost, unlikePost } from '../../api/posts_api';
+import { favoritePost, unfavoritePost } from '../../api/user_favorites_api';
 import {
   sendPijnNotification, sendPrayerAnsweredNotifications
 } from '../../api/notifications_api';
@@ -17,15 +18,16 @@ import {
 class Footer extends Component {
   shouldComponentUpdate(nextProps) {
     const { notes, likes,
-      post: { pijnSentToday, liked, answered, commentCount } } = nextProps;
+      post: { pijnSentToday, liked, favorite, answered, commentCount } } = nextProps;
     const { notes: prevNotes, likes: prevLikes, post: {
       pijnSentToday: prevPijnSentToday,
       liked: prevLiked,
+      favorite: prevFavorite,
       answered: prevAnswered,
       commentCount: prevCommentCount,
     } } = this.props;
     return (
-      notes !== prevNotes || likes !== prevLikes ||
+      notes !== prevNotes || likes !== prevLikes || favorite !== prevFavorite,
       liked !== prevLiked || pijnSentToday !== prevPijnSentToday ||
       answered !== prevAnswered || commentCount !== prevCommentCount
     );
@@ -41,8 +43,8 @@ class Footer extends Component {
       redirect, navigation, userFeedIndex,
       updateUserFeed, sendPijn, answerPrayer, unanswerPrayer,
       post: {
-        user, postId, author, index,
-        pijnSentToday, commentCount = 0, answered, liked
+        user, postId, author, index, pijnSentToday,
+        commentCount = 0, answered, liked, favorite,
       }
     } = this.props;
 
@@ -94,14 +96,34 @@ class Footer extends Component {
       );
     };
 
-    const StarButton = () => {
+    const FavoriteButton = () => {
+      const favoritePress = () => {
+        if (favorite) {
+          unfavoritePost({ user, postId });
+        } else {
+          favoritePost({ user, postId });
+        }
+      };
+
       return (
-        <TouchableOpacity style={{ paddingTop: 3 }}>
-          <AntDesign
-            name={'staro'}
-            size={19}
-            color={'#434343'}
-          />
+        <TouchableOpacity style={{ paddingTop: 3 }} onPress={favoritePress}>
+          {
+            favorite
+            ?
+            <TouchableOpacity style={{ paddingTop: 3 }}>
+                <AntDesign
+                  name={'star'}
+                  size={19}
+                  color={'#EEE006'}
+                />
+            </TouchableOpacity>
+            :
+            <AntDesign
+                name={'staro'}
+                size={19}
+                color={'#434343'}
+            />
+          }
         </TouchableOpacity>
       );
     };
@@ -194,7 +216,7 @@ class Footer extends Component {
 
         <View style={actionsViewStyle}>
           <PijnButton />
-          <StarButton />
+          <FavoriteButton />
           <ChatOrHandsButton />
           <CommentButton />
           <LikeButton />
