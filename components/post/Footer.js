@@ -72,7 +72,7 @@ class Footer extends Component {
     };
 
     const goToLikes = () => {
-      navigation.navigate('PostLikesScreen', {
+      navigation.push('PostLikesScreen', {
         user, postAuthorId: author.id, postId, redirect, author, index,
       });
     };
