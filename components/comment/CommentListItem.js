@@ -11,23 +11,26 @@ import { sendCommentLikeNotification } from '../../api/notifications_api';
 
 class CommentListItem extends Component {
   state = {
+    postId: this.props.postId,
+    post: this.props.activePost,
+    comment: this.props.comment,
     likes: this.props.comment.likeCount || 0,
     alreadyLiked: (
       this.props.postCommentLikes && this.props.postCommentLikes[this.props.comment.commentId]
-    )
+    ),
   };
 
   likeComment = () => {
     this.setState({ alreadyLiked: true });
-    const { user, activePost, comment, likeComment, sendCommentLikeNotification } = this.props;
-    const { author, commentId } = comment;
+    const { user, activePost, likeComment, sendCommentLikeNotification } = this.props;
+    const { post, postId, comment, comment: { author, commentId } } = this.state;
 
     likeComment({
       userId: user.uid,
       user,
       commentId,
-      postAuthorId: activePost.author.id,
-      postId: activePost.id,
+      postAuthorId: post.author.id,
+      postId,
       likesCount: comment.likes
     });
 
@@ -46,9 +49,9 @@ class CommentListItem extends Component {
   goToPublicProfile = () => {
     const {
       user: { uid: currentUserId },
-      comment: { author: profileUser, author: { uid: profileUserId } },
       navigation: { push, navigate },
     } = this.props;
+    const { author: profileUser, author: { uid: profileUserId } } = this.state.comment;
 
     if (currentUserId === profileUserId) {
       navigate('Profile');
@@ -61,7 +64,8 @@ class CommentListItem extends Component {
   };
 
   goToCommentLikes = () => {
-    const { navigation, comment: { commentId } } = this.props;
+    const { navigation } = this.props;
+    const { commentId } = this.state.comment;
 
     navigation.navigate('CommentLikesScreen', { commentId });
   };
@@ -72,7 +76,7 @@ class CommentListItem extends Component {
       comment,
       timestamp,
       createdOn
-    } = this.props.comment;
+    } = this.state.comment;
 
     const {
       containerStyle,

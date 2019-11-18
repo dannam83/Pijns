@@ -8,6 +8,7 @@ import CommentListItem from './CommentListItem';
 const CommentList = ({ header, postId }) => {
   const stateComments = useSelector(state => state.comments);
   const stateCommentsPostId = useSelector(state => state.commentsPostId);
+  const stateActivePost = useSelector(state => state.commentsPostId);
 
   const [comments, setComments] = useState([]);
 
@@ -22,7 +23,11 @@ const CommentList = ({ header, postId }) => {
 
   const renderRow = (comment) => {
     return (
-      <CommentListItem comment={comment} />
+      <CommentListItem
+        comment={comment}
+        postId={postId}
+        activePost={stateActivePost}
+      />
     );
   };
 
