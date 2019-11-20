@@ -34,7 +34,8 @@ class FavoritesScreen extends Component {
 function mapStateToProps(state) {
   const {
     user, pijnLog, pinboard, postLikes,
-    favorites: { favoritesArray, favoritesIds }
+    favorites: { favoritesArray, favoritesIds },
+    userFeedTab: { userFeedMap },
   } = state;
   let posts = _.map(favoritesArray, (post, index) => {
     const { postId } = post;
@@ -42,9 +43,18 @@ function mapStateToProps(state) {
     const pinned = !!pinboard[postId];
     const liked = !!postLikes[postId];
     const favorite = !!favoritesIds[postId];
+    const userFeedIndex = userFeedMap[post.postId];
     const { navigation } = state;
     return {
-      ...post, pijnSentToday, pinned, liked, user, navigation, index, favorite
+      ...post,
+      pijnSentToday,
+      pinned,
+      liked,
+      user,
+      navigation,
+      index,
+      favorite,
+      userFeedIndex,
     };
   });
   return { posts, user };
