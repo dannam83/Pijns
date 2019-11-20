@@ -42,6 +42,8 @@ export const FETCH_PIJN_LOG = 'FETCH_PIJN_LOG';
 
 export const FETCH_PINBOARD = 'FETCH_PINBOARD';
 
+export const FETCH_FAVORITES = 'FETCH_FAVORITES';
+
 export const SAVE_NAVIGATION = 'SAVE_NAVIGATION';
 
 export const SEARCH_UPDATE = 'SEARCH_UPDATE';
