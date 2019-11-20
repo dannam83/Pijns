@@ -72,15 +72,17 @@ function mapStateToProps(state) {
   const {
     user, friend, pijnLog, postLikes,
     userFeedTab: { userFeedMap },
-    postEdit: { deleteModalVisible, postId }
+    postEdit: { deleteModalVisible, postId },
+    favorites: { favoritesMap },
   } = state;
 
   const posts = _.map(state.posts, (val, uid) => {
     const pijnSentToday = !!pijnLog[uid];
     const liked = !!postLikes[uid];
+    const favoritesIndex = favoritesMap[uid];
     const { navigation } = state;
     return {
-      ...val, postId: uid, pijnSentToday, user, navigation, liked
+      ...val, postId: uid, pijnSentToday, user, navigation, liked, favoritesIndex,
     };
   }).reverse();
 

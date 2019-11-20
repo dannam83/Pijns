@@ -43,6 +43,7 @@ const ListItemMine = ({
         notes={post.notes.count}
         likes={post.likes}
         userFeedIndex={userFeedIndex}
+        favoritesIndex={post.favoritesIndex}
       />
     </Card>
   );
