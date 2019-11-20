@@ -30,6 +30,7 @@ const PostFavorites = ({ user, posts, redirect, fetchFavorites }) => {
         keyExtractor={({ item }, postId) => postId.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}
+        ListHeaderComponent={<View style={{ height: 5 }} />}
       />
     </View>
   );

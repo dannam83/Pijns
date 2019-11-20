@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import PostFavorites from '../components/post/PostFavorites';
+import FavoritePosts from '../components/post/FavoritePosts';
 import { fetchFavorites } from '../actions';
 
 class FavoritesScreen extends Component {
@@ -19,9 +19,9 @@ class FavoritesScreen extends Component {
   render() {
     const { posts, user, navigation, fetchFavorites } = this.props;
     const redirect = navigation.navigate;
-
+    
     return (
-      <PostFavorites
+      <FavoritePosts
         redirect={redirect}
         posts={posts}
         user={user}
@@ -33,9 +33,10 @@ class FavoritesScreen extends Component {
 
 function mapStateToProps(state) {
   const {
-    user, favorites, pijnLog, pinboard, postLikes
+    user, pijnLog, pinboard, postLikes,
+    favorites: { favoritesArray }
   } = state;
-  let posts = _.map(favorites, (post, index) => {
+  let posts = _.map(favoritesArray, (post, index) => {
     const pijnSentToday = !!pijnLog[post.postId];
     const pinned = !!pinboard[post.postId];
     const liked = !!postLikes[post.postId];

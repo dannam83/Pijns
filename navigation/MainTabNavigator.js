@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { AntDesign } from '@expo/vector-icons';
 
 import UserFeedScreen from '../screens/UserFeedScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchFriendsScreen from '../screens/SearchFriendsScreen';
 import PersonalProfileScreen from '../screens/PersonalProfileScreen';
 import PostCreateScreen from '../screens/PostCreateScreen';
@@ -37,12 +38,11 @@ UserFeedStack.navigationOptions = {
   ),
 };
 
-const ChatStack = createStackNavigator({
-  Chats: AllChatsScreen,
-  Chats_Chat: ChatScreen
+const FavoritesStack = createStackNavigator({
+  Favorites: FavoritesScreen,
 });
 
-ChatStack.navigationOptions = {
+FavoritesStack.navigationOptions = {
   tabBarOptions: {
     showLabel: false,
     activeTintColor: 'rgba(0,125,255,1)',
@@ -139,7 +139,7 @@ ProfileStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   UserFeedStack,
-  ChatStack,
+  FavoritesStack,
   PostCreateStack,
   NotificationsStack,
   ProfileStack,

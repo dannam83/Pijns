@@ -4,6 +4,7 @@ import user from './user_reducer';
 import postEdit from './post_edit_reducer';
 import postCreate from './post_create_reducer';
 import posts from './posts_reducer';
+import favorites from './favorites_reducer';
 import activePost from './active_post_reducer';
 import comments from './comments_reducer';
 import commentsPostId from './comments_post_id_reducer';
@@ -47,6 +48,7 @@ export default combineReducers({
   postLikedBy,
   postLikes,
   posts,
+  favorites,
   requests,
   // searchResults,
   // userFeed,
