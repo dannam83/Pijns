@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
         ? { ...state, favoritesArray, favoritesMap }
         : state;
     case FETCH_FAVORITES_IDS:
-      return { ...state, favoritesIds: action.payload };
+      return { ...state, favoritesIds: action.payload || {} };
     // case POST_APPEND:
     //   state.unshift(action.payload);
     //   return state;

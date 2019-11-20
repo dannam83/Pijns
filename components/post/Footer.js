@@ -27,7 +27,7 @@ class Footer extends Component {
       commentCount: prevCommentCount,
     } } = this.props;
     return (
-      notes !== prevNotes || likes !== prevLikes || favorite !== prevFavorite,
+      notes !== prevNotes || likes !== prevLikes || favorite !== prevFavorite ||
       liked !== prevLiked || pijnSentToday !== prevPijnSentToday ||
       answered !== prevAnswered || commentCount !== prevCommentCount
     );
@@ -110,19 +110,17 @@ class Footer extends Component {
           {
             favorite
             ?
-            <TouchableOpacity style={{ paddingTop: 3 }}>
                 <AntDesign
                   name={'star'}
                   size={19}
                   color={'#EEE006'}
                 />
-            </TouchableOpacity>
             :
-            <AntDesign
-                name={'staro'}
-                size={19}
-                color={'#434343'}
-            />
+                <AntDesign
+                  name={'staro'}
+                  size={19}
+                  color={'#434343'}
+                />
           }
         </TouchableOpacity>
       );
