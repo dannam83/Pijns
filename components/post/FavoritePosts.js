@@ -14,6 +14,10 @@ const PostFavorites = ({ user, posts, redirect, fetchFavorites }) => {
   };
 
   const renderRow = (post) => {
+    if (!post.favorite) {
+      return null;
+    }
+
     return (
       <ListItem
         post={post}
