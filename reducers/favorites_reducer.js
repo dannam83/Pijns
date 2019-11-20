@@ -1,6 +1,7 @@
 import {
   FETCH_FAVORITES,
   FETCH_FAVORITES_IDS,
+  UPDATE_FAVORITES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -23,14 +24,14 @@ export default (state = INITIAL_STATE, action) => {
     // case POST_APPEND:
     //   state.unshift(action.payload);
     //   return state;
-    // case UPDATE_USER_FEED:
-    //   const newState = { ...state };
-    //   if (action.field === 'notes') {
-    //     newState[action.index].notes.count = action.value;
-    //   } else {
-    //     newState[action.index][action.field] = action.value;
-    //   }
-    //   return newState;
+    case UPDATE_FAVORITES:
+      const newState = { ...state };
+      if (action.field === 'notes') {
+        newState.favoritesArray[action.index].notes.count = action.value;
+      } else {
+        newState.favoritesArray[action.index][action.field] = action.value;
+      }
+      return newState;
     default:
       return state;
   }

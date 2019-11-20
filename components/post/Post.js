@@ -8,7 +8,7 @@ import Footer from './Footer';
 
 class Post extends PureComponent {
   render() {
-    const { post, userFeedIndex, navigation } = this.props;
+    const { post, userFeedIndex, favoritesIndex, navigation } = this.props;
     const {
       user, author, content, timestamp, createdOn, postId, pinned, taggedFriends,
     } = post;
@@ -37,6 +37,7 @@ class Post extends PureComponent {
           notes={post.notes.count}
           likes={post.likes}
           userFeedIndex={userFeedIndex}
+          favoritesIndex={favoritesIndex}
         />
       </Card>
     );

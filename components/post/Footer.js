@@ -8,12 +8,14 @@ import { withNavigation } from 'react-navigation';
 import { ActionButton } from '../common';
 import PostCounts from './PostCounts';
 import PostPrayerAnswered from './PostPrayerAnswered';
-import { answerPrayer, unanswerPrayer, sendPijn, updateUserFeed } from '../../actions';
 import { likePost, unlikePost } from '../../api/posts_api';
 import { favoritePost, unfavoritePost } from '../../api/user_favorites_api';
 import {
   sendPijnNotification, sendPrayerAnsweredNotifications
 } from '../../api/notifications_api';
+import {
+  answerPrayer, unanswerPrayer, sendPijn, updateUserFeed, updateFavorites
+} from '../../actions';
 
 class Footer extends Component {
   shouldComponentUpdate(nextProps) {
@@ -40,8 +42,8 @@ class Footer extends Component {
 
     const {
       post, notes = 0, likes = 0,
-      redirect, navigation, userFeedIndex,
-      updateUserFeed, sendPijn, answerPrayer, unanswerPrayer,
+      redirect, navigation, userFeedIndex, favoritesIndex,
+      updateUserFeed, updateFavorites, sendPijn, answerPrayer, unanswerPrayer,
       post: {
         user, postId, author, index, pijnSentToday,
         commentCount = 0, answered, liked, favorite,
@@ -82,6 +84,7 @@ class Footer extends Component {
     const PijnButton = () => {
       const pijnPress = () => {
         updateUserFeed(userFeedIndex, 'notes', notes + 1);
+        updateFavorites(favoritesIndex, 'notes', notes + 1);
         sendPijn({ postId, author, currentDate, user });
         sendPijnNotification(user, postId, post);
       };
@@ -164,9 +167,11 @@ class Footer extends Component {
         if (liked) {
           unlikePost({ user, postId, authorId: author.id });
           updateUserFeed(userFeedIndex, 'likes', likes - 1);
+          updateFavorites(favoritesIndex, 'likes', likes - 1);
         } else {
           likePost({ user, postId, authorId: author.id });
           updateUserFeed(userFeedIndex, 'likes', likes + 1);
+          updateFavorites(favoritesIndex, 'likes', likes + 1);
         }
       };
 
@@ -251,5 +256,5 @@ const styles = StyleSheet.create({
 });
 
 export default withNavigation(connect(null, {
-  answerPrayer, unanswerPrayer, sendPijn, updateUserFeed
+  answerPrayer, unanswerPrayer, sendPijn, updateUserFeed, updateFavorites,
 })(Footer));

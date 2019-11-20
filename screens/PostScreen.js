@@ -50,13 +50,14 @@ class PostScreen extends Component {
   }
 
   header = () => {
-    const { userFeedIndex, navigation } = this.props;
+    const { userFeedIndex, favoritesIndex, navigation } = this.props;
     const { post } = this;
     return (
       <Post
         post={post}
         navigation={navigation}
         userFeedIndex={userFeedIndex}
+        favoritesIndex={favoritesIndex}
         likes={post.likes}
         notes={post.notes.count}
       />
@@ -95,18 +96,26 @@ function mapStateToProps(state) {
     user, pijnLog, pinboard, navigation, postLikes,
     activePost: { post },
     modals: { postUnavailable },
+    favorites: { favoritesMap },
     userFeedTab: { userFeedMap },
   } = state;
   if (!post) { return { postUnavailable }; }
-
-  const userFeedIndex = userFeedMap[post.postId];
-  const pijnSentToday = !!pijnLog[post.postId];
-  const pinned = !!pinboard[post.postId];
-  const liked = !!postLikes[post.postId];
+  const { postId } = post;
+  const userFeedIndex = userFeedMap[postId];
+  const favoritesIndex = favoritesMap[postId];
+  const pijnSentToday = !!pijnLog[postId];
+  const pinned = !!pinboard[postId];
+  const liked = !!postLikes[postId];
   const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked };
 
   return {
-    post: formattedPost, navigation, postUnavailable, user, userFeedIndex, postId: post.id
+    post: formattedPost,
+    navigation,
+    postUnavailable,
+    user,
+    userFeedIndex,
+    favoritesIndex,
+    postId: post.id
   };
 }
 

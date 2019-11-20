@@ -43,6 +43,7 @@ const ListItem = ({ post, redirect, pinnedOnly, pinFilter, onProfile }) => {
         author={author}
         pinnedOnly={pinnedOnly}
         userFeedIndex={post.index}
+        favoritesIndex={post.favoritesIndex}
       />
     </Card>
   );

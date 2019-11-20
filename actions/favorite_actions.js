@@ -2,7 +2,9 @@
 import axios from 'axios';
 import firebase from 'firebase';
 
-import { FETCH_FAVORITES, FETCH_FAVORITES_IDS } from './types';
+import {
+  FETCH_FAVORITES, FETCH_FAVORITES_IDS, UPDATE_FAVORITES,
+} from './types';
 
 const ROOT_URL = 'https://us-central1-pijns-dc1c1.cloudfunctions.net';
 
@@ -22,6 +24,20 @@ export const fetchFavoritesIds = (userId) => {
         );
       }
     );
+  };
+};
+
+export const updateFavorites = (index, field, value) => {
+  if (index || index === 0) {
+    return {
+      type: UPDATE_FAVORITES,
+      index,
+      field,
+      value,
+    };
+  }
+  return {
+    type: 'DUMMY',
   };
 };
 

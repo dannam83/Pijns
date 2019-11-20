@@ -103,7 +103,7 @@ function mapStateToProps(state) {
   const {
     user, pijnLog, pinboard, postLikes,
     userFeedTab: { userFeed },
-    favorites: { favoritesIds },
+    favorites: { favoritesIds, favoritesMap },
   } = state;
   let posts = _.map(userFeed, (post, index) => {
     const { postId } = post;
@@ -111,9 +111,18 @@ function mapStateToProps(state) {
     const pinned = !!pinboard[postId];
     const liked = !!postLikes[postId];
     const favorite = !!favoritesIds[postId];
+    const favoritesIndex = favoritesMap[postId];
     const { navigation } = state;
     return {
-      ...post, pijnSentToday, pinned, liked, user, navigation, favorite, index
+      ...post,
+      pijnSentToday,
+      pinned,
+      liked, 
+      user,
+      navigation,
+      favorite,
+      index,
+      favoritesIndex,
     };
   });
   return { posts, user };
