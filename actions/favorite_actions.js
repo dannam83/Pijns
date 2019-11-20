@@ -1,7 +1,8 @@
 // import { AsyncStorage } from 'react-native';
 import axios from 'axios';
+import firebase from 'firebase';
 
-import { FETCH_FAVORITES } from './types';
+import { FETCH_FAVORITES, FETCH_FAVORITES_IDS } from './types';
 
 const ROOT_URL = 'https://us-central1-pijns-dc1c1.cloudfunctions.net';
 
@@ -10,6 +11,17 @@ export const fetchFavorites = (userId) => {
     return queryUserFavorites(userId).then(res => {
       dispatch({ type: FETCH_FAVORITES, payload: res.data });
     });
+  };
+};
+
+export const fetchFavoritesIds = (userId) => {
+  return (dispatch) => {
+    firebase.database().ref(`/userFavorites/${userId}`)
+      .on('value', snapshot => {
+        dispatch({ type: FETCH_FAVORITES_IDS, payload: snapshot.val() }
+        );
+      }
+    );
   };
 };
 

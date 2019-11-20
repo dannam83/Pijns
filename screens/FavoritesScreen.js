@@ -19,7 +19,7 @@ class FavoritesScreen extends Component {
   render() {
     const { posts, user, navigation, fetchFavorites } = this.props;
     const redirect = navigation.navigate;
-    
+
     return (
       <FavoritePosts
         redirect={redirect}
@@ -34,15 +34,17 @@ class FavoritesScreen extends Component {
 function mapStateToProps(state) {
   const {
     user, pijnLog, pinboard, postLikes,
-    favorites: { favoritesArray }
+    favorites: { favoritesArray, favoritesIds }
   } = state;
   let posts = _.map(favoritesArray, (post, index) => {
-    const pijnSentToday = !!pijnLog[post.postId];
-    const pinned = !!pinboard[post.postId];
-    const liked = !!postLikes[post.postId];
+    const { postId } = post;
+    const pijnSentToday = !!pijnLog[postId];
+    const pinned = !!pinboard[postId];
+    const liked = !!postLikes[postId];
+    const favorite = !!favoritesIds[postId];
     const { navigation } = state;
     return {
-      ...post, pijnSentToday, pinned, liked, user, navigation, index
+      ...post, pijnSentToday, pinned, liked, user, navigation, index, favorite
     };
   });
   return { posts, user };

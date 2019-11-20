@@ -101,15 +101,19 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   const {
-    user, userFeedTab: { userFeed }, pijnLog, pinboard, postLikes
+    user, pijnLog, pinboard, postLikes,
+    userFeedTab: { userFeed },
+    favorites: { favoritesMap },
   } = state;
   let posts = _.map(userFeed, (post, index) => {
-    const pijnSentToday = !!pijnLog[post.postId];
-    const pinned = !!pinboard[post.postId];
-    const liked = !!postLikes[post.postId];
+    const { postId } = post;
+    const pijnSentToday = !!pijnLog[postId];
+    const pinned = !!pinboard[postId];
+    const liked = !!postLikes[postId];
+    const favorite = !!favoritesMap[postId];
     const { navigation } = state;
     return {
-      ...post, pijnSentToday, pinned, liked, user, navigation, index
+      ...post, pijnSentToday, pinned, liked, user, navigation, favorite, index
     };
   });
   return { posts, user };

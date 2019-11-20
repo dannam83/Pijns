@@ -25,6 +25,7 @@ class LoadAppScreen extends Component {
       await Promise.all([
         this.props.fetchUserFeed(currentUid),
         this.props.fetchFavorites(currentUid),
+        this.props.fetchFavoritesIds(currentUid),
         this.props.fetchPijnLog(currentUid),
         this.props.fetchPinboard(currentUid),
         this.props.fetchPostLikes(currentUid),

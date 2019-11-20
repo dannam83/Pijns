@@ -1,8 +1,12 @@
-import { FETCH_FAVORITES } from '../actions/types';
+import {
+  FETCH_FAVORITES,
+  FETCH_FAVORITES_IDS,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   favoritesArray: [],
-  favoritesMap: {}
+  favoritesMap: {},
+  favoritesIds: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,8 +14,12 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_FAVORITES:
     const { payload } = action;
       if (!payload) { return state; }
-      const { favoritesArray } = action.payload;
-      return favoritesArray && favoritesArray.length > 0 ? payload : state;
+      const { favoritesArray, favoritesMap } = action.payload;
+      return favoritesArray && favoritesArray.length > 0
+        ? { ...state, favoritesArray, favoritesMap }
+        : state;
+    case FETCH_FAVORITES_IDS:
+      return { ...state, favoritesIds: action.payload };
     // case POST_APPEND:
     //   state.unshift(action.payload);
     //   return state;
