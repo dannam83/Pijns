@@ -11,7 +11,7 @@ import PostPrayerAnswered from './PostPrayerAnswered';
 import { likePost, unlikePost } from '../../api/posts_api';
 import { favoritePost, unfavoritePost } from '../../api/user_favorites_api';
 import {
-  sendPijnNotification, sendPrayerAnsweredNotifications
+  sendPijnNotification, sendPrayerAnsweredNotifications, sendPostLikeNotification
 } from '../../api/notifications_api';
 import {
   answerPrayer, unanswerPrayer, sendPijn, updateUserFeed, updateFavorites
@@ -45,7 +45,7 @@ class Footer extends Component {
       redirect, navigation, userFeedIndex, favoritesIndex,
       updateUserFeed, updateFavorites, sendPijn, answerPrayer, unanswerPrayer,
       post: {
-        user, postId, author, index, pijnSentToday,
+        user, postId, author, content, index, pijnSentToday,
         commentCount = 0, answered, liked, favorite,
       }
     } = this.props;
@@ -172,6 +172,7 @@ class Footer extends Component {
           likePost({ user, postId, authorId: author.id });
           updateUserFeed(userFeedIndex, 'likes', likes + 1);
           updateFavorites(favoritesIndex, 'likes', likes + 1);
+          sendPostLikeNotification(user, postId, author.id, content)
         }
       };
 

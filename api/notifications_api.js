@@ -37,6 +37,19 @@ export const sendCommentLikeNotification = (
   }
 };
 
+export const sendPostLikeNotification = (
+  user, postId, postAuthorId, postText,
+) => {
+  const [sender, content, timestamp, type] = [user, postText, -Date.now(), 'postLike'];
+
+  if (user.uid !== postAuthorId) {
+    const notification = { content, postId, timestamp, sender, type };
+    sendNotification(postAuthorId, notification);
+    incrementCounter(postAuthorId);
+    sendPushNotification(postAuthorId, `${user.name} liked your post: ${content}`);
+  }
+};
+
 export const sendPrayerAnsweredNotifications = (user, postId, post) => {
   const { content, visibleTo, taggedFriends } = post;
   if (visibleTo === 'Only Me') { return; }
