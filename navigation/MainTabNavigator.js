@@ -13,8 +13,6 @@ import TagFriendsScreen from '../screens/TagFriendsScreen';
 import PostEditScreen from '../screens/PostEditScreen';
 import FriendListScreen from '../screens/FriendListScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
-import ChatScreen from '../screens/ChatScreen';
-import AllChatsScreen from '../screens/AllChatsScreen';
 import NotificationsIcon from '../components/navigation/NotificationsIcon';
 
 const UserFeedStack = createStackNavigator({
@@ -75,6 +73,7 @@ PostCreateStack.navigationOptions = ({ navigation }) => ({
         name={'pluscircleo'}
         size={25}
         color={tintColor}
+        style={{ paddingLeft: 4 }}
       />
     );
   },
