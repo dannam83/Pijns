@@ -60,6 +60,7 @@ class PostScreen extends Component {
         favoritesIndex={favoritesIndex}
         likes={post.likes}
         notes={post.notes.count}
+        favorite={post.favorite}
       />
     );
   }
@@ -96,17 +97,18 @@ function mapStateToProps(state) {
     user, pijnLog, pinboard, navigation, postLikes,
     activePost: { post },
     modals: { postUnavailable },
-    favorites: { favoritesMap },
+    favorites: { favoritesMap, favoritesIds },
     userFeedTab: { userFeedMap },
   } = state;
   if (!post) { return { postUnavailable }; }
   const { postId } = post;
   const userFeedIndex = userFeedMap[postId];
   const favoritesIndex = favoritesMap[postId];
+  const favorite = !!favoritesIds[postId];
   const pijnSentToday = !!pijnLog[postId];
   const pinned = !!pinboard[postId];
   const liked = !!postLikes[postId];
-  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked };
+  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked, favorite };
 
   return {
     post: formattedPost,

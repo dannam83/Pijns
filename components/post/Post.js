@@ -8,13 +8,13 @@ import Footer from './Footer';
 
 class Post extends PureComponent {
   render() {
-    const { post, userFeedIndex, favoritesIndex, navigation } = this.props;
+    const { post, userFeedIndex, favoritesIndex, favorite, navigation } = this.props;
     const {
       user, author, content, timestamp, createdOn, postId, pinned, taggedFriends,
     } = post;
     const userId = user.uid;
     const { containerStyle, contentStyle } = styles;
-
+    console.log('post', post)
     return (
       <Card containerStyle={containerStyle}>
         <Banner
@@ -38,6 +38,7 @@ class Post extends PureComponent {
           likes={post.likes}
           userFeedIndex={userFeedIndex}
           favoritesIndex={favoritesIndex}
+          favorite={favorite}
         />
       </Card>
     );
@@ -64,6 +65,7 @@ function mapStateToProps(state) {
     activePost: { post },
     modals: { postUnavailable },
     userFeedTab: { userFeedMap },
+    favorites: { favoritesIds },
   } = state;
 
   if (!post) { return { postUnavailable }; }
@@ -72,7 +74,8 @@ function mapStateToProps(state) {
   const pijnSentToday = !!pijnLog[post.postId];
   const pinned = !!pinboard[post.postId];
   const liked = !!postLikes[post.postId];
-  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked };
+  const favorite = !!favoritesIds[post.postId];
+  const formattedPost = { ...post, pijnSentToday, pinned, user, navigation, liked, favorite };
 
   return { post: formattedPost, userFeedIndex, navigation };
 }
