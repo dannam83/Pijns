@@ -14,7 +14,6 @@ class Post extends PureComponent {
     } = post;
     const userId = user.uid;
     const { containerStyle, contentStyle } = styles;
-    console.log('post', post)
     return (
       <Card containerStyle={containerStyle}>
         <Banner
