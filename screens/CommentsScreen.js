@@ -9,10 +9,8 @@ import {
   commentCreateSave,
   commentsPopulate,
   fetchPostCommentLikes,
-  fetchActivePost,
   commentsClear,
   updateUserFeed,
-  resetActivePost,
 } from '../actions';
 
 class CommentsScreen extends Component {
@@ -30,17 +28,15 @@ class CommentsScreen extends Component {
   componentDidMount = async () => {
     const {
       user, postId,
-      props: { fetchPostCommentLikes, commentsPopulate, fetchActivePost },
+      props: { fetchPostCommentLikes, commentsPopulate },
     } = this;
 
     await fetchPostCommentLikes({ userId: user.uid, postId });
     await commentsPopulate(postId);
-    await fetchActivePost(postId);
   }
 
   componentWillUnmount() {
     this.props.commentsClear();
-    this.props.resetActivePost(this.postId);
   }
 
   saveComment = ({ user, postAuthorId, postId, comment }) => {
@@ -107,8 +103,6 @@ export default connect(mapStateToProps, {
   commentCreateSave,
   commentsPopulate,
   fetchPostCommentLikes,
-  fetchActivePost,
   commentsClear,
   updateUserFeed,
-  resetActivePost,
 })(CommentsScreen);
