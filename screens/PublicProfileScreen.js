@@ -39,7 +39,6 @@ class PublicProfileScreen extends Component {
       <ProfileHeaderPublic
         imgSource={{ uri: `${picture}?type=large` }}
         name={name}
-        userId={userId}
         status={status}
         redirect={redirect}
         friend={friend}

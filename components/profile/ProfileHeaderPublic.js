@@ -9,12 +9,25 @@ import { disabledGray, buttonBlue } from '../../assets/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ProfileHeaderPublic extends Component {
-  state = { unfriend: 'Unfriend' };
+  constructor(props) {
+    super(props);
+    let status = this.props.status;
+    if (!status) { status = this.props.friend.status; }
+    this.state = {
+      unfriend: 'Unfriend',
+      status,
+    };
+  }
+
+  request(profileUserId, currentUser) {
+    this.props.friendRequest({ profileUserId, currentUser });
+    this.setState({ status: 'Requested' });
+  }
 
   friendRequestButton(profileUserId, currentUser) {
     return (
       <Button
-        onPress={() => this.props.friendRequest({ profileUserId, currentUser })}
+        onPress={() => this.request(profileUserId, currentUser)}
       >
         Add Friend
       </Button>
@@ -76,8 +89,9 @@ class ProfileHeaderPublic extends Component {
     });
   }
 
-  renderFriendButtons(status) {
-    const { currentUser, userId } = this.props;
+  renderFriendButtons() {
+    const { currentUser, friend: { userId } } = this.props;
+    const { status } = this.state;
 
     if (!status) {
       return this.friendRequestButton(userId, currentUser);
