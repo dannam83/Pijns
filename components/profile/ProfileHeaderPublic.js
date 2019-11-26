@@ -16,73 +16,11 @@ class ProfileHeaderPublic extends Component {
     this.state = {
       unfriend: 'Unfriend',
       status,
+      friendStatus: status,
     };
   }
 
-  request(profileUserId, currentUser) {
-    const { friendRequest, profileId } = this.props;
-    friendRequest({ profileUserId: profileId, currentUser });
-  }
-
-  friendRequestButton(profileUserId, currentUser) {
-    return (
-      <Button
-        onPress={() => this.request(profileUserId, currentUser)}
-      >
-        Add Friend
-      </Button>
-    );
-  }
-
-  requestedButton() {
-    const { buttonBorderGray, buttonTextGray } = styles;
-
-    return (
-      <Button
-        buttonRestyle={buttonBorderGray}
-        textRestyle={buttonTextGray}
-        disabled
-      >
-        Requested
-      </Button>
-    );
-  }
-
-  unfriend(profileUserId, currentUser) {
-    const { unfriend, profileId } = this.props;
-    unfriend({ profileUserId: profileId, currentUser });
-    this.setState({ unfriend: 'in progress...' });
-  }
-
-  unfriendButton(profileUserId, currentUser) {
-    const { buttonBorderGray, buttonTextGray } = styles;
-
-    return (
-      <Button
-        onPress={() => this.unfriend(profileUserId, currentUser)}
-        buttonRestyle={buttonBorderGray}
-        textRestyle={buttonTextGray}
-      >
-        {this.state.unfriend}
-      </Button>
-    );
-  }
-
-  seeRequestsButton() {
-    const { buttonBodyBlue, buttonTextWhite } = styles;
-
-    return (
-      <Button
-        onPress={() => this.props.redirect('Notifications')}
-        buttonRestyle={buttonBodyBlue}
-        textRestyle={buttonTextWhite}
-      >
-        See Requests
-      </Button>
-    );
-  }
-
-  chatButton() {
+  chatPress() {
     const { currentUser, redirect, friend } = this.props;
     const { uid } = friend;
     redirect('ChatScreen', {
@@ -90,22 +28,39 @@ class ProfileHeaderPublic extends Component {
     });
   }
 
-  renderFriendButtons() {
-    const { currentUser, friend: { uid: userId } } = this.props;
-    const { status } = this.state;
-
-    if (!status) {
-      return this.friendRequestButton(userId, currentUser);
-    } else if (status === 'Requested') {
-      return this.requestedButton();
-    } else if (status === 'See Requests') {
-      return this.seeRequestsButton();
-    } else if (status === 'Unfriend') {
-      return this.unfriendButton(userId, currentUser);
-    }
-  }
-
   render() {
+    const FriendingButton = () => {
+      const { currentUser, friendRequest, unfriend, profileId } = this.props;
+      const { friendStatus } = this.state;
+      const { buttonBodyBlue, buttonTextWhite, buttonBorderGray, buttonTextGray } = styles;
+      const { redirect } = this.props;
+
+      let oP; let bS; let tS; let d;
+
+      [oP, bS, tS, d] = !friendStatus
+        ? [() => friendRequest({ profileUserId: profileId, currentUser })]
+        : friendStatus === 'Requested'
+          ? [null, buttonBorderGray, buttonTextGray, true]
+          : friendStatus === 'See Requests'
+            ? [() => redirect('Notifications'), buttonBodyBlue, buttonTextWhite]
+            : [
+                () => unfriend({ profileUserId: profileId, currentUser }),
+                buttonBorderGray,
+                buttonTextGray
+              ];
+
+      return (
+        <Button
+          onPress={oP}
+          buttonRestyle={bS}
+          textRestyle={tS}
+          disabled={d}
+        >
+          {friendStatus || 'Add Friend'}
+        </Button>
+      );
+    };
+
     const { imgSource, name } = this.props;
 
     const {
@@ -120,9 +75,9 @@ class ProfileHeaderPublic extends Component {
         <Image source={imgSource} style={imageStyle} />
         <Text style={nameStyle}>{name}</Text>
           <View style={buttonsViewStyle}>
-            {this.renderFriendButtons(status)}
+            <FriendingButton />
             <Button
-              onPress={() => this.chatButton()}
+              onPress={() => this.chatPress()}
             >Message</Button>
           </View>
       </View>
@@ -175,6 +130,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
+  console.log(state.friend.status)
   return ({ currentUser: state.user });
 }
 
