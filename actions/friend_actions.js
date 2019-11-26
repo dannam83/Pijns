@@ -6,6 +6,7 @@ import { sendPushNotification } from '../api/push_notifications_api';
 import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
 
 export const friendRequest = ({ profileUserId, currentUser }) => {
+  console.log(profileUserId, currentUser)
   const { name } = currentUser;
   return () => {
     processRequest({ profileUserId, currentUser, type: 'request' });
@@ -80,7 +81,6 @@ const processRequest = async ({ profileUserId, currentUser, type, friend }) => {
 
   updateRequests({ db, type, profileUserId, currentUser });
   incrementRequestsCounter({ db, type, profileUserId, currentUserId });
-
   try {
     await updateFriends({ db, type, profileUserId, currentUser });
     if (!friend === false) {

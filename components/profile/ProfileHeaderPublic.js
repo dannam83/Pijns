@@ -20,8 +20,8 @@ class ProfileHeaderPublic extends Component {
   }
 
   request(profileUserId, currentUser) {
-    this.props.friendRequest({ profileUserId, currentUser });
-    this.setState({ status: 'Requested' });
+    const { friendRequest, profileId } = this.props;
+    friendRequest({ profileUserId: profileId, currentUser });
   }
 
   friendRequestButton(profileUserId, currentUser) {
@@ -49,7 +49,8 @@ class ProfileHeaderPublic extends Component {
   }
 
   unfriend(profileUserId, currentUser) {
-    this.props.unfriend({ profileUserId, currentUser });
+    const { unfriend, profileId } = this.props;
+    unfriend({ profileUserId: profileId, currentUser });
     this.setState({ unfriend: 'in progress...' });
   }
 
@@ -90,7 +91,7 @@ class ProfileHeaderPublic extends Component {
   }
 
   renderFriendButtons() {
-    const { currentUser, friend: { userId } } = this.props;
+    const { currentUser, friend: { uid: userId } } = this.props;
     const { status } = this.state;
 
     if (!status) {

@@ -17,7 +17,7 @@ class PublicProfileScreen extends Component {
     const profileUser = props.navigation.getParam('profileUser');
 
     // param comes in as user.userId from search and as user.uid from friends
-    const profileId = !profileUser.uid ? profileUser.profileUserId : profileUser.uid;
+    const profileId = !profileUser.uid ? profileUser.userId : profileUser.uid;
 
     this.profileUser = profileUser;
     this.profileId = profileId;
@@ -43,6 +43,7 @@ class PublicProfileScreen extends Component {
         status={status}
         redirect={redirect}
         friend={friend}
+        profileId={this.profileId}
       />
     );
   }
