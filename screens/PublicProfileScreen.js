@@ -27,6 +27,7 @@ class PublicProfileScreen extends Component {
 
   shouldComponentUpdate(newProps) {
     const { friendId } = newProps.friend;
+    if (!friendId) newProps.friendPostsFetch(this.profileId);
     return this.profileId === friendId;
   }
 
