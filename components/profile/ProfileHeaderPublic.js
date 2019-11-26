@@ -20,21 +20,21 @@ class ProfileHeaderPublic extends Component {
     };
   }
 
-  chatPress() {
-    const { currentUser, redirect, friend } = this.props;
-    const { uid } = friend;
-    redirect('ChatScreen', {
-      user: currentUser, postAuthorId: uid, friendId: uid, friend
-    });
-  }
-
   render() {
-    const FriendingButton = () => {
-      const { currentUser, friendRequest, unfriend, profileId } = this.props;
-      const { friendStatus } = this.state;
-      const { buttonBodyBlue, buttonTextWhite, buttonBorderGray, buttonTextGray } = styles;
-      const { redirect } = this.props;
+    const {
+      state: { friendStatus },
+      props: {
+        imgSource, name, currentUser, profileId,
+        friendRequest, unfriend, redirect, friend,
+      },
+    } = this;
 
+    const {
+      containerStyle, imageStyle, nameStyle, buttonsViewStyle,
+      buttonBodyBlue, buttonTextWhite, buttonBorderGray, buttonTextGray
+    } = styles;
+
+    const FriendingButton = () => {
       let oP; let bS; let tS; let d;
 
       [oP, bS, tS, d] = !friendStatus
@@ -61,14 +61,11 @@ class ProfileHeaderPublic extends Component {
       );
     };
 
-    const { imgSource, name } = this.props;
-
-    const {
-      containerStyle, imageStyle, nameStyle, buttonsViewStyle
-    } = styles;
-
-    let status = this.props.status;
-    if (!status) { status = this.props.friend.status; }
+    const chatPress = () => {
+      redirect('ChatScreen', {
+        user: currentUser, postAuthorId: profileId, friendId: profileId, friend
+      });
+    };
 
     return (
       <View style={containerStyle}>
@@ -77,7 +74,7 @@ class ProfileHeaderPublic extends Component {
           <View style={buttonsViewStyle}>
             <FriendingButton />
             <Button
-              onPress={() => this.chatPress()}
+              onPress={chatPress}
             >Message</Button>
           </View>
       </View>
@@ -130,7 +127,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log(state.friend.status)
   return ({ currentUser: state.user });
 }
 

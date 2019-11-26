@@ -6,7 +6,6 @@ import { sendPushNotification } from '../api/push_notifications_api';
 import { FRIEND_STATUS, FRIEND_POSTS_FETCH_SUCCESS, FRIEND_CLEAR } from './types';
 
 export const friendRequest = ({ profileUserId, currentUser }) => {
-  console.log(profileUserId, currentUser)
   const { name } = currentUser;
   return () => {
     processRequest({ profileUserId, currentUser, type: 'request' });
