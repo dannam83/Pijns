@@ -4,7 +4,7 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import ListItem from './ListItem';
 
 const PostListPublic = ({
-  header, userId, posts, redirect, status, onProfile
+  header, userId, posts, redirect, status, onProfile, isFriend,
 }) => {
   const anyoneCanSee = post => {
     if (post.visibleTo === 'Anyone') { return true; }
@@ -22,7 +22,7 @@ const PostListPublic = ({
   };
 
   const renderRow = (post) => {
-    const canSee = status && status === 'Unfriend' ? friendCanSee : anyoneCanSee;
+    const canSee = isFriend ? friendCanSee : anyoneCanSee;
 
     if (canSee(post)) {
       return (

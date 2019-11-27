@@ -57,7 +57,10 @@ class PublicProfileScreen extends Component {
   }
 
   render() {
-    const { navigation, posts, friend, user: { uid: userId } } = this.props;
+    const {
+      navigation, posts, friend, friendList,
+      user: { uid: userId }
+    } = this.props;
     const { navigate } = navigation;
     const redirect = navigate;
 
@@ -69,7 +72,6 @@ class PublicProfileScreen extends Component {
       profileId, profileUser, friendStatus,
       profileUser: { name, picture }
     } = this;
-
 
     return (
       <View style={styles.containerStyle}>
@@ -83,6 +85,7 @@ class PublicProfileScreen extends Component {
             redirect={redirect}
             status={friendStatus}
             onProfile
+            isFriend={!!friendList[this.profileId]}
           />
         </View>
       </View>
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  const { friend, user, pijnLog, pinboard, postLikes,
+  const { friend, user, pijnLog, pinboard, postLikes, friendList,
     favorites: { favoritesIds, favoritesMap },
   } = state;
   let posts = _.map(state.friend.posts, (val, uid) => {
@@ -121,7 +124,8 @@ function mapStateToProps(state) {
       favoritesIndex,
     };
   }).reverse();
-  return { friend, posts, user, status: friend.status };
+
+  return { friend, posts, user, status: friend.status, friendList };
 }
 
 export default connect(mapStateToProps, {
