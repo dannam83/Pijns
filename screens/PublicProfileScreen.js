@@ -5,7 +5,9 @@ import _ from 'lodash';
 
 import PostListPublic from '../components/post/PostListPublic';
 import ProfileHeaderPublic from '../components/profile/ProfileHeaderPublic';
-import { friendPostsFetch, clearFriend } from '../actions';
+import {
+  friendPostsFetch, clearFriend, friendStatusSilence, getFriendStatus,
+} from '../actions';
 
 class PublicProfileScreen extends Component {
   static navigationOptions = {
@@ -27,11 +29,18 @@ class PublicProfileScreen extends Component {
 
   shouldComponentUpdate(newProps) {
     const { friendId } = newProps.friend;
-    if (!friendId) newProps.friendPostsFetch(this.profileId);
+    if (!friendId) {
+      const { profileId } = this;
+      const { uid: currentUserId } = newProps.user;
+      newProps.getFriendStatus({ profileUserId: profileId, currentUserId });
+      newProps.friendPostsFetch(profileId);
+    }
     return this.profileId === friendId;
   }
 
   componentWillUnmount() {
+    const { profileId: profileUserId, props: { user: { uid } } } = this;
+    this.props.friendStatusSilence({ profileUserId, currentUserId: uid });
     this.props.clearFriend();
   }
 
@@ -116,5 +125,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  clearFriend, friendPostsFetch
+  clearFriend, friendPostsFetch, friendStatusSilence, getFriendStatus
 })(PublicProfileScreen);

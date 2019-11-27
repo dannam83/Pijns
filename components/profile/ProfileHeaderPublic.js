@@ -8,7 +8,7 @@ import { disabledGray, buttonBlue } from '../../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-class ProfileHeaderPublic extends Component {
+class ProfileHeaderPublic extends Component {  
   render() {
     const {
       props: {

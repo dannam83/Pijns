@@ -47,6 +47,15 @@ export const getFriendStatus = ({ profileUserId, currentUserId }) => {
   };
 };
 
+export const friendStatusSilence = ({ profileUserId, currentUserId }) => {
+  const db = firebase.database();
+  db.ref(`/friends/${currentUserId}/${profileUserId}/status`).off();
+  return ({
+    type: FRIEND_STATUS,
+    payload: 'pending',
+  });
+};
+
 export const friendPostsFetch = (userId) => {
   return (dispatch) => {
     firebase.database().ref(`/users/${userId}/posts`)
