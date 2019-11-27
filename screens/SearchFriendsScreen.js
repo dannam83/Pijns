@@ -11,11 +11,6 @@ class SearchFriendsScreen extends Component {
     title: 'Search',
   };
 
-  constructor(props) {
-    super(props);
-    props.fetchFriendList(props.currentUser.uid);
-  }
-
   onChangeText = (value) => {
     this.props.searchUpdate({ value });
   }

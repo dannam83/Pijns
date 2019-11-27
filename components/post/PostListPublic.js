@@ -4,7 +4,7 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import ListItem from './ListItem';
 
 const PostListPublic = ({
-  header, userId, posts, redirect, status, onProfile, isFriend,
+  header, userId, posts, redirect, onProfile, isFriend,
 }) => {
   const anyoneCanSee = post => {
     if (post.visibleTo === 'Anyone') { return true; }

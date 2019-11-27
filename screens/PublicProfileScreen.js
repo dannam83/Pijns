@@ -17,6 +17,7 @@ class PublicProfileScreen extends Component {
   constructor(props) {
     super(props);
     const profileUser = props.navigation.getParam('profileUser');
+    const { uid: currentUserId } = props.user;
 
     // param comes in as user.userId from search and as user.uid from friends
     const profileId = !profileUser.uid ? profileUser.userId : profileUser.uid;
@@ -24,6 +25,7 @@ class PublicProfileScreen extends Component {
     this.profileUser = profileUser;
     this.profileId = profileId;
     this.friendStatus = null;
+    props.getFriendStatus({ profileUserId: profileId, currentUserId });
     props.friendPostsFetch(profileId);
   }
 
