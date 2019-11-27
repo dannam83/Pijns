@@ -24,14 +24,8 @@ class SearchFriendsScreen extends Component {
     const currentUserId = this.props.currentUser.uid;
     const profileUserId = profileUser.userId;
     const { navigate } = this.props.navigation;
-    if (this.props.friendList && this.props.friendList[profileUserId]) {
-      navigate('PublicProfileScreen', {
-        profileUser, status: 'Unfriend'
-      });
-    } else {
-      this.props.getFriendStatus({ profileUserId, currentUserId });
-      navigate('PublicProfileScreen', { profileUser });
-    }
+    this.props.getFriendStatus({ profileUserId, currentUserId });
+    navigate('PublicProfileScreen', { profileUser });
   };
 
   renderHeader = () => {

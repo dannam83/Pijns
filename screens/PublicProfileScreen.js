@@ -35,12 +35,11 @@ class PublicProfileScreen extends Component {
     this.props.clearFriend();
   }
 
-  renderHeader = (picture, name, userId, status, redirect, friend) => {
+  renderHeader = (picture, name, userId, redirect, friend) => {
     return (
       <ProfileHeaderPublic
         imgSource={{ uri: `${picture}?type=large` }}
         name={name}
-        status={status}
         redirect={redirect}
         friend={friend}
         profileId={this.profileId}
@@ -68,7 +67,7 @@ class PublicProfileScreen extends Component {
         <View>
           <PostListPublic
             header={this.renderHeader(
-              picture, name, profileId, friendStatus, redirect, profileUser
+              picture, name, profileId, redirect, profileUser
             )}
             userId={userId}
             posts={this.profileId !== friend.friendId ? null : posts}
@@ -113,7 +112,7 @@ function mapStateToProps(state) {
       favoritesIndex,
     };
   }).reverse();
-  return { friend, posts, user };
+  return { friend, posts, user, status: friend.status };
 }
 
 export default connect(mapStateToProps, {

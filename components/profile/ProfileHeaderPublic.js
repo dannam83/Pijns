@@ -9,22 +9,10 @@ import { disabledGray, buttonBlue } from '../../assets/colors';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class ProfileHeaderPublic extends Component {
-  constructor(props) {
-    super(props);
-    let status = this.props.status;
-    if (!status) { status = this.props.friend.status; }
-    this.state = {
-      unfriend: 'Unfriend',
-      status,
-      friendStatus: status,
-    };
-  }
-
   render() {
     const {
-      state: { friendStatus },
       props: {
-        imgSource, name, currentUser, profileId,
+        imgSource, name, currentUser, profileId, friendStatus,
         friendRequest, unfriend, redirect, friend,
       },
     } = this;
@@ -127,7 +115,8 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return ({ currentUser: state.user });
+  const { user, friend: { status } } = state;
+  return ({ currentUser: user, friendStatus: status });
 }
 
 export default connect(mapStateToProps, {
