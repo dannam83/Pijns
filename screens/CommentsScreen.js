@@ -11,6 +11,7 @@ import {
   fetchPostCommentLikes,
   commentsClear,
   updateUserFeed,
+  fetchActivePost,
 } from '../actions';
 
 class CommentsScreen extends Component {
@@ -25,14 +26,15 @@ class CommentsScreen extends Component {
     this.postId = postId || navigation.getParam('postId');
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
     const {
       user, postId,
-      props: { fetchPostCommentLikes, commentsPopulate },
+      props: { fetchActivePost, fetchPostCommentLikes, commentsPopulate },
     } = this;
 
-    await fetchPostCommentLikes({ userId: user.uid, postId });
-    await commentsPopulate(postId);
+    fetchActivePost(postId);
+    fetchPostCommentLikes({ userId: user.uid, postId });
+    commentsPopulate(postId);
   }
 
   componentWillUnmount() {
@@ -105,4 +107,5 @@ export default connect(mapStateToProps, {
   fetchPostCommentLikes,
   commentsClear,
   updateUserFeed,
+  fetchActivePost,
 })(CommentsScreen);
