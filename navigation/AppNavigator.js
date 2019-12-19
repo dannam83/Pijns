@@ -64,5 +64,6 @@ export default createAppContainer(createSwitchNavigator(
   },
   {
     initialRouteName: 'LoadApp',
+    headerMode: 'screen'
   }
 ));

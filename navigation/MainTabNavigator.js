@@ -24,7 +24,7 @@ UserFeedStack.navigationOptions = {
   tabBarOptions: {
     showLabel: false,
     activeTintColor: 'rgba(0,125,255,1)',
-    inactiveTintColor: 'gray'
+    inactiveTintColor: 'gray',
   },
   tabBarIcon: ({ focused, tintColor }) => (
     <AntDesign
