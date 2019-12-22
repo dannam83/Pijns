@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
+import * as Facebook from 'expo-facebook';
 
 import * as actions from '../actions';
 import { Spinner, Confirm } from '../components/common';
 import { backgroundBlue } from '../assets/colors';
+import { expo } from '../app.json';
 
 class AuthScreen extends Component {
   state = { isProcessing: false }
 
   componentDidMount() {
+    const { facebookAppId, facebookDisplayName } = expo;
+    Facebook.initializeAsync(facebookAppId, facebookDisplayName);
     this.onAuthComplete(this.props);
   }
 
