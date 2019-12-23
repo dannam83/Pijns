@@ -5,6 +5,7 @@ import PijnNoteTaggedFriend from './PijnNoteTaggedFriend';
 import Comment from './Comment';
 import CommentLike from './CommentLike';
 import PostLike from './PostLike';
+import PostLikeTaggedFriend from './PostLikeTaggedFriend';
 import PrayerAnswered from './PrayerAnswered';
 import PrayerRequest from './PrayerRequest';
 
@@ -50,6 +51,15 @@ const Notification = ({ item, navigation, currentUser, messageStyle }) => {
   } else if (type === 'postLike') {
     return (
       <PostLike
+        item={item}
+        navigation={navigation}
+        currentUser={currentUser}
+        messageStyle={messageStyle}
+      />
+    );
+  } else if (type === 'postLikeTaggedFriend') {
+    return (
+      <PostLikeTaggedFriend
         item={item}
         navigation={navigation}
         currentUser={currentUser}

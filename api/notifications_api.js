@@ -51,15 +51,26 @@ export const sendCommentLikeNotification = (
 };
 
 export const sendPostLikeNotification = (
-  user, postId, postAuthorId, postText,
+  user, postId, postAuthorId, postText, taggedFriends
 ) => {
   const [sender, content, timestamp, type] = [user, postText, -Date.now(), 'postLike'];
+  const notification = { content, postId, timestamp, sender, type };
 
   if (user.uid !== postAuthorId) {
-    const notification = { content, postId, timestamp, sender, type };
     sendNotification(postAuthorId, notification);
     incrementCounter(postAuthorId);
     sendPushNotification(postAuthorId, `${user.name} liked your post: ${content}`);
+  }
+
+  notification.type = 'postLikeTaggedFriend';
+  if (taggedFriends) {
+    _.each(taggedFriends, friend => {
+      if (friend.uid !== user.uid) {
+        const message = "liked a post you're tagged in:";
+        sendNotification(friend.uid, notification);
+        sendPushNotification(friend.uid, `${user.name} ${message} ${content}`);
+      }
+    });
   }
 };
 

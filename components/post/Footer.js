@@ -172,7 +172,7 @@ class Footer extends Component {
           likePost({ user, postId, authorId: author.id });
           updateUserFeed(userFeedIndex, 'likes', likes + 1);
           updateFavorites(favoritesIndex, 'likes', likes + 1);
-          sendPostLikeNotification(user, postId, author.id, content);
+          sendPostLikeNotification(user, postId, author.id, content, taggedFriends);
         }
       };
 
