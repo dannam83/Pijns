@@ -46,7 +46,7 @@ class Footer extends Component {
       updateUserFeed, updateFavorites, sendPijn, answerPrayer, unanswerPrayer,
       post: {
         user, postId, author, content, index, pijnSentToday,
-        commentCount = 0, answered, liked, favorite,
+        commentCount = 0, answered, liked, favorite, taggedFriends
       }
     } = this.props;
 
@@ -86,7 +86,7 @@ class Footer extends Component {
         updateUserFeed(userFeedIndex, 'notes', notes + 1);
         updateFavorites(favoritesIndex, 'notes', notes + 1);
         sendPijn({ postId, author, currentDate, user });
-        sendPijnNotification(user, postId, post);
+        sendPijnNotification(user, postId, post, taggedFriends);
       };
 
       return (

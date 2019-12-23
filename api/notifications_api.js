@@ -1,15 +1,28 @@
 import firebase from 'firebase';
+import _ from 'lodash';
+
 import { sendPushNotification } from './push_notifications_api';
 
-export const sendPijnNotification = (user, postId, post) => {
+export const sendPijnNotification = (user, postId, post, taggedFriends) => {
   const { author, content } = post;
   const [sender, timestamp, type] = [user, -Date.now(), 'pijnNote'];
 
+  const notification = { content, postId, timestamp, sender, type };
   if (user.uid !== author.id) {
-    const notification = { content, postId, timestamp, sender, type };
     sendNotification(author.id, notification);
     incrementCounter(author.id);
     sendPushNotification(author.id, `${user.name} sent you a pijn note!`);
+  }
+
+  notification.type = 'pijnNoteTaggedFriend';
+  if (taggedFriends) {
+    _.each(taggedFriends, friend => {
+      if (friend.uid !== user.uid) {
+        const message = "sent a pijn note for a prayer request you're tagged in!";
+        sendNotification(friend.uid, notification);
+        sendPushNotification(friend.uid, `${user.name} ${message}`);
+      }
+    });
   }
 };
 

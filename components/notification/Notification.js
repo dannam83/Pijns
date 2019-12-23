@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PijnNote from './PijnNote';
+import PijnNoteTaggedFriend from './PijnNoteTaggedFriend';
 import Comment from './Comment';
 import CommentLike from './CommentLike';
 import PostLike from './PostLike';
@@ -13,6 +14,15 @@ const Notification = ({ item, navigation, currentUser, messageStyle }) => {
   if (type === 'pijnNote') {
       return (
       <PijnNote
+        item={item}
+        navigation={navigation}
+        currentUser={currentUser}
+        messageStyle={messageStyle}
+      />
+    );
+  } else if (type === 'pijnNoteTaggedFriend') {
+      return (
+      <PijnNoteTaggedFriend
         item={item}
         navigation={navigation}
         currentUser={currentUser}
