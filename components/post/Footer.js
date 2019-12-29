@@ -71,7 +71,7 @@ class Footer extends Component {
 
     const goToComments = () => {
       navigation.push('CommentsScreen', {
-        user, postAuthorId: author.id, postId, redirect, author, index
+        user, postAuthorId: author.id, postId, redirect, author, index, taggedFriends
       });
     };
 

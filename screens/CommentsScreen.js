@@ -21,9 +21,10 @@ class CommentsScreen extends Component {
 
   constructor(props) {
     super(props);
-    const { user, postId, navigation } = this.props;
+    const { user, postId, taggedFriends, navigation } = this.props;
     this.user = user || navigation.getParam('user');
     this.postId = postId || navigation.getParam('postId');
+    this.taggedFriends = taggedFriends || navigation.getParam('taggedFriends');
   }
 
   componentDidMount() {
@@ -41,7 +42,7 @@ class CommentsScreen extends Component {
     this.props.commentsClear();
   }
 
-  saveComment = ({ user, postAuthorId, postId, comment }) => {
+  saveComment = ({ user, postAuthorId, postId, comment, taggedFriends }) => {
     const {
       commentCreateSave,
       updateUserFeed,
@@ -55,7 +56,7 @@ class CommentsScreen extends Component {
     try {
       commentCreateSave({ user, comment, postAuthorId, postId });
       updateUserFeed(userFeedIndex, 'commentCount', commentCount + 1);
-      sendCommentNotification(user, postId, postAuthorId, comment);
+      sendCommentNotification(user, postId, postAuthorId, comment, taggedFriends);
     } catch (err) {
       console.warn('Error saving comment.', err);
     }
@@ -65,7 +66,7 @@ class CommentsScreen extends Component {
     const [props, navigation] = [this.props, this.props.navigation];
     const postAuthorId = props.postAuthorId || navigation.getParam('postAuthorId');
     const index = props.index || navigation.getParam('index');
-    const { user, postId, saveComment } = this;
+    const { user, postId, taggedFriends, saveComment } = this;
 
     return (
       <View style={styles.containerStyle}>
@@ -76,6 +77,7 @@ class CommentsScreen extends Component {
           user={user}
           postAuthorId={postAuthorId}
           postId={postId}
+          taggedFriends={taggedFriends}
           navigation={navigation}
           index={index}
           onSave={saveComment}

@@ -26,14 +26,25 @@ export const sendPijnNotification = (user, postId, post, taggedFriends) => {
   }
 };
 
-export const sendCommentNotification = (user, postId, friendId, comment) => {
+export const sendCommentNotification = (user, postId, friendId, comment, taggedFriends) => {
   const [sender, content, timestamp, type] = [user, comment, -Date.now(), 'comment'];
+  const notification = { content, postId, timestamp, sender, type };
 
   if (user.uid !== friendId) {
-    const notification = { content, postId, timestamp, sender, type };
     sendNotification(friendId, notification);
     incrementCounter(friendId);
     sendPushNotification(friendId, `${user.name} commented on your post: ${content}`);
+  }
+
+  notification.type = 'commentTaggedFriend';
+  if (taggedFriends) {
+    _.each(taggedFriends, friend => {
+      if (friend.uid !== user.uid) {
+        const message = "commented on a post you're tagged in:";
+        sendNotification(friend.uid, notification);
+        sendPushNotification(friend.uid, `${user.name} ${message} ${content}`);
+      }
+    });
   }
 };
 

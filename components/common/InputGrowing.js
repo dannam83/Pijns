@@ -4,7 +4,8 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-nativ
 import { disabledGray, activeButtonBlue } from '../../assets/colors';
 
 const InputGrowing = ({
-  value, placeholder, onChange, onSave, user, postAuthorId, postId, index
+  value, placeholder, onChange, onSave, user,
+  postAuthorId, postId, index, taggedFriends
 }) => {
   const [newValue, setNewValue] = useState('');
   const [height, setHeight] = useState(23);
@@ -24,7 +25,7 @@ const InputGrowing = ({
 
   const save = () => {
     try {
-      onSave({ user, comment: newValue, postAuthorId, postId, index });
+      onSave({ user, comment: newValue, postAuthorId, postId, index, taggedFriends });
       setNewValue('');
     } catch (err) {
       console.warn('Error saving comment.', err);

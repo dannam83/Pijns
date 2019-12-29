@@ -3,6 +3,7 @@ import React from 'react';
 import PijnNote from './PijnNote';
 import PijnNoteTaggedFriend from './PijnNoteTaggedFriend';
 import Comment from './Comment';
+import CommentTaggedFriend from './CommentTaggedFriend';
 import CommentLike from './CommentLike';
 import PostLike from './PostLike';
 import PostLikeTaggedFriend from './PostLikeTaggedFriend';
@@ -33,6 +34,15 @@ const Notification = ({ item, navigation, currentUser, messageStyle }) => {
   } else if (type === 'comment') {
       return (
       <Comment
+        item={item}
+        navigation={navigation}
+        currentUser={currentUser}
+        messageStyle={messageStyle}
+      />
+    );
+  } else if (type === 'commentTaggedFriend') {
+      return (
+      <CommentTaggedFriend
         item={item}
         navigation={navigation}
         currentUser={currentUser}
