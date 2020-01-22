@@ -41,7 +41,9 @@ class UserFeedScreen extends Component {
   }
 
   componentDidMount() {
-    registerForPushNotifications(this.props.user.uid);
+    const { user: { uid }, posts, fetchUserFeed } = this.props;
+    registerForPushNotifications(uid);
+    if (posts.length === 0) fetchUserFeed(uid);
 
     this.props.navigation.setParams({
       pinToggle: this.pinToggle,

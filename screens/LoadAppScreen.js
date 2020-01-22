@@ -18,7 +18,7 @@ class LoadAppScreen extends Component {
     });
   }
 
-  async componentWillReceiveProps(nextProps) {
+  async UNSAFE_componentWillReceiveProps(nextProps) {
     const { currentUid, navigation } = nextProps;
 
     if (currentUid) {

@@ -18,7 +18,11 @@ class AuthScreen extends Component {
     this.onAuthComplete(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   this.onAuthComplete(nextProps);
+  // }
+  
+  componentDidUpdate(nextProps) {
     this.onAuthComplete(nextProps);
   }
 
