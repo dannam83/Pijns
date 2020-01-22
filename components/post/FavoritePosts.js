@@ -41,6 +41,9 @@ const FavoritePosts = ({ user, posts, redirect, fetchFavorites }) => {
         You can always press the star button again to remove it 
         from this list as well.
       </MessageBox>
+      <MessageBox>
+        If you've already favorited any posts, try swiping down to refresh!
+      </MessageBox>
     </View>
   );
 

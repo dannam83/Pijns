@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Dimensions, Image, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import { 
+  View, Text, ScrollView, Dimensions, Image, StyleSheet, TouchableOpacity
+} from 'react-native';
 import { slideButtonBlue, chatTypingGray } from '../assets/colors';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -11,12 +12,11 @@ class Slides extends Component {
     const { length } = this.props.data;
     if (idx === length - 1) {
       return (
-        <Button
-          title='Get started!'
-          raised
-          buttonStyle={styles.slideButton}
-          onPress={this.props.onComplete}
-        />
+        <TouchableOpacity style={styles.continueButton} onPress={this.props.onComplete}>
+          <Text style={{ color: 'white', fontSize: 16 }}>
+            Continue
+          </Text>
+        </TouchableOpacity>
       );
     }
 
@@ -73,10 +73,11 @@ const styles = StyleSheet.create({
   slide: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: SCREEN_WIDTH
+    width: SCREEN_WIDTH,
+    padding: 32
   },
   slideText: {
-    fontSize: 30,
+    fontSize: 24,
     color: 'white',
     textAlign: 'center'
   },
@@ -99,6 +100,14 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     marginRight: 3,
     tintColor: 'white',
+  },
+  continueButton: { 
+    marginTop: 40, 
+    paddingHorizontal: 16, 
+    paddingVertical: 8, 
+    borderWidth: 1, 
+    borderRadius: 20, 
+    borderColor: 'white' 
   }
 });
 

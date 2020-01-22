@@ -142,7 +142,7 @@ function mapStateToProps(state) {
       favoritesIndex,
     };
   });
-  return { posts: [], user };
+  return { posts, user };
 }
 
 export default connect(mapStateToProps, { fetchUserFeed })(UserFeedScreen);

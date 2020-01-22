@@ -44,8 +44,8 @@ const setUserSliceOfState = async (data, dispatch) => {
   let ref = await firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`);
   let { uid, displayName, photoURL } = firebase.auth().currentUser;
   await ref.once('value', snapshot => {
-      const isNew = !snapshot.val();
-      if (isNew) {
+      const isNew = !snapshot.val() || snapshot.val().profile.isNew;
+      if (!snapshot.val()) {
         AsyncStorage.setItem('user_feed', JSON.stringify({}));
         saveUserProfile(data, photoURL, uid);
       } else {
@@ -83,7 +83,7 @@ const saveUserProfile = async (data, picture, uid) => {
 const updateUserProfile = async (data, picture, uid) => {
   const { name, email } = data;
   await firebase.database().ref(`/users/${uid}/profile`)
-    .update({ name, email, picture }
+    .update({ name, email, picture, isNew: null }
   );
   await firebase.database().ref(`/userSearch/${uid}/`)
     .update({ name, picture }
