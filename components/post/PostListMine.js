@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 
 import { Confirm } from '../common';
+import { MessageBox } from '../specific';
 import ListItemMine from './ListItemMine';
 
 const PostListMine = ({
@@ -32,6 +33,19 @@ const PostListMine = ({
     );
   };
 
+  const ListEmptyComponent = () => (
+    <View>
+      <MessageBox>
+        You'll see all your own posts here! Come here to edit or delete 
+        your posts as well.
+      </MessageBox>
+      <MessageBox>
+        When other people visit your profile, they'll only see what 
+        you've allowed them to see.
+      </MessageBox>
+    </View>
+  );
+
   return (
     <View style={styles.masterContainerStyle}>
       <Confirm
@@ -46,6 +60,7 @@ const PostListMine = ({
         renderItem={({ item }) => renderRow(item)}
         ListHeaderComponent={header}
         keyExtractor={({ item }, postId) => postId.toString()}
+        ListEmptyComponent={<ListEmptyComponent />}
       />
     </View>
   );

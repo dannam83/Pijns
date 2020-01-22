@@ -3,8 +3,9 @@ import { View, FlatList, StyleSheet } from 'react-native';
 
 import { backgroundLightBlue } from '../../assets/colors';
 import ListItem from './ListItem';
+import { MessageBox } from '../specific';
 
-const PostFavorites = ({ user, posts, redirect, fetchFavorites }) => {
+const FavoritePosts = ({ user, posts, redirect, fetchFavorites }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshList = async () => {
@@ -26,6 +27,23 @@ const PostFavorites = ({ user, posts, redirect, fetchFavorites }) => {
     );
   };
 
+
+  const ListEmptyComponent = () => (
+    <View style={{ alignItems: 'center' }}>
+      <MessageBox>
+        This screen is for all your favorited posts!
+      </MessageBox>
+      <MessageBox>
+        Press the star button on any post to mark it as a favorite, 
+        and then you'll see that post here!
+      </MessageBox>
+      <MessageBox>
+        You can always press the star button again to remove it 
+        from this list as well.
+      </MessageBox>
+    </View>
+  );
+
   return (
     <View style={styles.masterContainerStyle}>
       <FlatList
@@ -35,6 +53,7 @@ const PostFavorites = ({ user, posts, redirect, fetchFavorites }) => {
         onRefresh={refreshList}
         refreshing={refreshing}
         ListHeaderComponent={<View style={{ height: 5 }} />}
+        ListEmptyComponent={<ListEmptyComponent />}
       />
     </View>
   );
@@ -61,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PostFavorites;
+export default FavoritePosts;

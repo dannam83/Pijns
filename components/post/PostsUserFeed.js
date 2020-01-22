@@ -4,6 +4,7 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import { ButtonAsField } from '../common';
 import { backgroundLightBlue } from '../../assets/colors';
 import ListItem from './ListItem';
+import { MessageBox } from '../specific';
 
 const PostsUserFeed = ({ user, posts, pinPressed, redirect, fetchUserFeed }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -50,6 +51,31 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, fetchUserFeed }) => 
     );
   };
 
+  const ListEmptyComponent = () => (
+    <View style={{ alignItems: 'center' }}>
+      <MessageBox>
+          Hi! Welcome to Pijns! This is your user feed. You'll see 
+          your posts as well as your friends posts on this feed.
+      </MessageBox>
+      <MessageBox>
+          Use the pins to save the prayer requests that you're praying 
+          for and encourage friends by sending a new pijn note every day!
+      </MessageBox>
+      <MessageBox>
+          Then use the star to mark some of your favorite prayers that 
+          you want to always remember.
+      </MessageBox>
+      <MessageBox>
+          It looks like there aren't any posts yet on your feed, so 
+          try adding some friends or write a new post of your own!
+      </MessageBox>
+      <MessageBox>
+          And remember, you can send a new pijn note every single day for 
+          any prayer request. Just come back and press the pijn again!
+      </MessageBox>
+    </View>
+  );
+
   if (pinPressed) {
     return (
       <View style={styles.masterContainerStyle}>
@@ -57,6 +83,7 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, fetchUserFeed }) => 
           data={posts}
           renderItem={({ item }) => renderOnlyPinnedRow(item)}
           ListHeaderComponent={renderHeader}
+          ListEmptyComponent={<ListEmptyComponent />}
           keyExtractor={({ item }, postId) => postId.toString()}
           onRefresh={refreshList}
           refreshing={refreshing}
@@ -72,6 +99,7 @@ const PostsUserFeed = ({ user, posts, pinPressed, redirect, fetchUserFeed }) => 
         data={posts}
         renderItem={({ item }) => renderRow(item)}
         ListHeaderComponent={renderHeader}
+        ListEmptyComponent={ListEmptyComponent}
         keyExtractor={({ item }, postId) => postId.toString()}
         onRefresh={refreshList}
         refreshing={refreshing}

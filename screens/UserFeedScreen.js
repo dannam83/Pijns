@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
@@ -7,6 +7,7 @@ import registerForPushNotifications from '../services/push_notifications';
 import PostsUserFeed from '../components/post/PostsUserFeed';
 import MessagesIcon from '../components/navigation/MessagesIcon';
 import { ActionButtonStill } from '../components/common';
+import { MessageBox } from '../components/specific';
 import { disabledGray } from '../assets/colors';
 import { fetchUserFeed } from '../actions';
 
@@ -75,12 +76,26 @@ class UserFeedScreen extends Component {
         posts={posts}
         user={user}
         fetchUserFeed={fetchUserFeed}
+        ListEmptyComponent={this.ListEmptyComponent}
       />
     );
   }
 }
 
 const styles = StyleSheet.create({
+  emptyMessageContainer: {
+    padding: 16, 
+    marginHorizontal: 32, 
+    marginTop: 16, 
+    backgroundColor: 'white', 
+    borderRadius: 10, 
+    borderWidth: 1, 
+    borderColor: 'lightgray',
+    width: '86%'
+  },
+  emptyMessageText: {
+    fontSize: 15
+  },
   pinStyle: {
     marginRight: 11,
     transform: [
@@ -127,7 +142,7 @@ function mapStateToProps(state) {
       favoritesIndex,
     };
   });
-  return { posts, user };
+  return { posts: [], user };
 }
 
 export default connect(mapStateToProps, { fetchUserFeed })(UserFeedScreen);
